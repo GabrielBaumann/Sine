@@ -2,6 +2,7 @@
  * Envio de formulário
  */
 document.addEventListener("submit", (e)=> {
+
     if (e.target.tagName === "FORM") {
         e.preventDefault()
 

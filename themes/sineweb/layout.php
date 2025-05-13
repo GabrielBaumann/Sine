@@ -6,6 +6,7 @@
   <title><?= $this->e($title)?></title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?= theme("/assets/css/message.css")?>">
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -21,6 +22,6 @@
   <div class="hidden md:flex flex-col justify-center items-center w-full md:w-1/2">
     <img src="<?= theme("/assets/images/sine.jpeg")?>" alt="Ilustração de construção" class="h-full w-full object-cover" />
   </div>
-
+<script src="<?= theme("/assets/js/forms.js") ?>"></script>
 </body>
 </html>

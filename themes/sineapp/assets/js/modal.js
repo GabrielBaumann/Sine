@@ -79,13 +79,16 @@ function closeModal() {
 
 // Escuta o clique e verifica se é data-modal, para disparar o openModal e closeModal
 document.addEventListener("click", (e) => {
-    if (e.target.closest("[data-modal]")) {
-        
-        const idModal = e.target.dataset.modal;
-        const dataUrl = e.target.dataset.url;
-        
-        openModal(dataUrl, idModal)
+    const vButton =  e.target.closest("button");
 
+    if(vButton) {
+        
+        if(vButton.id === "addUserBtn"){
+            const idModal = e.target.dataset.modal;
+            const dataUrl = e.target.dataset.url;
+            
+            openModal(dataUrl, idModal)
+        }
     }
 })
 

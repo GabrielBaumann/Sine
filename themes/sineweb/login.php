@@ -8,23 +8,32 @@
         <p class="text-gray-500 text-sm mt-2">Faça seu login para ter acesso ao sistema.</p>
         </div>
 
-        <form class="space-y-5">
+        <form action="<?= url("/") ?>" class="space-y-5" method="post">
+            <div><?= flash(); ?></div>
+            <?= csrf_input(); ?>
         <div>
-            <label for="usuario" class="block text-sm font-medium text-gray-700">Usuário</label>
+            <label for="user" class="block text-sm font-medium text-gray-700">Usuário</label>
             <div class="flex items-center mt-1 border border-gray-200 rounded-lg bg-gray-50">
-            <input id="usuario" type="text" required
+            <input id="user" 
+                type="text" 
+                required
+                name="user"
                 class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite seu usuário" />
             </div>
         </div>
 
         <div>
-            <label for="senha" class="block text-sm font-medium text-gray-700">Senha</label>
+            <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
             <div class="flex items-center mt-1 mb-6 border border-gray-200 rounded-lg bg-gray-50">
-            <input id="senha" type="password" required
+            <input id="password" 
+                type="password" 
+                required
+                name="password"
                 class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite sua senha" />
             </div>
         </div>
-                <button onclick="window.location.href='/frontend/pages/inicio/index.html'"
+                <button
+                    type="submit"
                     class="w-full bg-blue-800 hover:bg-blue-900 text-white p-3 rounded-full md:rounded-lg font-semibold transition shadow-md">
                     Entrar
                 </button>
