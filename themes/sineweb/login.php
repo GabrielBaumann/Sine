@@ -1,0 +1,37 @@
+<?php $this->layout("layout") ?>
+
+<div class="flex flex-col justify-center items-center h-full w-full md:w-1/2 p-8 bg-white">
+    <div class="w-full max-w-md space-y-8">
+        <div class="text-center">
+        <h1 class="text-5xl font-bold text-blue-800 mb-[100px]">SINE</h1>
+        <h2 class="text-3xl font-bold text-gray-800">Seja bem-vindo de volta</h2>
+        <p class="text-gray-500 text-sm mt-2">Faça seu login para ter acesso ao sistema.</p>
+        </div>
+
+        <form class="space-y-5">
+        <div>
+            <label for="usuario" class="block text-sm font-medium text-gray-700">Usuário</label>
+            <div class="flex items-center mt-1 border border-gray-200 rounded-lg bg-gray-50">
+            <input id="usuario" type="text" required
+                class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite seu usuário" />
+            </div>
+        </div>
+
+        <div>
+            <label for="senha" class="block text-sm font-medium text-gray-700">Senha</label>
+            <div class="flex items-center mt-1 mb-6 border border-gray-200 rounded-lg bg-gray-50">
+            <input id="senha" type="password" required
+                class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite sua senha" />
+            </div>
+        </div>
+                <button onclick="window.location.href='/frontend/pages/inicio/index.html'"
+                    class="w-full bg-blue-800 hover:bg-blue-900 text-white p-3 rounded-full md:rounded-lg font-semibold transition shadow-md">
+                    Entrar
+                </button>
+            <div class="justify-center items-center flex flex-col">
+                <p>Desenvolvido por</p>
+                <img src="<?= theme("/assets/images/cerberus.png")?>" alt="logo" class="h-[100px] w-[100px] object-contain">
+            </div>
+        </form>
+    </div>
+</div>
