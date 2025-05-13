@@ -94,22 +94,6 @@
                         <h1 class="text-xl lg:text-2xl font-bold text-gray-800">Atendimento ao Candidato</h1>
                         <p class="text-gray-500 text-xs lg:text-sm">Preencha as informações abaixo para registrar o atendimento</p>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <div class="w-8 h-8 bg-sine-100 rounded-full flex items-center justify-center text-sine-800">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="mb-8 hidden">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm font-medium text-sine-700" id="step-title">Tipo de Atendimento</span>
-                        <span class="text-sm text-gray-500"><span id="current-step">1</span> de <span id="total-steps">3</span></span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-2.5">
-                        <div class="bg-sine-600 h-2.5 rounded-full transition-all duration-300" id="progress-bar" style="width: 33%"></div>
-                    </div>
                 </div>
 
                 <!-- Form Steps -->
@@ -118,7 +102,7 @@
                     <div id="step-1" class="step-content">
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Como está sendo realizado este atendimento?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="nextStep('Presencial', 33, 'Motivo do Atendimento', 2)" class="p-6 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex flex-col items-center gap-3">
+                            <button class="p-6 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex flex-col items-center gap-3">
                                 <div class="w-14 h-14 bg-sine-100 rounded-full flex items-center justify-center text-sine-700">
                                     <i class="fas fa-user text-xl"></i>
                                 </div>
@@ -136,10 +120,10 @@
                     </div>
 
                     <!-- Motivo do Atendimento -->
-                    <div id="step-2" class="step-content hidden">
+                    <div id="step-2" class="step-content">
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual o motivo deste atendimento?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="AparecerFormulario()" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-user-edit"></i>
                                 </div>
@@ -148,7 +132,7 @@
                                     <p class="text-sm text-gray-500">Cadastro ou atualização de informações no sistema</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('CTPS Digital', 66, 'Confirmação', 3)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-id-card"></i>
                                 </div>
@@ -157,7 +141,7 @@
                                     <p class="text-sm text-gray-500">Informações sobre como acessar e usar a CTPS digital</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Mercado de Trabalho', 66, 'Confirmação', 3)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-briefcase"></i>
                                 </div>
@@ -166,7 +150,7 @@
                                     <p class="text-sm text-gray-500">Dicas e informações sobre como se inserir no mercado</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Encaminhamento', 66, 'Confirmação', 3)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-handshake"></i>
                                 </div>
@@ -175,7 +159,7 @@
                                     <p class="text-sm text-gray-500">Agendamento e preparação para entrevistas de emprego</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Abono Salarial', 66, 'Confirmação', 3)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
@@ -184,7 +168,7 @@
                                     <p class="text-sm text-gray-500">Informações sobre direito ao abono salarial</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Seguro Desemprego', 33, 'Serviço do Seguro Desemprego', 4)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-umbrella"></i>
                                 </div>
@@ -194,13 +178,13 @@
                                 </div>
                             </button>
                         </div>
-                        <button onclick="prevStep()" class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        <button class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                             <i class="fas fa-arrow-left mr-2"></i> Voltar
                         </button>
                     </div>
 
                     <!-- Formulário -->
-                    <div id="step-3-form" class="step-content hidden">
+                    <div id="step-3-form" class="step-content">
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Informações do Candidato</h2>
                         <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- CPF -->
@@ -287,10 +271,10 @@
 
                             <!-- Botões de navegação -->
                             <div class="col-span-2 flex justify-between mt-4">
-                                <button type="button" onclick="prevStep()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                                <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                                     <i class="fas fa-arrow-left mr-2"></i> Voltar
                                 </button>
-                                <button type="button" onclick="submitForm()" class="px-6 py-2 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
+                                <button type="button" class="px-6 py-2 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
                                     Confirmar <i class="fas fa-check ml-2"></i>
                                 </button>
                             </div>
@@ -299,10 +283,10 @@
                      
 
                     <!-- Serviços do Seguro Desemprego -->
-                    <div id="step-3" class="step-content hidden">
+                    <div id="step-3" class="step-content">
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual serviço do Seguro Desemprego?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="nextStep('Atualização de Cadastro', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-user-edit"></i>
                                 </div>
@@ -311,7 +295,7 @@
                                     <p class="text-sm text-gray-500">Atualização de dados cadastrais para o seguro desemprego</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Requerimento Especial', 66, 'Tipo de Requerimento', 6)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-file-alt"></i>
                                 </div>
@@ -320,7 +304,7 @@
                                     <p class="text-sm text-gray-500">Solicitação especial de seguro desemprego</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Consulta INSS', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-search"></i>
                                 </div>
@@ -329,7 +313,7 @@
                                     <p class="text-sm text-gray-500">Verificação de dados no sistema do INSS</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Consulta Receita', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-file-invoice"></i>
                                 </div>
@@ -338,7 +322,7 @@
                                     <p class="text-sm text-gray-500">Verificação de dados na Receita Federal</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Cadastrar GRU', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-receipt"></i>
                                 </div>
@@ -347,7 +331,7 @@
                                     <p class="text-sm text-gray-500">Geração de Guia de Recolhimento da União</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Seguro Formal', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-briefcase"></i>
                                 </div>
@@ -356,7 +340,7 @@
                                     <p class="text-sm text-gray-500">Registro para trabalhadores formais</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Seguro Doméstico', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center text-pink-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-home"></i>
                                 </div>
@@ -365,7 +349,7 @@
                                     <p class="text-sm text-gray-500">Registro para trabalhadores domésticos</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Alteração Bancária', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center text-teal-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-university"></i>
                                 </div>
@@ -374,7 +358,7 @@
                                     <p class="text-sm text-gray-500">Atualização de conta bancária para recebimento</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('Empregador WEB', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-laptop"></i>
                                 </div>
@@ -384,7 +368,7 @@
                                 </div>
                             </button>
                         </div>
-                        <button onclick="prevStep()" class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        <button class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                             <i class="fas fa-arrow-left mr-2"></i> Voltar
                         </button>
                     </div>
@@ -393,7 +377,7 @@
                     <div id="step-4" class="step-content hidden">
                         <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual o tipo de Requerimento Especial?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="nextStep('Sentença Judicial', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-gavel"></i>
                                 </div>
@@ -402,7 +386,7 @@
                                     <p class="text-sm text-gray-500">Requerimento baseado em decisão judicial</p>
                                 </div>
                             </button>
-                            <button onclick="nextStep('PDO', 100, 'Confirmação', 5)" class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                            <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
                                 <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-800 mt-1 flex-shrink-0">
                                     <i class="fas fa-file-contract"></i>
                                 </div>
@@ -412,13 +396,13 @@
                                 </div>
                             </button>
                         </div>
-                        <button onclick="prevStep()" class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        <button class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                             <i class="fas fa-arrow-left mr-2"></i> Voltar
                         </button>
                     </div>
 
                     <!-- Confirmação -->
-                    <div id="step-5" class="step-content hidden">
+                    <div id="step-5" class="step-content">
                         <div class="text-center py-8">
                             <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-4">
                                 <i class="fas fa-check text-3xl"></i>
@@ -443,7 +427,7 @@
                                     <span class="font-medium" id="confirm-request"></span>
                                 </div>
                             </div>
-                            <button onclick="completeAttendance()" class="px-6 py-3 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
+                            <button class="px-6 py-3 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
                                 <i class="fas fa-home mr-2"></i> Voltar para a página inicial
                             </button>
                         </div>
@@ -472,132 +456,5 @@
             <span>Configurações</span>
         </a>
     </div>
-
-    <script>
-        let currentStep = 1;
-        let attendanceData = {
-            type: '',
-            reason: '',
-            service: '',
-            request: ''
-        };
-
-        // Update progress bar and step indicator
-        function updateProgress(percent, stepTitle, totalSteps = 4) {
-            document.getElementById('progress-bar').style.width = percent + '%';
-            document.getElementById('step-title').textContent = stepTitle;
-            document.getElementById('current-step').textContent = currentStep;
-            document.getElementById('total-steps').textContent = totalSteps;
-        }
-
-        // Go to next step
-        function nextStep(value, progress, stepTitle, nextStepNum, totalSteps = 4) {
-            // Store data based on current step
-            if (currentStep === 1) {
-                attendanceData.type = value;
-            } else if (currentStep === 2) {
-                attendanceData.reason = value;
-            } else if (currentStep === 3) {
-                attendanceData.service = value;
-            } else if (currentStep === 4) {
-                attendanceData.request = value;
-            }
-
-            // Update progress
-            updateProgress(progress, stepTitle, totalSteps);
-
-            // Hide current step
-            document.getElementById(`step-${currentStep}`).classList.add('hidden');
-            
-            // Show next step
-            currentStep = nextStepNum;
-            document.getElementById(`step-${currentStep}`).classList.remove('hidden');
-
-            // If going to confirmation, set all values
-            if (currentStep === 5) {
-                document.getElementById('confirm-type').textContent = attendanceData.type;
-                document.getElementById('confirm-reason').textContent = attendanceData.reason;
-                
-                // Show service only if it exists
-                if (attendanceData.service) {
-                    document.getElementById('confirm-service').textContent = attendanceData.service;
-                    document.getElementById('confirm-service-container').classList.remove('hidden');
-                } else {
-                    document.getElementById('confirm-service-container').classList.add('hidden');
-                }
-                
-                // Show request only if it exists
-                if (attendanceData.request) {
-                    document.getElementById('confirm-request').textContent = attendanceData.request;
-                    document.getElementById('confirm-request-container').classList.remove('hidden');
-                } else {
-                    document.getElementById('confirm-request-container').classList.add('hidden');
-                }
-            }
-        }
-
-        // Go to previous step
-        function prevStep() {
-            // Hide current step
-            document.getElementById(`step-${currentStep}`).classList.add('hidden');
-            
-            // Show previous step
-            currentStep--;
-            
-            // Update progress based on step
-            if (currentStep === 1) {
-                updateProgress(33, 'Tipo de Atendimento');
-            } else if (currentStep === 2) {
-                updateProgress(66, 'Motivo do Atendimento');
-            } else if (currentStep === 3) {
-                updateProgress(33, 'Serviço do Seguro Desemprego');
-            } else if (currentStep === 4) {
-                updateProgress(66, 'Tipo de Requerimento');
-            }
-            
-            document.getElementById(`step-${currentStep}`).classList.remove('hidden');
-        }
-
-        // Complete attendance and go to home
-        function completeAttendance() {
-            // Here you would typically send the data to the server
-            console.log('Attendance completed:', attendanceData);
-            
-            // Reset form data
-            attendanceData = {
-                type: '',
-                reason: '',
-                service: '',
-                request: ''
-            };
-            
-            // Redirect to home (in a real app, this would be a proper navigation)
-            window.location.href = 'index.html'; // Change to your home page URL
-        }
-
-        function submitForm() {
-        // Coletar dados do formulário
-        const formData = {
-            cpf: document.getElementById('cpf').value,
-            nome: document.getElementById('nome').value,
-            sexo: document.querySelector('input[name="sexo"]:checked').value,
-            pcd: document.querySelector('input[name="pcd"]:checked').value,
-            aprendiz: document.querySelector('input[name="aprendiz"]:checked').value,
-            cterc: document.querySelector('input[name="cterc"]:checked').value,
-            dataAtendimento: document.getElementById('data-atendimento').value
-        };
-        
-        // Aqui você pode enviar os dados para o servidor ou armazenar temporariamente
-        console.log('Dados do formulário:', formData);
-        
-        // Ir para o passo de confirmação
-        nextStep('', 100, 'Confirmação', 5);
-    }
-
-    function AparecerFormulario() {
-        document.getElementById('step-3-form').classList.remove('hidden');
-        document.getElementById('step-2').classList.add('hidden');
-    }
-    </script>
 </body>
 </html>
