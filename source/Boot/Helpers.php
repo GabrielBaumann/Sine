@@ -42,6 +42,11 @@ function user() : ?\Source\Models\User
     return \Source\Models\Auth::user();    
 }
 
+function messageHelpers() : \Source\Support\Message
+{
+    return new \Source\Support\Message();
+}
+
 function session(): \Source\Core\Session
 {
     return new \Source\Core\Session();

@@ -42,7 +42,21 @@ class App extends Controller
     }
 
     public function modelAddUser(?array $data) : void
-    {
+    {   
+
+        if (!empty($data['csrf'])) {
+
+            if(!csrf_verify($data)) {
+                $json['message'] = messageHelpers()->warning("Use o fomulário!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            
+
+            return;
+        }
+
         echo $this->view->render("/user/modalForm", [
 
         ]);

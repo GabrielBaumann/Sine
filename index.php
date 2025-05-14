@@ -24,6 +24,7 @@ $route->post("/", "Web:login");
 // System User
 $route->get("/usuario", "App:userSystem");
 $route->get("/adicionarusuario", "App:modelAddUser");
+$route->post("/adicionarusuario", "App:modelAddUser");
 
 // Init page
 $route->get("/inicio", "App:initPage");

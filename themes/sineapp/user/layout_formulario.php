@@ -71,6 +71,5 @@
         </main>
 
     </div>
-    <script src="<?= theme("/assets/js/forms.js", CONF_VIEW_APP); ?>"></script>
 </body>
 </html>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
     <title>Document</title>
 </head>
 <body class="max-w-[1200px] mx-auto">
@@ -26,7 +28,7 @@
         <div class="bg-white rounded-lg border border-gray-100 p-6 shadow-sm">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-semibold text-gray-900">Gerenciamento de Usuários</h2>
-                <button id="addUserBtn" data-url="<?= url("/adicionarusuario") ?>" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition flex items-center space-x-2 text-sm">
+                <button id="addUserBtn" data-url="<?= url("/adicionarusuario") ?>" data-modal="userModal" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition flex items-center space-x-2 text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
@@ -43,5 +45,6 @@
     <div id="modal"></div>
 
 <script src="<?= theme("/assets/js/modal.js", CONF_VIEW_APP); ?>"></script>
+<script src="<?= theme("/assets/js/forms.js", CONF_VIEW_APP); ?>"></script>
 </body>
 </html>
