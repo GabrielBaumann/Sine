@@ -9,6 +9,8 @@ require __DIR__ . "/vendor/autoload.php";
 use Source\Core\Session;
 use CoffeeCode\Router\Router;
 
+echo "hello world";
+
 $session = new Session();
 $route = new Router(url(), ":");
 
