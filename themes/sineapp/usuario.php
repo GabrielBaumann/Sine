@@ -1,4 +1,4 @@
-<?php $this->layout('layout_user', ['usuarios' => $usuarios]); ?>
+<?php $this->layout('layout_user', ['usuarios' => $users]); ?>
 
 <div class="overflow-x-auto">
     <div class="align-middle inline-block min-w-full">
@@ -12,15 +12,15 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     </tr>
                 </thead>
-                <?php foreach($usuarios as $usuario): ?>
+                <?php foreach($users as $user): ?>
                     <tbody class="bg-white divide-y divide-gray-200">
                         <!-- essa é a linha-->
                         <tr class="hover:bg-gray-50 cursor-pointer transition user-row" 
-                            data-url="<?= url("/addUser/{$usuario->id_usuario}") ?>">
+                            data-url="<?= url("/addUser/{$user->id_user}") ?>">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <?= $usuario->name_usuario; ?>
+                                        <?= $user->name_user; ?>
                                     </div>
                                 </div>
                             </td>
@@ -34,14 +34,14 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <?= $usuario->type_usuario; ?>
+                                        <?= $user->type_user; ?>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <?= $usuario->active ? "ativo" : "cancelado" ; ?>
+                                        <?= $user->active ? "ativo" : "cancelado" ; ?>
                                     </div>
                                 </div>
                             </td>

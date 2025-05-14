@@ -37,22 +37,43 @@ class App extends Controller
     public function userSystem() : void
     {
         echo $this->view->render("/usuario", [
-            "usuarios" => (new User())->find()->fetch(true)
+            "users" => (new User())->find()->fetch(true)
         ]);
     }
 
     public function modelAddUser(?array $data) : void
     {   
 
-        if (!empty($data['csrf'])) {
+        if(isset($data["cpfcheck"])){
+            $cpfuser = $data["cpfcheck"];
 
+            if(!validateCPF($cpfuser)){
+                $json["message"] = messageHelpers()->success("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
+                $json['erro'] = true;
+                echo json_encode($json);
+                return;
+            }
+        }
+
+        if (!empty($data["csrf"])) {
+            
+            // Verificar csrf
             if(!csrf_verify($data)) {
-                $json['message'] = messageHelpers()->warning("Use o fomulário!")->render();
+                $json["message"] = messageHelpers()->warning("Use o fomulário!")->render();
                 echo json_encode($json);
                 return;
             }
 
-            
+            // Verificar campos obrigatórios e sanitizá-los
+            $dataCleanCheck = cleanInputData($data);
+
+            if(!$dataCleanCheck['valid']) {
+                $json["message"] = messageHelpers()->warning("Preencha todos os campos!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $dataClean = $dataCleanCheck["data"];
 
             return;
         }
@@ -62,6 +83,23 @@ class App extends Controller
         ]);
     }
 
+    public function checkCpf($data) : void
+    {
+        $cpfuser = $data["cpf"];
+
+        if(!validateCPF($cpfuser)){
+            $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
+            $json['erro'] = true;
+            echo json_encode($json);
+            return;
+        }
+
+        $user = (new User())->find("cpf_user = :c", "c={$cpfuser}");
+
+        var_dump($user->fetch());
+        
+
+    }
 
     public function logout()
     {
