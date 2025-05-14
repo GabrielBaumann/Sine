@@ -14,12 +14,22 @@ echo "hello world";
 $session = new Session();
 $route = new Router(url(), ":");
 
-// WEB ROUTES
-
+// WEB
+// Login
 $route->namespace("Source\App");
 $route->get("/", "Web:login");
 $route->post("/", "Web:login");
 
+/**
+ * APP
+ */
+// System User
+$route->get("/usuario", "App:userSystem");
+$route->get("/adicionarusuario", "App:modelAddUser");
+$route->post("/adicionarusuario", "App:modelAddUser");
+
+// Init page
+$route->get("/inicio", "App:initPage");
 
 $route->get("/exit", "App:logout");
 

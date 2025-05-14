@@ -18,6 +18,8 @@ class Web extends Controller
 
         if (!empty($data['csrf'])) {
 
+            var_dump($data);
+
             if(!csrf_verify($data)) {
                 $json['message'] = $this->message->error("Erro ao enivar, use o formulário!", "Erro de Envio")->render();
                 echo json_encode($json);

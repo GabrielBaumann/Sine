@@ -60,7 +60,7 @@ function openModal(url, idModal) {
         }
 
         window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
+        if (event.target.id === "fundoModal") {
             closeModal();
             }
         };
@@ -79,22 +79,16 @@ function closeModal() {
 
 // Escuta o clique e verifica se é data-modal, para disparar o openModal e closeModal
 document.addEventListener("click", (e) => {
-    if (e.target.closest("[data-modal]")) {
-        
-        const idModal = e.target.dataset.modal;
-        const dataUrl = e.target.dataset.url;
-        
-        openModal(dataUrl, idModal)
+    const vButton =  e.target.closest("button");
 
-    }
+        if(vButton.id === "addUserBtn"){
+            const idModal = vButton.dataset.modal;
+            const dataUrl = vButton.dataset.url;
+
+            openModal(dataUrl, idModal);
+
+        }
 })
-
-// Esculta o clique e verifica se é closeModal e fecha fora do botão prévio do disparo de evento
-document.addEventListener("click", function(e) {
-    if (e.target.id === "closeModal") {
-        closeModal();
-    }
-});
 
 // Remover elementos com efeito
 function removeElement(element, duration = 1000) {
