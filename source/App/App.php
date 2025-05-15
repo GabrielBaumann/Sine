@@ -44,17 +44,6 @@ class App extends Controller
     public function modelAddUser(?array $data) : void
     {   
 
-        if(isset($data["cpfcheck"])){
-            $cpfuser = $data["cpfcheck"];
-
-            if(!validateCPF($cpfuser)){
-                $json["message"] = messageHelpers()->success("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
-                $json['erro'] = true;
-                echo json_encode($json);
-                return;
-            }
-        }
-
         if (!empty($data["csrf"])) {
             
             // Verificar csrf
@@ -75,6 +64,8 @@ class App extends Controller
 
             $dataClean = $dataCleanCheck["data"];
 
+            var_dump($dataClean);
+
             return;
         }
 
@@ -89,15 +80,21 @@ class App extends Controller
 
         if(!validateCPF($cpfuser)){
             $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
-            $json['erro'] = true;
+            $json["erro"] = true;
             echo json_encode($json);
             return;
         }
 
         $user = (new User())->find("cpf_user = :c", "c={$cpfuser}");
 
-        var_dump($user->fetch());
-        
+        // var_dump($user->fetch());
+
+        if ($user->fetch()) {
+            $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " já existe na base de dados!")->render();
+            $json["erro"] = true;
+            echo json_encode($json);
+            return;
+        }
 
     }
 
