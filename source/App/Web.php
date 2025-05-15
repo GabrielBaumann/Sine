@@ -2,9 +2,16 @@
 
 namespace Source\App;
 
+use BadMethodCallException;
 use Source\Core\Controller;
 use Source\Core\Session;
 use Source\Models\Auth;
+use Source\Models\Enterprise;
+use Source\Models\Service;
+use Source\Models\Vacancy;
+use Source\Models\Vacancy_worker;
+use Source\Models\VacancyWorker;
+use Source\Models\Worker;
 
 class Web extends Controller
 {
@@ -15,10 +22,8 @@ class Web extends Controller
 
     public function login(?array $data) : void
     {
-
+       
         if (!empty($data['csrf'])) {
-
-            var_dump($data);
 
             if(!csrf_verify($data)) {
                 $json['message'] = $this->message->error("Erro ao enivar, use o formulário!", "Erro de Envio")->render();
