@@ -8,6 +8,7 @@ use Source\Core\Session;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
 use Source\Models\Service;
+use Source\Models\System_user;
 use Source\Models\Vacancy;
 use Source\Models\Vacancy_worker;
 use Source\Models\VacancyWorker;
@@ -22,7 +23,7 @@ class Web extends Controller
 
     public function login(?array $data) : void
     {
-       
+        
         if (!empty($data['csrf'])) {
 
             if(!csrf_verify($data)) {
