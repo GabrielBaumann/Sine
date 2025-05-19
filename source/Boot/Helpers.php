@@ -67,6 +67,11 @@ function theme(?string $path = null, $theme = CONF_VIEW_THEME) : string
     return CONF_URL_BASE . "/themes/{$theme}";   
 }
 
+function is_email(string $email): bool
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
 /**
  * REQUEST
  */
@@ -220,7 +225,8 @@ function date_simple(string $date = "now", string $format = "d/m/Y"): string
 }
 
 function mask_phone(string $phone): string
-{
+{   
+
     // Remove tudo que não for número
     $digits = preg_replace('/\D/', '', $phone);
 

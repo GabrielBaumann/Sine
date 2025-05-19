@@ -8,8 +8,9 @@ document.addEventListener("submit", (e)=> {
         const form = e.target;
         const formData = new FormData(form);
         const actionForm = e.target.action;
+        const formId = e.target.id;
 
-        let load;
+        let load = document.getElementById("response");
         let timeoutLoading;
 
         // Agenda a exibição do "carregamento..." após 300 milesimo
@@ -55,7 +56,22 @@ document.addEventListener("submit", (e)=> {
             return response.json();
         })
         .then(data => {
-            
+            // Para resetar o formulário "resetForm = true"
+            // Para atualizar uma lista ou view "updateList = true"
+            if (data.complete) {
+                const {resetForm, updateList} = data.complete
+                    
+                if(resetForm === true) {
+                    document.getElementById(formId).reset();
+                }
+                if(updateList === true) {
+                    const vHtmlAjax = document.getElementById("usuarioLista");
+                    vHtmlAjax.innerHTML = data.html;
+                }
+
+            }
+
+            // Redirecionar a página patra outro local ou criar mensagem para usuário
             if(data.redirected) {
                 window.location.href = data.redirected
             } else {
@@ -72,6 +88,7 @@ document.addEventListener("submit", (e)=> {
                     removeElement(novoResponse)
                 }, 3000)
             }
+
         })
         .catch(error => {
             clearTimeout(timeoutLoading);

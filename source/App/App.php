@@ -7,8 +7,8 @@ use Source\Core\Session;
 use Source\Models\Auth;
 use Source\Models\MaterialWork;
 use Source\Models\RecipientWork;
+use Source\Models\SystemUser;
 use Source\Models\Unit;
-use Source\Models\User;
 use Source\Support\Message;
 use Source\Support\Pager;
 
@@ -37,12 +37,17 @@ class App extends Controller
     public function userSystem() : void
     {
         echo $this->view->render("/usuario", [
-            "users" => (new User())->find()->fetch(true)
+            "users" => (new SystemUser())->find()->fetch(true)
         ]);
     }
 
     public function modelAddUser(?array $data) : void
     {   
+
+        if(isset($data["idUserSystem"])) {
+            $idUserSystem = $data["idUserSystem"];
+            $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
+        }
 
         if (!empty($data["csrf"])) {
             
@@ -64,18 +69,67 @@ class App extends Controller
 
             $dataClean = $dataCleanCheck["data"];
 
-            var_dump($dataClean);
+            // Verificar se é um email válido
+            if(!is_email($dataClean["email"])) {
+                $json["message"] = messageHelpers()->warning("Esse email não é válido!")->render();
+                echo json_encode($json);
+                return;
+            }
 
-            return;
+            $SytemUser = new SystemUser();
+
+            $SytemUser->bootstrap(
+                1,
+                $dataClean["name"],
+                $dataClean["cpf"],
+                $dataClean["email"],
+                $dataClean["phone"],
+                $dataClean["password"],
+                $dataClean["type"]
+            );
+
+            // Reseta o formulario e atualiza lista
+            $complete = [
+                "resetForm" => true, 
+                "updateList" => true
+            ];
+
+            // Para identiticar como edição do cadastro
+            if(isset($idUserSystem)) {
+                $SytemUser->id_user = $idUserSystem;
+                $SytemUser->id_user_update = 2;
+                $SytemUser->active = $dataClean["status"];
+                // Não reseta o formulário e atualiza alista
+                $complete = [
+                "resetForm" => false, 
+                "updateList" => true
+                ];
+            }
+
+            // var_dump($complete);
+            if($SytemUser->save()) {
+                
+                $html = $this->view->render("user/listUserSystem", [
+                "users" => (new SystemUser())->find()->fetch(true)
+                ]);
+
+                $json["complete"] = $complete;
+                $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
+                $json["html"] = $html;
+
+                echo json_encode($json);
+                return;
+            }
         }
 
         echo $this->view->render("/user/modalForm", [
-
+            "user" => $userSystem ?? null
         ]);
     }
 
     public function checkCpf($data) : void
-    {
+    {   
+        // var_dump($data);
         $cpfuser = $data["cpf"];
 
         if(!validateCPF($cpfuser)){
@@ -85,9 +139,11 @@ class App extends Controller
             return;
         }
 
-        $user = (new User())->find("cpf_user = :c", "c={$cpfuser}");
-
-        // var_dump($user->fetch());
+        if(isset($data["idSystemUser"])) {
+            $user = (new SystemUser())->find("cpf_user = :c AND id_user <> :i", "c={$cpfuser}&i={$data["idSystemUser"]}");
+        } else {
+            $user = (new SystemUser())->find("cpf_user = :c", "c={$cpfuser}");
+        }
 
         if ($user->fetch()) {
             $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " já existe na base de dados!")->render();
@@ -95,7 +151,10 @@ class App extends Controller
             echo json_encode($json);
             return;
         }
-
+        $json["message"] = "";
+        $json["erro"] = false;
+        echo json_encode($json);
+        return;
     }
 
     public function logout()

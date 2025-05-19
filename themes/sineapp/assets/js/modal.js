@@ -73,6 +73,11 @@ function closeModal() {
     if(currentModal) {
         document.getElementById(currentModal).style.display = "none";
         document.getElementById("modal").innerHTML = "";
+
+        if(document.getElementById("response")) {
+            document.getElementById("response").remove();
+        }
+        
         currentModal = null;
     }
 }
@@ -87,6 +92,17 @@ document.addEventListener("click", (e) => {
 
             openModal(dataUrl, idModal);
 
+        }
+    }
+})
+
+// Escuta o clique e verifica se é data-modal em uma tabela
+document.addEventListener("click", (e) => {
+    if (e.target.closest("tr")) {
+        const vUrl = e.target.closest("tr").dataset.url;
+        const vIdModal = e.target.closest("tr").dataset.modal;
+        if(vUrl && vIdModal) {
+            openModal(vUrl, vIdModal)
         }
     }
 })
