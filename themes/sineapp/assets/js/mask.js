@@ -1,7 +1,14 @@
-// Máscara para CPF
+// Máscara para CPF em qualquer input mesmo se adicionado dinamicamente
+let cpfInitialEdit = "";
 document.addEventListener("input", function(e) {
     if (e.target && e.target.id === "cpf") {
         let value = e.target.value.replace(/\D/g, '');
+
+        if(cpfInitialEdit) {
+            if(value === "") {
+                value = cpfInitialEdit.replace(/\D/g, '');
+            }
+        }
 
         // Limita a 11 dígitos
         value = value.slice(0, 11);
@@ -19,16 +26,34 @@ document.addEventListener("input", function(e) {
     }
 });
 
+document.addEventListener("focusin", (e) => {
+    if (e.target.id === "cpf" && document.getElementById("idSystemUser").value !== "") {
+        cpfInitialEdit = e.target.value;
+        console.log(cpfInitialEdit);  
+    }
+
+    if (e.target.id === "cpf" && document.getElementById("idSystemUser").value === "") {
+        cpfInitialEdit = "";
+        console.log(cpfInitialEdit);  
+    }
+});
+
 // Verificar quantidade de digito no cpf
 document.addEventListener("focusout", function(e) {
     if (e.target.id === "cpf") {
         if(e.target.value !== "") {
-
+            
             const vLabel = e.target.name;
             const vValue = e.target.value;
             const vUrl = e.target.dataset.url;
             const vForm = new FormData();
             vForm.append(vLabel, vValue.replace(/\D/g, ''));
+
+            // Verificar se existe o ID para não editar o CPF
+            if(document.getElementById("idSystemUser").value !== "") {
+                const vIdUserSystem = document.getElementById("idSystemUser");
+                vForm.append(vIdUserSystem.name, vIdUserSystem.value);
+            }
 
             fetch(vUrl, {
                 method: "POST",
@@ -39,7 +64,11 @@ document.addEventListener("focusout", function(e) {
                 fncMessage(data.message)
 
                 if(data.erro === true) {
-                    document.getElementById("cpf").value = "";
+                    if(cpfInitialEdit) {
+                        document.getElementById("cpf").value = cpfInitialEdit;
+                    } else {
+                        document.getElementById("cpf").value = "";
+                    }
                 }
             })
         }

@@ -24,6 +24,8 @@ $route->post("/", "Web:login");
 // System User
 $route->get("/usuario", "App:userSystem");
 $route->get("/adicionarusuario", "App:modelAddUser");
+$route->get("/adicionarusuario/{idUserSystem}", "App:modelAddUser");
+$route->post("/adicionarusuario/{idUserSystem}", "App:modelAddUser");
 $route->post("/verificarcpf", "App:checkCpf");
 $route->post("/adicionarusuario", "App:modelAddUser");
 
@@ -31,7 +33,7 @@ $route->post("/adicionarusuario", "App:modelAddUser");
 // Init page
 $route->get("/inicio", "App:initPage");
 
-$route->get("/exit", "App:logout");
+$route->get("/sair", "App:logout");
 
 // ERROR ROUTES
 

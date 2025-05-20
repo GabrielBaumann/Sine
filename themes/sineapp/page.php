@@ -41,7 +41,7 @@
                 <p class="text-xs text-gray-500">Gerente de RH</p>
             </div>
         </div>
-        <a href="#" class="text-red-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 transition-colors">
+        <a href="<?= url("/sair"); ?>" class="text-red-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 transition-colors">
             <i class="fas fa-sign-out-alt w-5 text-center"></i>
             <span>Sair</span>
         </a>

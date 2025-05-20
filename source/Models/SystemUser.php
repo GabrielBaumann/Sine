@@ -4,12 +4,13 @@ namespace Source\Models;
 
 use Source\Core\Model;
 
-class User extends Model
+class SystemUser extends Model
 {
     public function __construct()
     {
         parent::__construct(
-            "system_user", ["id_user"], ["name_user","email_user","cpf_user","password_user","type_user"], "id_user"
+            "system_user", ["id_user"], ["name_user", "email_user", "email_user", "phone_user", "password_user", "type_user"],
+            "id_user"
         );
     }
 
@@ -21,8 +22,8 @@ class User extends Model
         string $phone,
         string $password,
         string $type,
-        int $active
-    ) : User {
+        int $active = 1
+    ) : SystemUser {
         $this->id_user_register = $idUserRegister;
         $this->name_user = $name;
         $this->cpf_user = $cpf;
