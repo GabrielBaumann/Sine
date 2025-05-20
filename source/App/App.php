@@ -55,6 +55,27 @@ class App extends Controller
         ]);  
     }
 
+    public function serviceInsurance() : void
+    {
+        echo $this->view->render("/pageService/insuranceService", [
+            "title" => "Atendimento"
+        ]);
+    }
+
+    public function serviceRequired() : void
+    {
+        echo $this->view->render("/pageService/requiredService", [
+            "title" => "Atendimento"
+        ]);  
+    }
+
+    public function serviceSucess() : void
+    {
+        echo $this->view->render("/pageService/sucessService", [
+            "title" => "Atendimento"
+        ]); 
+    }
+
     public function userSystem() : void
     {
         echo $this->view->render("/usuario", [

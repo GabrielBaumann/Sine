@@ -48,7 +48,9 @@
                 <p class="text-sm text-gray-500">Informações sobre direito ao abono salarial</p>
             </div>
         </button>
-        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+        <button
+            data-url="<?= url("/segurodesemprego")?>" 
+            class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-800 mt-1 flex-shrink-0">
                 <i class="fas fa-umbrella"></i>
             </div>

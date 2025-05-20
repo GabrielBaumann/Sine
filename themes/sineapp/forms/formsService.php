@@ -88,7 +88,9 @@
             <button type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Voltar
             </button>
-            <button type="button" class="px-6 py-2 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
+            <button
+                data-url="<?= url("/sucessoAtendimento"); ?>" 
+                type="button" class="px-6 py-2 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
                 Confirmar <i class="fas fa-check ml-2"></i>
             </button>
         </div>
