@@ -29,14 +29,36 @@ class App extends Controller
 
     public function initPage() : void
     {
-        echo $this->view->render("page", [
-
+        echo $this->view->render("/pageInit", [
+            "title" => "Início",
         ]);    
+    }
+
+    public function servicePage() : void
+    {
+        echo $this->view->render("/pageService", [
+            "title" => "Atendimento",
+        ]);    
+    }
+
+    public function serviceReason() : void
+    {
+        echo $this->view->render("/pageService/reasonService", [
+            "title" => "Atendimento",
+        ]);
+    }
+
+    public function formService() : void
+    {
+        echo $this->view->render("/forms/formsService", [
+            "titel" => "Atendimento"
+        ]);  
     }
 
     public function userSystem() : void
     {
         echo $this->view->render("/usuario", [
+            "title" => "Usuarios",
             "users" => (new SystemUser())->find()->fetch(true)
         ]);
     }
@@ -128,14 +150,8 @@ class App extends Controller
     }
 
     public function checkCpf($data) : void
-<<<<<<< HEAD
     {
-        $cpfuser = $data["cpfuser"];
-=======
-    {   
-        // var_dump($data);
         $cpfuser = $data["cpf"];
->>>>>>> 8234b365c43322cdfa82f781db10303b074a86f0
 
         if(!validateCPF($cpfuser)){
             $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();

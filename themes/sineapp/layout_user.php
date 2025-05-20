@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
-    <title>Document</title>
+    <title><?= $this->e($title); ?></title>
 </head>
 <body class="max-w-[1200px] mx-auto">
     <!-- Primeiro Header com Botão Voltar -->

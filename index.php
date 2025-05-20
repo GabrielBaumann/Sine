@@ -33,6 +33,14 @@ $route->post("/adicionarusuario", "App:modelAddUser");
 // Init page
 $route->get("/inicio", "App:initPage");
 
+
+
+// Service page
+$route->get("/formularioAtendimento", "App:formService");
+$route->get("/atendimento", "App:servicePage");
+$route->get("/atendimentomotivo", "App:serviceReason");
+
+
 $route->get("/sair", "App:logout");
 
 // ERROR ROUTES

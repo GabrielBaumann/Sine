@@ -59,7 +59,7 @@
                                 <select name="type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" selected>Selecione</option>
                                     <option value="adm" <?= ($user->type_user ?? null) === "adm" ? "selected" : "" ?>>Adm</option>
-                                        <?php if($usuario->tipo_usuario === "dev"): ?>
+                                        <?php if($user->type_user === "dev"): ?>
                                             <option value="dev" <?= ($user->type_user ?? null) === "dev" ? "selected" : "" ?>>Dev</option>
                                         <?php endif; ?>
                                     <option value="user" <?= ($user->type_user ?? null) === "user" ? "selected" : "" ?>>User</option>

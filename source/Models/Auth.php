@@ -13,7 +13,7 @@ class Auth extends Model
         ["cpf_user", "password_user"]);
     }
 
-    public static function user() : ?User
+    public static function user() : ?SystemUser
     {
         $session = new Session();
         
@@ -21,7 +21,7 @@ class Auth extends Model
             return null;
         }
 
-        return (new User())->findById($session->authUser);    
+        return (new SystemUser())->findById($session->authUser);    
     }
 
     public static function logout() : void
@@ -32,7 +32,7 @@ class Auth extends Model
 
     public function login(string $id_user, string $passwordUser) : bool
     {
-        $instanciaUser = (new User())->find("cpf_user = :u", "u={$id_user}", "cpf_user, password_user");
+        $instanciaUser = (new SystemUser())->find("cpf_user = :u", "u={$id_user}", "cpf_user, password_user");
         $userData = $instanciaUser->fetch();
  
         if (!$userData) {
