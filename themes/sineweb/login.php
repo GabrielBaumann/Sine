@@ -4,7 +4,7 @@
     <div class="w-full max-w-md space-y-8">
         <div class="text-center">
         <h1 class="text-5xl font-bold text-blue-800 mb-[100px]">SINE</h1>
-        <h2 class="text-3xl font-bold text-gray-800">Seja bem-vindo de volta</h2>
+        <h2 class="text-3xl font-bold text-gray-800">Seja bem-vindo</h2>
         <p class="text-gray-500 text-sm mt-2">Faça seu login para ter acesso ao sistema.</p>
         </div>
 
@@ -12,13 +12,13 @@
             <div><?= flash(); ?></div>
             <?= csrf_input(); ?>
         <div>
-            <label for="user" class="block text-sm font-medium text-gray-700">Usuário</label>
+            <label for="cpfuser" class="block text-sm font-medium text-gray-700">CPF</label>
             <div class="flex items-center mt-1 border border-gray-200 rounded-lg bg-gray-50">
             <input id="user" 
                 type="text" 
                 required
-                name="user"
-                class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite seu usuário" />
+                name="cpfuser"
+                class="w-full p-3 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400" placeholder="Digite seu CPF" />
             </div>
         </div>
 

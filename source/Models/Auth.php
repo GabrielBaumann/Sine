@@ -9,7 +9,8 @@ class Auth extends Model
 {
     public function __construct()
     {
-        parent::__construct("usuarios",["id_usuarios", "id_entidade"],["nome", "email", "senha"]);
+        parent::__construct("system_user",["id_user"],
+        ["cpf_user", "password_user"]);
     }
 
     public static function user() : ?User
@@ -29,32 +30,35 @@ class Auth extends Model
         $session->unset("authUser");
     }
 
-    public function login(string $user, string $senha) : bool
+    public function login(string $id_user, string $passwordUser) : bool
     {
-        $instanciaUser = (new User())->find("usuario = :u", "u={$user}");
-        $user = $instanciaUser->fetch();
-
-        if (!$user) {
+        $instanciaUser = (new User())->find("cpf_user = :u", "u={$id_user}", "cpf_user, password_user");
+        $userData = $instanciaUser->fetch();
+ 
+        if (!$userData) {
             $this->message->error("O usuário informado não está cadastrado!");
             return false;
         }
-        
+       
         // Inserir a verificação de hash de senha
-        if ($user->senha !== $senha) {
-            $this->message->error("A senha informada não confere!");
-            return false;
+        if (password_verify($passwordUser, $userData->password_user)) {
+            $this->message->error("A senha informada não confere!"); {
+                return true; // Login válido
+            }
+            return false; //Senha inválida
         }
 
-        if ($user->ativo === 0) {
+        if ($userData->ativo === 0) {
             $this->message->error("Usuário desativado do sistema!");
             return false;
         }
 
         // LOGIN
 
-        (new Session())->set("authUser", $user->id_usuarios);
+        (new Session())->set("authUser", $userData->id_user);
         $this->message->success("Login efetuado com sucesso")->flash();
         return true;
     }
 
 }
+ 

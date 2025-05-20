@@ -32,7 +32,7 @@ class Web extends Controller
                 return;
             }
 
-            if(empty($data['user']) || empty($data['password'])) {
+            if(empty($data['cpfuser']) || empty($data['password'])) {
                 $json['message'] = $this->message->warning("Informe seu usuário e senha para entrar!")->render();
                 echo json_encode($json);
                 return;
@@ -40,13 +40,13 @@ class Web extends Controller
 
             $auth = (new Auth());
 
-            if (!$auth->login($data['user'], $data['password'])) {
+            if (!$auth->login($data['cpfuser'], $data['password'])) {
                 $json['message'] = $auth->message()->render();
                 echo json_encode($json);
                 return;
             }
 
-            $json['redirected'] = url("/recipient");
+            $json['redirected'] = url("/inicio");
             echo json_encode($json);
             return;
         }

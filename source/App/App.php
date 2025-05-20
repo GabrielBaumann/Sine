@@ -76,7 +76,7 @@ class App extends Controller
 
     public function checkCpf($data) : void
     {
-        $cpfuser = $data["cpf"];
+        $cpfuser = $data["cpfuser"];
 
         if(!validateCPF($cpfuser)){
             $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
