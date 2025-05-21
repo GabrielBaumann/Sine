@@ -41,10 +41,17 @@ class App extends Controller
         ]);    
     }
 
+    public function serviceType() : void
+    {
+        echo $this->view->render("/pageService/initService", [
+            "title" => "Atendimento"
+        ]);
+    }
+
     public function serviceReason() : void
     {
         echo $this->view->render("/pageService/reasonService", [
-            "title" => "Atendimento",
+            "title" => "Atendimento"
         ]);
     }
 

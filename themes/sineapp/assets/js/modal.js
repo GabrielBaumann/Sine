@@ -16,8 +16,7 @@ document.addEventListener("click", (e) => {
     }
 })
 
-
-// // // Função que recebe o endereço e devolve via ajax o modelo
+// // Função que recebe o endereço e devolve via ajax o modelo
 // function openModal(url, idModal) {
     
 //     let load;

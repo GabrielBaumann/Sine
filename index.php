@@ -39,6 +39,7 @@ $route->get("/inicio", "App:initPage");
 $route->get("/formularioAtendimento", "App:formService");
 $route->get("/segurodesemprego", "App:serviceInsurance");
 $route->get("/atendimento", "App:servicePage");
+$route->get("/atendimentotipo", "App:serviceType");
 $route->get("/atendimentomotivo", "App:serviceReason");
 $route->get("/requerimentoEspecial", "App:serviceRequired");
 $route->get("/sucessoAtendimento", "App:serviceSucess");

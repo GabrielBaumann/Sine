@@ -60,7 +60,9 @@
             </div>
         </button>
     </div>
-    <button class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-        <i class="fas fa-arrow-left mr-2"></i> Voltar
+    <button 
+        data-url="<?= url("/atendimentotipo"); ?>"
+        class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+        <i class="fas fa-arrow-left mr-2"></i>Voltar
     </button>
 </div>
