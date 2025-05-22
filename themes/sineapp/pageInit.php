@@ -5,7 +5,7 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-4 lg:mb-6">
         <div>
-            <h1 class="text-xl lg:text-2xl font-bold text-gray-800">Bem-vindo de volta, Marcos!</h1>
+            <h1 class="text-xl lg:text-2xl font-normal text-gray-800">Bem-vindo de volta, Fulano!</h1>
             <p class="text-gray-500 text-xs lg:text-sm">Aqui está o que está acontecendo hoje</p>
         </div>
         <div class="flex items-center gap-2 lg:gap-4">
@@ -14,10 +14,10 @@
 
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 lg:mb-6">
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl lg:text-2xl font-bold text-sine-900">307</h2>
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-800">307</h2>
                 <p class="text-gray-500 text-xs">Candidatos</p>
             </div>
             <div class="bg-blue-100 text-blue-800 p-2 rounded-lg">
@@ -28,10 +28,10 @@
             <i class="fas fa-arrow-up text-xs"></i> 30% Este mês
             </p>
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl lg:text-2xl font-bold text-sine-900">58</h2>
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-800">58</h2>
                 <p class="text-gray-500 text-xs">Vagas Abertas</p>
             </div>
             <div class="bg-green-100 text-green-800 p-2 rounded-lg">
@@ -42,10 +42,10 @@
             <i class="fas fa-arrow-down text-xs"></i> 15% Este mês
             </p>
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl lg:text-2xl font-bold text-sine-900">24</h2>
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-800">24</h2>
                 <p class="text-gray-500 text-xs">Empresas</p>
             </div>
             <div class="bg-indigo-100 text-indigo-800 p-2 rounded-lg">
@@ -63,11 +63,11 @@
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <i class="fas fa-search text-gray-400"></i>
         </div>
-        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-sine-500 focus:border-sine-500 shadow-sm" placeholder="Pesquisar candidatos...">
+        <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-sine-500 focus:border-sine-500 shadow-sm" placeholder="Pesquisar candidatos...">
         </div>
 
         <!-- Desktop Table -->
-        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-300 shadow-sm">
         <div class="flex justify-between items-center mb-3">
             <h3 class="text-base lg:text-lg font-semibold text-gray-800">Candidatos Recentes</h3>
             <button class="text-xs lg:text-sm text-sine-600 flex items-center gap-1 hover:text-sine-800">
@@ -201,9 +201,9 @@
 
 
     <!-- Right Sidebar - Desktop Only -->
-    <aside class="p-4 lg:p-6 border-t border-gray-200 lg:border-t-0 lg:border-l lg:w-1/3 overflow-y-auto hidden lg:block">
-        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-200 shadow-sm mb-4 lg:mb-6">
-        <h3 class="text-base lg:text-lg font-semibold mb-3 text-gray-800">Atividades Recentes</h3>
+    <aside class="shadow-xl p-4 lg:p-6 border-l border-gray-300 lg:border-t-0 lg:border-l lg:w-1/3 overflow-y-auto hidden lg:block">
+        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-300 shadow-xl mb-4 lg:mb-6">
+        <h3 class="text-normal lg:text-lg font-semibold mb-3 text-gray-800">Atividades Recentes</h3>
         <div class="space-y-3">
             <div class="flex gap-3">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800">
@@ -244,7 +244,7 @@
         </div>
         </div>
 
-        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-300 shadow-xl">
         <h3 class="text-base lg:text-lg font-semibold mb-3 text-gray-800">Ações Rápidas</h3>
         <div class="grid grid-cols-2 gap-3">
             <button class="p-3 rounded-lg border border-gray-200 hover:border-sine-300 hover:bg-sine-50 flex flex-col items-center gap-2 transition-all hover:shadow-sm">
@@ -264,12 +264,6 @@
                 <i class="fas fa-building"></i>
             </div>
             <span class="text-xs font-medium text-gray-700">Nova Empresa</span>
-            </button>
-            <button class="p-3 rounded-lg border border-gray-200 hover:border-sine-300 hover:bg-sine-50 flex flex-col items-center gap-2 transition-all hover:shadow-sm">
-            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-800">
-                <i class="fas fa-exchange-alt"></i>
-            </div>
-            <span class="text-xs font-medium text-gray-700">Convergências</span>
             </button>
         </div>
         </div>
