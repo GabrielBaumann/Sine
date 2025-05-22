@@ -29,12 +29,10 @@ document.addEventListener("input", function(e) {
 document.addEventListener("focusin", (e) => {
     if (e.target.id === "cpf" && document.getElementById("idSystemUser").value !== "") {
         cpfInitialEdit = e.target.value;
-        console.log(cpfInitialEdit);  
     }
 
     if (e.target.id === "cpf" && document.getElementById("idSystemUser").value === "") {
         cpfInitialEdit = "";
-        console.log(cpfInitialEdit);  
     }
 });
 

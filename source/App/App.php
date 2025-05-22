@@ -9,6 +9,7 @@ use Source\Models\MaterialWork;
 use Source\Models\RecipientWork;
 use Source\Models\SystemUser;
 use Source\Models\Unit;
+use Source\Models\Worker;
 use Source\Support\Message;
 use Source\Support\Pager;
 
@@ -20,10 +21,10 @@ class App extends Controller
     {
         parent::__construct(__DIR__ . "/../../themes/". CONF_VIEW_APP ."/");
 
-        // if (!$this->user = Auth::user()) {
-        //     $this->message->warning("Efetue login para acessar o sistema.")->flash();
-        //     redirect("/");
-        // }
+        if (!$this->user = 30) {
+            $this->message->warning("Efetue login para acessar o sistema.")->flash();
+            redirect("/");
+        }
 
     }
 
@@ -55,11 +56,138 @@ class App extends Controller
         ]);
     }
 
-    public function formService() : void
+    public function formService(array $data) : void
     {
+        
+        if($data["idServiceType"] === "1") {
+
+            var_dump($data["idWoker"]);
+
+            if(isset($data["idWoker"])) {
+                $idWoker = $data["idWoker"];
+            }
+        }
+
+        if(!empty($data["csrf"])){
+
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            $dataArray = cleanInputData($data);
+
+            if(!$dataArray["valid"]) {
+                $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            $dataClean = $dataArray["data"];
+            $woker = (new Worker());
+            // var_dump($dataClean);
+
+            if(isset($idWoker)) {
+                $woker->id_worker = $idWoker;
+                $woker->id_user_update = $this->user;
+            }
+
+            $woker->id_user_register = $this->user;
+            $woker->name_worker = $dataClean["nome"];
+            $woker->date_birth_worker = $dataClean["date-birth-worker"];
+            $woker->cpf_worker = $dataClean["cpf"];
+            $woker->pcd_worker = $dataClean["pcd"];
+            $woker->gender_worker = "M";
+            $woker->ethnicity_worker = "rosa";
+            $woker->apprentice_worker = $dataClean["apprentice"];
+            $woker->cterc = $dataClean["cterc"];
+            
+            $woker->save();
+            // var_dump($woker);
+
+            $html = $this->view->render("/pageService/sucessService", [
+                "title" => "Atendimento"
+            ]);
+
+            $json["html"] = $html;
+            $json["erro"] = false;
+            echo json_encode($json);
+
+            return;
+        }
+
+
+        // Tipo de rota para voltar dependendo de onde o formulário foi chamdo
+        if(isset($data["type"])) {
+            $type = $data["type"];
+
+            if($type === "atendimento") {
+                $url = url("/atendimentomotivo");
+            }
+
+            if($type === "desemprego") {
+                $url = url("/segurodesemprego");
+            }
+
+            if($type === "especial") {
+                $url = url("/requerimentoEspecial");
+            }
+        }
+
+
         echo $this->view->render("/forms/formsService", [
-            "titel" => "Atendimento"
-        ]);  
+            "title" => "Atendimento",
+            "url" => $url ?? null,
+            "idServiceType" => $data["idServiceType"] ?? null
+        ]);        
+
+    }
+
+    public function formCpfCheck(array $data) : void
+    {
+
+        $cpfuser = $data["cpf"];
+        $url = $data["url"];
+        $titleForm = $data["titleForm"];
+        $idServiceType = $data["idServiceType"];
+
+        if(!validateCPF($cpfuser)){
+            $json["message"] = messageHelpers()->warning("O CPF: " . formatCPF($cpfuser) . " não é válido!")->render();
+            $json["erro"] = true;
+            echo json_encode($json);
+            return;
+        }
+
+        $worker = (new Worker())->find("cpf_worker = :c", "c={$cpfuser}");
+
+        if ($worker->fetch()) {
+
+            $html = $this->view->render("/forms/formsService", [
+                "titel" => "Atendimento",
+                "worker" => $worker->fetch(),
+                "titleForm" => $titleForm,
+                "url" => $url,
+                "idServiceType" => $idServiceType ?? null
+            ]);  
+
+            $json["html"] = $html;
+            $json["message"] = "";
+            $json["erro"] = false;
+            echo json_encode($json);
+            return;
+        }
+
+        if(!$worker->fetch()) {
+            $json["erro"] = false;
+            $json["message"] = "";
+            $json["freeCpf"] = true;
+            echo json_encode($json);
+            return;
+        }
+
     }
 
     public function serviceInsurance() : void

@@ -44,8 +44,8 @@
     <!-- Modal COLOCAR OU TIRAR HIDDEN SE QUISER DESAPARECER ELE  -->
     <div id="modal"></div>
 
-<script src="<?= theme("/assets/js/modal.js", CONF_VIEW_APP); ?>"></script>
-<script src="<?= theme("/assets/js/forms.js", CONF_VIEW_APP); ?>"></script>
-<script src="<?= theme("/assets/js/mask.js", CONF_VIEW_APP); ?>"></script>
+<script src="<?= theme("/assets/js/user/modal.js", CONF_VIEW_APP); ?>"></script>
+<script src="<?= theme("/assets/js/user/forms.js", CONF_VIEW_APP); ?>"></script>
+<script src="<?= theme("/assets/js/user/mask.js", CONF_VIEW_APP); ?>"></script>
 </body>
 </html>

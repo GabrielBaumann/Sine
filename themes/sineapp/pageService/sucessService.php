@@ -23,7 +23,9 @@
                 <span class="font-medium" id="confirm-request"></span>
             </div>
         </div>
-        <button class="px-6 py-3 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
+        <button 
+            data-url="<?= url("/atendimentotipo"); ?>"
+            class="px-6 py-3 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
             <i class="fas fa-home mr-2"></i> Voltar para a página inicial
         </button>
     </div>
