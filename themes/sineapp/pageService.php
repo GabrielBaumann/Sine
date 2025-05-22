@@ -12,7 +12,7 @@
         </div>
 
         <!-- Form Steps -->
-        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+        <div class="bg-white p-6 rounded-lg border border-gray-200">
                 <!-- Tipo de Atendimento -->
                 <!-- Motivo do Atendimento -->
                 <!-- Formulário -->

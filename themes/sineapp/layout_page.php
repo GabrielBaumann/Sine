@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
-=======
     <link rel="stylesheet" href="public/output.css">
->>>>>>> b8779b66ea268dc55f71b2c9ca89b9b042a495e9
     <title><?= $this->e($title); ?></title>
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
     <div class="flex min-h-screen max-h-screen overflow-hidden">
-        <aside class="w-64 bg-white border-r border-gray-300 shadow-xl p-6 hidden lg:flex flex-col">
+        <aside class="w-64 bg-transparent border-r border-gray-300 p-6 hidden lg:flex flex-col">
             <div class="text-2xl font-semibold mb-20 flex items-center ml-4 text-gray-800">Sistema Sine</div>
         <nav class="flex flex-col gap-3 flex-grow">
             <a href="<?= url("/inicio"); ?>" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">

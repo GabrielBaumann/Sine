@@ -5,7 +5,7 @@ window.onload = function() {
 
     vMenus.forEach(vElemet => {
         if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-            vElemet.closest("a").classList.add("bg-sine-600", "hover:bg-sine-700", "text-white")
+            vElemet.closest("a").classList.add("bg-gray-900", "text-white")
         }
     });
 }
