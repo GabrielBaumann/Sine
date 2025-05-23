@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
     <div class="flex min-h-screen max-h-screen overflow-hidden">
-        <aside class="w-64 bg-transparent border-r border-gray-300 p-6 hidden lg:flex flex-col">
+        <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
             <div class="text-2xl font-semibold mb-20 flex items-center ml-4 text-gray-800">Sistema Sine</div>
         <nav class="flex flex-col gap-3 flex-grow">
             <a href="<?= url("/inicio"); ?>" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
@@ -51,10 +51,12 @@
         </nav>
 
         <!-- User Info -->
-        <div class="mt-auto pt-4 border-t border-gray-200">
+        <div class="mt-auto pt-4">
             <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 bg-sine-100 rounded-full flex items-center justify-center text-sine-800">
-                    <i class="fas fa-user"></i>
+                <div class="w-10 h-10 bg-sine-100 rounded-full flex items-center justify-center text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
+                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                    </svg>
                 </div>
                 <div>
                     <p class="font-medium text-gray-900">Marcos Silva</p>
@@ -62,7 +64,9 @@
                 </div>
             </div>
             <a href="<?= url("/sair"); ?>" class="text-red-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 transition-colors">
-                <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+                </svg>
                 <span>Sair</span>
             </a>
         </div>
