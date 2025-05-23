@@ -1,10 +1,11 @@
 <div id="step-3" class="step-content">
+    <div id="typeService" hidden><?= $type ?></div>
     <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual serviço do Seguro Desemprego?</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <button
-            data-idservice = "6" 
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "58" : "6" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                 <i class="fas fa-user-edit"></i>
@@ -16,7 +17,7 @@
         </button>
 
         <button 
-            data-url="<?= url("/requerimentoEspecial")?>"
+            data-url="<?= url("/requerimentoEspecial/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-800 mt-1 flex-shrink-0">
                 <i class="fas fa-file-alt"></i>
@@ -28,8 +29,8 @@
         </button>
 
         <button
-            data-idservice = "7" 
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "59" : "7" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-800 mt-1 flex-shrink-0">
                 <i class="fas fa-search"></i>
@@ -41,8 +42,8 @@
         </button>
 
         <button
-            data-idservice = "8" 
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "66" : "8" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-800 mt-1 flex-shrink-0">
                 <i class="fas fa-file-invoice"></i>
@@ -54,8 +55,8 @@
         </button>
 
         <button
-            data-idservice = "9" 
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "60" : "9" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-800 mt-1 flex-shrink-0">
                 <i class="fas fa-receipt"></i>
@@ -67,8 +68,8 @@
         </button>
 
         <button
-            data-idservice = "10"  
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "69" : "10" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-800 mt-1 flex-shrink-0">
                 <i class="fas fa-briefcase"></i>
@@ -80,8 +81,8 @@
         </button>
 
         <button
-            data-idservice = "11"  
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "61" : "11" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center text-pink-800 mt-1 flex-shrink-0">
                 <i class="fas fa-home"></i>
@@ -93,8 +94,8 @@
         </button>
 
         <button
-            data-idservice = "12"  
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "62" : "12" ?>"  
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center text-teal-800 mt-1 flex-shrink-0">
                 <i class="fas fa-university"></i>
@@ -106,8 +107,8 @@
         </button>
 
         <button
-            data-idservice = "13"  
-            data-url="<?= url("/formularioAtendimento/desemprego")?>"
+            data-idservice = "<?= $type === "telefone" ? "63" : "13" ?>"    
+            data-url="<?= url("/formularioAtendimento/desemprego/") . $type ?>"
             class="p-4 border-2 border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center text-orange-800 mt-1 flex-shrink-0">
                 <i class="fas fa-laptop"></i>
@@ -120,7 +121,7 @@
     </div>
     
     <button 
-        data-url="<?= url("/atendimentomotivo"); ?>"
+        data-url="<?= url("/atendimentomotivo/") . $type ?>"
         class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
         <i class="fas fa-arrow-left mr-2"></i> Voltar
     </button>

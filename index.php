@@ -18,8 +18,18 @@ $route->namespace("Source\App");
 $route->get("/", "Web:login");
 $route->post("/", "Web:login");
 
+
+
+
 /**
- * APP
+ * AppStart
+ */
+// Start
+$route->get("/inicio", "AppStart:initPage");
+
+
+/**
+ * AppServer
  */
 // System User
 $route->get("/usuario", "AppServer:userSystem");
@@ -29,23 +39,17 @@ $route->post("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
 $route->post("/verificarcpf", "AppServer:checkCpf");
 $route->post("/adicionarusuario", "AppServer:modelAddUser");
 
-
-// Init page
-$route->get("/inicio", "AppStart:initPage");
-
-
-
 // Service page
-$route->get("/formularioAtendimento/{type}", "AppServer:formService");
+$route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");
 $route->post("/formularioAtendimento/{idWorker}", "AppServer:formService");
 
 $route->post("/verificarCpfAtendimento", "AppServer:formCpfCheck");
-$route->get("/segurodesemprego", "AppServer:serviceInsurance");
+$route->get("/segurodesemprego/{type}", "AppServer:serviceInsurance");
 $route->get("/atendimento", "AppServer:servicePage");
 $route->get("/atendimentotipo", "AppServer:serviceType");
-$route->get("/atendimentomotivo", "AppServer:serviceReason");
-$route->get("/requerimentoEspecial", "AppServer:serviceRequired");
+$route->get("/atendimentomotivo/{type}", "AppServer:serviceReason");
+$route->get("/requerimentoEspecial/{type}", "AppServer:serviceRequired");
 $route->get("/sucessoAtendimento", "AppServer:serviceSucess");
 
 $route->get("/sair", "AppServer:logout");

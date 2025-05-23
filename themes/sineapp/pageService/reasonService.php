@@ -1,9 +1,10 @@
 <div id="step-2" class="step-content">
+    <div id="typeService" hidden><?= $type ?></div>
     <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual o motivo deste atendimento?</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button 
-            data-idservice = "1"
-            data-url="<?= url("/formularioAtendimento/atendimento")?>"
+            data-idservice = "<?= $type === "telefone" ? "16" : "1" ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/") . $type ?>"
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -17,8 +18,8 @@
         </button>
 
         <button
-            data-idservice = "2"
-            data-url="<?= url("/formularioAtendimento/atendimento")?>" 
+            data-idservice = "<?= $type === "telefone" ? "17" : "2" ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -32,8 +33,8 @@
         </button>
 
         <button 
-            data-idservice = "3"
-            data-url="<?= url("/formularioAtendimento/atendimento")?>"
+            data-idservice = "<?= $type === "telefone" ? "55" : "3" ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-gray-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -47,8 +48,8 @@
         </button>
 
         <button
-            data-idservice = "4" 
-            data-url="<?= url("/formularioAtendimento/atendimento")?>"
+            data-idservice = "<?= $type === "telefone" ? "56" : "4" ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center text-yellow-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -62,8 +63,8 @@
         </button>
 
         <button
-            data-idservice = "5" 
-            data-url="<?= url("/formularioAtendimento/atendimento")?>"
+            data-idservice = "<?= $type === "telefone" ? "57" : "5" ?>" 
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -77,7 +78,7 @@
         </button>
 
         <button
-            data-url="<?= url("/segurodesemprego")?>" 
+            data-url="<?= url("/segurodesemprego/"). $type ?>" 
             class="cursor-pointer hover:bg-gray-100 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

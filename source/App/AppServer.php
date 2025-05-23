@@ -46,10 +46,14 @@ class AppServer extends Controller
         ]);
     }
 
-    public function serviceReason() : void
+    public function serviceReason(array $data) : void
     {
+
+        $type = $data["type"];
+
         echo $this->view->render("/pageService/reasonService", [
-            "title" => "Atendimento"
+            "title" => "Atendimento",
+            "type" => $type            
         ]);
     }
 
@@ -203,20 +207,22 @@ class AppServer extends Controller
             return;
         }
 
-        // Tipo de rota para voltar dependendo de onde o formulário foi chamdo
+        // Tipo de rota para voltar dependendo de onde o formulário foi chamado
         if(isset($data["type"])) {
+            
+            $typeService = $data["typeservice"];
             $type = $data["type"];
 
             if($type === "atendimento") {
-                $url = url("/atendimentomotivo");
+                $url = url("/atendimentomotivo/{$typeService}");
             }
 
             if($type === "desemprego") {
-                $url = url("/segurodesemprego");
+                $url = url("/segurodesemprego/{$typeService}");
             }
 
             if($type === "especial") {
-                $url = url("/requerimentoEspecial");
+                $url = url("/requerimentoEspecial/{$typeService}");
             }
         }
 
@@ -273,17 +279,22 @@ class AppServer extends Controller
 
     }
 
-    public function serviceInsurance() : void
+    public function serviceInsurance(array $data) : void
     {
+        $type = $data["type"];
+
         echo $this->view->render("/pageService/insuranceService", [
-            "title" => "Atendimento"
+            "title" => "Atendimento",
+            "type" => $type 
         ]);
     }
 
-    public function serviceRequired() : void
+    public function serviceRequired(array $data) : void
     {
+        $type = $data["type"];
         echo $this->view->render("/pageService/requiredService", [
-            "title" => "Atendimento"
+            "title" => "Atendimento",
+            "type" => $type 
         ]);  
     }
 

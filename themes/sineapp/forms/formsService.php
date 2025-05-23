@@ -155,7 +155,7 @@
             </button>
 
             <button
-                type="submit" class="px-6 py-2 bg-sine-600 text-white rounded-lg hover:bg-sine-700 transition-colors">
+                type="submit" class="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-500 transition-colors">
                 Confirmar <i class="fas fa-check ml-2"></i>
             </button>
         </div>
