@@ -1,6 +1,6 @@
 <div id="step-3-form" class="step-content">
-    <h1 id="titleForm" class="text-xl font-semibold text-sine-600 mb-4"><?= $titleForm ?? "" ?></h1>
-        <span class='flex w-full border border-gray-200 mb-4 border-[1px]'></span>
+    <h1 id="titleForm" class="text-xl font-normal text-gray-800 mb-4"><?= $titleForm ?? "" ?></h1>
+        <span class='flex w-full border border-gray-200 mb-4'></span>
     <h2 class="text-lg font-semibold text-gray-800 mb-4">Informações do Candidato</h2>
 
     <form id="formService" action="<?= url("/formularioAtendimento") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
