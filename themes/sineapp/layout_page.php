@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/output.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
-=======
->>>>>>> 4a01f0b017b889f5383e1c7189b5fa51784bb930
     <title><?= $this->e($title); ?></title>
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
