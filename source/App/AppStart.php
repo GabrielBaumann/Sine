@@ -3,6 +3,7 @@
 namespace Source\App;
 
 use Source\Core\Controller;
+use Source\Models\Worker;
 use Source\Support\Message;
 
 
@@ -22,9 +23,11 @@ class AppStart extends Controller
     }
 
     public function initPage() : void
-    {
-        echo $this->view->render("/pageInit", [
+    {   
+
+        echo $this->view->render("/pageStart", [
             "title" => "Início",
+            "worker" => (new Worker())->find()->fetch(true)
         ]);    
     }
 }
