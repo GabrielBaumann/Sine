@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/output.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
+=======
+>>>>>>> 4a01f0b017b889f5383e1c7189b5fa51784bb930
     <title><?= $this->e($title); ?></title>
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
     <div class="flex min-h-screen max-h-screen overflow-hidden">
-        <aside class="w-64 bg-white border-r border-gray-300 shadow-xl p-6 hidden lg:flex flex-col">
+        <aside class="w-64 bg-transparent border-r border-gray-300 p-6 hidden lg:flex flex-col">
             <div class="text-2xl font-semibold mb-20 flex items-center ml-4 text-gray-800">Sistema Sine</div>
         <nav class="flex flex-col gap-3 flex-grow">
             <a href="<?= url("/inicio"); ?>" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
