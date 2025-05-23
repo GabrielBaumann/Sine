@@ -7,7 +7,9 @@ use Source\Core\Session;
 use Source\Models\Auth;
 use Source\Models\MaterialWork;
 use Source\Models\RecipientWork;
+use Source\Models\Service;
 use Source\Models\SystemUser;
+use Source\Models\TypeService;
 use Source\Models\Unit;
 use Source\Models\Worker;
 use Source\Support\Message;
@@ -21,7 +23,7 @@ class App extends Controller
     {
         parent::__construct(__DIR__ . "/../../themes/". CONF_VIEW_APP ."/");
 
-        if (!$this->user = 30) {
+        if (!$this->user = 31) {
             $this->message->warning("Efetue login para acessar o sistema.")->flash();
             redirect("/");
         }
@@ -58,18 +60,89 @@ class App extends Controller
 
     public function formService(array $data) : void
     {
-        
-        if($data["idServiceType"] === "1") {
+        // Cadastro e atualização
+        if(isset($data["idServiceType"]) && $data["idServiceType"] == "1") {
+            if(isset($data["idWorker"])) {
+                $idWoker = $data["idWorker"];
+            }
 
-            var_dump($data["idWoker"]);
+            if(!empty($data["csrf"])){
 
-            if(isset($data["idWoker"])) {
-                $idWoker = $data["idWoker"];
+                if(!csrf_verify($data)) {
+                    $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+                    $json["erro"] = true;
+                    echo json_encode($json);
+                    return;
+                }
+
+                $dataArray = cleanInputData($data);
+
+                if(!$dataArray["valid"]) {
+                    $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
+                    $json["erro"] = true;
+                    echo json_encode($json);
+                    return;
+                }
+
+                $dataClean = $dataArray["data"];
+                $woker = (new Worker());
+
+                if(isset($idWoker)) {
+                    $woker->id_worker = $idWoker;
+                    $woker->id_user_update = $this->user;
+                    $woker->name_worker = $dataClean["nome"];
+                    $woker->date_birth_worker = $dataClean["date-birth-worker"];
+                    $woker->cpf_worker = $dataClean["cpf"];
+                    $woker->pcd_worker = $dataClean["pcd"];
+                    $woker->gender_worker = "M";
+                    $woker->ethnicity_worker = "rosa";
+                    $woker->apprentice_worker = $dataClean["apprentice"];
+                    $woker->cterc = $dataClean["cterc"];
+                    $woker->save();
+
+                    $service = (new Service());
+                    $service->id_worker = $idWoker;
+                    $service->id_user_register = $this->user;
+                    $service->id_type_service = $data["idServiceType"];
+                    $service->save();
+
+                } else {
+                    $woker->id_user_register = $this->user;
+                    $woker->name_worker = $dataClean["nome"];
+                    $woker->date_birth_worker = $dataClean["date-birth-worker"];
+                    $woker->cpf_worker = $dataClean["cpf"];
+                    $woker->pcd_worker = $dataClean["pcd"];
+                    $woker->gender_worker = "M";
+                    $woker->ethnicity_worker = "rosa";
+                    $woker->apprentice_worker = $dataClean["apprentice"];
+                    $woker->cterc = $dataClean["cterc"];
+                    $woker->save();
+                    $idWoker = $woker->id_worker;
+
+                    $service = (new Service());
+                    $service->id_worker = $idWoker;
+                    $service->id_user_register = $this->user;
+                    $service->id_type_service = $data["idServiceType"];
+                    $service->save();
+                }
+
+
+                $html = $this->view->render("/pageService/sucessService", [
+                    "title" => "Atendimento",
+                    "type" => (new TypeService())->findById($data["idServiceType"]) ?? null,
+                    "candidate" => (new Worker())->findById($idWoker) ?? null
+                ]);
+
+                $json["html"] = $html;
+                $json["erro"] = false;
+                echo json_encode($json);
+
+                return;
             }
         }
 
+        // Somente cadastro e vinculação de todos os outros serviços
         if(!empty($data["csrf"])){
-
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
                 $json["erro"] = true;
@@ -88,28 +161,44 @@ class App extends Controller
 
             $dataClean = $dataArray["data"];
             $woker = (new Worker());
-            // var_dump($dataClean);
 
-            if(isset($idWoker)) {
-                $woker->id_worker = $idWoker;
-                $woker->id_user_update = $this->user;
+            if(isset($data["idWorker"])) {
+                $idWoker = $data["idWorker"];
+                $service = (new Service());
+                $service->id_worker = $idWoker;
+                $service->id_user_register = $this->user;
+                $service->id_type_service = $data["idServiceType"];
+                $service->save();
+            } else {
+                $woker->id_user_register = $this->user;
+                $woker->name_worker = $dataClean["nome"];
+                $woker->date_birth_worker = $dataClean["date-birth-worker"];
+                $woker->cpf_worker = $dataClean["cpf"];
+                $woker->pcd_worker = $dataClean["pcd"];
+                $woker->gender_worker = "M";
+                $woker->ethnicity_worker = "rosa";
+                $woker->apprentice_worker = $dataClean["apprentice"];
+                $woker->cterc = $dataClean["cterc"];
+                $woker->save();
+                $idWoker = $woker->id_worker;
+
+                $service = (new Service());
+                $service->id_worker = $idWoker;
+                $service->id_user_register = $this->user;
+                $service->id_type_service = $data["idServiceType"];
+                $service->save();
+
+                $serviceAddWork = (new Service());
+                $serviceAddWork->id_worker = $idWoker;
+                $serviceAddWork->id_user_register = $this->user;
+                $serviceAddWork->id_type_service = 1;
+                $serviceAddWork->save();
             }
 
-            $woker->id_user_register = $this->user;
-            $woker->name_worker = $dataClean["nome"];
-            $woker->date_birth_worker = $dataClean["date-birth-worker"];
-            $woker->cpf_worker = $dataClean["cpf"];
-            $woker->pcd_worker = $dataClean["pcd"];
-            $woker->gender_worker = "M";
-            $woker->ethnicity_worker = "rosa";
-            $woker->apprentice_worker = $dataClean["apprentice"];
-            $woker->cterc = $dataClean["cterc"];
-            
-            $woker->save();
-            // var_dump($woker);
-
             $html = $this->view->render("/pageService/sucessService", [
-                "title" => "Atendimento"
+                "title" => "Atendimento",
+                "type" => (new TypeService())->findById($data["idServiceType"]) ?? null,
+                "candidate" => (new Worker())->findById($idWoker) ?? null
             ]);
 
             $json["html"] = $html;
@@ -118,7 +207,6 @@ class App extends Controller
 
             return;
         }
-
 
         // Tipo de rota para voltar dependendo de onde o formulário foi chamdo
         if(isset($data["type"])) {

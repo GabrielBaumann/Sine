@@ -8,15 +8,15 @@
         <div class="bg-gray-50 p-4 rounded-lg mb-6 text-left max-w-md mx-auto">
             <div class="flex justify-between border-b border-gray-200 pb-2 mb-2">
                 <span class="text-gray-500">Tipo:</span>
-                <span class="font-medium" id="confirm-type"></span>
+                <span class="font-medium" id="confirm-type"><?= $type->group ?? "" ?></span>
             </div>
             <div class="flex justify-between border-b border-gray-200 pb-2 mb-2">
-                <span class="text-gray-500">Motivo:</span>
-                <span class="font-medium" id="confirm-reason"></span>
+                <span class="text-gray-500">Nome Candidato:</span>
+                <span class="font-medium" id="confirm-reason"><?= $candidate->name_worker ?? "" ?></span>
             </div>
             <div class="flex justify-between border-b border-gray-200 pb-2 mb-2" id="confirm-service-container">
                 <span class="text-gray-500">Serviço:</span>
-                <span class="font-medium" id="confirm-service"></span>
+                <span class="font-medium" id="confirm-service"><?= $type->type_service ?? "" ?></span>
             </div>
             <div class="flex justify-between" id="confirm-request-container">
                 <span class="text-gray-500">Requerimento:</span>

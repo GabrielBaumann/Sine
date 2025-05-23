@@ -38,7 +38,7 @@ $route->get("/inicio", "App:initPage");
 // Service page
 $route->get("/formularioAtendimento/{type}", "App:formService");
 $route->post("/formularioAtendimento", "App:formService");
-$route->post("/formularioAtendimento/{idWoker}", "App:formService");
+$route->post("/formularioAtendimento/{idWorker}", "App:formService");
 
 $route->post("/verificarCpfAtendimento", "APP:formCpfCheck");
 $route->get("/segurodesemprego", "App:serviceInsurance");
