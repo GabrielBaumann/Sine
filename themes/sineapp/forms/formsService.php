@@ -9,6 +9,7 @@
         <input 
             type="number" 
             id="idServiceType"
+            hidden
             value="<?= $idServiceType ?? null ?>" 
             name="idServiceType">
 

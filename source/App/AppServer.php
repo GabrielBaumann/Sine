@@ -3,19 +3,14 @@
 namespace Source\App;
 
 use Source\Core\Controller;
-use Source\Core\Session;
 use Source\Models\Auth;
-use Source\Models\MaterialWork;
-use Source\Models\RecipientWork;
 use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
-use Source\Models\Unit;
 use Source\Models\Worker;
 use Source\Support\Message;
-use Source\Support\Pager;
 
-class App extends Controller
+class AppServer extends Controller
 {
     private $user;
 
@@ -429,5 +424,4 @@ class App extends Controller
         Auth::logout();
         redirect("/");
     }
-
 }
