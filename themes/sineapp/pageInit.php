@@ -14,194 +14,88 @@
 
         <!-- Summary Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 lg:mb-6">
-        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
+        <div class="p-4">
             <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-xl lg:text-2xl font-bold text-gray-800">307</h2>
+                <h2 class="text-3xl lg:text-2xl font-bold text-gray-800">307</h2>
                 <p class="text-gray-500 text-xs">Candidatos</p>
             </div>
-            <div class="bg-blue-100 text-blue-800 p-2 rounded-lg">
-                <i class="fas fa-users"></i>
             </div>
-            </div>
-            <p class="text-green-600 text-xs mt-2 flex items-center gap-1">
-            <i class="fas fa-arrow-up text-xs"></i> 30% Este mês
-            </p>
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
+        <div class=" p-4">
             <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-xl lg:text-2xl font-bold text-gray-800">58</h2>
                 <p class="text-gray-500 text-xs">Vagas Abertas</p>
             </div>
-            <div class="bg-green-100 text-green-800 p-2 rounded-lg">
-                <i class="fas fa-briefcase"></i>
             </div>
-            </div>
-            <p class="text-red-600 text-xs mt-2 flex items-center gap-1">
-            <i class="fas fa-arrow-down text-xs"></i> 15% Este mês
-            </p>
         </div>
-        <div class="bg-white p-4 rounded-lg border border-gray-300 shadow-xl hover:shadow-md transition-shadow">
+        <div class="p-4">
             <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-xl lg:text-2xl font-bold text-gray-800">24</h2>
                 <p class="text-gray-500 text-xs">Empresas</p>
             </div>
-            <div class="bg-indigo-100 text-indigo-800 p-2 rounded-lg">
-                <i class="fas fa-building"></i>
             </div>
-            </div>
-            <p class="text-green-600 text-xs mt-2 flex items-center gap-1">
-            <i class="fas fa-arrow-up text-xs"></i> 23% Este mês
-            </p>
         </div>
         </div>
 
         <!-- Search Bar -->
         <div class="relative mb-4 lg:mb-6">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <i class="fas fa-search text-gray-400"></i>
-        </div>
-        <input type="text" class="block w-full pl-10 pr-3 py-2 border-2 border-gray-400 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-sine-500 focus:border-sine-500" placeholder="Pesquisar candidatos...">
-        </div>
-
-        <!-- Desktop Table -->
-        <div class="bg-white p-4 lg:p-6 rounded-lg border border-gray-300">
-        <div class="flex justify-between items-center mb-3">
-            <h3 class="text-base lg:text-lg font-semibold text-gray-800">Candidatos Recentes</h3>
-            <button class="text-xs lg:text-sm text-sine-600 flex items-center gap-1 hover:text-sine-800">
-            <span>Ver todos</span>
-            <i class="fas fa-chevron-right text-xs"></i>
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input type="text" class="block w-full pl-10 pr-12 py-2 border border-gray-400 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-sine-500 focus:border-sine-500" placeholder="Pesquisar candidatos...">
+            <button class="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
             </button>
         </div>
-        
-        <!-- Desktop Version -->
-        <div class="hidden lg:block overflow-auto">
-            <table class="w-full text-sm text-left">
-            <thead class="text-gray-500 border-b border-gray-200">
-                <tr>
-                <th class="py-3 font-medium text-left">Nome</th>
-                <th class="py-3 font-medium text-left">CPF</th>
-                <th class="py-3 font-medium text-left">Status</th>
-                <th class="py-3 font-medium text-right">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="border-b border-gray-300 hover:bg-gray-50">
-                <td class="py-3 font-medium">João Silva</td>
-                <td class="py-3">123.456.789-00</td>
-                <td class="py-3">
-                    <span class="px-2 py-1 rounded-full bg-green-100 text-green-800 text-xs">
-                    Ativo
-                    </span>
-                </td>
-                <td class="py-3 text-right">
-                    <div class="flex gap-4 text-sm justify-end">
-                    <a href="#" class="text-sine-600 hover:text-sine-800 hover:underline">Ver</a>
-                    <a href="#" class="text-yellow-600 hover:text-yellow-800 hover:underline">Editar</a>
-                    <a href="#" class="text-red-600 hover:text-red-800 hover:underline">Excluir</a>
-                    </div>
-                </td>
-                </tr>
-                <tr class="border-b border-gray-300 hover:bg-gray-50">
-                <td class="py-3 font-medium">Maria Souza</td>
-                <td class="py-3">987.654.321-00</td>
-                <td class="py-3">
-                    <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs">
-                    Pendente
-                    </span>
-                </td>
-                <td class="py-3 text-right">
-                    <div class="flex gap-4 text-sm justify-end">
-                    <a href="#" class="text-sine-600 hover:text-sine-800 hover:underline">Ver</a>
-                    <a href="#" class="text-yellow-600 hover:text-yellow-800 hover:underline">Editar</a>
-                    <a href="#" class="text-red-600 hover:text-red-800 hover:underline">Excluir</a>
-                    </div>
-                </td>
-                </tr>
-                <tr class="hover:bg-gray-50">
-                <td class="py-3 font-medium">Carlos Oliveira</td>
-                <td class="py-3">456.789.123-00</td>
-                <td class="py-3">
-                    <span class="px-2 py-1 rounded-full bg-red-100 text-red-800 text-xs">
-                    Inativo
-                    </span>
-                </td>
-                <td class="py-3 text-right">
-                    <div class="flex gap-4 text-sm justify-end">
-                    <a href="#" class="text-sine-600 hover:text-sine-800 hover:underline">Ver</a>
-                    <a href="#" class="text-yellow-600 hover:text-yellow-800 hover:underline">Editar</a>
-                    <a href="#" class="text-red-600 hover:text-red-800 hover:underline">Excluir</a>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
 
-        <!-- Mobile Version -->
-        <div class="lg:hidden space-y-3">
-            <!-- Mobile Card 1 -->
-            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-start">
-                <div>
-                <h4 class="font-medium text-gray-900">João Silva</h4>
-                <p class="text-sm text-gray-500 mt-1">123.456.789-00</p>
-                </div>
-                <span class="px-2 py-1 rounded-full bg-green-100 text-green-800 text-xs">
-                Ativo
-                </span>
-            </div>
-            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
-                <a href="#" class="text-sine-600 text-sm hover:text-sine-800 hover:underline">Ver</a>
-                <a href="#" class="text-yellow-600 text-sm hover:text-yellow-800 hover:underline">Editar</a>
-                <a href="#" class="text-red-600 text-sm hover:text-red-800 hover:underline">Excluir</a>
-            </div>
-            </div>
-
-            <!-- Mobile Card 2 -->
-            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-start">
-                <div>
-                <h4 class="font-medium text-gray-900">Maria Souza</h4>
-                <p class="text-sm text-gray-500 mt-1">987.654.321-00</p>
-                </div>
-                <span class="px-2 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs">
-                Pendente
-                </span>
-            </div>
-            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
-                <a href="#" class="text-sine-600 text-sm hover:text-sine-800 hover:underline">Ver</a>
-                <a href="#" class="text-yellow-600 text-sm hover:text-yellow-800 hover:underline">Editar</a>
-                <a href="#" class="text-red-600 text-sm hover:text-red-800 hover:underline">Excluir</a>
-            </div>
-            </div>
-
-            <!-- Mobile Card 3 -->
-            <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-start">
-                <div>
-                <h4 class="font-medium text-gray-900">Carlos Oliveira</h4>
-                <p class="text-sm text-gray-500 mt-1">456.789.123-00</p>
-                </div>
-                <span class="px-2 py-1 rounded-full bg-red-100 text-red-800 text-xs">
-                Inativo
-                </span>
-            </div>
-            <div class="mt-3 pt-3 border-t border-gray-100 flex justify-between">
-                <a href="#" class="text-sine-600 text-sm hover:text-sine-800 hover:underline">Ver</a>
-                <a href="#" class="text-yellow-600 text-sm hover:text-yellow-800 hover:underline">Editar</a>
-                <a href="#" class="text-red-600 text-sm hover:text-red-800 hover:underline">Excluir</a>
-            </div>
-            </div>
-        </div>
-        </div>
+        <div class="bg-white p-4 lg:p-6">
+  <div class="flex justify-between items-center mb-3">
+    <h3 class="text-base lg:text-lg font-semibold text-gray-800">Candidatos Recentes</h3>
+  </div>
+  
+  <!-- Container da tabela com scroll condicional -->
+  <div class="overflow-auto max-h-[70vh] lg:max-h-[65vh]">
+    <table class="w-full text-sm text-left">
+      <thead class="text-gray-500 border-b border-gray-200">
+        <tr>
+          <th class="py-3 font-medium text-left">Nome</th>
+          <th class="py-3 font-medium text-left hidden md:flex">CPF</th>
+          <th class="py-3 font-medium text-left">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linha da tabela - versão responsiva -->
+        <tr class="border-b border-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer group">
+          <!-- Nome (sempre visível) -->
+          <td class="py-4 font-medium">
+            <div class="lg:hidden font-semibold mb-1">João Silva</div>
+            <div class="hidden lg:block">João Silva</div>
+            <div class="text-xs text-gray-500 lg:hidden">123.456.789-00</div>
+          </td>
+          <td class="py-4 hidden md:flex">123.456.789-00</td>
+          
+          <!-- Status -->
+          <td class="py-4">
+            <span class="px-2.5 py-1 rounded-full bg-green-100 text-green-800 text-xs whitespace-nowrap">
+              Ativo
+            </span>
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
     </main>
 
 
     <!-- Right Sidebar - Desktop Only -->
-    <aside class="p-4 lg:p-6 border-l border-gray-300 lg:border-t-0 lg:border-l lg:w-1/3 overflow-y-auto hidden lg:block">
+    <aside class="p-4 lg:p-6 lg:w-1/3 overflow-y-auto hidden lg:block">
         <div class="bg-transparent p-4 lg:p-6 rounded-lg mb-4 lg:mb-6">
         <h3 class="text-normal lg:text-lg font-semibold mb-3 text-gray-800">Atividades Recentes</h3>
         <div class="space-y-3">
