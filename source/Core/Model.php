@@ -43,6 +43,8 @@ abstract class Model
     protected array $where = [];
     protected array $paramsSelect = [];
     protected array $orderBy = [];
+    protected ?int  $limitJoin = null;
+    protected ?int  $offsetJoin = null;
 
     /**
      * Model constructor.
@@ -377,6 +379,18 @@ abstract class Model
         return $this;
     }
 
+    public function limitJoin(int $limit) : self
+    {
+        $this->limitJoin = $limit;
+        return $this;    
+    }
+
+    public function offsetJoin(int $offset) : self
+    {
+        $this->offsetJoin = $offset;
+        return $this;    
+    }
+
     public function build() : string
     {
         $select = empty($this->select) ? '*' : implode(', ', $this->select);
@@ -387,11 +401,19 @@ abstract class Model
         }
 
         if (!empty($this->where)) {
-            $query .= " WHERE " . implode(', ', $this->where);
+            $query .= " WHERE " . implode(' AND ', $this->where);
         }
         
         if (!empty($this->orderBy)) {
             $query .= " ORDER BY " . implode(', ', $this->orderBy);
+        }
+
+        if (!is_null($this->limitJoin)) {
+            $query .= " LIMIT {$this->limitJoin}";
+        }
+
+        if (!is_null($this->offsetJoin)) {
+            $query .= " OFFSET {$this->offsetJoin}";
         }
 
         return $query;

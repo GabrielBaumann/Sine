@@ -7,8 +7,8 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-xl font-semibold text-gray-800">Ana Carolina Oliveira Santos</h2>
-                <p class="text-gray-600">CPF: 123.456.789-00 | NIS: 98765432100</p>
+                <h2 class="text-xl font-semibold text-gray-800"><?= $worker->name_worker; ?></h2>
+                <p class="text-gray-600"><?= $worker->cpf_worker; ?></p>
             </div>
         </div>
 </div>
@@ -18,50 +18,33 @@
     </div>
     <div class="divide-y divide-gray-200">
         <!-- Item 1 -->
-        <div class="p-6 hover:bg-gray-50 transition-colors">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-3">
-                <div>
-                    <h4 class="font-medium text-gray-900">Encaminhamento para entrevista</h4>
-                    <p class="text-sm text-gray-500">Atendente: João Silva</p>
+        <?php if(!empty($history)): ?>
+            <?php foreach($history as $history): ?>
+                <div class="p-6 hover:bg-gray-50 transition-colors">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-3">
+                        <div>
+                            <h4 class="font-medium text-gray-900"><?= $history->service_type; ?></h4>
+                            <p class="text-sm text-gray-500">Atendente: <?= $history->user_name; ?></p>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <!-- <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Concluído</span> -->
+                            <span class="text-gray-500"><?= $history->date_register; ?></span>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-4"><?= $history->service_detail; ?></p>
+                    <div class="flex justify-end">
+                        <button class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                            </svg>
+                            <span>Editar</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="flex items-center gap-2 text-sm">
-                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Concluído</span>
-                    <span class="text-gray-500">20/05/2024 - 14:30</span>
-                </div>
-            </div>
-            <p class="text-gray-700 mb-4">Encaminhado para entrevista na empresa XYZ para a vaga de Assistente Administrativo. Candidato demonstrou interesse e perfil adequado para a vaga.</p>
-            <div class="flex justify-end">
-                <button class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                    </svg>
-                    <span>Editar</span>
-                </button>
-            </div>
-        </div>
-        <!-- Item 2 -->
-        <div class="p-6 hover:bg-gray-50 transition-colors">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-3">
-                <div>
-                    <h4 class="font-medium text-gray-900">Orientações profissionais</h4>
-                    <p class="text-sm text-gray-500">Atendente: Carlos Mendes</p>
-                </div>
-                <div class="flex items-center gap-2 text-sm">
-                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Em andamento</span>
-                    <span class="text-gray-500">05/03/2024 - 09:00</span>
-                </div>
-            </div>
-            <p class="text-gray-700 mb-4">Fornecidas orientações sobre elaboração de currículo e preparação para entrevistas. Agendado retorno para simulação de entrevista.</p>
-            <div class="flex justify-end">
-                <button class="text-blue-600 hover:text-blue-800 flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                    </svg>
-                    <span>Editar</span>
-                </button>
-            </div>
-        </div>
-    </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div>Não há históricos!!!</div>
+        <?php endif; ?>
     <!-- Paginação -->
     <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
         <p class="text-sm text-gray-600">Mostrando 1 a 3 de 8 atendimentos</p>

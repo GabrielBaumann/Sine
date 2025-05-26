@@ -64,25 +64,34 @@ class AppStart extends Controller
         ]);    
     }
 
-    public function startHistory(?array $data) : void
+    public function startHistory(array $data) : void
     {
         
-        $worker = new Service();
+        $idWorker = $data["idWorker"];
 
-        $data = $worker->select(
+
+        $service = new Service();
+        $data = $service->select(
             ['service.*',
             'worker.name_worker AS worker_name',
             'worker.cpf_worker AS worker_cpf',
-            'system_user.name_user AS user_name'
+            'system_user.name_user AS user_name',
+            'type_service.group AS group_service',
+            'type_service.type_service AS service_type',
+            'type_service.detail AS service_detail',
             ])
             ->join('worker', 'service.id_worker = worker.id_worker')
             ->join('system_user', 'service.id_user_register = system_user.id_user')
+            ->join('type_service', 'service.id_type_service = type_service.id_type_service')
+            ->where("service.id_worker","=",$idWorker)
+            ->orderBy("date_register","DESC")
+            ->limitJoin(2)
             ->get();
 
-        var_dump($data);
 
         $html = $this->view->render("/pageStart/historyService", [
-            "title" => "Histórico de atendimento"
+            "worker" => (new Worker())->findById($idWorker),
+            "history" => $data
         ]);
 
         $json["html"] = $html;
