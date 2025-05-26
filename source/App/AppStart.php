@@ -84,10 +84,11 @@ class AppStart extends Controller
             ->join('system_user', 'service.id_user_register = system_user.id_user')
             ->join('type_service', 'service.id_type_service = type_service.id_type_service')
             ->where("service.id_worker","=",$idWorker)
-            ->orderBy("date_register","DESC")
-            ->limitJoin(2)
+            ->orderBy("date_register", "DESC")
+            ->limitJoin(3)
             ->get();
 
+            // var_dump($data);
 
         $html = $this->view->render("/pageStart/historyService", [
             "worker" => (new Worker())->findById($idWorker),

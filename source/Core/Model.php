@@ -134,8 +134,8 @@ abstract class Model
 
     public function findById(int $id, string $columns = "*"): ?Model
     {
-
-        $find = $this->find( $this->id . " = :id", "id={$id}", $columns);
+        // var_dump($this->id);
+        $find = $this->find($this->id . " = :id", "id={$id}", $columns);
         return $find->fetch();
     }
 

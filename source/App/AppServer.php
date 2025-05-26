@@ -82,7 +82,7 @@ class AppServer extends Controller
 
                 if(isset($idWoker)) {
                     $woker->id_worker = $idWoker;
-                    $woker->id_user_update = $this->user;
+                    $woker->id_user_update = $this->user->id_user;
                     $woker->name_worker = $dataClean["nome"];
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
@@ -95,12 +95,12 @@ class AppServer extends Controller
 
                     $service = (new Service());
                     $service->id_worker = $idWoker;
-                    $service->id_user_register = $this->user;
+                    $service->id_user_register = $this->user->id_user;
                     $service->id_type_service = $data["idServiceType"];
                     $service->save();
 
                 } else {
-                    $woker->id_user_register = $this->user;
+                    $woker->id_user_register = $this->user->id_user;
                     $woker->name_worker = $dataClean["nome"];
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
@@ -110,11 +110,12 @@ class AppServer extends Controller
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
                     $woker->save();
+
                     $idWoker = $woker->id_worker;
 
                     $service = (new Service());
                     $service->id_worker = $idWoker;
-                    $service->id_user_register = $this->user;
+                    $service->id_user_register = $this->user->id_user;
                     $service->id_type_service = $data["idServiceType"];
                     $service->save();
                 }
@@ -159,11 +160,11 @@ class AppServer extends Controller
                 $idWoker = $data["idWorker"];
                 $service = (new Service());
                 $service->id_worker = $idWoker;
-                $service->id_user_register = $this->user;
+                $service->id_user_register = $this->user->id_user;
                 $service->id_type_service = $data["idServiceType"];
                 $service->save();
             } else {
-                $woker->id_user_register = $this->user;
+                $woker->id_user_register = $this->user->id_user;
                 $woker->name_worker = $dataClean["nome"];
                 $woker->date_birth_worker = $dataClean["date-birth-worker"];
                 $woker->cpf_worker = $dataClean["cpf"];
@@ -177,13 +178,13 @@ class AppServer extends Controller
 
                 $service = (new Service());
                 $service->id_worker = $idWoker;
-                $service->id_user_register = $this->user;
+                $service->id_user_register = $this->user->id_user;
                 $service->id_type_service = $data["idServiceType"];
                 $service->save();
 
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
-                $serviceAddWork->id_user_register = $this->user;
+                $serviceAddWork->id_user_register = $this->user->id_user;
                 $serviceAddWork->id_type_service = 1;
                 $serviceAddWork->save();
             }
