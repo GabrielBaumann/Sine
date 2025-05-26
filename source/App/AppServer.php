@@ -18,24 +18,18 @@ class AppServer extends Controller
     {
         parent::__construct(__DIR__ . "/../../themes/". CONF_VIEW_APP ."/");
 
-        if (!$this->user = 31) {
+        if (!$this->user = Auth::user()) {
             $this->message->warning("Efetue login para acessar o sistema.")->flash();
             redirect("/");
         }
 
     }
 
-    public function initPage() : void
-    {
-        echo $this->view->render("/pageInit", [
-            "title" => "Início",
-        ]);    
-    }
-
     public function servicePage() : void
     {
         echo $this->view->render("/pageService", [
             "title" => "Atendimento",
+            "userSystem" => new SystemUser()->findById($this->user->id_user)
         ]);    
     }
 
