@@ -29,10 +29,9 @@ document.addEventListener("click", (e) => {
         const vUrlIdWorker = vTr.dataset.url;
 
         fetch(vUrlIdWorker)
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            // console.log(data)
-            vContent.innerHTML = data
+            vContent.innerHTML = data.html
         })
     }
 });

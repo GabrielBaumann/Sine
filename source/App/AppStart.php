@@ -5,6 +5,7 @@ namespace Source\App;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
+use Source\Models\Service;
 use Source\Models\Vacancy;
 use Source\Models\Worker;
 use Source\Support\Message;
@@ -65,14 +66,28 @@ class AppStart extends Controller
 
     public function startHistory(?array $data) : void
     {
+        
+        $worker = new Service();
+
+        $data = $worker->select(
+            ['service.*',
+            'worker.name_worker AS worker_name',
+            'worker.cpf_worker AS worker_cpf',
+            'system_user.name_user AS user_name'
+            ])
+            ->join('worker', 'service.id_worker = worker.id_worker')
+            ->join('system_user', 'service.id_user_register = system_user.id_user')
+            ->get();
+
         var_dump($data);
-        echo $this->view->render("/pageStart/historyService", [
+
+        $html = $this->view->render("/pageStart/historyService", [
             "title" => "Histórico de atendimento"
         ]);
 
-        // $json["html"] = $html;
-        // echo json_encode($json);
-        // return;
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
     }
 
 }
