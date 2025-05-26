@@ -36,4 +36,23 @@
         </tbody>
         </table>
     </div>
+    <div class="flex justify-between items-center mt-4 px-2">
+        <div class="text-sm text-gray-500">
+            Mostrando 1 a 6 de <?= count($workers) ?> registros
+        </div>
+        <div class="flex space-x-1">
+            <button class="px-3 py-1 border border-gray-500 rounded text-gray-700 bg-white hover:bg-gray-50">
+                Anterior
+            </button>
+            <button class="px-3 py-1 border border-gray-500 rounded bg-blue-500 text-white">
+                1
+            </button>
+            <button class="px-3 py-1 border border-gray-500 rounded text-gray-700 bg-white hover:bg-gray-50">
+                2
+            </button>
+            <button class="px-3 py-1 border border-gray-500 rounded text-gray-700 bg-white hover:bg-gray-50">
+                Próximo
+            </button>
+        </div>
+    </div>
 </div>
