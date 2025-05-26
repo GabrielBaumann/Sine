@@ -14,9 +14,9 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Linha da tabela - versão responsiva -->
-            <?php foreach($workers as $work): ?> 
-                <tr class="border-b border-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer group">
+            <!-- Linha da tabela - Coloquei um Array Slice pra mostrar somente 6 linhas por causa do erro da barra de rolagem -->
+            <?php foreach(array_slice($workers, 0, 6) as $work): ?> 
+                <tr class="border-b border-gray-200 cursor-pointer">
                     <!-- Nome (sempre visível) -->
                     <td class="py-4 font-medium">
                         <div class="lg:hidden font-semibold mb-1"><?= $work->name_worker; ?></div>
