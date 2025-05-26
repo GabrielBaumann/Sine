@@ -62,4 +62,17 @@ class AppStart extends Controller
             "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);    
     }
+
+    public function startHistory(?array $data) : void
+    {
+        var_dump($data);
+        echo $this->view->render("/pageStart/historyService", [
+            "title" => "Histórico de atendimento"
+        ]);
+
+        // $json["html"] = $html;
+        // echo json_encode($json);
+        // return;
+    }
+
 }

@@ -17,7 +17,22 @@ document.addEventListener("input", (e) => {
 
             const vListUpdate = document.getElementById("listMorkes");
             vListUpdate.innerHTML = data.html;
+        })
+    }
+});
 
+// Chamar histórico a partir do clique no usuário
+document.addEventListener("click", (e) => {
+    const vTr = e.target.closest("tr");
+    const vContent = document.getElementById("content");
+    if(vTr){
+        const vUrlIdWorker = vTr.dataset.url;
+
+        fetch(vUrlIdWorker)
+        .then(response => response.text())
+        .then(data => {
+            // console.log(data)
+            vContent.innerHTML = data
         })
     }
 });

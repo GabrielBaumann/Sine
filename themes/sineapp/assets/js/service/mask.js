@@ -194,27 +194,6 @@ function fncMessage(vText = "Atenção algo de errado não está certo!") {
     vResponse.id = "response";
     vResponse.innerHTML =   vText
 
-    // `<div class="alert-container space-y-3">    
-    //     <div class="alert-message bg-white border border-yellow-100 rounded-lg overflow-hidden">
-    //         <div class="flex items-start p-4">
-    //             <div class="flex-shrink-0 pt-0.5">
-    //                 <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center">
-    //                     <i class="fas fa-exclamation-triangle text-yellow-500 text-lg"></i>
-    //                 </div>
-    //             </div>
-    //             <div class="ml-3 flex-1">
-    //                 <h3 class="text-sm font-semibold text-yellow-800">Atenção</h3>
-    //                 <div class="mt-1 text-sm text-yellow-600">
-    //                     <p>`+ vText +`</p>
-    //                 </div>
-    //             </div>
-    //             <button id="botao" class="ml-2 text-gray-400 hover:text-gray-500">
-    //                 <i class="fas fa-times"></i>
-    //             </button>
-    //         </div>    
-    //     </div>
-    // </div>`;
-
     const vResponseBefore = document.getElementById("response");
     if (vResponseBefore) vResponseBefore.remove();
 

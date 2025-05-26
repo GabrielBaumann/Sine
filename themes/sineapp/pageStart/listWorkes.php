@@ -19,7 +19,9 @@
                 <!-- Linha da tabela - versão responsiva -->
                 
                     <?php foreach($workers as $work): ?> 
-                        <tr class="border-b border-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer group">
+                        <tr 
+                            data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>"
+                            class="border-b border-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer group">
                             <!-- Nome (sempre visível) -->
                             <td class="py-4 font-medium">
                                 <div class="lg:hidden font-semibold mb-1"><?= $work->name_worker; ?></div>
@@ -31,7 +33,7 @@
                             <!-- Status -->
                             <td class="py-4">
                                 <span class="px-2.5 py-1 rounded-lg bg-green-100 text-green-800 text-xs whitespace-nowrap">
-                                Ativo
+                                    <?= $work->status_work; ?>
                                 </span>
                             </td>
                         </tr>
