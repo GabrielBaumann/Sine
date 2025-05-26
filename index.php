@@ -25,7 +25,8 @@ $route->post("/", "Web:login");
  * AppStart
  */
 // Start
-$route->get("/inicio", "AppStart:initPage");
+$route->get("/inicio", "AppStart:startPage");
+$route->post("/pesquisarcandidato", "AppStart:startPage");
 
 
 /**

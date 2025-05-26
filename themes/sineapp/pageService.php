@@ -27,3 +27,7 @@
         </div>
     </main>
 </div>
+<?php $this->start("scripts"); ?>
+    <script src="<?= theme("/assets/js/service/mask.js", CONF_VIEW_APP) ?>"></script>
+    <script src="<?= theme("/assets/js/service/forms.js", CONF_VIEW_APP) ?>"></script>
+<?php $this->stop("scrpts"); ?>

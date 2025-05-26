@@ -10,7 +10,7 @@ class Auth extends Model
     public function __construct()
     {
         parent::__construct("system_user",["id_user"],
-        ["cpf_user", "password_user"]);
+        ["cpf_user", "password_user"], "id_user");
     }
 
     public static function user() : ?SystemUser
@@ -32,9 +32,9 @@ class Auth extends Model
 
     public function login(string $id_user, string $passwordUser) : bool
     {
-        $instanciaUser = (new SystemUser())->find("cpf_user = :u", "u={$id_user}", "cpf_user, password_user");
+        $instanciaUser = (new SystemUser())->find("cpf_user = :u", "u={$id_user}");
         $userData = $instanciaUser->fetch();
- 
+        
         if (!$userData) {
             $this->message->error("O usuário informado não está cadastrado!");
             return false;

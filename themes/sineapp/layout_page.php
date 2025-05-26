@@ -59,8 +59,8 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="font-medium text-gray-900">Marcos Silva</p>
-                    <p class="text-xs text-gray-500">Gerente de RH</p>
+                    <p class="font-medium text-gray-900"><?= $userSystem->name_user; ?></p>
+                    <p class="text-xs text-gray-500"><?= $userSystem->profession_user; ?></p>
                 </div>
             </div>
             <a href="<?= url("/sair"); ?>" class="text-red-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 transition-colors">
@@ -79,10 +79,7 @@
 
     <!-- Mobile Bottom Navigation -->
     <?= $this->insert("mobileNavigation"); ?>
-    
     <script src="<?= theme("/assets/js/service/sidebar.js", CONF_VIEW_APP)?>"></script>
-    <script src="<?= theme("/assets/js/service/mask.js", CONF_VIEW_APP) ?>"></script>
-    <script src="<?= theme("/assets/js/service/forms.js", CONF_VIEW_APP) ?>"></script>
     <?= $this->section("scripts") ?>
 </body>
 </html>

@@ -37,7 +37,7 @@ function redirect(string $url): void
  /**
   * ASSETS
   */
-function user() : ?\Source\Models\User
+function user() : ?\Source\Models\SystemUser
 {
     return \Source\Models\Auth::user();    
 }
@@ -133,7 +133,7 @@ function passwd_verify(string $password, string $hash): bool
  * Funções de sanitização
  */
 
- function cleanInputData(array $data, ?array $removerFilds = null): array
+function cleanInputData(array $data, ?array $removerFilds = null): array
  {
     $allKeys = array_keys($data);
     
@@ -279,4 +279,9 @@ function validateCPF($cpf) {
 
 function formatCPF($cpf) {
     return preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $cpf);
+}
+
+function cleanCPF($cpf)
+{
+    return preg_replace("/\D/", "", $cpf);
 }
