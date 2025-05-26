@@ -1,5 +1,5 @@
 <div class="bg-transparent p-4 lg:p-6">
-    <div class="flex justify-between items-center mb-3">
+    <div class="flex justify-between items-center">
         <h3 class="text-base lg:text-lg font-normal text-gray-800">Candidatos Recentes</h3>
     </div>
 
@@ -7,7 +7,7 @@
     <div class="overflow-auto max-h-[70vh] lg:max-h-[65vh]">
     <?php if(!empty($workers)): ?>    
         <table class="w-full text-sm text-left">
-            <thead class="text-gray-500 border-b border-gray-200">
+            <thead class="text-gray-500 border-b border-gray-300">
                 <tr>
                 <th class="py-3 font-medium text-left">Nome</th>
                 <th class="py-3 font-medium text-left hidden md:flex">CPF</th>
@@ -21,9 +21,9 @@
                     <?php foreach($workers as $work): ?> 
                         <tr 
                             data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>"
-                            class="border-b border-gray-200 hover:bg-gray-300 transition-colors duration-200 cursor-pointer group">
+                            class="border-b border-gray-300 cursor-pointer">
                             <!-- Nome (sempre visível) -->
-                            <td class="py-4 font-medium">
+                            <td class='font-semibold text-gray-900'>
                                 <div class="lg:hidden font-semibold mb-1"><?= $work->name_worker; ?></div>
                                 <div class="hidden lg:block"><?= $work->name_worker; ?></div>
                                 <div class="text-xs text-gray-500 lg:hidden"><?= formatCPF($work->cpf_worker); ?></div>
