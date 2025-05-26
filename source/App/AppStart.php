@@ -42,7 +42,7 @@ class AppStart extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $worker = new Worker()->find($where, http_build_query($params))->order("name_worker")->limit(8)->fetch(true);
+            $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(8)->fetch(true);
             
             $html = $this->view->render("pageStart/listWorkes", [
                 "workers" => $worker
@@ -56,10 +56,10 @@ class AppStart extends Controller
         echo $this->view->render("/pageStart", [
             "title" => "Início",
             "worker" => (new Worker())->find()->order("name_worker")->limit(8)->fetch(true),
-            "workerCount" => new Worker()->find()->count(),
-            "cavancysCount" => new Vacancy()->find()->count(),
-            "enterprisesCount" => new Enterprise()->find()->count(),
-            "userSystem" => new SystemUser()->findById($this->user->id_user)
+            "workerCount" => (new Worker())->find()->count(),
+            "cavancysCount" => (new Vacancy())->find()->count(),
+            "enterprisesCount" => (new Enterprise())->find()->count(),
+            "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);    
     }
 }

@@ -29,7 +29,7 @@ class AppServer extends Controller
     {
         echo $this->view->render("/pageService", [
             "title" => "Atendimento",
-            "userSystem" => new SystemUser()->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);    
     }
 
