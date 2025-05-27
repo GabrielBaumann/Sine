@@ -14,7 +14,7 @@
             </div>
             <div>
                 <h2 class="text-xl font-semibold text-gray-800"><?= $worker->name_worker; ?></h2>
-                <p class="text-gray-600"><?= $worker->cpf_worker; ?></p>
+                <p class="text-gray-600"><?= formatCPF($worker->cpf_worker); ?></p>
             </div>
         </div>
 </div>
@@ -53,15 +53,9 @@
         <?php endif; ?>
     <!-- Paginação -->
     <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
-        <p class="text-sm text-gray-600">Mostrando 1 a 3 de 8 atendimentos</p>
+        <p class="text-sm text-gray-600">Total de atendimentos: <?= format_number($countService ?? 000); ?></p>
         <div class="flex gap-2">
-
             <?= $paginator; ?>
-            <!-- <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Anterior</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-md bg-gray-100 text-gray-700">1</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">2</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">3</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Próximo</button> -->
         </div>
     </div>
 </div>

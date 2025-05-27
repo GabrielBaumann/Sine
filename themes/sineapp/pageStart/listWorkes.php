@@ -45,3 +45,8 @@
 <?php else: ?>
     <div>Não existe dados para esse filtro!!!</div>
 <?php endif;?>
+
+<!-- Paginação -->
+<div class="flex gap-2">
+    <?= $paginator; ?>
+</div>

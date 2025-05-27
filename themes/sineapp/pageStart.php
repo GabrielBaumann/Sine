@@ -6,8 +6,8 @@
       <!-- Header pageStart -->
         <?= $this->insert("/pageStart/headerPageStart"); ?>
       <!-- List  -->
-      <div id="listMorkes">
-        <?= $this->insert("/pageStart/listWorkes", ["workers" => $worker]); ?>
+      <div id="listWorkes">
+        <?= $this->insert("/pageStart/listWorkes", ["workers" => $worker, "paginator" => $paginator]); ?>
       </div>
     </div>
   </main>

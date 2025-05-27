@@ -15,7 +15,7 @@ document.addEventListener("input", (e) => {
         .then(response => response.json())
         .then(data => {
 
-            const vListUpdate = document.getElementById("listMorkes");
+            const vListUpdate = document.getElementById("listWorkes");
             vListUpdate.innerHTML = data.html;
         })
     }
@@ -36,20 +36,20 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Interceptar o paginador
+// Paginação via ajax
 document.addEventListener("click", (e) => {
     const vLinkPaginator = e.target.closest(".paginator_item");
 
     if (vLinkPaginator) {
         e.preventDefault();
-        const vContent = document.getElementById("content");
+
         const vidWork = document.getElementById("id-worker")?.value || "" ;
         const vUrl = vLinkPaginator.href
 
        fetch(vUrl + "/" + vidWork)
        .then(response => response.json())
        .then(data => {
-            console.log(data.html);
+            const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
        })
     };
