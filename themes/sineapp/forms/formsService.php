@@ -86,6 +86,17 @@
             </select>
         </div>
 
+        <!-- Observação -->
+        <div class="col-span-2">
+            <label for="observacao" class="block text-sm font-medium text-gray-700 mb-1">Observação</label>
+            <textarea 
+                id="observacao" 
+                name="observacao" 
+                rows="3" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                placeholder="Digite alguma observação relevante"><?= $worker->observacao ?? "" ?></textarea>
+        </div>
+
         <!-- Botões de navegação -->
         <div class="col-span-2 flex justify-between mt-4">
             <button
