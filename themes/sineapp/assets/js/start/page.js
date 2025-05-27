@@ -1,3 +1,4 @@
+fncUpdateColorStatus();
 // Pesquisar nome dos candidatos baseado em cada letra (alteração)
 document.addEventListener("input", (e) => {
     if (e.target.id === "search") {
@@ -51,6 +52,31 @@ document.addEventListener("click", (e) => {
        .then(data => {
             const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
+            
+            fncUpdateColorStatus()
        })
     };
 });
+
+// Mudar a cor do status da tabela
+
+function fncUpdateColorStatus() {
+    const table = [...document.getElementsByTagName("tr")];
+
+    table.map((e) => {
+        let vElementSpan = [...e.getElementsByTagName("span")] 
+        vElementSpan.map((e) => {
+            if(e.innerText === "Reprovado") {
+                e.classList.replace("bg-green-100", "bg-red-100")
+            }
+
+            if(e.innerText === "Aguardando Respostas") {
+                e.classList.replace("bg-green-100", "bg-orange-100")
+            }
+
+            if(e.innerText === "Atendimento Realizado") {
+                e.classList.replace("bg-green-100", "bg-blue-100")
+            }
+        })
+    })
+}

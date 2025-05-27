@@ -42,9 +42,9 @@
             <label for="sexo" class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
             <select id="sexo" name="sexo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="">Selecione</option>
-                <option value="Masculino" <?= ($worker->sexo ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
-                <option value="Feminino" <?= ($worker->sexo ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
-                <option value="Outro" <?= ($worker->sexo ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
+                <option value="Masculino" <?= ($worker->gender_worker ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
+                <option value="Feminino" <?= ($worker->gender_worker ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
+                <option value="Outro" <?= ($worker->gender_worker ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
             </select>
         </div>
 
@@ -88,10 +88,10 @@
 
         <!-- Observação -->
         <div class="col-span-2">
-            <label for="observacao" class="block text-sm font-medium text-gray-700 mb-1">Observação</label>
+            <label for="observation" class="block text-sm font-medium text-gray-700 mb-1">Observação</label>
             <textarea 
-                id="observacao" 
-                name="observacao" 
+                id="observation" 
+                name="observation" 
                 rows="3" 
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="Digite alguma observação relevante"><?= $worker->observacao ?? "" ?></textarea>
