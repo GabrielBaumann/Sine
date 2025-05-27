@@ -39,26 +39,18 @@
 
         <!-- Sexo -->
         <div class="col-span-2 md:col-span-1">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
-            <div class="flex gap-4">
-                <label class="inline-flex items-center">
-                    <input type="radio" name="sexo" value="Masculino" class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300" >
-                    <span class="ml-2 text-gray-700">Masculino</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="radio" name="sexo" value="Feminino" class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300">
-                    <span class="ml-2 text-gray-700">Feminino</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="radio" name="sexo" value="Outro" class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300">
-                    <span class="ml-2 text-gray-700">Outro</span>
-                </label>
-            </div>
+            <label for="sexo" class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
+            <select id="sexo" name="sexo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                <option value="">Selecione</option>
+                <option value="Masculino" <?= ($worker->sexo ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
+                <option value="Feminino" <?= ($worker->sexo ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
+                <option value="Outro" <?= ($worker->sexo ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
+            </select>
         </div>
 
-        <!-- Data do Atendimento -->
+        <!-- Data do Nascimento -->
         <div class="col-span-2 md:col-span-1">
-            <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">Data do Atendimento</label>
+            <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
             <input 
                 value="<?= $worker->date_birth_worker ?? "" ?>"
                 type="date" 
@@ -69,80 +61,29 @@
 
         <!-- PCD -->
         <div class="col-span-2 md:col-span-1">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Pessoa com Deficiência (PCD)</label>
-            <div class="flex gap-4">
-                <label class="inline-flex items-center">
-                    <input 
-                        type="radio" 
-                        name="pcd" 
-                        value="sim"
-                        <?= ($worker->pcd_worker ?? "não") === "sim" ? "checked" : "" ?> 
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300" >
-                    <span class="ml-2 text-gray-700">Sim</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input 
-                        id="pcd" 
-                        type="radio" 
-                        name="pcd" 
-                        value="não" 
-                        <?= ($worker->pcd_worker ?? "não") === "não" ? "checked" : "" ?>
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300">
-                    <span class="ml-2 text-gray-700">Não</span>
-                </label>
-            </div>
+            <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">Pessoa com Deficiência (PCD)</label>
+            <select id="pcd" name="pcd" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                <option value="não" <?= ($worker->pcd_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
+                <option value="sim" <?= ($worker->pcd_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+            </select>
         </div>
 
         <!-- Aprendiz -->
         <div class="col-span-2 md:col-span-1">
-            <label class="block text-sm font-medium text-gray-700 mb-1">Aprendiz</label>
-            <div class="flex gap-4">
-                <label class="inline-flex items-center">
-                    <input 
-                        type="radio" 
-                        name="apprentice" 
-                        <?= ($worker->apprentice_worker ?? "não") === "sim" ? "checked" : "" ?>
-                        value="sim" 
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300" >
-                    <span class="ml-2 text-gray-700">Sim</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input 
-                        id="apprentice" 
-                        type="radio" 
-                        name="apprentice" 
-                        <?= ($worker->apprentice_worker ?? "não") === "não" ? "checked" : "" ?>
-                        value="não" 
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300">
-                    <span class="ml-2 text-gray-700">Não</span>
-                </label>
-            </div>
+            <label for="apprentice" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz</label>
+            <select id="apprentice" name="apprentice" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                <option value="não" <?= ($worker->apprentice_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
+                <option value="sim" <?= ($worker->apprentice_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+            </select>
         </div>
 
         <!-- CTERC -->
         <div class="col-span-2 md:col-span-1">
-            <label class="block text-sm font-medium text-gray-700 mb-1">CTERC (Terceirizado)</label>
-            <div class="flex gap-4">
-                <label class="inline-flex items-center">
-                    <input 
-                        type="radio" 
-                        name="cterc"
-                        <?= ($worker->cterc ?? "não") === "sim" ? "checked" : "" ?> 
-                        value="sim" 
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300" >
-                    <span class="ml-2 text-gray-700">Sim</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input 
-                        id="cterc" 
-                        type="radio" 
-                        name="cterc"
-                        <?= ($worker->cterc ?? "não") === "não" ? "checked" : "" ?>  
-                        value="não" 
-                        class="h-4 w-4 text-sine-600 focus:ring-sine-500 border-gray-300">
-                    <span class="ml-2 text-gray-700">Não</span>
-                </label>
-            </div>
+            <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC</label>
+            <select id="cterc" name="cterc" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                <option value="não" <?= ($worker->cterc ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
+                <option value="sim" <?= ($worker->cterc ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+            </select>
         </div>
 
         <!-- Botões de navegação -->
@@ -150,12 +91,12 @@
             <button
                 id="bntBack" 
                 data-url="<?= ($url ?? null); ?>"
-                type="button" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                type="button" class="cursor-pointer px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Voltar
             </button>
 
             <button
-                type="submit" class="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                type="submit" class="cursor-pointer px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-950 transition-colors">
                 Confirmar <i class="fas fa-check ml-2"></i>
             </button>
         </div>
