@@ -1,3 +1,9 @@
+<input 
+    id="id-worker" 
+    type="number" 
+    value="<?= $worker->id_worker; ?>"
+    hidden>
+
 <div class="bg-white rounded-xl shadow-md p-6 mb-8">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div class="flex items-center gap-4">
@@ -49,11 +55,13 @@
     <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
         <p class="text-sm text-gray-600">Mostrando 1 a 3 de 8 atendimentos</p>
         <div class="flex gap-2">
-            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Anterior</button>
+
+            <?= $paginator; ?>
+            <!-- <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Anterior</button>
             <button class="px-3 py-1 border border-gray-300 rounded-md bg-gray-100 text-gray-700">1</button>
             <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">2</button>
             <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">3</button>
-            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Próximo</button>
+            <button class="px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Próximo</button> -->
         </div>
     </div>
 </div>

@@ -31,7 +31,26 @@ document.addEventListener("click", (e) => {
         fetch(vUrlIdWorker)
         .then(response => response.json())
         .then(data => {
-            vContent.innerHTML = data.html
+            vContent.innerHTML = data.html;
         })
     }
+});
+
+// Interceptar o paginador
+document.addEventListener("click", (e) => {
+    const vLinkPaginator = e.target.closest(".paginator_item");
+
+    if (vLinkPaginator) {
+        e.preventDefault();
+        const vContent = document.getElementById("content");
+        const vidWork = document.getElementById("id-worker")?.value || "" ;
+        const vUrl = vLinkPaginator.href
+
+       fetch(vUrl + "/" + vidWork)
+       .then(response => response.json())
+       .then(data => {
+            console.log(data.html);
+            vContent.innerHTML = data.html;
+       })
+    };
 });

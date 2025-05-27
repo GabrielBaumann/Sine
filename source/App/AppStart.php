@@ -10,7 +10,7 @@ use Source\Models\Vacancy;
 use Source\Models\Worker;
 use Source\Support\Message;
 use Source\Models\SystemUser;
-
+use Source\Support\Pager;
 
 class AppStart extends Controller
 {
@@ -64,11 +64,15 @@ class AppStart extends Controller
         ]);    
     }
 
-    public function startHistory(array $data) : void
+    public function startHistory(?array $data) : void
     {
-        
         $idWorker = $data["idWorker"];
 
+
+        $count = (new Service())->where("service.id_worker","=",$idWorker)->join('worker', 'service.id_worker = worker.id_worker');
+        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+        $pager = new Pager(url("/inicio/p/"));
+        $pager->pager($count->countJoin(), 3, $page);
 
         $service = new Service();
         $data = $service->select(
@@ -79,20 +83,20 @@ class AppStart extends Controller
             'type_service.group AS group_service',
             'type_service.type_service AS service_type',
             'type_service.detail AS service_detail',
-            ])
-            ->join('worker', 'service.id_worker = worker.id_worker')
-            ->join('system_user', 'service.id_user_register = system_user.id_user')
-            ->join('type_service', 'service.id_type_service = type_service.id_type_service')
-            ->where("service.id_worker","=",$idWorker)
-            ->orderBy("date_register", "DESC")
-            ->limitJoin(3)
-            ->get();
-
-            // var_dump($data);
+            ])  
+                ->join('worker', 'service.id_worker = worker.id_worker')
+                ->join('system_user', 'service.id_user_register = system_user.id_user')
+                ->join('type_service', 'service.id_type_service = type_service.id_type_service')
+                ->where("service.id_worker","=",$idWorker)
+                ->orderBy("date_register", "DESC")
+                ->limitJoin($pager->limit())
+                ->offsetJoin($pager->offset())
+                ->get();
 
         $html = $this->view->render("/pageStart/historyService", [
             "worker" => (new Worker())->findById($idWorker),
-            "history" => $data
+            "history" => $data,
+            "paginator" => $pager->render()
         ]);
 
         $json["html"] = $html;

@@ -390,6 +390,30 @@ abstract class Model
         $this->offsetJoin = $offset;
         return $this;    
     }
+    
+    public  function countJoin() : int
+    {
+        $query = "SELECT COUNT(*) as total FROM " .  static::$entity;
+        
+        foreach ($this->join as $joi) {
+            $query .= " {$joi['type']} JOIN {$joi['table']} ON {$joi['condition']}";
+        }
+
+        if (!empty($this->where)) {
+            $query .= " WHERE " . implode(' AND ', $this->where);
+        }
+
+        $stmt = Connect::getInstance()->prepare($query);
+
+        foreach ($this->paramsSelect as $param => $value) {
+            $stmt->bindValue(":" . $param, $value);
+        }
+
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return (int) ($result['total'] ?? 0);
+    }
 
     public function build() : string
     {
