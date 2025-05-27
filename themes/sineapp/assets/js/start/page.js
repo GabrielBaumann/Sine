@@ -18,6 +18,7 @@ document.addEventListener("input", (e) => {
 
             const vListUpdate = document.getElementById("listWorkes");
             vListUpdate.innerHTML = data.html;
+            fncUpdateColorStatus();
         })
     }
 });
