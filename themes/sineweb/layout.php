@@ -22,7 +22,7 @@
 
   <!-- Área visual -->
   <div class="hidden md:flex flex-col justify-center items-center w-full md:w-1/2">
-    <img src="<?= theme("/assets/images/sine.jpeg")?>" alt="Ilustração de construção" class="h-full w-full object-cover" />
+    <img src="<?= theme("/assets/images/sine.png")?>" alt="Ilustração de construção" class="h-full w-full object-cover" />
   </div>
 <script src="<?= theme("/assets/js/forms.js") ?>"></script>
 </body>
