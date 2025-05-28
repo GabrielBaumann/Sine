@@ -46,9 +46,8 @@ class Web extends Controller
                 return;
             }
 
-            // $json['redirected'] = url("/inicio");
-            // $json['redirected'] = url("/");
-            // echo json_encode($json);
+            $json['redirected'] = url("/inicio");
+            echo json_encode($json);
             return;
         }
 

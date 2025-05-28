@@ -14,39 +14,15 @@ document.addEventListener("submit", (e)=> {
         let timeoutLoading;
 
         // Agenda a exibição do "carregamento..." após 300 milesimo
-        timeoutLoading = setTimeout(() => {
-            // load = document.createElement("div");
-            // load.id = "response";
-            // load.innerHTML = `
-            //     <div class="alert-container space-y-3">
-            //         <div class="alert-message bg-white border border-gray-200 rounded-lg overflow-hidden">
-            //             <div class="flex items-center p-4">
-            //                 <div class="flex-shrink-0">
-            //                     <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-            //                         <i class="fas fa-circle-notch text-gray-500 text-lg animate-spin"></i>
-            //                     </div>
-            //                 </div>
-            //                 <div class="ml-3 flex-1">
-            //                     <h3 class="text-sm font-semibold text-gray-800">Carregando...</h3>
-            //                     <div class="mt-1 text-sm text-gray-600">
-            //                         <p>Aguarde...</p>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            // `;
+        timeoutLoading = showSplash()
 
-            load = fncSplsh();
-            console.log(fncSplsh());
+        const antigoResponse = document.getElementById("response");
+        if (antigoResponse) antigoResponse.remove();
 
-            // Remove mensagem anterior (se existir) e adicona a nova
-            const antigoResponse = document.getElementById("response");
-            if (antigoResponse) antigoResponse.remove();
-        
-            document.body.appendChild(load);
-
-        }, 300);
+        // if(timeoutLoading) {
+        //     load = document.createElement("div");
+        //     load.id = "response";
+        // }
 
         fetch(actionForm, {
             method: "POST",
@@ -136,7 +112,19 @@ window.onload = function () {
     }
 }
 
-function fncSplsh() {
+
+// Função para chamar tela de splash e remover mensagens anteriores
+function showSplash () {
+    return setTimeout(() => {
+        const oldResponse = document.getElementById("response");
+        if (oldResponse) oldResponse.remove();
+
+        document.body.appendChild(fncSplash());
+    }, 300)
+}
+
+// Funcção que cria tela de splash
+function fncSplash() {
     const load = document.createElement("div");
     load.id = "response";
     load.innerHTML = 
@@ -158,6 +146,5 @@ function fncSplsh() {
         </div>
 
         `;
-
     return load;
 }
