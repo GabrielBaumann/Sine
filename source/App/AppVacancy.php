@@ -5,6 +5,7 @@ namespace Source\App;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\SystemUser;
+use Source\Models\Vacancy;
 
 class AppVacancy extends Controller
 {
@@ -25,7 +26,8 @@ class AppVacancy extends Controller
     {
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "totalVacancy" => (new Vacancy())->find()->fetch(true)
         ]);
     }
 }

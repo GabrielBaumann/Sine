@@ -1,3 +1,5 @@
+let load = "";
+
 /**
  * Envio de formulário
  */
@@ -10,19 +12,10 @@ document.addEventListener("submit", (e)=> {
         const formData = new FormData(form);
         const actionForm = e.target.action;
 
-        let load;
         let timeoutLoading;
 
         // Agenda a exibição do "carregamento..." após 300 milesimo
         timeoutLoading = showSplash()
-
-        const antigoResponse = document.getElementById("response");
-        if (antigoResponse) antigoResponse.remove();
-
-        // if(timeoutLoading) {
-        //     load = document.createElement("div");
-        //     load.id = "response";
-        // }
 
         fetch(actionForm, {
             method: "POST",
@@ -57,8 +50,6 @@ document.addEventListener("submit", (e)=> {
         .catch(error => {
             clearTimeout(timeoutLoading);
             if(load) load.remove();
-            
-            console.log("Erro", error);
             
             const erroResponse = document.createElement("div");
             erroResponse.id = "response";
@@ -116,16 +107,13 @@ window.onload = function () {
 // Função para chamar tela de splash e remover mensagens anteriores
 function showSplash () {
     return setTimeout(() => {
-        const oldResponse = document.getElementById("response");
-        if (oldResponse) oldResponse.remove();
-
         document.body.appendChild(fncSplash());
     }, 300)
 }
 
 // Funcção que cria tela de splash
 function fncSplash() {
-    const load = document.createElement("div");
+    load = document.createElement("div");
     load.id = "response";
     load.innerHTML = 
     `
