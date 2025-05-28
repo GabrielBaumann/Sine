@@ -4,24 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $this->e($title)?></title>
+<<<<<<< HEAD
   <link rel="stylesheet" href="src/output.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+=======
+  <!-- <link rel="stylesheet" href="src/output.css"> -->
+   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+>>>>>>> b431014f6f696535af52818179cc42c9ab0deb3d
   <link rel="stylesheet" href="<?= theme("/assets/css/message.css")?>">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
 </head>
-<body class="h-screen flex flex-col md:flex-row bg-gray-100">
+<body class="h-screen flex flex-col md:flex-row bg-gradient-to-b from-white to-blue-200">
 
   <!-- Formulário -->
     <?= $this->section("content"); ?>
 
   <!-- Área visual -->
-  <div class="hidden md:flex flex-col justify-center items-center w-full md:w-1/2">
-    <img src="<?= theme("/assets/images/sine.png")?>" alt="Ilustração de construção" class="h-full w-full object-cover" />
+  <div class="hidden md:flex flex-col justify-center items-center w-full md:w-1/2 p-4">
+    <img src="<?= theme("/assets/images/sine.png")?>" alt="Ilustração de construção" class="h-full w-full object-cover rounded-xl brightness-70" />
   </div>
 <script src="<?= theme("/assets/js/forms.js") ?>"></script>
 </body>
