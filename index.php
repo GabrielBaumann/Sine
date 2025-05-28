@@ -18,9 +18,6 @@ $route->namespace("Source\App");
 $route->get("/", "Web:login");
 $route->post("/", "Web:login");
 
-
-
-
 /**
  * AppStart
  */
@@ -49,6 +46,11 @@ $route->get("/paginainicio/p/{page}", "AppWorker:startPagePaginator");
 $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
+
+/**
+ * AppVacancy
+ */
+$route->get("/vagas", "AppVacancy:startVacancy");
 
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");

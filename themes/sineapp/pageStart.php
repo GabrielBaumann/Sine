@@ -8,7 +8,3 @@
     </div>
   </main>
 </div>
-
-<?php $this->start("scripts"); ?>
-  <script src="<?= theme("/assets/js/start/page.js", CONF_VIEW_APP) ?>"></script>
-<?php $this->stop("scrpts"); ?>
