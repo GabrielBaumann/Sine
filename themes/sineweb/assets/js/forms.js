@@ -141,17 +141,23 @@ function fncSplsh() {
     load.id = "response";
     load.innerHTML = 
     `
-        <div class="container mx-auto px-4 py-12 flex flex-col items-center">
-        <!-- Texto animado -->
-        <h1 class="text-4xl md:text-5xl font-semibold text-gray-800">
-            Carregando
-        </h1>
-        <div class="flex space-x-6 mt-10">
-            <div class="dot-1 w-6 h-6 bg-blue-900"></div>
-            <div class="dot-2 w-6 h-6 bg-blue-600"></div>
-            <div class="dot-3 w-6 h-6 bg-blue-500"></div>
+        <div class="main h-full w-full bg-gray-50 absolute top-0 left-0">
+            <div class="container mx-auto px-4 h-full flex items-center justify-center">
+                <div class="text-center">
+                    <!-- Texto animado -->
+                    <h1 class="text-4xl md:text-5xl font-normal text-gray-800">
+                        Carregando
+                    </h1>
+                    <div class="dots flex space-x-6 mt-10 justify-center">
+                        <div class="dot-1 w-6 h-6 bg-blue-900"></div>
+                        <div class="dot-2 w-6 h-6 bg-blue-600"></div>
+                        <div class="dot-3 w-6 h-6 bg-blue-500"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>`;
+
+        `;
 
     return load;
 }
