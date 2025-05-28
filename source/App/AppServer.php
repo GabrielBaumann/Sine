@@ -53,6 +53,8 @@ class AppServer extends Controller
 
     public function formService(array $data) : void
     {
+
+        var_dump($data);
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && $data["idServiceType"] == "1") {
             if(isset($data["idWorker"])) {
@@ -68,7 +70,7 @@ class AppServer extends Controller
                     return;
                 }
 
-                $dataArray = cleanInputData($data);
+                $dataArray = cleanInputData($data, $data["observation"]);
 
                 if(!$dataArray["valid"]) {
                     $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -144,7 +146,7 @@ class AppServer extends Controller
                 return;
             }
 
-            $dataArray = cleanInputData($data);
+            $dataArray = cleanInputData($data, $data["observation"]);
 
             if(!$dataArray["valid"]) {
                 $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();

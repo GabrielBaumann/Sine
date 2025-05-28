@@ -1,3 +1,4 @@
+fncUpdateColorStatus();
 // Pesquisar nome dos candidatos baseado em cada letra (alteração)
 document.addEventListener("input", (e) => {
     if (e.target.id === "search") {
@@ -15,8 +16,9 @@ document.addEventListener("input", (e) => {
         .then(response => response.json())
         .then(data => {
 
-            const vListUpdate = document.getElementById("listMorkes");
+            const vListUpdate = document.getElementById("listWorkes");
             vListUpdate.innerHTML = data.html;
+            fncUpdateColorStatus();
         })
     }
 });
@@ -36,21 +38,46 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Interceptar o paginador
+// Paginação via ajax
 document.addEventListener("click", (e) => {
     const vLinkPaginator = e.target.closest(".paginator_item");
 
     if (vLinkPaginator) {
         e.preventDefault();
-        const vContent = document.getElementById("content");
+
         const vidWork = document.getElementById("id-worker")?.value || "" ;
         const vUrl = vLinkPaginator.href
 
        fetch(vUrl + "/" + vidWork)
        .then(response => response.json())
        .then(data => {
-            console.log(data.html);
+            const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
+            
+            fncUpdateColorStatus()
        })
     };
 });
+
+// Mudar a cor do status da tabela
+
+function fncUpdateColorStatus() {
+    const table = [...document.getElementsByTagName("tr")];
+
+    table.map((e) => {
+        let vElementSpan = [...e.getElementsByTagName("span")] 
+        vElementSpan.map((e) => {
+            if(e.innerText === "Reprovado") {
+                e.classList.replace("bg-green-100", "bg-red-100")
+            }
+
+            if(e.innerText === "Aguardando Respostas") {
+                e.classList.replace("bg-green-100", "bg-orange-100")
+            }
+
+            if(e.innerText === "Atendimento Realizado") {
+                e.classList.replace("bg-green-100", "bg-blue-100")
+            }
+        })
+    })
+}

@@ -26,6 +26,7 @@ $route->post("/", "Web:login");
  */
 // Start
 $route->get("/inicio", "AppStart:startPage");
+$route->get("/paginainicio/p/{page}", "AppStart:startPagePaginator");
 $route->get("/inicio/p/{page}/{idWorker}", "AppStart:startHistory");
 $route->post("/pesquisarcandidato", "AppStart:startPage");
 $route->get("/historicoatendimento/{idWorker}", "AppStart:startHistory");

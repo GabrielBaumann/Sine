@@ -45,8 +45,12 @@ class AppStart extends Controller
 
             $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(8)->fetch(true);
             
+            $pager = new Pager(url("/paginainicio/p/1"));
+            $pager->pager((new Worker())->find()->count(), 8, 1);
+
             $html = $this->view->render("pageStart/listWorkes", [
-                "workers" => $worker
+                "workers" => $worker,
+                "paginator" => $pager->render()
             ]);
 
             $json["html"] = $html;
@@ -54,14 +58,41 @@ class AppStart extends Controller
             return;
         }
 
+        $worker = (new Worker())->find()->count();
+        $pager = new Pager(url("/paginainicio/p/"));
+        $pager->pager($worker, 8, 1);
+
         echo $this->view->render("/pageStart", [
             "title" => "Início",
-            "worker" => (new Worker())->find()->order("name_worker")->limit(8)->fetch(true),
+            "worker" => (new Worker())->find()->order("name_worker")->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "workerCount" => (new Worker())->find()->count(),
             "cavancysCount" => (new Vacancy())->find()->count(),
             "enterprisesCount" => (new Enterprise())->find()->count(),
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "paginator" => $pager->render()
         ]);    
+    }
+
+    public function startPagePaginator(array $data) : void
+    {   
+        if (isset($data["page"]) && !empty($data["page"])) {
+
+            $worker = (new Worker())->find()->count();
+
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+            $pager = new Pager(url("/paginainicio/p/"));
+            $pager->pager($worker, 8, $page);
+            
+            $html = $this->view->render("pageStart/listWorkes", [
+                "workers" => (new Worker())->find()->order("name_worker")->limit($pager->limit())->offset($pager->offset())->fetch(true),
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            $json["content"] = "listWorkes";
+            echo json_encode($json);
+            return;
+        }
     }
 
     public function startHistory(?array $data) : void
@@ -73,6 +104,7 @@ class AppStart extends Controller
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/inicio/p/"));
         $pager->pager($count->countJoin(), 3, $page);
+        $totHistory = $count->countJoin();
 
         $service = new Service();
         $data = $service->select(
@@ -96,10 +128,12 @@ class AppStart extends Controller
         $html = $this->view->render("/pageStart/historyService", [
             "worker" => (new Worker())->findById($idWorker),
             "history" => $data,
+            "countService" => $totHistory,
             "paginator" => $pager->render()
         ]);
 
         $json["html"] = $html;
+        $json["content"] = "content";
         echo json_encode($json);
         return;
     }
