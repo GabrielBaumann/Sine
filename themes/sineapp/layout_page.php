@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
-    <link rel="stylesheet" href="public/output.css">
+    <link rel="stylesheet" href="src/output.css">
     <title><?= $this->e($title); ?></title>
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
