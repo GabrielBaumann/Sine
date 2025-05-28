@@ -4,7 +4,11 @@
   <main class="flex-1 p-4 lg:p-6 overflow-y-auto">
     <div id="content">
       <!-- Header pageStart -->
-        <?= $this->insert("/pageStart/headerPageStart"); ?>
+        <?= $this->insert("/pageWorker/headerPageWork"); ?>
+      <!-- List  -->
+      <div id="listWorkes">
+        <?= $this->insert("/pageWorker/listWorkes", ["workers" => $worker, "paginator" => $paginator]); ?>
+      </div>
     </div>
   </main>
 </div>

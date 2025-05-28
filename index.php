@@ -31,8 +31,6 @@ $route->get("/inicio/p/{page}/{idWorker}", "AppStart:startHistory");
 $route->post("/pesquisarcandidato", "AppStart:startPage");
 $route->get("/historicoatendimento/{idWorker}", "AppStart:startHistory");
 
-
-
 /**
  * AppServer
  */
@@ -43,6 +41,14 @@ $route->get("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
 $route->post("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
 $route->post("/verificarcpf", "AppServer:checkCpf");
 $route->post("/adicionarusuario", "AppServer:modelAddUser");
+
+
+/**
+ * AppWorker
+ */
+// Worker
+$route->get("/trabalhador", "AppWorker:startWorker");
+
 
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");

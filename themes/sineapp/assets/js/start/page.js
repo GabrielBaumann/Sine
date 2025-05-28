@@ -69,14 +69,17 @@ function fncUpdateColorStatus() {
         vElementSpan.map((e) => {
             if(e.innerText === "Reprovado") {
                 e.classList.replace("bg-green-100", "bg-red-100")
+                e.classList.replace("text-green-800", "text-red-800")
             }
 
             if(e.innerText === "Aguardando Respostas") {
                 e.classList.replace("bg-green-100", "bg-orange-100")
+                e.classList.replace("text-green-800", "text-orange-800")
             }
 
             if(e.innerText === "Atendimento Realizado") {
                 e.classList.replace("bg-green-100", "bg-blue-100")
+                e.classList.replace("text-green-800", "text-blue-800")
             }
         })
     })

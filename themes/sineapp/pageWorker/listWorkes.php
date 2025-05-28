@@ -47,6 +47,8 @@
 <?php endif;?>
 
 <!-- Paginação -->
+ 
 <div class="flex gap-2">
+    <p class="text-sm text-gray-600">Total de atendimentos: 100 </p>
     <?= $paginator; ?>
 </div>

@@ -3,10 +3,15 @@
 /**
  * DATABASE
  */
-define("CONF_DB_HOST", "162.241.62.236");
-define("CONF_DB_USER", "syscer62_sine");
-define("CONF_DB_PASS", "19@@202529");
-define("CONF_DB_NAME", "syscer62_sine");
+// define("CONF_DB_HOST", "162.241.62.236");
+// define("CONF_DB_USER", "syscer62_sine");
+// define("CONF_DB_PASS", "19@@202529");
+// define("CONF_DB_NAME", "syscer62_sine");
+
+define("CONF_DB_HOST", "localhost");
+define("CONF_DB_USER", "root");
+define("CONF_DB_PASS", "");
+define("CONF_DB_NAME", "db_sine");
 
 /**
  * PROJECT URLs

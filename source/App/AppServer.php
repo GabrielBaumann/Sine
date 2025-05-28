@@ -54,7 +54,6 @@ class AppServer extends Controller
     public function formService(array $data) : void
     {
 
-        var_dump($data);
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && $data["idServiceType"] == "1") {
             if(isset($data["idWorker"])) {
