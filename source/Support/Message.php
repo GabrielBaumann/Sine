@@ -7,28 +7,28 @@ use Source\Core\Session;
 class Message
 {
 /** @var string */
-private $text;
+private string $text;
 
-private $color;
+private string $color;
 
-private $icon;
+private string $icon;
 
-private $colorTitle;
+private string $colorTitle;
 
-private $title;
+private string $title;
 
-private $colorText;
+private string $colorText;
 
-private $borderColor;
+private string $borderColor;
 
-private $info;
+private bool $info = false;
 
 /** @var string */
-// private $type;
+// private string $type;
 
-private $before;
+private string $before;
 
-private $after;
+private string $after;
 
 /**
  * @return string

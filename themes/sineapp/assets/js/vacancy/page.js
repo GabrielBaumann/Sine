@@ -1,9 +1,15 @@
 const vLine = [...document.getElementsByTagName("tr")];
 
-vLine.map((e)=>{
-    // console.log(e.childNodes[5].childNodes[1]);
-    vSpan = e.childNodes[5].childNodes[1]
-    console.log(vSpan.classList)
-})
+if (vLine) {
+    vLine.map((e)=>{
+        const span = e.getElementsByTagName("span")[0];
+        
+        if (span && span.innerText === "Encerrada") {
+            span.classList.replace("bg-green-100", "bg-orange-100");
+            span.classList.replace("text-green-800", "text-orange-800");
+        }
+    })
+}
+
 
 

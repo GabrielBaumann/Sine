@@ -24,10 +24,13 @@ class AppVacancy extends Controller
 
     public function startVacancy(?array $ata) : void
     {
+        
+
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "totalVacancy" => (new Vacancy())->find()->fetch(true)
+            "totalVacancy" => (new Vacancy())->find()->fetch(true),
+            "countVacancy"=> (new Vacancy())->find()->count()
         ]);
     }
 }

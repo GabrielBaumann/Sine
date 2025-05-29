@@ -69,7 +69,7 @@
                     </a>
                 </nav>
             </div>
-           <div>Total: 100</div>
+           <div>Total: <?= format_number($countVacancy); ?></div>
         </div>
     </div>
 </div>
