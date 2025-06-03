@@ -8,13 +8,22 @@
         <div class="flex flex-col sm:flex-row gap-3">
             <!-- Filtros -->
             <div class="flex gap-2">
-                <select class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>Todas Empresas</option>
-                    <option>Empresa A</option>
-                    <option>Empresa B</option>
+                <select 
+                    name="search-enterprise"
+                    data-url="<?= url("/pesquisarvagas") ?>"
+                    data-ajax="listVacancy"
+                    class="input-search bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="*">Todas Empresas</option>
+                    <?php foreach($listEnterprise as $entreprise): ?>
+                        <option value="<?= $entreprise->id_enterprise ?>" ><?= $entreprise->name_enterprise ?></option>
+                    <?php endforeach; ?>
                 </select>
-                <select class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option>Todos Status</option>
+                <select 
+                    name="search-all-tatus"
+                    data-url="<?= url("/pesquisarvagas") ?>"
+                    data-ajax="listVacancy"
+                    class="input-search bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="*">Todos Status</option>
                     <option>Ativa</option>
                     <option>Encerrada</option>
                 </select>
