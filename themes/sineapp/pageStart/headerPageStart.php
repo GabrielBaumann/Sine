@@ -82,7 +82,7 @@
             <div class="flex space-x-2">
                 <button class="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-white rounded-full">Semanal</button>
                 <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-white rounded-full">Mensal</button>
-                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-white rounded-full">Anal</button>
+                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-white rounded-full">Anual</button>
             </div>
         </div>
         <!-- Espaço reservado para gráfico -->
