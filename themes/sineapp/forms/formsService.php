@@ -7,9 +7,8 @@
         <?= csrf_input(); ?>
 
         <input 
-            type="number" 
+            type="hidden" 
             id="idServiceType"
-            hidden
             value="<?= $idServiceType ?? null ?>" 
             name="idServiceType">
 
@@ -39,8 +38,8 @@
 
         <!-- Sexo -->
         <div class="col-span-2 md:col-span-1">
-            <label for="sexo" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
-            <select id="sexo" name="sexo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+            <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
+            <select id="gender" name="gender" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="">Selecione</option>
                 <option value="Masculino" <?= ($worker->gender_worker ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
                 <option value="Feminino" <?= ($worker->gender_worker ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>

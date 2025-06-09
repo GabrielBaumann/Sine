@@ -54,11 +54,14 @@ $route->get("/vagas", "AppVacancy:startVacancy");
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
 
+<<<<<<< HEAD
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
  */
 $route->get("/empresas", "AppCompany:startCompany");
 
+=======
+>>>>>>> 89966c86c0831575da0027fdf4fae590713a5fc5
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");
