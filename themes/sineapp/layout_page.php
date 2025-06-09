@@ -5,8 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
-    <link rel="stylesheet" href="src/output.css">
+    <!-- <link rel="stylesheet" href="src/output.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title><?= $this->e($title); ?></title>
+    <style>
+        @media (max-width: 640px) {
+            .responsive-table thead {
+                display: none;
+            }
+            .responsive-table tr {
+                display: block;
+                margin-bottom: 1rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+            .responsive-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem;
+                text-align: right;
+                border-bottom: 1px solid #f3f4f6;
+            }
+            .responsive-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #374151;
+                margin-right: 1rem;
+                text-align: left;
+            }
+            .responsive-table td:last-child {
+                border-bottom: none;
+            }
+            .status-badge {
+                margin-left: auto;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
     <div class="flex min-h-screen max-h-screen overflow-hidden">
@@ -73,10 +108,8 @@
             </a>
         </div>
         </aside>
-    
-        <!-- Sidebar -->
-        <?= $this->section("content")?>
 
+        <?= $this->section("content")?>
     </div>
 
     <!-- Mobile Bottom Navigation -->
