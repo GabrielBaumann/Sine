@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= theme("/assets/css/message.css"); ?>">
+    <link rel="stylesheet" href="<?= theme("/assets/css/message.css", CONF_VIEW_APP); ?>">
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
     <link rel="stylesheet" href="src/output.css">
     <title><?= $this->e($title); ?></title>
@@ -81,7 +81,7 @@
 
     <!-- Mobile Bottom Navigation -->
     <?= $this->insert("mobileNavigation"); ?>
-    <script src="<?= theme("/assets/js/service/sidebar.js", CONF_VIEW_APP)?>"></script>
+    <script src="<?= theme("/assets/js/default/default.js", CONF_VIEW_APP)?>"></script>
     <?= $this->section("scripts") ?>
 </body>
 </html>

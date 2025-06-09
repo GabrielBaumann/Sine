@@ -136,7 +136,7 @@ function passwd_verify(string $password, string $hash): bool
 function cleanInputData(array $data, ?array $removerFilds = null): array
  {
     $allKeys = array_keys($data);
-    
+
     $sanitezed = [];
     $errors = [];
 

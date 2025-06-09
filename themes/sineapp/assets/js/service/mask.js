@@ -212,3 +212,33 @@ function fncRemoveMenssage(element, timeDuration = 1000) {
         element.style.opacity = "0";
         setTimeout(() => element.remove(), timeDuration);
 }
+
+// Chamadas do atendimento
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("button");
+    const vUrl = vButton?.dataset.url;
+    const vIdServiceType = vButton?.dataset.idservice;
+
+    if(vUrl) {
+
+        const vTextTitle = vButton.querySelector("span")?.innerText;       
+
+        fetch(vUrl)
+        .then(response => response.text())
+        .then(data => {
+
+            const vElementoNew = document.getElementById("newElement");
+            vElementoNew.innerHTML = data
+
+            const vTitleForm = document.getElementById("titleForm");
+            const vId = document.getElementById("idServiceType");
+
+            if(vTitleForm) {
+                if (vTextTitle && vTextTitle) {
+                    vTitleForm.textContent = vTextTitle;
+                    vId.value = vIdServiceType;
+                }
+            }
+        });
+    }
+})

@@ -69,7 +69,7 @@ class AppServer extends Controller
                     return;
                 }
 
-                $dataArray = cleanInputData($data, $data["observation"]);
+                $dataArray = cleanInputData($data, ["observation"]);
 
                 if(!$dataArray["valid"]) {
                     $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();

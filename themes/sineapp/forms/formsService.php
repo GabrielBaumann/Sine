@@ -14,7 +14,7 @@
             name="idServiceType">
 
         <div class="col-span-2 md:col-span-1">
-            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF *</label>
             <input
                 value="<?= formatCPF($worker->cpf_worker ?? "") ?>" 
                 data-url="<?= url("/verificarCpfAtendimento")?>"
@@ -27,7 +27,7 @@
 
         <!-- Nome -->
         <div class="col-span-2 md:col-span-1">
-            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
             <input 
                 value="<?= $worker->name_worker ?? "" ?>"
                 type="text" 
@@ -39,7 +39,7 @@
 
         <!-- Sexo -->
         <div class="col-span-2 md:col-span-1">
-            <label for="sexo" class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
+            <label for="sexo" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
             <select id="sexo" name="sexo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="">Selecione</option>
                 <option value="Masculino" <?= ($worker->gender_worker ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
@@ -50,7 +50,7 @@
 
         <!-- Data do Nascimento -->
         <div class="col-span-2 md:col-span-1">
-            <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
+            <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento *</label>
             <input 
                 value="<?= $worker->date_birth_worker ?? "" ?>"
                 type="date" 
@@ -61,7 +61,7 @@
 
         <!-- PCD -->
         <div class="col-span-2 md:col-span-1">
-            <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">Pessoa com Deficiência (PCD)</label>
+            <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">Pessoa com Deficiência (PCD) *</label>
             <select id="pcd" name="pcd" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->pcd_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->pcd_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
@@ -70,7 +70,7 @@
 
         <!-- Aprendiz -->
         <div class="col-span-2 md:col-span-1">
-            <label for="apprentice" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz</label>
+            <label for="apprentice" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz *</label>
             <select id="apprentice" name="apprentice" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->apprentice_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->apprentice_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
@@ -79,7 +79,7 @@
 
         <!-- CTERC -->
         <div class="col-span-2 md:col-span-1">
-            <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC</label>
+            <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC *</label>
             <select id="cterc" name="cterc" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->cterc ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->cterc ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
