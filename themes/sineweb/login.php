@@ -33,12 +33,12 @@
         </div>
                 <button
                     type="submit"
-                    class="cursor-pointer w-full bg-blue-800 hover:bg-blue-900 text-white p-3 md:p-6 rounded-full font-semibold transition shadow-md">
+                    class="cursor-pointer w-full bg-blue-800 hover:bg-blue-900 text-white p-3 md:p-6 rounded-full font-semibold transition shadow-md md:mb-20">
                     Entrar
                 </button>
             <div class="justify-center items-center flex flex-col">
                 <p>Desenvolvido por</p>
-                <img src="<?= theme("/assets/images/cerberus.png")?>" alt="logo" class="h-[70px] w-[70px] object-contain">
+                <img src="<?= theme("/assets/images/cerberus.png")?>" alt="logo" class="h-20 w-20 object-contain">
             </div>
         </form>
     </div>
