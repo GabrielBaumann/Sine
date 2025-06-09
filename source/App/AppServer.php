@@ -303,9 +303,11 @@ class AppServer extends Controller
 
     public function userSystem() : void
     {
+
         echo $this->view->render("/usuario", [
             "title" => "Usuarios",
-            "users" => (new SystemUser())->find()->fetch(true)
+            "users" => (new SystemUser())->find()->fetch(true),
+            "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);
     }
 

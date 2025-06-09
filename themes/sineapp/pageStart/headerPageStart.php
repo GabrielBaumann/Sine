@@ -1,67 +1,93 @@
 <!-- Header -->
-<div class="flex justify-between items-center mt-10 mb-10 md:mb-0">
-    <div>
-        <h1 class="text-xl lg:text-2xl font-normal text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
-        <p class="text-gray-500 text-xs lg:text-sm">Aqui está o que está acontecendo hoje</p>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 px-4 md:px-6">
+    <div class="mb-4 md:mb-0">
+        <h1 class="text-2xl lg:text-xl text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
+        <p class="text-gray-500 text-sm lg:text-base mt-1">Aqui está o resumo das atividades recentes</p>
+    </div>
+    <div class="text-xs text-gray-900 border border-gray-400 px-3 py-2 rounded-full">
+        <?= date('d M Y, H:i') ?>
     </div>
 </div>
 
-<div class="flex flex-col md:flex-row gap-4 p-4">
-    <!-- Vagas Abertas -->
-    <div class="flex-1 p-3">
-        <div class="flex items-center justify-between">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-6">
+    <!-- Trabalhadores -->
+    <div class="bg-gradient-to-br from-blue-700 to-blue-900 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="flex justify-between items-start">
             <div>
-                <h2 class="text-xl md:text-3xl font-light text-blue-800"><?= format_number($workerCount ?? 000); ?></h2>
-                <p class="text-blue-600 text-sm mt-1">Trabalhadores</p>
+                <p class="text-sm font-medium text-white mb-1">Trabalhadores</p>
+                <h3 class="text-3xl font-bold text-white"><?= format_number($workerCount ?? 000) ?></h3>
             </div>
-            <div class="p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <div class="p-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 dark:text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
             </div>
         </div>
     </div>
-    
+
+    <!-- Vagas -->
+    <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900 dark:to-purple-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-sm font-medium text-purple-600 dark:text-purple-200 mb-1">Vagas Abertas</p>
+                <h3 class="text-3xl font-bold text-gray-800 dark:text-white"><?= format_number($cavancysCount ?? 000) ?></h3>
+            </div>
+            <div class="p-3 bg-purple-100 dark:bg-purple-700 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600 dark:text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+        </div>
+       
+    </div>
+
     <!-- Empresas -->
-    <div class="flex-1 p-3">
-        <div class="flex items-center justify-between">
+    <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="flex justify-between items-start">
             <div>
-                <h2 class="text-xl md:text-3xl font-light text-blue-800"><?= format_number($cavancysCount ?? 000); ?></h2>
-                <p class="text-blue-600 text-sm mt-1">Vagas</p>
+                <p class="text-sm font-medium text-green-600 dark:text-green-200 mb-1">Empresas</p>
+                <h3 class="text-3xl font-bold text-gray-800 dark:text-white"><?= format_number($enterprisesCount ?? 000) ?></h3>
             </div>
-            <div class="p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            <div class="p-3 bg-green-100 dark:bg-green-700 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600 dark:text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
             </div>
         </div>
+        
     </div>
-    
-    <!-- Total -->
-    <div class="flex-1 p-3">
-        <div class="flex items-center justify-between">
+
+    <!-- Atendimentos -->
+    <div class="bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900 dark:to-amber-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div class="flex justify-between items-start">
             <div>
-                <h2 class="text-xl md:text-3xl font-light text-blue-800"><?= format_number($enterprisesCount ?? 000); ?></h2>
-                <p class="text-blue-600 text-sm mt-1">Empresas</p>
+                <p class="text-sm font-medium text-amber-600 dark:text-amber-200 mb-1">Total Atendimentos</p>
+                <h3 class="text-3xl font-bold text-gray-800 dark:text-white"><?= format_number($serviceCount ?? 000) ?></h3>
             </div>
-            <div class="p-2 ">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            <div class="p-3 bg-amber-100 dark:bg-amber-700 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-600 dark:text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
             </div>
         </div>
+        
     </div>
-    <div class="flex-1 p-3">
-        <div class="flex items-center justify-between">
-            <div>
-                <h2 class="text-xl md:text-3xl font-light text-blue-800"><?= format_number($serviceCount ?? 000); ?></h2>
-                <p class="text-blue-600 text-sm mt-1">Total de atendimentos</p>
+</div>
+
+<!-- Geral -->
+<div class="mt-8 px-4 md:px-6">
+    <div class="bg-gray-800 rounded-xl shadow-sm p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Visão Geral</h2>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full">Semanal</button>
+                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Mensal</button>
+                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Anual</button>
             </div>
-            <div class="p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-            </div>
+        </div>
+        <!-- Espaço reservado para gráfico -->
+        <div class="h-64 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+            <p class="text-gray-500 dark:text-gray-400">Gráfico de desempenho será exibido aqui</p>
         </div>
     </div>
 </div>

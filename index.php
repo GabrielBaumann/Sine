@@ -29,7 +29,7 @@ $route->get("/inicio", "AppStart:startPage");
  * AppServer
  */
 // System User
-$route->get("/usuario", "AppServer:userSystem");
+$route->get("/usuarios", "AppServer:userSystem");
 $route->get("/adicionarusuario", "AppServer:modelAddUser");
 $route->get("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
 $route->post("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
@@ -54,6 +54,10 @@ $route->get("/vagas", "AppVacancy:startVacancy");
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
 
+/**
+ * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
+ */
+$route->get("/empresas", "AppCompany:startCompany");
 
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");

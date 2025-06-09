@@ -43,7 +43,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 font-sans max-w-[1400px] mx-auto">
+<body class="bg-gray-100 max-w-[1366px] mx-auto">
     <div class="flex min-h-screen max-h-screen overflow-hidden">
         
         <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
@@ -73,13 +73,13 @@
                 </svg>
                 <span class="menu">Vagas</span>
             </a>
-            <a href="#" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+            <a href="<?= url("/empresas"); ?>" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
                 </svg>
                 <span class="menu">Empresas</span>
             </a>
-            <a href="<?= url("/usuario"); ?>" class="text-gray-700  px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+            <a href="<?= url("/usuarios"); ?>" class="text-gray-700  px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                 </svg>
@@ -96,8 +96,8 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="font-medium text-gray-900"><?= $userSystem->name_user; ?></p>
-                    <p class="text-xs text-gray-500"><?= $userSystem->profession_user; ?></p>
+                    <p class="font-medium text-gray-900"><?= $userSystem->name_user ?? null; ?></p>
+                    <p class="text-xs text-gray-500"><?= $userSystem->profession_user ?? null; ?></p>
                 </div>
             </div>
             <a href="<?= url("/sair"); ?>" class="text-red-500 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-50 transition-colors">
