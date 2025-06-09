@@ -26,9 +26,6 @@ class AppVacancy extends Controller
 
     public function startVacancy(?array $data) : void
     {
-        
-
-
 
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager((new Vacancy())->find()->count(),3, 1);

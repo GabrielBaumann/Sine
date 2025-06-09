@@ -54,7 +54,6 @@ $route->get("/vagas", "AppVacancy:startVacancy");
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
 
-
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");

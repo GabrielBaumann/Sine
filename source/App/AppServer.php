@@ -8,6 +8,7 @@ use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
 use Source\Models\Worker;
+use Source\Models\WorkerEdit;
 use Source\Support\Message;
 
 class AppServer extends Controller
@@ -88,7 +89,7 @@ class AppServer extends Controller
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
-                    $woker->gender_worker = "M";
+                    $woker->gender_worker = $dataClean["gender"];
                     $woker->ethnicity_worker = "rosa";
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
@@ -98,6 +99,7 @@ class AppServer extends Controller
                     $service->id_worker = $idWoker;
                     $service->id_user_register = $this->user->id_user;
                     $service->id_type_service = $data["idServiceType"];
+                    $service->detail = $data["observation"];
                     $service->save();
 
                 } else {
@@ -106,7 +108,7 @@ class AppServer extends Controller
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
-                    $woker->gender_worker = "M";
+                    $woker->gender_worker = $dataClean["gender"];
                     $woker->ethnicity_worker = "rosa";
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
@@ -118,6 +120,7 @@ class AppServer extends Controller
                     $service->id_worker = $idWoker;
                     $service->id_user_register = $this->user->id_user;
                     $service->id_type_service = $data["idServiceType"];
+                    $service->detail = $data["observation"];
                     $service->save();
                 }
 
@@ -138,6 +141,7 @@ class AppServer extends Controller
 
         // Somente cadastro e vinculação de todos os outros serviços
         if(!empty($data["csrf"])){
+
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
                 $json["erro"] = true;
@@ -145,7 +149,7 @@ class AppServer extends Controller
                 return;
             }
 
-            $dataArray = cleanInputData($data, $data["observation"]);
+            $dataArray = cleanInputData($data, ["observation"]);
 
             if(!$dataArray["valid"]) {
                 $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -159,21 +163,37 @@ class AppServer extends Controller
 
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
+
+                if($data["idServiceType"] === "56" || $data["idServiceType"] === "4") {
+                    $wokerEdit = (new WorkerEdit());
+                    
+                    $wokerEdit->id_worker = $idWoker;
+                    $wokerEdit->status_work = "Aguardando Resposta";
+                    $wokerEdit->save();
+                }
+                
                 $service = (new Service());
                 $service->id_worker = $idWoker;
                 $service->id_user_register = $this->user->id_user;
                 $service->id_type_service = $data["idServiceType"];
+                $service->detail = $data["observation"];
                 $service->save();
+
             } else {
                 $woker->id_user_register = $this->user->id_user;
                 $woker->name_worker = $dataClean["nome"];
                 $woker->date_birth_worker = $dataClean["date-birth-worker"];
                 $woker->cpf_worker = $dataClean["cpf"];
                 $woker->pcd_worker = $dataClean["pcd"];
-                $woker->gender_worker = "M";
+                $woker->gender_worker = $dataClean["gender"];
                 $woker->ethnicity_worker = "rosa";
                 $woker->apprentice_worker = $dataClean["apprentice"];
                 $woker->cterc = $dataClean["cterc"];
+
+                    if($data["idServiceType"] === "56" || $data["idServiceType"] === "4") {
+                        $woker->status_work = "Aguardando Resposta";
+                    }
+
                 $woker->save();
                 $idWoker = $woker->id_worker;
 
@@ -181,12 +201,14 @@ class AppServer extends Controller
                 $service->id_worker = $idWoker;
                 $service->id_user_register = $this->user->id_user;
                 $service->id_type_service = $data["idServiceType"];
+                $service->detail = $data["observation"];
                 $service->save();
 
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
                 $serviceAddWork->id_user_register = $this->user->id_user;
                 $serviceAddWork->id_type_service = 1;
+                $serviceAddWork->detail = $data["observation"];
                 $serviceAddWork->save();
             }
 
@@ -221,7 +243,6 @@ class AppServer extends Controller
                 $url = url("/requerimentoEspecial/{$typeService}");
             }
         }
-
 
         echo $this->view->render("/forms/formsService", [
             "title" => "Atendimento",

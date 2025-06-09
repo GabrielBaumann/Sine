@@ -72,7 +72,7 @@ function fncUpdateColorStatus() {
                 e.classList.replace("text-green-800", "text-red-800")
             }
 
-            if(e.innerText === "Aguardando Respostas") {
+            if(e.innerText === "Aguardando Resposta") {
                 e.classList.replace("bg-green-100", "bg-orange-100")
                 e.classList.replace("text-green-800", "text-orange-800")
             }
