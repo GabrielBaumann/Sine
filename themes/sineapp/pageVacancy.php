@@ -7,7 +7,7 @@
     <!-- Tabela Responsiva -->
     <div id="listVacancy">
       <!-- Alterei para mostrar o formulário, mas deve ser mostrado apenas a tabela nessa pagina atual -->
-        <?php $this->insert("/pageVacancy/formsNewVacancy"); ?>
+        <?php $this->insert("/pageVacancy/listVacancy"); ?>
     </div>
     
 </main>

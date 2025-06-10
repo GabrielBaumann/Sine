@@ -2,7 +2,7 @@
 
     <!-- Header de localização -->
     <header class="mb-5 flex items-center gap-5 text-blue-800 ">
-        <a href="<?= url("/vagas"); ?>" class="p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
+        <a href="<?= url("/vagas"); ?>" class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
         <p>Início > Vagas > Nova vaga</p> 
     </header>
 

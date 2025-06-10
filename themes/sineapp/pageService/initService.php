@@ -1,11 +1,11 @@
 <div id="step-1" class="step-content">
     <main class="grid min-h-full place-items-center px-6 md:py-10 lg:px-8 mb-10">
-                    <div class="text-center">
-                        <p class="text-base font-semibold text-blue-600">Novo atendimento</p>
-                        <h1 class="mt-4 text-3xl font-semibold tracking-tight text-balance text-gray-800 sm:text-5xl">De que forma está sendo realizado este atendimento?</h1>
-                        
-                    </div>
-                </main>
+        <div class="text-center">
+            <p class="text-base font-semibold text-blue-600">Novo atendimento</p>
+            <h1 class="mt-4 text-3xl font-semibold tracking-tight text-balance text-gray-800 sm:text-5xl">De que forma está sendo realizado este atendimento?</h1>
+            
+        </div>
+    </main>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-none mt-10">
         
         <button

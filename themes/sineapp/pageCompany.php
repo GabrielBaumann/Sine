@@ -2,7 +2,7 @@
 
 <!-- Conteúdo principal -->
 <main class="flex-1 overflow-y-auto p-6 pb-20 lg:pb-6">
-  
+  <?php $this->insert("/pageCompany/listCompany"); ?>
 </main>
 
 <?php $this->start("scripts"); ?>
