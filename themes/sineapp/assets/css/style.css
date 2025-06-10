@@ -20,8 +20,8 @@
     display: inline-block;
     margin: 0 10px;
     padding: 4px 12px;
-    background: #0dca45;
-    color: #fff;
+    background: #ffffff;
+    color: #000000;
     text-decoration: none;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -29,7 +29,7 @@
 }
 
 .paginator_item:hover {
-    background: #0cc415;
+    color: blue;
 }
 
 .paginator_active,
