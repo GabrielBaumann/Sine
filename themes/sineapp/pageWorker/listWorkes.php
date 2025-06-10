@@ -1,54 +1,66 @@
-<div class="bg-transparent p-4 lg:p-6">
-    <div class="flex justify-between items-center">
-        <h3 class="text-base lg:text-lg font-normal text-gray-800">Candidatos Recentes</h3>
-    </div>
-
-    <!-- Container da tabela com scroll condicional -->
-    <div class="overflow-auto max-h-[70vh] lg:max-h-[65vh]">
-    <?php if(!empty($workers)): ?>    
-        <table class="w-full text-sm text-left">
-            <thead class="text-gray-500 border-b border-gray-300">
+<div class="bg-transparent rounded-md overflow-hidden mt-10">
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 responsive-table">
+            <thead class="bg-gradient-to-r from-blue-500 to-blue-800 text-white">
                 <tr>
-                <th class="py-3 font-medium text-left">Nome</th>
-                <th class="py-3 font-medium text-left hidden md:flex">CPF</th>
-                <th class="py-3 font-medium text-left">Status</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Nome</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">CPF</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
+                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
-        
-            <tbody>
-                <!-- Linha da tabela - versão responsiva -->
-                
+            <tbody class="divide-y divide-gray-200">
+                <!-- Linha 1 -->
+                <?php if(!empty($workers)): ?>    
                     <?php foreach($workers as $work): ?> 
-                        <tr 
-                            data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>"
-                            class="border-b border-gray-300 cursor-pointer">
-                            <!-- Nome (sempre visível) -->
-                            <td class='font-semibold text-gray-900'>
-                                <div class="lg:hidden font-semibold mb-1"><?= $work->name_worker; ?></div>
-                                <div class="hidden lg:block"><?= $work->name_worker; ?></div>
-                                <div class="text-xs text-gray-500 lg:hidden"><?= formatCPF($work->cpf_worker); ?></div>
+                        <tr class="hover:bg-blue-50 bg-white" data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>">
+                            <td data-label="Nome" class=" whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900"><?= $work->name_worker; ?></div>
+                                        
+                                    </div>
+                                </div>
                             </td>
-                            <td class="py-4 hidden md:flex"><?= formatCPF($work->cpf_worker); ?></td>
+                            <td data-label="Unidade" class="px-6 py-2 whitespace-nowrap">
+                                <div class="text-sm text-gray-900"><?= formatCPF($work->cpf_worker); ?></div>
+                            </td>
+                            <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
+                                <span class="color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5"><?= $work->status_work; ?></span>
+                            </td>
                             
-                            <!-- Status -->
-                            <td class="py-4">
-                                <span class="px-2.5 py-1 rounded-lg bg-green-100 text-green-800 text-xs whitespace-nowrap">
-                                    <?= $work->status_work; ?>
-                                </span>
+                            <td data-label="Ação" class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end">
+                                    <button 
+                                        id="btn-edit" 
+                                        class="text-blue-600 p-1 rounded-full cursor-pointer">
+                                        Editar
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                <?php else: ?>
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">Não há trabalhadores cadastrados!</div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
-</div>
-<?php else: ?>
-    <div>Não existe dados para esse filtro!!!</div>
-<?php endif;?>
 
-<!-- Paginação -->
- 
-<div class="flex gap-2">
-    <p class="text-sm text-gray-600">Total de atendimentos: 100 </p>
-    <?= $paginator; ?>
+    <!-- Paginação -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+                <div class="flex gap-2">
+                    <?= $paginator; ?>
+                </div>
+            </div>
+           <div>Total: 100</div>
+        </div>
+    </div>
 </div>

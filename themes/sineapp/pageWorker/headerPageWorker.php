@@ -1,18 +1,53 @@
-<!-- Search Bar -->
-<div class="relative mb-4 lg:mb-6 max-w-[400px]">
-    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-    <i class="fas fa-search text-gray-400"></i>
+
+
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
+    <!-- Título -->
+    <h1 class="text-2xl text-gray-800">Trabalhadores</h1>
+    <!-- Controles -->
+    <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+        <!-- Barra de Pesquisa com Ícone -->
+        <div class="relative flex-grow max-w-md">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <input
+                data-url="<?= url("/pesquisarcandidato"); ?>"
+                name="name-search"
+                id="search" 
+                type="text" 
+                placeholder="Pesquisar trabalhadores..."
+                class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+            >
+        </div>
+        
+        <!-- Filtros -->
+        <div class="flex flex-col sm:flex-row gap-2">
+            <select 
+                name="search-enterprise"
+                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+            >
+                <option value="*">Todas empresas</option>
+                <option value="">teste</option>
+            </select>
+            
+            <select 
+                name="search-all-tatus"
+                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+            >
+                <option value="*">Todos status</option>
+                <option>Ativa</option>
+                <option>Encerrada</option>
+            </select>
+            
+            <!-- Botão Nova Vaga -->
+            <button class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Novo trabalhador
+            </button>
+        </div>
     </div>
-    <input
-    data-url="<?= url("/pesquisarcandidato"); ?>"
-    name="name-search"
-    id="search" 
-    type="text" 
-    class="block w-full pl-10 pr-12 py-2 border-gray-300 rounded-lg bg-white focus:outline-none border focus:ring-2 focus:ring-blue-500" 
-    placeholder="Pesquisar por Nome ou CPF...">
-    <button class="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-        </svg>
-    </button>
 </div>
