@@ -4,9 +4,7 @@
         <h1 class="text-2xl lg:text-xl text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
         <p class="text-gray-500 text-sm lg:text-base mt-1">Aqui está o resumo das atividades recentes</p>
     </div>
-    <div class="text-xs text-gray-900 border border-gray-400 px-3 py-2 rounded-full">
-        <?= date('d M Y, H:i') ?>
-    </div>
+    
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-6">
@@ -14,7 +12,7 @@
     <div class="bg-blue-500 rounded-xl p-6">
         <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm font-medium text-white mb-1">Trabalhadores</p>
+                <p class="text-sm text-white mb-1">Trabalhadores</p>
                 <h3 class="text-3xl font-bold text-white"><?= format_number($workerCount ?? 000) ?></h3>
             </div>
             <div class="p-3 text-white">
@@ -30,7 +28,7 @@
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Vagas Abertas</p>
-                <h3 class="text-3xl font-bold text-gray-800 dark:text-white"><?= format_number($cavancysCount ?? 000) ?></h3>
+                <h3 class="text-3xl text-white"><?= format_number($cavancysCount ?? 000) ?></h3>
             </div>
             <div class="p-3 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,8 +43,8 @@
     <div class="bg-blue-700 rounded-xl p-6">
         <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm font-medium text-white mb-1">Empresas</p>
-                <h3 class="text-3xl font-bold text-gray-800 dark:text-white"><?= format_number($enterprisesCount ?? 000) ?></h3>
+                <p class="text-sm text-white mb-1">Empresas</p>
+                <h3 class="text-3xl text-white"><?= format_number($enterprisesCount ?? 000) ?></h3>
             </div>
             <div class="p-3 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
