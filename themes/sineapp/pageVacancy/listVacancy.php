@@ -82,7 +82,7 @@ $entreprise = new Enterprise();
                                 <div class="text-sm text-gray-900"><?= $entreprise->findById($vacancy->id_enterprise)->name_enterprise; ?></div>
                             </td>
                             <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
-                                <span class="color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5"><?= $vacancy->status_vacancy; ?></span>
+                                <span class="color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5 status-vacancy"><?= $vacancy->status_vacancy; ?></span>
                             </td>
                             
                             <td data-label="Ação" class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
