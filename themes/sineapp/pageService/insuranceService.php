@@ -1,6 +1,19 @@
 <div id="step-3" class="step-content">
     <div id="typeService" hidden><?= $type ?></div>
-    <h2 class="text-lg font-semibold text-gray-800 mb-4">Qual serviço do Seguro Desemprego?</h2>
+    <div class="hidden md:flex items-center justify-left p-2 gap-2 md:mt-10">
+        <button
+            data-url="<?= url("/atendimentotipo"); ?>"
+            class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
+            < Voltar
+        </button>
+        <p class='text-blue-500 flex items-center truncate'>Início > Atendimento > Presencial > Seguro Desemprego</p>
+    </div>
+    <main class="grid min-h-full place-items-center px-6 md:py-10 lg:px-8 mb-10">
+        <div class="text-center">
+            <h1 class="mt-4 text-3xl font-semibold tracking-tight text-balance text-gray-800 sm:text-5xl">Qual serviço do Seguro Desemprego?</h1>
+            
+        </div>
+    </main>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <button
@@ -119,10 +132,4 @@
             </div>
         </button>
     </div>
-    
-    <button 
-        data-url="<?= url("/atendimentomotivo/") . $type ?>"
-        class="mt-6 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-        <i class="fas fa-arrow-left mr-2"></i> Voltar
-    </button>
 </div>

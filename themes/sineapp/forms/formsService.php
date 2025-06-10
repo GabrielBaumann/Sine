@@ -20,7 +20,7 @@
                 type="text" 
                 id="cpf" 
                 name="cpf" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="000.000.000-00">
         </div>
 
@@ -32,14 +32,14 @@
                 type="text" 
                 id="nome" 
                 name="nome" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="Digite o nome completo" >
         </div>
 
         <!-- Sexo -->
         <div class="col-span-2 md:col-span-1">
             <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
-            <select id="gender" name="gender" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+            <select id="gender" name="gender" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="">Selecione</option>
                 <option value="Masculino" <?= ($worker->gender_worker ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
                 <option value="Feminino" <?= ($worker->gender_worker ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
@@ -55,13 +55,13 @@
                 type="date" 
                 id="date-birth-worker" 
                 name="date-birth-worker" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" >
+                class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" >
         </div>
 
         <!-- PCD -->
         <div class="col-span-2 md:col-span-1">
             <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">Pessoa com Deficiência (PCD) *</label>
-            <select id="pcd" name="pcd" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+            <select id="pcd" name="pcd" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->pcd_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->pcd_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
             </select>
@@ -70,7 +70,7 @@
         <!-- Aprendiz -->
         <div class="col-span-2 md:col-span-1">
             <label for="apprentice" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz *</label>
-            <select id="apprentice" name="apprentice" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+            <select id="apprentice" name="apprentice" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->apprentice_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->apprentice_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
             </select>
@@ -79,7 +79,7 @@
         <!-- CTERC -->
         <div class="col-span-2 md:col-span-1">
             <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC *</label>
-            <select id="cterc" name="cterc" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+            <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option value="não" <?= ($worker->cterc ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
                 <option value="sim" <?= ($worker->cterc ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
             </select>
@@ -92,7 +92,7 @@
                 id="observation" 
                 name="observation" 
                 rows="3" 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="Digite alguma observação relevante"><?= $worker->observacao ?? "" ?></textarea>
         </div>
 
