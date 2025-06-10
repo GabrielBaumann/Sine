@@ -9,11 +9,11 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-6">
     <!-- Trabalhadores -->
-    <div class="bg-blue-500 rounded-xl p-6 ">
+    <div class="bg-blue-500 rounded-xl p-4">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Trabalhadores</p>
-                <h3 class="text-3xl font-bold text-white"><?= format_number($workerCount ?? 000) ?></h3>
+                <h3 class="text-3xl text-white"><?= format_number($workerCount ?? 000) ?></h3>
             </div>
             <div class="p-3 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Vagas -->
-    <div class="bg-blue-600 rounded-xl p-6">
+    <div class="bg-blue-600 rounded-xl p-4">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Vagas Abertas</p>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Empresas -->
-    <div class="bg-blue-700 rounded-xl p-6">
+    <div class="bg-blue-700 rounded-xl p-4">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Empresas</p>
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Atendimentos -->
-    <div class="bg-blue-800 rounded-xl p-6">
+    <div class="bg-blue-800 rounded-xl p-4">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Total Atendimentos</p>
@@ -72,20 +72,291 @@
     </div>
 </div>
 
-<!-- Geral -->
-<div class="mt-8">
-    <div class="p-6 bg-transparent">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-lg text-gray-800">Visão Geral</h2>
-            <div class="flex space-x-2">
-                <button class="px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-white rounded-full">Semanal</button>
-                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-white rounded-full">Mensal</button>
-                <button class="px-3 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-white rounded-full">Anual</button>
+<!-- Seção de Gráficos -->
+<div class="mt-5 hidden md:block">
+    <!-- Primeira linha - Gráfico principal + secundário -->
+    <div class="flex flex-wrap -mx-3">
+        <!-- Gráfico 1 (ocupa 2/3) -->
+        <div class="w-full lg:w-2/3 px-3">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-sm text-gray-800">Total de atendimentos por mês</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Semanal</button>
+                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Mensal</button>
+                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Anual</button>
+                    </div>
+                </div>
+                <div class="h-50">
+                    <canvas id="graficoVisaoGeral"></canvas>
+                </div>
             </div>
         </div>
-        <!-- Espaço reservado para gráfico -->
-        <div class="h-64 bg-gray-300 rounded-lg flex items-center justify-center">
-            <p class="text-gray-500 dark:text-gray-400">futuro gráfico</p>
+
+        <!-- Gráfico 2 (ocupa 1/3) -->
+        <div class="w-full lg:w-1/3 px-3">
+            <div class="p-6 h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-sm text-gray-800">Status atual</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Hoje</button>
+                    </div>
+                </div>
+                <div class="h-50">
+                    <canvas id="graficoStatus"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda linha - Dois gráficos largos e baixos -->
+    <div class="flex flex-wrap -mx-3 mt-2">
+        <!-- Gráfico 3 -->
+        <div class="w-full md:w-1/2">
+            <div class="p-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-sm text-gray-800">Tipos de atendimento</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Ano</button>
+                    </div>
+                </div>
+                <div class="h-30"> 
+                    <canvas id="graficoTipos"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico 4 -->
+        <div class="w-full md:w-1/2">
+            <div class="p-6">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-sm text-gray-800">Tempo médio (minutos)</h2>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Hoje</button>
+                    </div>
+                </div>
+                <div class="h-30"> 
+                    <canvas id="graficoTempo"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Código dos gráficos -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gráfico 1: Linha (original)
+        const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                datasets: [{
+                    label: 'Acessos',
+                    data: [27, 35, 32, 43, 28, 40],
+                    backgroundColor: 'rgba(23, 76, 221, 0.2)',
+                    borderColor: 'rgb(18, 72, 219)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: 'rgb(12, 51, 158)',
+                    pointBorderColor: '#fff',
+                    pointHoverRadius: 6
+                }]
+            },
+            options: getCommonOptions()
+        });
+
+        // Gráfico 2: Doughnut (ao lado do principal)
+        const ctx2 = document.getElementById('graficoStatus').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Concluídos', 'Em andamento', 'Pendentes'],
+                datasets: [{
+                    data: [65, 20, 15],
+                    backgroundColor: [
+                        'rgba(70, 159, 243, 0.8)',
+                        'rgba(71, 156, 236, 0.5)',
+                        'rgba(82, 147, 245, 0.2)'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...getCommonOptions(),
+                cutout: '75%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 10,
+                            padding: 15,
+                            font: {
+                                size: 10
+                            },
+                            color: 'rgb(12, 51, 158)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico 3: Barra horizontal
+        const ctx3 = document.getElementById('graficoTipos').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Suporte', 'Vendas', 'Financeiro', 'Técnico'],
+                datasets: [{
+                    label: 'Atendimentos',
+                    data: [45, 30, 15, 10],
+                    backgroundColor: [
+                        'rgb(77, 163, 243)',
+                        'rgb(58, 161, 245)',
+                        'rgb(48, 138, 240)',
+                        'rgb(72, 144, 240)'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                ...getCommonOptions(),
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        display: false,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: 'rgb(28, 77, 212)',
+                            font: {
+                                size: 11
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Gráfico 4: Barra horizontal invertido (da direita para esquerda)
+        const ctx4 = document.getElementById('graficoTempo').getContext('2d');
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: ['Manhã', 'Tarde', 'Noite', 'Madrugada'],
+                datasets: [{
+                    label: 'Minutos',
+                    data: [12, 19, 8, 15],
+                    backgroundColor: 'rgb(48, 125, 240)',
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                ...getCommonOptions(),
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        display: false,
+                        reverse: true, // Inverte o eixo X (da direita para esquerda)
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        display: true,
+                        position: 'right', // Rótulos do eixo Y à direita
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: 'rgb(12, 51, 158)',
+                            font: {
+                                size: 11
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Função para opções comuns
+        function getCommonOptions() {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        backgroundColor: 'rgba(12, 51, 158, 0.9)',
+                        titleFont: { weight: 'bold', size: 12 },
+                        bodyFont: { size: 11 },
+                        padding: 10,
+                        cornerRadius: 6,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y !== undefined ? 
+                                    context.parsed.y : context.parsed;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    }
+                }
+            };
+        }
+    });
+</script>

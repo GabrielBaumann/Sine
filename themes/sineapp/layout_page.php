@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
     <!-- <link rel="stylesheet" href="src/output.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- graficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+fetch('dados.php')
+  .then(response => response.json())
+  .then(data => {
+    const ctx = document.getElementById('meuGrafico').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Vendas',
+          data: data.valores,
+          backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        }]
+      }
+    });
+  });
+</script>
     <title><?= $this->e($title); ?></title>
     <style>
         @media (max-width: 640px) {
@@ -43,14 +63,16 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 max-w-[1366px] mx-auto">
-    <div class="flex min-h-screen max-h-screen overflow-hidden">
-        <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-            <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-blue-300 to-blue-300 opacity-20 sm:left-[calc(50%-30rem)] sm:w-288.75" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-        </div>
-        <div class="hidden sm:absolute sm:-top-10 sm:right-0 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
-            <div class="aspect-1097/845 w-274.25 bg-linear-to-tr from-blue-300 to-blue-300 opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-        </div>
+<body class="bg-blue-50 flex items-center min-h-screen w-full overflow-hidden">
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-blue-400 to-blue-600 opacity-40 sm:left-[calc(50%-30rem)] sm:w-288.75" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+    </div>
+    <div class="hidden sm:absolute sm:-top-10 sm:right-0 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
+        <div class="aspect-1097/845 w-274.25 bg-linear-to-tr from-blue-400 to-blue-400 opacity-40" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+    </div>
+
+    <div class="bg-white flex md:h-[768px] h-screen max-h-screen w-[1366px] max-w-full overflow-hidden mx-auto rounded-xl shadow-xl">
+        
         <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
             <div class="text-2xl font-semibold mb-20 flex items-center ml-4 text-gray-800">Sistema Sine</div>
         <nav class="flex flex-col gap-3 flex-grow">

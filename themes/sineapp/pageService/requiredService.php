@@ -1,6 +1,6 @@
 <div id="step-4" class="step-content">
     <div id="typeService" hidden><?= $type ?></div>
-    <div class="hidden md:flex items-center justify-left p-2 gap-2 md:mt-10">
+    <div class="hidden md:flex items-center justify-left p-2 gap-2">
         <button
             data-url="<?= url("/segurodesemprego/") . $type; ?>"
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
