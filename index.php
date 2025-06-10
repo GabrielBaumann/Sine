@@ -53,6 +53,7 @@ $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
 $route->get("/vagas", "AppVacancy:startVacancy");
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
+$route->get("/cadastrarvagas", "AppVacancy:addVacancy");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

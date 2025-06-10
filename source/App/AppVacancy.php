@@ -21,23 +21,25 @@ class AppVacancy extends Controller
             $this->message->warning("")->flash();
             redirect("/");
         }
-    
     }
 
     public function startVacancy(?array $data) : void
     {
         if(isset($data["page"])) {
             
-            $page = $data["page"];
+            $countVacancy = (new Vacancy())->find()->count(); 
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager((new Vacancy())->find()->count(), 10, $page);
+            $pager->Pager($countVacancy, 3, $page);
 
-            $html = $this->view->render("/pageVacancy/listVacancy", [
-                "countVacancy"=> (new Vacancy())->find()->count(),
-                "listEnterprise" => (new Enterprise())->find()
+            $html = $this->view->render("/pageVacancy/componentListVacancy", [
+                "totalVacancy" => (new Vacancy())
+                    ->find()
                     ->limit($pager->limit())
                     ->offset($pager->offset())
-                    ->order("name_enterprise", "DESC")->fetch(true),
+                    ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+                "countVacancy"=> (new Vacancy())->find()->count(),
+                "listEnterprise" => (new Enterprise())->find(),
                 "paginator" => $pager->render()
             ]);   
 
@@ -47,21 +49,33 @@ class AppVacancy extends Controller
             return;
         }
 
-
-
+        $vacancyCount = (new Vacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager((new Vacancy())->find()->count(),2, 1);
+        $pager->Pager($vacancyCount, 3, 1);
 
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "totalVacancy" => (new Vacancy())->find()->fetch(true),
-            "countVacancy"=> (new Vacancy())->find()->count(),
-            "listEnterprise" => (new Enterprise())->find()
+            "totalVacancy" => (new Vacancy())
+                ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("name_enterprise", "DESC")->fetch(true),
+                ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+            "countVacancy"=> (new Vacancy())->find()->count(),
+            "listEnterprise" => (new Enterprise())->find(),
             "paginator" => $pager->render()
         ]);
     }
+
+    public function addVacancy(?array $data) : void
+    {
+        
+        $html = $this->view->render("/pageVacancy/formsNewVacancy", [
+            "title" => "Cadastrar vagas"
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+    }
+
 }
