@@ -1,15 +1,13 @@
-const vLine = [...document.getElementsByTagName("tr")];
-
-if (vLine) {
-    vLine.map((e)=>{
-        const span = e.getElementsByTagName("span")[0];
-        
-        if (span && span.innerText === "Encerrada") {
-            span.classList.replace("bg-green-100", "bg-orange-100");
-            span.classList.replace("text-green-800", "text-orange-800");
+// Atualização dos status das vagas - lista
+const vSpan = document.querySelectorAll("span").forEach((ele) => {
+    if(ele.classList.contains("status-vacancy")) {
+        if(ele.textContent === "Encerrada") {
+            console.log(ele.textContent);
+            ele.classList.replace("text-blue-800","text-orange-800");
+            ele.classList.replace("bg-blue-200","bg-orange-200");
         }
-    })
-}
+    }
+});
 
 // Pesquisa dinâmica com qualquer quantidadede de campos de pesquisa, os campos com classe input-search serão capturados
 // Também é necessário colocar um data-ajax no input para indicar o local que será renderizado o novo conteúdo da pesquisa
@@ -55,6 +53,26 @@ if(vInpusSearch) {
     })
 }
 
+// Paginação via ajax
+document.addEventListener("click", (e) => {
+    const vLinkPaginator = e.target.closest(".paginator_item");
+
+    if (vLinkPaginator) {
+        e.preventDefault();
+
+        const vidWork = document.getElementById("id-worker")?.value || "" ;
+        const vUrl = vLinkPaginator.href
+
+       fetch(vUrl + "/" + vidWork)
+       .then(response => response.json())
+       .then(data => {
+            const vContent = document.getElementById(data.content);
+            vContent.innerHTML = data.html;
+            
+            fncUpdateColorStatus()
+       })
+    };
+});
 
 
 

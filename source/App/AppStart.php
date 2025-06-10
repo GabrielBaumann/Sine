@@ -28,7 +28,6 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
-
         echo $this->view->render("/pageStart", [
             "title" => "Início",
             "workerCount" => (new Worker())->find()->count(),

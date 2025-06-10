@@ -26,9 +26,31 @@ class AppVacancy extends Controller
 
     public function startVacancy(?array $data) : void
     {
+        if(isset($data["page"])) {
+            
+            $page = $data["page"];
+            $pager = new Pager(url("/pesquisarvagas/p/"));
+            $pager->Pager((new Vacancy())->find()->count(), 10, $page);
+
+            $html = $this->view->render("/pageVacancy/listVacancy", [
+                "countVacancy"=> (new Vacancy())->find()->count(),
+                "listEnterprise" => (new Enterprise())->find()
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->order("name_enterprise", "DESC")->fetch(true),
+                "paginator" => $pager->render()
+            ]);   
+
+            $json["html"] = $html;
+            $json["content"] = "listVacancy";
+            echo json_encode($json);
+            return;
+        }
+
+
 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager((new Vacancy())->find()->count(),3, 1);
+        $pager->Pager((new Vacancy())->find()->count(),2, 1);
 
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",

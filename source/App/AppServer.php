@@ -158,6 +158,16 @@ class AppServer extends Controller
                 return;
             }
 
+                $serviceRetorn = (new TypeService())->findById($data["idServiceType"]);
+                    
+                if ($serviceRetorn->group === "Telefone") {
+                    $group = 16;
+                }
+
+                if ($serviceRetorn->group === "Atendimento Presencial") {
+                    $group = 1;
+                }
+
             $dataClean = $dataArray["data"];
             $woker = (new Worker());
 
@@ -207,21 +217,9 @@ class AppServer extends Controller
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
                 $serviceAddWork->id_user_register = $this->user->id_user;
-                    
-                    $serviceRetorn = (new TypeService())->findById($data["idServiceType"]);
-                    
-                    if ($serviceRetorn->group === "Telefone") {
-                        $group = 16;
-                    }
-
-                    if ($serviceRetorn->group === "Atendimento Presencial") {
-                        $group = 1;
-                    }
-
                 $serviceAddWork->id_type_service = $group ;
                 $serviceAddWork->detail = $data["observation"];
                 $serviceAddWork->save();
-                var_dump($serviceAddWork);
             }
 
             $html = $this->view->render("/pageService/sucessService", [
