@@ -56,7 +56,7 @@ class AppServer extends Controller
     {
 
         // Cadastro e atualização
-        if(isset($data["idServiceType"]) && $data["idServiceType"] == "1") {
+        if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
             }
@@ -207,9 +207,21 @@ class AppServer extends Controller
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
                 $serviceAddWork->id_user_register = $this->user->id_user;
-                $serviceAddWork->id_type_service = 1;
+                    
+                    $serviceRetorn = (new TypeService())->findById($data["idServiceType"]);
+                    
+                    if ($serviceRetorn->group === "Telefone") {
+                        $group = 16;
+                    }
+
+                    if ($serviceRetorn->group === "Atendimento Presencial") {
+                        $group = 1;
+                    }
+
+                $serviceAddWork->id_type_service = $group ;
                 $serviceAddWork->detail = $data["observation"];
                 $serviceAddWork->save();
+                var_dump($serviceAddWork);
             }
 
             $html = $this->view->render("/pageService/sucessService", [
@@ -221,7 +233,6 @@ class AppServer extends Controller
             $json["html"] = $html;
             $json["erro"] = false;
             echo json_encode($json);
-
             return;
         }
 
