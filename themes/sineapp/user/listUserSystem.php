@@ -68,7 +68,7 @@
                 <!-- Linha 1 -->
                 
                     <?php foreach($users as $user): ?>
-                        <tr class="hover:bg-blue-50 bg-white" 
+                        <tr class="hover:bg-blue-50 bg-white border-b border-gray-300" 
                             data-url="<?= url("/adicionarusuario/{$user->id_user}") ?>"
                             data-modal="userModal">
                             <td data-label="Nome" class=" whitespace-nowrap">

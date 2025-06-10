@@ -2,9 +2,9 @@
 use Source\Models\Enterprise;
 $entreprise = new Enterprise();
 ?>
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:pt-10">
     <!-- Título -->
-    <h1 class="text-2xl text-gray-800">Vagas</h1>
+    <h1 class="hidden md:flex text-2xl text-gray-800">Vagas</h1>
     
     <!-- Controles -->
     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -69,7 +69,7 @@ $entreprise = new Enterprise();
                 <!-- Linha 1 -->
                 <?php if (!empty($totalVacancy)): ?>
                     <?php foreach($totalVacancy as $vacancy): ?>
-                        <tr class="hover:bg-blue-50 bg-white">
+                        <tr class="hover:bg-blue-50 bg-white border-b border-gray-300">
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">

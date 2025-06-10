@@ -67,7 +67,7 @@ $entreprise = new Enterprise();
             </thead>
             <tbody class="divide-y divide-gray-200">
                 <!-- Linha 1 -->
-                        <tr class="hover:bg-blue-50 bg-white">
+                        <tr class="hover:bg-blue-50 bg-white border-b border-gray-300">
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
