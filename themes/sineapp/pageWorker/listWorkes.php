@@ -14,7 +14,7 @@
                 <!-- Linha 1 -->
                 <?php if(!empty($workers)): ?>    
                     <?php foreach($workers as $work): ?> 
-                        <tr class="hover:bg-blue-50 bg-white" data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>">
+                        <tr class="hover:bg-blue-50 bg-white border-b border-gray-300" data-url="<?= url("/historicoatendimento/" .  $work->id_worker); ?>">
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
