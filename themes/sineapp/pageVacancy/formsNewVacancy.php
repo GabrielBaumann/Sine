@@ -1,6 +1,13 @@
 <main class="flex-1 overflow-y-auto p-6 pb-20 lg:pb-6">
+
+    <!-- Header de localização -->
+    <header class="mb-5 flex items-center gap-5 text-blue-800 ">
+        <a href="<?= url("/vagas"); ?>" class="p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
+        <p>Início > Vagas > Nova vaga</p> 
+    </header>
+
     <div>
-    <h1 id="titleForm" class="text-xl font-normal text-gray-800 mb-4">Nova vaga</h1>
+    <h1 id="titleForm" class="text-3xl font-normal text-gray-800 mb-4">Nova vaga</h1>
         <span class='flex w-full border border-gray-200 mb-4'></span>
 
     <form id="formService" action="<?= url("/formularioAtendimento") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
