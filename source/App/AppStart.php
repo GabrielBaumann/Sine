@@ -28,8 +28,17 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
+        // Gráfico de atendimentos
         $serve = new Service();
-        $char = $serve->charService();
+        $charServer = $serve->charService();
+
+        // Gráfico de status dos trabalhadores
+        $worker = new Worker();
+        $chartWorker = $worker->chartWorker();
+
+        // Gráfico de status das vagas
+        $vacancy = new Vacancy();
+        $charVacancy = $vacancy->chartVacancy();
 
         echo $this->view->render("/pageStart", [
             "title" => "Início",
@@ -38,8 +47,12 @@ class AppStart extends Controller
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "chartServiceLabel" => $char["label"],
-            "chartServiceTotal" => $char["total"]
+            "chartServiceLabel" => $charServer["label"],
+            "chartServiceTotal" => $charServer["total"],
+            "chartWorkerLabel" => $chartWorker["label"],
+            "chartWorkerTotal" => $chartWorker["total"],
+            "chartVacancyLabel" => $charVacancy["label"],
+            "chartVacancyTotal" => $charVacancy["total"]
         ]);
     }
 }

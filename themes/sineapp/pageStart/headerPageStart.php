@@ -88,7 +88,7 @@
         <div class="w-full lg:w-1/3 px-2 mb-3">
             <div class="p-3 bg-white rounded-lg shadow-xs h-full">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-xs font-medium text-gray-700">Status atual</h2>
+                    <h2 class="text-xs font-medium text-gray-700">Status trabalhadores</h2>
                     <div class="flex space-x-1">
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Dia</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Semana</button>
@@ -107,7 +107,7 @@
         <div class="w-full md:w-1/2 px-2 mb-3">
             <div class="p-3 bg-white rounded-lg shadow-xs">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-xs font-medium text-gray-700">Tipos de atendimento</h2>
+                    <h2 class="text-xs font-medium text-gray-700">Status Vagas</h2>
                     <div class="flex space-x-1">
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
@@ -123,7 +123,7 @@
         <div class="w-full md:w-1/2 px-2 mb-3">
             <div class="p-3 bg-white rounded-lg shadow-xs">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-xs font-medium text-gray-700">Tempo médio (min)</h2>
+                    <h2 class="text-xs font-medium text-gray-700">Vagas pro Gênero</h2>
                     <div class="flex space-x-1">
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
@@ -165,13 +165,15 @@
         });
 
         // Gráfico 2: Doughnut (ao lado do principal)
+        const vStatusLabe = <?= json_encode($chartWorkerLabel); ?>;
+        const vStatusValue = <?= json_encode($chartWorkerTotal); ?>;
         const ctx2 = document.getElementById('graficoStatus').getContext('2d');
         new Chart(ctx2, {
             type: 'doughnut',
             data: {
-                labels: ['Concluídos', 'Em andamento', 'Pendentes'],
+                labels: vStatusLabe,
                 datasets: [{
-                    data: [65, 20, 15],
+                    data: vStatusValue,
                     backgroundColor: [
                         'rgba(70, 159, 243, 0.8)',
                         'rgba(71, 156, 236, 0.5)',
@@ -201,14 +203,16 @@
         });
 
         // Gráfico 3: Barra horizontal
+        const vVacancyLabel = <?= json_encode($chartVacancyLabel); ?>;
+        const vVacancyTotal = <?= json_encode($chartVacancyTotal); ?>;
         const ctx3 = document.getElementById('graficoTipos').getContext('2d');
         new Chart(ctx3, {
             type: 'bar',
             data: {
-                labels: ['Suporte', 'Vendas', 'Financeiro', 'Técnico'],
+                labels: vVacancyLabel,
                 datasets: [{
                     label: 'Atendimentos',
-                    data: [45, 30, 15, 10],
+                    data: vVacancyTotal,
                     backgroundColor: [
                         'rgb(77, 163, 243)',
                         'rgb(58, 161, 245)',

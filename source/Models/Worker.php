@@ -15,4 +15,20 @@ class Worker extends Model
     );
   }
 
+  public function chartWorker(): array
+  {
+    $chartWork = $this->find()->fetch(true);
+
+    foreach($chartWork as $work) {
+      $status[] = $work->status_work;
+    };
+
+    $countStatus = array_count_values($status);
+
+    foreach($countStatus as $key => $value) {
+      $label[] = $key;
+      $total[] = $value;
+    }
+    return ["label" => $label, "total" => $total];
+  }
 }

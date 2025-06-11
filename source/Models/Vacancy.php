@@ -15,4 +15,20 @@ class Vacancy extends Model
             "id_vacancy"
         );
     }
+
+    public function chartVacancy() : array
+    {
+        $chart = $this->find()->fetch(true);
+        foreach($chart as $char) {
+            $chartList[] = $char->status_vacancy;
+        }
+
+        $charCount =  array_count_values($chartList);
+
+        foreach($charCount as $key => $value ) {
+            $label[] = $key;
+            $total[] = $value;
+        }
+        return ["label" => $label, "total" => $total];
+    }  
 }
