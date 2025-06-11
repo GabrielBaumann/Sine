@@ -16,10 +16,16 @@ class Service extends Model
         );
     }
 
-    public function charService(?int $year = null): array
+    public function charService(?bool $year = null)
     {
-        $year = $year ?? date('Y');
-        $serviceChar = Connect::getInstance()->prepare("SELECT * FROM vw_char_service WHERE year = {$year}");
+        $where = "";
+
+        if(!$year) {
+            $yearNow = date('Y');
+            $where = " WHERE year = {$yearNow}";
+        }
+
+        $serviceChar = Connect::getInstance()->prepare("SELECT * FROM vw_char_date" . $where);
         $serviceChar->execute();
         $datas = $serviceChar->fetchAll(PDO::FETCH_ASSOC);
 
@@ -36,16 +42,35 @@ class Service extends Model
             10 => 'Out',
             11 => 'Nov',
             12 => 'Dez'
-            ];
+        ];
+
+        $mapOrdem = array_flip($monthsAbbreviation);
 
         foreach($datas as $data) {
- 
-            $monyt[] = $monthsAbbreviation[(int)$data["month"]];
-            $total[] = $data["total"];
-            $years[] = $data["year"];
+
+            if ($year) {
+                $listData[] = $data["year"];
+            } else {
+                $listData[] = $monthsAbbreviation[(int)$data["month"]];
+            }
         }
 
-        $char = [ "month"=>$monyt, "years"=>$years ,"total"=>$total];
+        $dataCount = array_count_values($listData);
+
+        if($year) {
+            ksort($dataCount);
+        } else {
+            uksort($dataCount, function($a, $b) use ($mapOrdem) {
+                return $mapOrdem[$a] - $mapOrdem[$b];
+            });
+        }
+
+        foreach($dataCount as $key => $value) {
+            $label[] = $key;
+            $total[] = $value;
+        }
+        
+        $char = ["label"=>$label,"total"=>$total];
         return $char; 
     }
 

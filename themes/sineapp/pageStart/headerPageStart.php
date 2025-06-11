@@ -141,7 +141,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Gráfico 1: Linha (original)
-        const vMonthService = <?= json_encode($chartServiceMonth); ?>;
+        const vMonthService = <?= json_encode($chartServiceLabel); ?>;
         const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
         const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
         new Chart(ctx1, {

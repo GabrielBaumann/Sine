@@ -38,8 +38,8 @@ class AppStart extends Controller
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "chartServiceMonth" => $char["month"],
+            "chartServiceLabel" => $char["label"],
             "chartServiceTotal" => $char["total"]
-        ]);    
+        ]);
     }
 }
