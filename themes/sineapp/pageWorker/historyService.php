@@ -30,31 +30,33 @@
                 <span class="font-medium truncate max-w-xs"><?= $worker->name_worker; ?></span>
             </p>
         </div>
-        
-        <!-- Perfil resumido -->
-        <div class="bg-blue-50 p-3 rounded-lg w-full md:w-auto">
-            <div class="flex items-center gap-3">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800 truncate"><?= $worker->name_worker; ?></h2>
-                    <p class="text-md text-gray-600">CPF: <?= formatCPF($worker->cpf_worker); ?></p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Histórico de Atendimentos -->
     <div class="overflow-hidden">
-        <div class="p-4">
+        <div class="py-4">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <h3 class="text-2xl text-gray-800 flex items-center gap-2">
-                    Histórico de Atendimentos
-                </h3>
+                <div class="flex flex-col">
+                    <h3 class="text-2xl text-gray-800 font-bold flex items-center gap-2">
+                        <?= $worker->name_worker; ?>
+                    </h3>
+                    <div class="flex items-center gap-3">
+                        <div>
+                            <p class="text-md text-gray-600">CPF: <?= formatCPF($worker->cpf_worker); ?></p>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex items-center gap-2">
                     <div class="relative">
-                        <input type="text" placeholder="Buscar atendimento..." class="pl-8 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-64">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-3 top-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
+                        <select 
+                            name="search-enterprise"
+                            class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                        >
+                            <option value="*">Todos</option>
+                            <option value="">Orientação</option>
+                            <option value="">Abono Salarial</option>
+                            <option value="">Seguro desemprego</option>
+                        </select>
                     </div>
                 </div>
             </div>
