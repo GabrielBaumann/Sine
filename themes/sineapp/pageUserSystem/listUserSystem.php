@@ -40,7 +40,7 @@
             </select>
             
             <!-- Botão Nova Vaga -->
-            <button class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm"
+            <button class="cursor-pointer flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm"
                     id="addUserBtn" 
                     data-url="<?= url("/adicionarusuario") ?>" 
                     data-modal="userModal">
