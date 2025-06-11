@@ -27,16 +27,15 @@
 
     <!-- Parte da Imagem (direita) -->
     <div class="hidden lg:block lg:w-3/5 bg-blue-600 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-gray-500 to-gray-700 opacity-40"></div>
         <img 
             src="<?= theme("/assets/images/sine.png")?>" 
             alt="Background login"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover brightness-50"
         >
-        <!-- <div class="absolute bottom-10 left-10 right-10 text-white">
-            <h2 class="text-2xl font-bold mb-2">SISTEMA SINE</h2>
-            <p class="opacity-90">Gerencie seus processos de forma eficiente e moderna</p>
-        </div> -->
+        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-900 opacity-10 z-10"></div> 
+        <div class="absolute inset-0 flex items-center justify-center p-20 z-20 transform -translate-y-40"> 
+            <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="logo">
+        </div>
     </div>
   </div>
 <script src="<?= theme("/assets/js/forms.js") ?>"></script>

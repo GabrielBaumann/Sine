@@ -34,7 +34,8 @@
     <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white p-5 md:py-3 px-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
         Entrar
     </button>
-    <div>
+    <div class="flex flex-col justify-center items-center gap-2">
         <p class="text-center text-gray-700 mt-10">Desenvolvido por SysCerberus.</p>
+        <img src="<?= theme("/assets/images/cerberus.png") ?>" alt="cerberus" class="flex items-center justify-center h-[70px]">
     </div>
 </form>

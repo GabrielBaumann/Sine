@@ -28,8 +28,8 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
-        $serve = new Service();
-        $char = $serve->charService();
+        // $serve = new Service();
+        // $char = $serve->charService();
 
         echo $this->view->render("/pageStart", [
             "title" => "Início",
@@ -38,8 +38,8 @@ class AppStart extends Controller
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "chartServiceMonth" => $char["month"],
-            "chartServiceTotal" => $char["total"]
+            "chartServiceMonth" => ["jan","dez"],
+            "chartServiceTotal" => ["10","11"]
         ]);    
     }
 }
