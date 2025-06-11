@@ -141,14 +141,16 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Gráfico 1: Linha (original)
+        const vMonthService = <?= json_encode($chartServiceMonth); ?>;
+        const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
         const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
         new Chart(ctx1, {
             type: 'line',
             data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                labels: vMonthService,
                 datasets: [{
-                    label: 'Acessos',
-                    data: [27, 35, 32, 43, 28, 40],
+                    label: 'Atendimentos',
+                    data: vMonthServiceTotal,
                     backgroundColor: 'rgba(23, 76, 221, 0.2)',
                     borderColor: 'rgb(18, 72, 219)',
                     borderWidth: 2,

@@ -1,8 +1,9 @@
 <?php $this->layout("layout_page"); ?>
+
 <main class="flex-1 overflow-y-auto p-6 pb-20 lg:pb-6">
     <!-- Lista -->
     <div id="usersView">
-        <?= $this->insert("/pageUserSystem/formNewUser"); ?>
+        <?= $this->insert("/pageUserSystem/listUserSystem"); ?>
     </div>  
 </main>
 
