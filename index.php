@@ -29,12 +29,12 @@ $route->get("/inicio", "AppStart:startPage");
  * AppServer
  */
 // System User
-$route->get("/usuarios", "AppServer:userSystem");
-$route->get("/adicionarusuario", "AppServer:modelAddUser");
-$route->get("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
-$route->post("/adicionarusuario/{idUserSystem}", "AppServer:modelAddUser");
-$route->post("/verificarcpf", "AppServer:checkCpf");
-$route->post("/adicionarusuario", "AppServer:modelAddUser");
+$route->get("/usuarios", "AppUserSystem:userSystem");
+$route->get("/adicionarusuario", "AppUserSystem:modelAddUser");
+$route->get("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
+$route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
+$route->post("/verificarcpf", "AppUserSystem:checkCpf");
+$route->post("/adicionarusuario", "AppUserSystem:modelAddUser");
 
 
 /**
