@@ -74,9 +74,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-sm text-gray-800">Total de atendimentos por mês</h2>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Semanal</button>
-                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Mensal</button>
-                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Anual</button>
+                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Semana atual</button>
                     </div>
                 </div>
                 <div class="h-50">
@@ -91,7 +89,7 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-sm text-gray-800">Status atual</h2>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Hoje</button>
+                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Hoje</button>
                     </div>
                 </div>
                 <div class="h-50">
@@ -109,8 +107,7 @@
                 <div class="flex justify-between items-center">
                     <h2 class="text-sm text-gray-800">Tipos de atendimento</h2>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Mês</button>
-                        <button class="px-3 py-1 text-xs bg-gray-200 text-gray-700 rounded-full">Ano</button>
+                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Mês atual</button>
                     </div>
                 </div>
                 <div class="h-30"> 
@@ -125,7 +122,7 @@
                 <div class="flex justify-between items-center">
                     <h2 class="text-sm text-gray-800">Tempo médio (minutos)</h2>
                     <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-800 text-white rounded-full">Hoje</button>
+                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Hoje</button>
                     </div>
                 </div>
                 <div class="h-30"> 
