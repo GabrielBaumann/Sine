@@ -1,41 +1,46 @@
 <?php $this->layout("layout") ?>
 
-<div class="text-center mb-8">
-    <h1 class="text-3xl text-gray-800">Sistema SINE</h1>
-    <p class="text-gray-600 mt-2">Faça login para continuar</p>
-</div>
-
-<form class="space-y-6" action="<?= url("/") ?>" method="post">
-    <div><?= flash(); ?></div>
-    <?= csrf_input(); ?>
-    <div>
-        <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
-        <input 
-            id="user" 
-            type="text" 
-            required
-            name="cpfuser"
-            placeholder="000.000.000-00" 
-            class="mt-1 block w-full px-4 p-5 md:py-3 border border-gray-400 transition-all"
-        >
+<!-- Formulário de Login (Esquerda) -->
+<div class="w-full md:w-2/5 p-12 flex flex-col justify-center">
+    <div class="text-center mb-10">
+        <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[60px] mx-auto text-primary-600">
     </div>
     
-    <div>
-        <label for="senha" class="block text-sm font-medium text-gray-700">Senha</label>
-        <input 
-            id="password" 
-            type="password" 
-            required
-            name="password"
-            placeholder="••••••••" 
-            class="mt-1 block w-full px-4 p-5 md:py-3 border border-gray-400 transition-all"
-        >
-    </div>
-    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white p-5 md:py-3 px-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-        Entrar
-    </button>
-    <div class="flex flex-col justify-center items-center gap-2">
-        <p class="text-center text-gray-700 mt-10">Desenvolvido por SysCerberus.</p>
-        <img src="<?= theme("/assets/images/cerberus.png") ?>" alt="cerberus" class="flex items-center justify-center h-[70px]">
-    </div>
-</form>
+    <form class="space-y-6" action="<?= url("/") ?>" method="post">
+        <div><?= flash(); ?></div>
+        <?= csrf_input(); ?>
+        <div>
+            <label for="cpf" class="block text-sm font-light text-gray-700 mb-1">CPF</label>
+            <input 
+                type="text" 
+                id="user" 
+                type="text" 
+                required
+                name="cpfuser" 
+                placeholder="000.000.000-00" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-primary-600 outline-none transition duration-200 font-light"
+            >
+        </div>
+        
+        <div>
+            <label for="password" class="block text-sm font-light text-gray-700 mb-1">Senha</label>
+            <input 
+                id="password" 
+                type="password" 
+                required
+                name="password"
+                placeholder="********" 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-primary-600 outline-none transition duration-200 font-light"
+            >
+        </div>
+        
+        <div>
+            <button 
+                type="submit" 
+                class="shadow-xl w-full flex justify-center py-3 px-4 border border-transparent rounded-full md:rounded-lg md:shadow-sm text-sm font-light text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-200"
+            >
+                Entrar
+            </button>
+        </div>
+    </form>
+</div>
