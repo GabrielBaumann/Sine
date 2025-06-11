@@ -1,6 +1,6 @@
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
     <!-- Título -->
-    <h1 class="hidden md:flex text-2xl text-gray-800">Vagas</h1>
+    <h1 class="hidden md:flex text-2xl font-semibold text-gray-900">Vagas</h1>
     
     <!-- Controles -->
     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">

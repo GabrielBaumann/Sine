@@ -4,7 +4,7 @@ $entreprise = new Enterprise();
 ?>
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
     <!-- Título -->
-    <h1 class="text-2xl text-gray-800">Empresas</h1>
+    <h1 class="text-2xl text-gray-900 font-semibold">Empresas</h1>
     
     <!-- Controles -->
     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
@@ -57,7 +57,7 @@ $entreprise = new Enterprise();
     
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 responsive-table">
-            <thead class="bg-gradient-to-r from-blue-500 to-blue-800 text-white">
+            <thead class="text-gray-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vaga</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Empresa</th>

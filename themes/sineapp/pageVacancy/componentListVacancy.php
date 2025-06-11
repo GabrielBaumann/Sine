@@ -6,7 +6,7 @@ $entreprise = new Enterprise();
     
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 responsive-table">
-            <thead class="bg-gradient-to-r from-blue-500 to-blue-800 text-white">
+            <thead class="text-gray-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vaga</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Empresa</th>
