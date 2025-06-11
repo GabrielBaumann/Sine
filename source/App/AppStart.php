@@ -28,6 +28,16 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
+
+        // $service = (new Service())->findAll(
+        //     "(SELECT YEAR(data_register) as y, MONTH(data_register) as m, COUNT(*) AS total
+        //     FROM service
+        //     GROUP BY y, m
+        //     ORDER BY y, m)"
+        // )->fetch(true);
+
+        // var_dump($service);
+
         echo $this->view->render("/pageStart", [
             "title" => "Início",
             "workerCount" => (new Worker())->find()->count(),
