@@ -8,14 +8,16 @@
     <!-- Cabeçalho -->
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 md:mb-0">
         <div class="flex items-center gap-3">
-            <button
-                data-url="<?= url("/atendimentotipo"); ?>"
-                class="cursor-pointer p-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                </svg>
-                <span class="hidden sm:inline">Voltar</span>
-            </button>
+            <a href="<?= url("/trabalhador"); ?>">
+                <button
+                    data-url="<?= url("/trabalhador"); ?>"
+                    class="cursor-pointer p-2 rounded-full border border-gray-300 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-200 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="hidden sm:inline">Voltar</span>
+                </button>
+            </a>
             <p class='text-blue-600 text-sm md:text-base flex items-center truncate'>
                 <span class="hidden md:inline">Início</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-1 hidden md:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
