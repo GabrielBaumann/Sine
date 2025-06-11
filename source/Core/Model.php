@@ -132,6 +132,11 @@ abstract class Model
         return $this;
     }
 
+    // public function query(string $sql)
+    // {
+    //     $stmt = Connect::
+    // }
+
     public function findById(int $id, string $columns = "*"): ?Model
     {
         // var_dump($this->id);
