@@ -1,45 +1,37 @@
 <?php $this->layout("layout") ?>
 
-<div class="flex flex-col justify-center items-center h-full w-full md:w-1/2 p-8">
-    <div class="w-full max-w-md space-y-8">
-        <div class="text-center">
-        <h1 class="text-5xl font-bold text-blue-800 mb-[100px]">SINE</h1>
-        <h2 class="text-3xl font-bold text-gray-800">Seja bem-vindo</h2>
-        </div>
-
-        <form action="<?= url("/") ?>" class="space-y-5 md:space-y-12" method="post">
-            <div><?= flash(); ?></div>
-            <?= csrf_input(); ?>
-        <div>
-            <label for="cpfuser" class="block text-sm font-medium text-gray-700">CPF</label>
-            <div class="flex items-center mt-1 border border-gray-200 rounded-full bg-white shadow-md">
-            <input id="user" 
-                type="text" 
-                required
-                name="cpfuser"
-                class="w-full p-3 md:p-6 bg-transparent focus:outline-none" placeholder="Digite seu CPF" />
-            </div>
-        </div>
-
-        <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
-            <div class="flex items-center mt-1 mb-6 border border-gray-200 rounded-full bg-white shadow-md">
-            <input id="password" 
-                type="password" 
-                required
-                name="password"
-                class="w-full p-3 md:p-6 bg-transparent focus:outline-none" placeholder="Digite sua senha" />
-            </div>
-        </div>
-                <button
-                    type="submit"
-                    class="cursor-pointer w-full bg-blue-800 hover:bg-blue-900 text-white p-3 md:p-6 rounded-full font-semibold transition shadow-md md:mb-20">
-                    Entrar
-                </button>
-            <div class="justify-center items-center flex flex-col">
-                <p>Desenvolvido por</p>
-                <img src="<?= theme("/assets/images/cerberus.png")?>" alt="logo" class="h-20 w-20 object-contain">
-            </div>
-        </form>
-    </div>
+<div class="text-center mb-8">
+    <h1 class="text-3xl text-gray-800">Bem-vindo</h1>
+    <p class="text-gray-600 mt-2">Faça login para continuar</p>
 </div>
+
+<form class="space-y-6" action="<?= url("/") ?>" method="post">
+    <div><?= flash(); ?></div>
+    <?= csrf_input(); ?>
+    <div>
+        <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
+        <input 
+            id="user" 
+            type="text" 
+            required
+            name="cpfuser"
+            placeholder="000.000.000-00" 
+            class="mt-1 block w-full px-4 p-5 md:py-3 border border-gray-300 transition-all"
+        >
+    </div>
+    
+    <div>
+        <label for="senha" class="block text-sm font-medium text-gray-700">Senha</label>
+        <input 
+            id="password" 
+            type="password" 
+            required
+            name="password"
+            placeholder="••••••••" 
+            class="mt-1 block w-full px-4 p-5 md:py-3 border border-gray-300 transition-all"
+        >
+    </div>
+    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white p-5 md:py-3 px-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+        Entrar
+    </button>
+</form>
