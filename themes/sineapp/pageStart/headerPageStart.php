@@ -65,7 +65,7 @@
 </div>
 
 <!-- Seção de Gráficos -->
-<div class="mt-4 p-5 md:p-0">
+<div class="mt-8 p-5 md:p-0">
     <!-- Linha 1 -->
     <div class="flex flex-col md:flex-row -mx-2">
         <!-- Gráfico 1 -->
@@ -78,7 +78,7 @@
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-40 sm:h-48 md:h-40 lg:h-48">
+                <div class="h-40 sm:h-48 md:h-40 lg:h-55">
                     <canvas id="graficoVisaoGeral"></canvas>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Semana</button>
                     </div>
                 </div>
-                <div class="h-40 sm:h-48 md:h-40 lg:h-48">
+                <div class="h-40 sm:h-48 md:h-40 lg:h-55">
                     <canvas id="graficoStatus"></canvas>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-32 sm:h-36 md:h-32"> 
+                <div class="h-32 sm:h-36 md:h-40"> 
                     <canvas id="graficoTipos"></canvas>
                 </div>
             </div>
@@ -129,7 +129,7 @@
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-32 sm:h-36 md:h-32"> 
+                <div class="h-32 sm:h-36 md:h-40"> 
                     <canvas id="graficoTempo"></canvas>
                 </div>
             </div>
