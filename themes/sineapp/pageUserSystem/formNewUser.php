@@ -17,7 +17,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Adicionar Novo Usuário</h3>                    
                 <div class="space-y-4">
                     <div class="w-full">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
                         <input name="name" 
                             type="text"
                             value="<?= $user->name_user ?? ""; ?>" 

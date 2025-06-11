@@ -28,15 +28,8 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
-
-        // $service = (new Service())->findAll(
-        //     "(SELECT YEAR(data_register) as y, MONTH(data_register) as m, COUNT(*) AS total
-        //     FROM service
-        //     GROUP BY y, m
-        //     ORDER BY y, m)"
-        // )->fetch(true);
-
-        // var_dump($service);
+        $serve = new Service();
+        $char = $serve->charService();
 
         echo $this->view->render("/pageStart", [
             "title" => "Início",
@@ -44,7 +37,9 @@ class AppStart extends Controller
             "cavancysCount" => (new Vacancy())->find()->count(),
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "chartServiceMonth" => $char["month"],
+            "chartServiceTotal" => $char["total"]
         ]);    
     }
 }
