@@ -65,67 +65,71 @@
 </div>
 
 <!-- Seção de Gráficos -->
-<div class="mt-5 hidden md:block">
-    <!-- Primeira linha - Gráfico principal + secundário -->
-    <div class="flex flex-wrap -mx-3">
-        <!-- Gráfico 1 (ocupa 2/3) -->
-        <div class="w-full lg:w-2/3 px-3">
-            <div class="p-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-sm text-gray-800">Total de atendimentos por mês</h2>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Semana atual</button>
+<div class="mt-4 p-5 md:p-0">
+    <!-- Linha 1 -->
+    <div class="flex flex-col md:flex-row -mx-2">
+        <!-- Gráfico 1 -->
+        <div class="w-full lg:w-2/3 px-2 mb-3">
+            <div class="p-3 bg-white rounded-lg shadow-xs">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xs font-medium text-gray-700">Total por mês</h2>
+                    <div class="flex space-x-1">
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-50">
+                <div class="h-40 sm:h-48 md:h-40 lg:h-48">
                     <canvas id="graficoVisaoGeral"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- Gráfico 2 (ocupa 1/3) -->
-        <div class="w-full lg:w-1/3 px-3">
-            <div class="p-6 h-full">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-sm text-gray-800">Status atual</h2>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Hoje</button>
+        <!-- Gráfico 2 -->
+        <div class="w-full lg:w-1/3 px-2 mb-3">
+            <div class="p-3 bg-white rounded-lg shadow-xs h-full">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xs font-medium text-gray-700">Status atual</h2>
+                    <div class="flex space-x-1">
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Dia</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Semana</button>
                     </div>
                 </div>
-                <div class="h-50">
+                <div class="h-40 sm:h-48 md:h-40 lg:h-48">
                     <canvas id="graficoStatus"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Segunda linha - Dois gráficos largos e baixos -->
-    <div class="flex flex-wrap -mx-3 mt-2">
+    <!-- Linha 2  -->
+    <div class="flex flex-col md:flex-row -mx-2 mt-1">
         <!-- Gráfico 3 -->
-        <div class="w-full md:w-1/2">
-            <div class="p-6">
+        <div class="w-full md:w-1/2 px-2 mb-3">
+            <div class="p-3 bg-white rounded-lg shadow-xs">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-sm text-gray-800">Tipos de atendimento</h2>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Mês atual</button>
+                    <h2 class="text-xs font-medium text-gray-700">Tipos de atendimento</h2>
+                    <div class="flex space-x-1">
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-30"> 
+                <div class="h-32 sm:h-36 md:h-32"> 
                     <canvas id="graficoTipos"></canvas>
                 </div>
             </div>
         </div>
 
         <!-- Gráfico 4 -->
-        <div class="w-full md:w-1/2">
-            <div class="p-6">
+        <div class="w-full md:w-1/2 px-2 mb-3">
+            <div class="p-3 bg-white rounded-lg shadow-xs">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-sm text-gray-800">Tempo médio (minutos)</h2>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-1 text-xs bg-blue-100 text-gray-700 rounded-full">Hoje</button>
+                    <h2 class="text-xs font-medium text-gray-700">Tempo médio (min)</h2>
+                    <div class="flex space-x-1">
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
-                <div class="h-30"> 
+                <div class="h-32 sm:h-36 md:h-32"> 
                     <canvas id="graficoTempo"></canvas>
                 </div>
             </div>

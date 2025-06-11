@@ -10,7 +10,7 @@
         
         <button
             data-url="<?= url("/atendimentomotivo/presencial"); ?>" 
-            class="bg-gradient-to-r from-blue-400 to-blue-500 cursor-pointer p-5 border border-gray-300 hover:shadow-xl rounded-lg hover:bg-gray-200 transition-all flex flex-col items-center gap-3">
+            class="bg-gradient-to-r from-blue-400 to-blue-500 md:bg-white cursor-pointer p-5 border border-gray-300 hover:shadow-xl rounded-lg hover:bg-gray-200 transition-all flex flex-col items-center gap-3">
             <div class="w-7 h-7 flex items-center justify-center text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
