@@ -2,9 +2,13 @@
 
 <!-- Conteúdo principal -->
 <main class="flex-1 overflow-y-auto p-6 pb-20 lg:pb-6">
-  <?php $this->insert("/pageCompany/listCompany"); ?>
+
+  <div id="companiesView">
+    <?php $this->insert("/pageCompany/listCompany"); ?>
+  </div>
+
 </main>
 
 <?php $this->start("scripts"); ?>
-  <script src="<?= theme("/assets/js/vacancy/page.js", CONF_VIEW_APP) ?>"></script>
+  <script src="<?= theme("/assets/js/company/page.js", CONF_VIEW_APP) ?>"></script>
 <?php $this->stop("scripts"); ?>

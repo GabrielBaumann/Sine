@@ -59,6 +59,7 @@ $route->get("/cadastrarvagas", "AppVacancy:addVacancy");
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
  */
 $route->get("/empresas", "AppCompany:startCompany");
+$route->get("/adicionarempresa", "AppCompany:formCompany");
 
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");

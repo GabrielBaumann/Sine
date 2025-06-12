@@ -32,4 +32,15 @@ class AppCompany extends Controller
             "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);
     }
+
+    public function formCompany()
+    {
+        $html = $this->view->render("/pageCompany/formNewCompany", [
+
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
 }
