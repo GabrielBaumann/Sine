@@ -40,6 +40,8 @@ class AppStart extends Controller
         $vacancy = new Vacancy();
         $charVacancy = $vacancy->chartVacancy();
 
+        // 
+
         echo $this->view->render("/pageStart", [
             "title" => "Início",
             "workerCount" => (new Worker())->find()->count(),
