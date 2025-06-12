@@ -89,7 +89,6 @@ document.addEventListener("click", (e) => {
         .then(data => {
             const vForm = document.getElementById("view-form");
             vForm.innerHTML = data.html;
-            console.log(data);
         })
     }
 })

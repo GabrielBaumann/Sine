@@ -259,14 +259,16 @@
         });
 
         // Gráfico 4: Barra horizontal invertido (da direita para esquerda)
+        const vVacancyGenderLabel = <?= json_encode($chartVacancyGenderLabel); ?>;
+        const vVacancyGenderTotal = <?= json_encode($chartVacancyGenderTotal); ?>;
         const ctx4 = document.getElementById('graficoTempo').getContext('2d');
         new Chart(ctx4, {
             type: 'bar',
             data: {
-                labels: ['Manhã', 'Tarde', 'Noite', 'Madrugada'],
+                labels: vVacancyGenderLabel,
                 datasets: [{
                     label: 'Minutos',
-                    data: [12, 19, 8, 15],
+                    data: vVacancyGenderTotal,
                     backgroundColor: 'rgb(48, 125, 240)',
                     borderColor: '#fff',
                     borderWidth: 1,

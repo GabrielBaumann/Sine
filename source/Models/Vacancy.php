@@ -30,5 +30,22 @@ class Vacancy extends Model
             $total[] = $value;
         }
         return ["label" => $label, "total" => $total];
-    }  
+    }
+    
+    public function chartVacancyGender() : array
+    {
+        $chart = $this->find()->fetch(true);
+        foreach($chart as $char) {
+            $chartList[] = $char->gender_vacancy;
+        }
+
+        $charCount =  array_count_values($chartList);
+
+        foreach($charCount as $key => $value ) {
+            $label[] = $key;
+            $total[] = $value;
+        }
+        return ["label" => $label, "total" => $total];
+    }
+    
 }

@@ -40,7 +40,9 @@ class AppStart extends Controller
         $vacancy = new Vacancy();
         $charVacancy = $vacancy->chartVacancy();
 
-        // 
+        // Gráfico de vagas por gênero
+        $vacancyGender = new Vacancy();
+        $chartVacancyGender = $vacancyGender->chartVacancyGender();
 
         echo $this->view->render("/pageStart", [
             "title" => "Início",
@@ -54,7 +56,9 @@ class AppStart extends Controller
             "chartWorkerLabel" => $chartWorker["label"],
             "chartWorkerTotal" => $chartWorker["total"],
             "chartVacancyLabel" => $charVacancy["label"],
-            "chartVacancyTotal" => $charVacancy["total"]
+            "chartVacancyTotal" => $charVacancy["total"],
+            "chartVacancyGenderLabel" => $chartVacancyGender["label"],
+            "chartVacancyGenderTotal" => $chartVacancyGender["total"]
         ]);
     }
 }
