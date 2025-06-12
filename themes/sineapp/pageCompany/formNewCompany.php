@@ -13,8 +13,8 @@
     <form id="form" action="<?= url("/adicionarempresa") . (isset($user->id_user) ? "/" . $user->id_user : "" ) ?>" method="post">
         <?= csrf_input(); ?>
         <div class="">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Adicionar Nova Empresa</h3>                    
+            <div class="bg-white px-4">
+                <h3 class="text-2xl leading-6 font-semibold text-gray-900 py-10" id="modalTitle">Nova Empresa</h3>                    
                 <div class="space-y-4"> 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="w-full">

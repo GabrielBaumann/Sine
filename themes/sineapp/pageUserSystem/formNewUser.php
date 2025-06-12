@@ -13,8 +13,8 @@
     <form id="form" action="<?= url("/adicionarusuario") . (isset($user->id_user) ? "/" . $user->id_user : "" ) ?>" method="post">
         <?= csrf_input(); ?>
         <div class="">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Adicionar Novo Usuário</h3>                    
+            <div class="bg-white px-4">
+                <h3 class="text-2xl leading-6 font-semibold text-gray-900 py-7" id="modalTitle">Novo Usuário</h3>                    
                 <div class="space-y-4">
                     <div class="w-full">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>

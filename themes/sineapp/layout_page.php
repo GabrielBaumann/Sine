@@ -74,7 +74,9 @@
     <div class="bg-white flex md:h-[768px] h-screen max-h-screen w-[1366px] max-w-full overflow-hidden mx-auto rounded-xl shadow-xl">
         
         <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
-            <div class="text-2xl font-semibold mb-20 flex items-center ml-4 text-gray-800">Sistema Sine</div>
+            <div class="mb-10 py-5 flex items-center ml-4 text-gray-800">
+                <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[60px] mx-auto">
+            </div>
         <nav class="flex flex-col gap-3 flex-grow">
             <a href="<?= url("/inicio"); ?>" class="text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
