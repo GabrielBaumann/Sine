@@ -2,11 +2,11 @@
     <!-- Header de localização -->
     <header class="mb-4 md:mb-5 flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
         <a href="<?= url("/vagas"); ?>" class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
-        <p>Início > Vagas > Nova vaga</p> 
+        <p>Vagas > Nova vaga</p> 
     </header>
 
     <div>
-        <h1 id="titleForm" class="text-xl md:text-2xl font-semibold text-gray-800 mb-3 md:py-5">Nova vaga</h1>
+        <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 mb-3 md:py-5">Nova vaga</h1>
 
         <form id="formService" action="<?= url("/formularioAtendimento") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             <?= csrf_input(); ?>
@@ -141,11 +141,14 @@
                     placeholder="Digite alguma observação relevante"></textarea>
             </div>
 
-            <!-- Botões de navegação -->
-            <div class="w-full mt-4">
-                <button type="submit" 
-                    class="cursor-pointer flex items-end px-6 py-2 bg-blue-900 text-white rounded-lg md:rounded-md hover:bg-blue-950 transition-colors order-1 sm:order-2">
-                    Confirmar <i class="fas fa-check ml-2"></i>
+            <!-- Botão de confirmação -->
+            <div class="col-span-4 flex justify-end mt-4 md:p-3">
+                <button
+                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Confirmar
                 </button>
             </div>
         </form>
