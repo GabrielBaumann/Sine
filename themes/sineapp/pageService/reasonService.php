@@ -6,7 +6,7 @@
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
             < Voltar
         </button>
-        <p class='text-blue-500 flex items-center truncate'>Início > Atendimento > Presencial</p>
+        <p class='text-blue-500 flex items-center truncate'>Atendimento > Modo > Motivo</p>
     </div>
     <main class="grid min-h-full place-items-center px-6 md:py-10 lg:px-8 mb-10">
         <div class="text-center">
