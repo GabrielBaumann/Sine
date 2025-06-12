@@ -27,16 +27,16 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
-                <span class="font-medium truncate max-w-xs"><?= $worker->name_worker; ?></span>
+                <span class="font-medium truncate max-w-[200px] md:max-w-full"><?= $worker->name_worker; ?></span>
             </p>
         </div>
     </div>
 
     <!-- Histórico de Atendimentos -->
     <div class="overflow-hidden">
-        <div class="py-4">
+        <div class="py-4 md:py-12">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div class="flex flex-col">
+                <div class="flex flex-col md:px-3">
                     <h3 class="text-2xl text-gray-800 font-bold flex items-center gap-2">
                         <?= $worker->name_worker; ?>
                     </h3>
@@ -102,7 +102,7 @@
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <tr class="md:h-[490px]">
+                        <tr class="md:h-[440px]">
                             <td colspan="5" class="px-4 py-8 text-center text-gray-500">
                                 <div class="flex flex-col items-center justify-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">

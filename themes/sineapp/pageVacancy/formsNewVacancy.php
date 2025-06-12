@@ -6,8 +6,7 @@
     </header>
 
     <div>
-        <h1 id="titleForm" class="text-xl md:text-2xl font-semibold text-gray-800 mb-3">Nova vaga</h1>
-        <span class='flex w-full border border-gray-200 mb-3 md:mb-4'></span>
+        <h1 id="titleForm" class="text-xl md:text-2xl font-semibold text-gray-800 mb-3 md:py-5">Nova vaga</h1>
 
         <form id="formService" action="<?= url("/formularioAtendimento") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             <?= csrf_input(); ?>
@@ -143,14 +142,9 @@
             </div>
 
             <!-- Botões de navegação -->
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col sm:flex-row justify-between gap-3 mt-4">
-                <button id="bntBack" data-url="<?= ($url ?? null); ?>" type="button" 
-                    class="cursor-pointer px-4 py-2 text-sm border border-gray-300 rounded-lg md:rounded-md text-gray-700 hover:bg-gray-50 transition-colors order-2 sm:order-1">
-                    <i class="fas fa-arrow-left mr-2"></i> Voltar
-                </button>
-
+            <div class="w-full mt-4">
                 <button type="submit" 
-                    class="cursor-pointer px-6 py-2 bg-blue-900 text-white rounded-lg md:rounded-md hover:bg-blue-950 transition-colors order-1 sm:order-2">
+                    class="cursor-pointer flex items-end px-6 py-2 bg-blue-900 text-white rounded-lg md:rounded-md hover:bg-blue-950 transition-colors order-1 sm:order-2">
                     Confirmar <i class="fas fa-check ml-2"></i>
                 </button>
             </div>
