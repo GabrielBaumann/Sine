@@ -30,7 +30,7 @@ class AppVacancy extends Controller
             $countVacancy = (new Vacancy())->find()->count(); 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($countVacancy, 3, $page);
+            $pager->Pager($countVacancy, 10, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new Vacancy())
@@ -51,7 +51,7 @@ class AppVacancy extends Controller
 
         $vacancyCount = (new Vacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager($vacancyCount, 3, 1);
+        $pager->Pager($vacancyCount, 10, 1);
 
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
@@ -69,6 +69,23 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
+
+        if(isset($data) && !empty($data)) {
+
+            // var_dump($data);
+            // if(empty($data["gender"])) {
+            //     $json["message"] = messageHelpers()->warning("Atenção")->render();
+            //     $json["complete"] = false;
+            //     echo json_encode($json);
+            //     return;
+            // }
+
+            // $json["message"] = messageHelpers()->success("OK")->render();
+            // $json["complete"] = true;
+            // echo json_encode($json);
+            // return;
+
+        }
         
         $html = $this->view->render("/pageVacancy/formsNewVacancy", [
             "title" => "Cadastrar vagas"
@@ -76,6 +93,6 @@ class AppVacancy extends Controller
 
         $json["html"] = $html;
         echo json_encode($json);
+        return;
     }
-
 }

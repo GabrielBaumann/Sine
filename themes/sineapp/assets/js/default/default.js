@@ -35,7 +35,7 @@ if (vform) {
         })
     })
 
-    document.addEventListener("focusout", (e) => {
+    document.addEventListener("input", (e) => {
         if(e.target.classList.contains("requerid-alert") && e.target.value != "") {
             e.target.classList.remove("requerid-alert")
             e.target.previousElementSibling.classList.remove("requerid-alert");

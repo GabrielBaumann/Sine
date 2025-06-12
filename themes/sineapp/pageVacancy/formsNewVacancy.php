@@ -8,16 +8,16 @@
     <div>
         <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 mb-3 md:py-5">Nova vaga</h1>
 
-        <form id="formService" action="<?= url("/formularioAtendimento") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             <?= csrf_input(); ?>
 
             <!-- Coluna 1 -->
             <div class="space-y-3 md:space-y-4">
                 <!-- CBO - Ocupação -->
-                <input type="hidden" id="" value="" name="">
+                <input type="hidden" id="" value="" name="cbo">
                 <div>
                     <label for="" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
-                    <input value="" data-url="" type="text" id="" name="" 
+                    <input value="" data-url="" type="text" id="" name="cbo" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00000">
                 </div>
@@ -47,8 +47,8 @@
             <div class="space-y-3 md:space-y-4">
                 <!-- Sexo -->
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
-                    <select id="gender" name="gender" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
+                    <select name="gender" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
@@ -86,8 +86,8 @@
 
                 <!-- Escolaridade -->
                 <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Escolaridade *</label>
-                    <select id="gender" name="gender" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="education" class="block text-sm font-medium text-gray-700 mb-1">Escolaridade *</label>
+                    <select id="education" name="education" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
                         <option value="">Ensino médio completo</option>
                         <option value="">Ensino superior completo</option>
@@ -115,8 +115,8 @@
             <div class="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <!-- Exp -->
                 <div>
-                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
-                    <select id="gender" name="gender" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
+                    <select id="experience" name="experience" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
                         <option value="">Sim</option>
                         <option value="">Não</option>
