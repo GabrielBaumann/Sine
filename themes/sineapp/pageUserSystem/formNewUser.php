@@ -91,9 +91,14 @@
 
             </div>
             
-            <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button id="btnSave" class="w-full inline-flex justify-center rounded-md border border-transparent px-4 py-2 bg-blue-700 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                    Salvar
+            <!-- Botão de confirmação -->
+            <div class="col-span-4 flex justify-end mt-4 md:p-3">
+                <button
+                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Confirmar
                 </button>
             </div>
         </div>
