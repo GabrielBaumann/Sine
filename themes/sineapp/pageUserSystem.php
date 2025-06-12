@@ -7,5 +7,8 @@
     </div>  
 </main>
 
-<script src="<?= theme("/assets/js/user/forms.js", CONF_VIEW_APP); ?>"></script>
-<script src="<?= theme("/assets/js/user/mask.js", CONF_VIEW_APP); ?>"></script>
+<?php $this->start("scripts"); ?>
+    <script src="<?= theme("/assets/js/user/forms.js", CONF_VIEW_APP); ?>"></script>
+    <script src="<?= theme("/assets/js/user/mask.js", CONF_VIEW_APP); ?>"></script>
+    <script src="<?= theme("/assets/js/user/page.js", CONF_VIEW_APP); ?>"></script>
+<?php $this->stop("scripts"); ?>

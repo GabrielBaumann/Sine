@@ -30,7 +30,7 @@ $route->get("/inicio", "AppStart:startPage");
  */
 // System User
 $route->get("/usuarios", "AppUserSystem:userSystem");
-$route->get("/adicionarusuario", "AppUserSystem:modelAddUser");
+$route->get("/adicionarusuario", "AppUserSystem:formAddUser");
 $route->get("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");

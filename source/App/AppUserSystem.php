@@ -31,7 +31,7 @@ class AppUserSystem extends Controller
         ]);
     }
 
-    public function modelAddUser(?array $data) : void
+    public function formAddUser(?array $data) : void
     {   
 
         if(isset($data["idUserSystem"])) {
@@ -112,9 +112,13 @@ class AppUserSystem extends Controller
             }
         }
 
-        echo $this->view->render("/pageUserSytem/modalForm", [
+        $html = $this->view->render("/pageUserSystem/formNewUser", [
             "user" => $userSystem ?? null
         ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
     }
 
     

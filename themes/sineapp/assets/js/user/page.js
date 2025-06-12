@@ -6,8 +6,8 @@ document.addEventListener("click", (e) => {
         fetch(vUrl)
         .then(response => response.json())
         .then(data => {
-            const vForm = document.getElementById("view-form");
+            const vForm = document.getElementById("usersView");
             vForm.innerHTML = data.html;
-        })
+        });
     }
-})
+});
