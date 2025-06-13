@@ -9,7 +9,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-6">
     <!-- Trabalhadores -->
-    <div class="bg-blue-500 rounded-xl p-4 overflow-hidden relative">
+    <div class="bg-[#4A94BF] rounded-xl p-4 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Trabalhadores</p>
@@ -22,7 +22,7 @@
     </div>
 
     <!-- Vagas -->
-    <div class="bg-blue-600 rounded-xl p-4 overflow-hidden relative">
+    <div class="bg-[#3580B2] rounded-xl p-4 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Vagas Abertas</p>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Empresas -->
-    <div class="bg-blue-700 rounded-xl p-4 overflow-hidden relative">
+    <div class="bg-[#1F6BA5] rounded-xl p-4 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Empresas</p>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- Atendimentos -->
-    <div class="bg-blue-800 rounded-xl p-4 overflow-hidden relative">
+    <div class="bg-[#095998] rounded-xl p-4 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <p class="text-sm text-white mb-1">Total Atendimentos</p>
@@ -74,7 +74,7 @@
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-xs font-medium text-gray-700">Total por mês</h2>
                     <div class="flex space-x-1">
-                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-[#095998] text-white rounded-full">Mês</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-xs font-medium text-gray-700">Status trabalhadores</h2>
                     <div class="flex space-x-1">
-                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Dia</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-[#095998] text-white rounded-full">Dia</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Semana</button>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="flex justify-between items-center">
                     <h2 class="text-xs font-medium text-gray-700">Status Vagas</h2>
                     <div class="flex space-x-1">
-                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-[#095998] text-white rounded-full">Mês</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                 <div class="flex justify-between items-center">
                     <h2 class="text-xs font-medium text-gray-700">Vagas pro Gênero</h2>
                     <div class="flex space-x-1">
-                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-blue-800 text-white rounded-full">Mês</button>
+                        <button class="cursor-pointer px-2 py-0.5 text-xs bg-[#095998] text-white rounded-full">Mês</button>
                         <button class="cursor-pointer px-2 py-0.5 text-xs bg-gray-200 text-gray-600 rounded-full">Ano</button>
                     </div>
                 </div>
@@ -151,13 +151,13 @@
                 datasets: [{
                     label: 'Atendimentos',
                     data: vMonthServiceTotal,
-                    backgroundColor: 'rgba(23, 76, 221, 0.2)',
-                    borderColor: 'rgb(18, 72, 219)',
-                    borderWidth: 2,
+                    backgroundColor: '#FFF',
+                    borderColor: '#095998',
+                    borderWidth: 4,
                     tension: 0.4,
                     fill: true,
-                    pointBackgroundColor: 'rgb(12, 51, 158)',
-                    pointBorderColor: '#fff',
+                    pointBackgroundColor: '#095998',
+                    pointBorderColor: '#095998',
                     pointHoverRadius: 6
                 }]
             },
@@ -175,9 +175,9 @@
                 datasets: [{
                     data: vStatusValue,
                     backgroundColor: [
-                        'rgba(70, 159, 243, 0.8)',
-                        'rgba(71, 156, 236, 0.5)',
-                        'rgba(82, 147, 245, 0.2)'
+                        '#095998',
+                        'rgba(16, 133, 241, 0.5)',
+                        'rgba(46, 121, 233, 0.2)'
                     ],
                     borderColor: '#fff',
                     borderWidth: 2
@@ -214,10 +214,10 @@
                     label: 'Atendimentos',
                     data: vVacancyTotal,
                     backgroundColor: [
-                        'rgb(77, 163, 243)',
-                        'rgb(58, 161, 245)',
-                        'rgb(48, 138, 240)',
-                        'rgb(72, 144, 240)'
+                        '#4A94BF',
+                        '#3580B2',
+                        '#4A94BF',
+                        '#3580B2'
                     ],
                     borderColor: '#fff',
                     borderWidth: 1,
@@ -269,7 +269,7 @@
                 datasets: [{
                     label: 'Minutos',
                     data: vVacancyGenderTotal,
-                    backgroundColor: 'rgb(48, 125, 240)',
+                    backgroundColor: '#4A94BF',
                     borderColor: '#fff',
                     borderWidth: 1,
                     borderRadius: 4

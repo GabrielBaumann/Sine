@@ -1,26 +1,26 @@
 <main class="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">
     <!-- Header de localização -->
-    <header class="mb-4 md:mb-5 flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
+    <header class="flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
         <a href="<?= url("/vagas"); ?>" class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
         <p class="truncate">Vagas > Nova vaga</p> 
     </header>
 
     <div>
-        <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 mb-3 md:py-5">Nova vaga</h1>
+        <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 py-7">Nova vaga</h1>
 
         <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             <?= csrf_input(); ?>
             <!-- Coluna 1 -->
             <div class="space-y-4">
                 <div>
-                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
+                    <label for="enterprise" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
                     <select 
-                        id="pcd-vacancy" 
-                        name="pcd-vacancy" 
+                        id="enterprise" 
+                        name="enterprise" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Empresa</option>
-                        <option value="teste">teste</option>
-                        <option value="teste">teste</option>
+                        <option value="1">teste</option>
+                        <option value="2">teste</option>
                     </select>
                 </div>
                 <!-- CBO - Ocupação -->
@@ -165,7 +165,7 @@
                             placeholder="00">
                     </div>
                 </div>
-
+                
                 <!-- Nomenclatura da vaga -->
                 <div>
                     <label for="nomeclatura-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Nomenclatura da vaga *</label>
@@ -179,15 +179,29 @@
                 </div>
             </div>
 
-            <!-- Descrição / Requisitos da vaga -->
+
+            <!-- Requisitos da vaga -->
             <div class="col-span-1 md:col-span-3">
-                <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição / Requisitos da vaga</label>
-                <textarea 
-                    id="description-vacancy" 
-                    name="description-vacancy" 
-                    rows="4" 
-                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                    placeholder="Digite alguma observação relevante"></textarea>
+                <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
+                <input 
+                        value="<?= $vacancy->nomeclatura_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="" 
+                        name="" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                        placeholder="Ex: técnico em informática, CNH D...">
+            </div>
+
+            <!-- Descrição -->
+            <div class="col-span-1 md:col-span-3">
+                <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição (Opcional)</label>
+                <input 
+                        value="<?= $vacancy->nomeclatura_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="" 
+                        name="" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                        placeholder="">
             </div>
 
             <!-- Botão de confirmação -->
