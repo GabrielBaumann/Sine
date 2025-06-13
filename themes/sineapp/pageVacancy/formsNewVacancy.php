@@ -13,14 +13,14 @@
             <!-- Coluna 1 -->
             <div class="space-y-4">
                 <div>
-                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
+                    <label for="enterprise" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
                     <select 
-                        id="pcd-vacancy" 
-                        name="pcd-vacancy" 
+                        id="enterprise" 
+                        name="enterprise" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Empresa</option>
-                        <option value="teste">teste</option>
-                        <option value="teste">teste</option>
+                        <option value="1">teste</option>
+                        <option value="2">teste</option>
                     </select>
                 </div>
                 <!-- CBO - Ocupação -->
