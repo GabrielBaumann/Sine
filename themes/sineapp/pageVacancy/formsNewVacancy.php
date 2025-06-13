@@ -8,7 +8,7 @@
     <div>
         <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 py-7">Nova vaga</h1>
 
-        <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+        <form id="formService" action="<?= url("/cadastrarvagas") . (isset($vacancy->id_vacancy) ? "/" . $vacancy->id_vacancy : "" ) ; ?>" method="post" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             <?= csrf_input(); ?>
             <!-- Coluna 1 -->
             <div class="space-y-4">
@@ -19,20 +19,23 @@
                         name="enterprise" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Empresa</option>
-                        <option value="1">teste</option>
-                        <option value="2">teste</option>
+                            <?php foreach($companys as $company): ?>        
+                                <option value="<?= $company->id_enterprise; ?>" <?= ($vacancy->id_enterprise ?? null) === "{$company->id_enterprise}" ? "selected" : "" ?>><?= $company->name_enterprise; ?></option>
+                            <?php endforeach; ?>
                     </select>
                 </div>
+                
                 <!-- CBO - Ocupação -->
                 <div>
                     <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
                     <select 
                         id="cbo-occupation" 
-                        name="cbo-occupation" 
+                        name="cbo-occupation"
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
-                        <option value="">Empresa</option>
-                        <option value="teste">teste</option>
-                        <option value="teste">teste</option>
+                        <option value="">CBO ocupação</option>
+                        <?php foreach($cbos_occupations as $cbo_occupation): ?>
+                            <option value="<?= $cbo_occupation->code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->code}" ? "selected" : "" ?>><?= $cbo_occupation->code; ?> - <?= $cbo_occupation->occupation; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
@@ -41,7 +44,7 @@
                     <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
                     <select 
                         id="pcd-vacancy" 
-                        name="pcd-vacancy" 
+                        name="pcd-vacancy"
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
                         <option value="Sim" <?= ($vacancy->pcd_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
@@ -182,26 +185,26 @@
 
             <!-- Requisitos da vaga -->
             <div class="col-span-1 md:col-span-3">
-                <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
+                <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
                 <input 
-                        value="<?= $vacancy->nomeclatura_vacancy ?? "" ?>" 
-                        type="text" 
-                        id="" 
-                        name="" 
-                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                        placeholder="Ex: técnico em informática, CNH D...">
+                    value="<?= $vacancy->request_vacancy ?? "" ?>" 
+                    type="text" 
+                    id="request-vacancy" 
+                    name="request-vacancy" 
+                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                    placeholder="Ex: técnico em informática, CNH D...">
             </div>
 
             <!-- Descrição -->
             <div class="col-span-1 md:col-span-3">
                 <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição (Opcional)</label>
                 <input 
-                        value="<?= $vacancy->nomeclatura_vacancy ?? "" ?>" 
-                        type="text" 
-                        id="" 
-                        name="" 
-                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                        placeholder="">
+                    value="<?= $vacancy->description_vacancy ?? "" ?>" 
+                    type="text" 
+                    id="description-vacancy" 
+                    name="description-vacancy" 
+                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                    placeholder="">
             </div>
 
             <!-- Botão de confirmação -->

@@ -1,6 +1,7 @@
 <div id="step-3-form" class="step-content">
     <div class="hidden md:flex items-center justify-left p-2 gap-2">
         <button
+            id="bntBack"
             data-url="<?= url("/atendimentotipo"); ?>"
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
             < Voltar

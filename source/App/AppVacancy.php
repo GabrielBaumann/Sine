@@ -2,8 +2,10 @@
 
 namespace Source\App;
 
+use Source\Core\Connect;
 use Source\Core\Controller;
 use Source\Models\Auth;
+use Source\Models\CboOccupation;
 use Source\Models\Enterprise;
 use Source\Models\SystemUser;
 use Source\Models\Vacancy;
@@ -63,7 +65,10 @@ class AppVacancy extends Controller
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
             "countVacancy"=> (new Vacancy())->find()->count(),
             "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
-            "paginator" => $pager->render()
+            "paginator" => $pager->render(),
+
+            "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+            "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
         ]);
     }
 
@@ -79,7 +84,7 @@ class AppVacancy extends Controller
             }
 
             // Verificar e sanitizar campos obrigatórios e não obrigatórios
-            $dataClean = cleanInputData($data, ["description-vacancy"]);
+            $dataClean = cleanInputData($data, ["description-vacancy", "request-vacancy"]);
 
             if (!$dataClean["valid"]) {
                 $json["message"] = messageHelpers()->warning("Preencha todos os campos obrigatórios!")->render();
@@ -91,25 +96,10 @@ class AppVacancy extends Controller
             $dataCleanOk = $dataClean["data"];
 
             $vacancy = new Vacancy();
+            $createVacancys = $vacancy->createVacancy($dataCleanOk, $this->user->id_user);
 
-            $vacancy->id_enterprise = $dataCleanOk["enterprise"];
-            $vacancy->cbo_occupation = $dataCleanOk["cbo-occupation"];
-            $vacancy->apprentice_vacancy = $dataCleanOk["apprentice-vacancy"];
-            $vacancy->gender_vacancy = $dataCleanOk["gender"];
-            $vacancy->number_vacancy = $dataCleanOk["number-vacancy"];
-            $vacancy->pcd_vacancy = $dataCleanOk["pcd-vacancy"];
-            $vacancy->quantity_per_vacancy = $dataCleanOk["quantity-per-vacancy"];
-            $vacancy->date_open_vacancy = $dataCleanOk["date-open-vacancy"];
-            $vacancy->education_vacancy = $dataCleanOk["education-vacancy"];
-            $vacancy->age_min_vacancy = $dataCleanOk["age-min-vacancy"];
-            $vacancy->age_max_vacancy = $dataCleanOk["age-max-vacancy"];
-            $vacancy->exp_vacancy = $dataCleanOk["exp-vacancy"];
-            $vacancy->description_vacancy = $dataCleanOk["description-vacancy"];
-            $vacancy->nomeclatura_vacancy = $dataCleanOk["nomeclatura-vacancy"];
-            $vacancy->id_user_register = $this->user->id_user;
-
-            if(!$vacancy->save()) {
-                $json["message"] = $vacancy->message()->render();
+            if(!$createVacancys){
+                $json["message"] = messageHelpers()->warning("Verifique se o campo Nº de Vagas é válido!")->render();
                 $json["complete"] = false;
                 echo json_encode($json);
                 return;
@@ -120,9 +110,13 @@ class AppVacancy extends Controller
             echo json_encode($json);
             return;
         }
-        
+
+       
+
         $html = $this->view->render("/pageVacancy/formsNewVacancy", [
-            "title" => "Cadastrar vagas"
+            "title" => "Cadastrar vagas",
+            "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+            "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
         ]);
 
         $json["html"] = $html;
