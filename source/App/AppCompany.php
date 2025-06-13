@@ -35,10 +35,12 @@ class AppCompany extends Controller
         ]);
     }
 
-    public function formCompany()
+    public function formCompany(?array $data)
     {
+        if(!empty($data["csrf"])) {
 
-        
+            var_dump($data);
+        }
 
         $html = $this->view->render("/pageCompany/formNewCompany", [
 
@@ -47,5 +49,13 @@ class AppCompany extends Controller
         $json["html"] = $html;
         echo json_encode($json);
         return;
+    }
+
+    public function verificCnpj(array $data) : void
+    {
+        if (!validateCNPJ($data["cnpj"])) {
+            var_dump("Erro");
+            return;
+        }
     }
 }

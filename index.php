@@ -61,6 +61,10 @@ $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
  */
 $route->get("/empresas", "AppCompany:startCompany");
 $route->get("/adicionarempresa", "AppCompany:formCompany");
+$route->post("/adicionarempresa", "AppCompany:formCompany");
+$route->post("/verificarcnpj", "AppCompany:verificCnpj");
+
+
 
 // Service page
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");

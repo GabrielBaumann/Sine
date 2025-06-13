@@ -285,3 +285,43 @@ function cleanCPF($cpf)
 {
     return preg_replace("/\D/", "", $cpf);
 }
+
+function validateCNPJ($cnpj) {
+    // Remove caracteres não numéricos
+    $cnpj = preg_replace('/[^0-9]/', '', $cnpj);
+
+    // Verifica se tem 14 dígitos
+    if (strlen($cnpj) != 14) {
+        return false;
+    }
+
+    // Verifica se todos os dígitos são iguais (CNPJs inválidos)
+    if (preg_match('/^(\d)\1{13}$/', $cnpj)) {
+        return false;
+    }
+
+    // Calcula o primeiro dígito verificador
+    $soma = 0;
+    $peso = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    for ($i = 0; $i < 12; $i++) {
+        $soma += $cnpj[$i] * $peso[$i];
+    }
+
+    $resto = $soma % 11;
+    $digito1 = ($resto < 2) ? 0 : 11 - $resto;
+
+    // Calcula o segundo dígito verificador
+    $soma = 0;
+    $peso = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    for ($i = 0; $i < 13; $i++) {
+        $soma += $cnpj[$i] * $peso[$i];
+    }
+
+    $resto = $soma % 11;
+    $digito2 = ($resto < 2) ? 0 : 11 - $resto;
+
+    // Verifica se os dígitos estão corretos
+    return $cnpj[12] == $digito1 && $cnpj[13] == $digito2;
+}

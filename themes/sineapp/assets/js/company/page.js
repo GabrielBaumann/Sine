@@ -11,3 +11,22 @@ document.addEventListener("click", (e) => {
         });
     }
 });
+
+// Verificar se o CNPJ é válido e se já existe na base
+document.addEventListener("focusout", (e) => {
+    if(e.target.id === "cnpj"){
+        const vUrl = e.target.dataset.url;
+        const vCnpjClean = e.target.value.replace(/\D/g, '');
+        const vForm = new FormData();
+        vForm.append(e.target.name, vCnpjClean);
+
+        fetch(vUrl, {
+            method: "post",
+            body: vForm
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+    }  
+})

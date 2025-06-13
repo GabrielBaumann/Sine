@@ -78,7 +78,8 @@ class Vacancy extends Model
 
     public function chartVacancy() : array
     {
-        $chart = $this->find()->fetch(true);
+        $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
+
         foreach($chart as $char) {
             $chartList[] = $char->status_vacancy;
         }
@@ -94,7 +95,7 @@ class Vacancy extends Model
     
     public function chartVacancyGender() : array
     {
-        $chart = $this->find()->fetch(true);
+        $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
         foreach($chart as $char) {
             $chartList[] = $char->gender_vacancy;
         }

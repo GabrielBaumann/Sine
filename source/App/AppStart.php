@@ -47,7 +47,7 @@ class AppStart extends Controller
         echo $this->view->render("/pageStart", [
             "title" => "Início",
             "workerCount" => (new Worker())->find()->count(),
-            "cavancysCount" => (new Vacancy())->find()->count(),
+            "vavancysCount" => (new Vacancy())->find("id_vacancy_fixed <> :id", "id=0")->count(),
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
