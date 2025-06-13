@@ -186,7 +186,7 @@ public function render(): string
                         <p>' . $this->text . '</p>
                     </div>
                 </div>
-                <button id="botao" class="ml-2 text-gray-400 hover:text-gray-500">
+                <button id="button-close" class="ml-2 text-gray-400 hover:text-gray-500">
                     <i class="fas fa-times"></i>
                 </button>
             </div>

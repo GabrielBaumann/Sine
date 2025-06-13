@@ -11,31 +11,48 @@
         <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             <?= csrf_input(); ?>
 
+            <input 
+                value="<?= $vacancy->id_enterprise ?? "" ?>" 
+                type="text" 
+                id="enterprise" 
+                name="enterprise" 
+                class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                placeholder="00000">
+
             <!-- Coluna 1 -->
             <div class="space-y-3 md:space-y-4">
                 <!-- CBO - Ocupação -->
-                <input type="hidden" id="" value="" name="cbo">
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
-                    <input value="" data-url="" type="text" id="" name="cbo" 
+                    <label for="cbo-occupation" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
+                    <input 
+                        value="<?= $vacancy->cbo_occupation ?? "" ?>" 
+                        type="text" 
+                        id="cbo-occupation" 
+                        name="cbo-occupation" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00000">
                 </div>
 
                 <!-- PCD -->
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
-                    <select id="" name="" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
+                    <select 
+                        id="pcd-vacancy" 
+                        name="pcd-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
-                        <option value="Masculino">Sim</option>
-                        <option value="Feminino">Não</option>
+                        <option value="Sim" <?= ($vacancy->pcd_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
+                        <option value="Não" <?= ($vacancy->pcd_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
                     </select>
                 </div>
 
                 <!-- APRENDIZ -->
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz *</label>
-                    <select id="" name="" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="apprentice-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz *</label>
+                    <select 
+                        id="apprentice-vacancy" 
+                        name="apprentice-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
                         <option value="Masculino">Sim</option>
                         <option value="Feminino">Não</option>
@@ -48,28 +65,37 @@
                 <!-- Sexo -->
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
-                    <select name="gender" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <select
+                        id="gender" 
+                        name="gender" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
-                        <option value="Masculino">Masculino</option>
-                        <option value="Feminino">Feminino</option>
-                        <option value="Outro">Outro</option>
+                        <option value="Masculino" <?= ($vacancy->gender_vacancy ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
+                        <option value="Feminino" <?= ($vacancy->gender_vacancy ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
+                        <option value="Outro" <?= ($vacancy->gender_vacancy ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
                     </select>
                 </div>
 
                 <!-- N° de Vagas -->
-                <input type="hidden" id="" value="" name="">
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">N° de Vagas *</label>
-                    <input value="" data-url="" type="text" id="" name="" 
+                    <label for="number-vacancy" class="block text-sm font-medium text-gray-700 mb-1">N° de Vagas *</label>
+                    <input
+                        id="number-vacancy" 
+                        value="<?= $vacancy->number_vacancy ?? "" ?>" 
+                        type="text"  
+                        name="number-vacancy" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
 
                 <!-- Qtd. por Vaga -->
-                <input type="hidden" id="" value="" name="">
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Qtd. por Vaga *</label>
-                    <input value="" data-url="" type="text" id="" name="" 
+                    <label for="quantity-per-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Qtd. por Vaga *</label>
+                    <input 
+                        value="<?= $vacancy->quantity_per_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="quantity-per-vacancy" 
+                        name="quantity-per-vacancy" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
@@ -79,32 +105,47 @@
             <div class="space-y-3 md:space-y-4">
                 <!-- Data de abertura -->
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Data de abertura *</label>
-                    <input value="" type="date" id="" name="" 
+                    <label for="date-open-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de abertura *</label>
+                    <input 
+                        value="<?= $vacancy->date_open_vacancy ?? "" ?>" 
+                        type="date" 
+                        id="date-open-vacancy" 
+                        name="date-open-vacancy" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500 text-gray-900">
                 </div>
 
                 <!-- Escolaridade -->
                 <div>
-                    <label for="education" class="block text-sm font-medium text-gray-700 mb-1">Escolaridade *</label>
-                    <select id="education" name="education" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="education-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Escolaridade *</label>
+                    <select 
+                        id="education-vacancy" 
+                        name="education-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
-                        <option value="">Ensino médio completo</option>
-                        <option value="">Ensino superior completo</option>
+                        <option value="Ensino médio completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino médio completo' ? 'selected' : '' ?>>Ensino médio completo</option>
+                        <option value="Ensino superior completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino superior completo' ? 'selected' : '' ?>>Ensino superior completo</option>
                     </select>
                 </div>
 
                 <!-- Idade Mínima/Máxima -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label for="" class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima *</label>
-                        <input value="" data-url="" type="text" id="" name="" 
+                        <label for="age-min-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima *</label>
+                        <input 
+                            value="<?= $vacancy->age_min_vacancy ?? "" ?>" 
+                            type="text" 
+                            id="age-min-vacancy" 
+                            name="age-min-vacancy" 
                             class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                             placeholder="00">
                     </div>
                     <div>
-                        <label for="" class="block text-sm font-medium text-gray-700 mb-1">Idade Máxima *</label>
-                        <input value="" data-url="" type="text" id="" name="" 
+                        <label for="age-max-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Idade Máxima *</label>
+                        <input  
+                            value="<?= $vacancy->age_max_vacancy ?? "" ?>" 
+                            type="text" 
+                            id="age-max-vacancy" 
+                            name="age-max-vacancy" 
                             class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                             placeholder="00">
                     </div>
@@ -115,19 +156,25 @@
             <div class="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <!-- Exp -->
                 <div>
-                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
-                    <select id="experience" name="experience" class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                    <label for="exp-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
+                    <select 
+                        id="exp-vacancy" 
+                        name="exp-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
                         <option value="">Selecione</option>
-                        <option value="">Sim</option>
-                        <option value="">Não</option>
+                        <option value="Sim" <?= ($vacancy->exp_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
+                        <option value="Não" <?= ($vacancy->exp_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
                     </select>
                 </div>
 
                 <!-- Nomenclatura da vaga -->
-                <input type="hidden" id="" value="" name="">
                 <div>
-                    <label for="" class="block text-sm font-medium text-gray-700 mb-1">Nomenclatura da vaga *</label>
-                    <input value="" data-url="" type="text" id="" name="" 
+                    <label for="nomeclatura-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Nomenclatura da vaga *</label>
+                    <input 
+                        value="<?= $vacancy->nomeclatura_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="nomeclatura-vacancy" 
+                        name="nomeclatura-vacancy" 
                         class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
@@ -135,8 +182,11 @@
 
             <!-- Descrição / Requisitos da vaga -->
             <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                <label for="observation" class="block text-sm font-medium text-gray-700 mb-1">Descrição / Requisitos da vaga</label>
-                <textarea id="observation" name="observation" rows="3" 
+                <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição / Requisitos da vaga</label>
+                <textarea 
+                    id="description-vacancy" 
+                    name="description-vacancy" 
+                    rows="3" 
                     class="bg-white w-full px-3 py-2 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
                     placeholder="Digite alguma observação relevante"></textarea>
             </div>

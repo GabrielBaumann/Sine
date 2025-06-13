@@ -23,8 +23,6 @@ document.addEventListener("submit", (e) => {
         })
         .then(data => {
 
-            // fncMessage();
-
             if(data.complete) {
                 fncMessage(data.message);
                 document.getElementById(vformId).reset();
@@ -72,14 +70,13 @@ function showSplash() {
 // função para montar a mensagem e remover a mensagem
 function fncMessage(vMessage) {
 
-    // if (!vMessage) {
-        if(document.getElementById("response")) document.getElementById("response").remove();
-        // return;
-    // }
+    // Remove qualquer mensagem que possa estar no DOM
+    if(document.getElementById("response")) document.getElementById("response").remove();
 
     const vNewMessage = document.createElement("div");
     vNewMessage.id = "response";
     
+    // Se a função for chamada sem o argumento mensagem ela devolve a mensagem de erro
     if(!vMessage) {
         vMessage = `
             <div class="alert-container">
@@ -101,4 +98,13 @@ function fncMessage(vMessage) {
     }, 4000);    
 }
 
-// Função para mensagem de erro
+// Evento para fechar mensagem
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("#button-close");   
+    if(vButton) {
+        const vMessage =  e.target.closest(".alert-container");
+        vMessage.style.transition = "opacity 0.5s ease";
+        vMessage.style.opacity = "0";
+        setTimeout(() => vMessage.remove(), 2000)
+    }
+});

@@ -29,12 +29,17 @@ class AppCompany extends Controller
 
         echo $this->view->render("/pageCompany", [
             "title" => "Empresas",
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "listEnterprise" => new Enterprise()->find()->order("name_enterprise")->fetch(true),
+            "countEnterprise" => new Enterprise()->find()->count()
         ]);
     }
 
     public function formCompany()
     {
+
+        
+
         $html = $this->view->render("/pageCompany/formNewCompany", [
 
         ]);
