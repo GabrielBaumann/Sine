@@ -2,35 +2,38 @@
     <!-- Header de localização -->
     <header class="mb-4 md:mb-5 flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
         <a href="<?= url("/vagas"); ?>" class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
-        <p>Vagas > Nova vaga</p> 
+        <p class="truncate">Vagas > Nova vaga</p> 
     </header>
 
     <div>
         <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 mb-3 md:py-5">Nova vaga</h1>
 
-        <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <form id="formService" action="<?= url("/cadastrarvagas") . (isset($worker->id_worker) ? "/" . $worker->id_worker : "" ) ; ?>" method="post" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             <?= csrf_input(); ?>
-
-            <input 
-                value="<?= $vacancy->id_enterprise ?? "" ?>" 
-                type="text" 
-                id="enterprise" 
-                name="enterprise" 
-                class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
-                placeholder="00000">
-
             <!-- Coluna 1 -->
-            <div class="space-y-3 md:space-y-4">
+            <div class="space-y-4">
+                <div>
+                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
+                    <select 
+                        id="pcd-vacancy" 
+                        name="pcd-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                        <option value="">Empresa</option>
+                        <option value="teste">teste</option>
+                        <option value="teste">teste</option>
+                    </select>
+                </div>
                 <!-- CBO - Ocupação -->
                 <div>
-                    <label for="cbo-occupation" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
-                    <input 
-                        value="<?= $vacancy->cbo_occupation ?? "" ?>" 
-                        type="text" 
+                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
+                    <select 
                         id="cbo-occupation" 
                         name="cbo-occupation" 
-                        class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
-                        placeholder="00000">
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                        <option value="">Empresa</option>
+                        <option value="teste">teste</option>
+                        <option value="teste">teste</option>
+                    </select>
                 </div>
 
                 <!-- PCD -->
@@ -39,7 +42,7 @@
                     <select 
                         id="pcd-vacancy" 
                         name="pcd-vacancy" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
                         <option value="Sim" <?= ($vacancy->pcd_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
                         <option value="Não" <?= ($vacancy->pcd_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
@@ -52,7 +55,7 @@
                     <select 
                         id="apprentice-vacancy" 
                         name="apprentice-vacancy" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
                         <option value="Masculino">Sim</option>
                         <option value="Feminino">Não</option>
@@ -61,14 +64,14 @@
             </div>
 
             <!-- Coluna 2 -->
-            <div class="space-y-3 md:space-y-4">
+            <div class="space-y-4">
                 <!-- Sexo -->
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
                     <select
                         id="gender" 
                         name="gender" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
                         <option value="Masculino" <?= ($vacancy->gender_vacancy ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
                         <option value="Feminino" <?= ($vacancy->gender_vacancy ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
@@ -84,7 +87,7 @@
                         value="<?= $vacancy->number_vacancy ?? "" ?>" 
                         type="text"  
                         name="number-vacancy" 
-                        class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
 
@@ -96,13 +99,25 @@
                         type="text" 
                         id="quantity-per-vacancy" 
                         name="quantity-per-vacancy" 
-                        class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
+                </div>
+                <!-- Experiência -->
+                <div>
+                    <label for="exp-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
+                    <select 
+                        id="exp-vacancy" 
+                        name="exp-vacancy" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                        <option value="">Selecione</option>
+                        <option value="Sim" <?= ($vacancy->exp_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
+                        <option value="Não" <?= ($vacancy->exp_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
+                    </select>
                 </div>
             </div>
 
             <!-- Coluna 3 -->
-            <div class="space-y-3 md:space-y-4">
+            <div class="space-y-4">
                 <!-- Data de abertura -->
                 <div>
                     <label for="date-open-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de abertura *</label>
@@ -111,7 +126,7 @@
                         type="date" 
                         id="date-open-vacancy" 
                         name="date-open-vacancy" 
-                        class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500 text-gray-900">
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 text-gray-900">
                 </div>
 
                 <!-- Escolaridade -->
@@ -120,7 +135,7 @@
                     <select 
                         id="education-vacancy" 
                         name="education-vacancy" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
                         <option value="Ensino médio completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino médio completo' ? 'selected' : '' ?>>Ensino médio completo</option>
                         <option value="Ensino superior completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino superior completo' ? 'selected' : '' ?>>Ensino superior completo</option>
@@ -128,7 +143,7 @@
                 </div>
 
                 <!-- Idade Mínima/Máxima -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label for="age-min-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima *</label>
                         <input 
@@ -136,7 +151,7 @@
                             type="text" 
                             id="age-min-vacancy" 
                             name="age-min-vacancy" 
-                            class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                            class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                             placeholder="00">
                     </div>
                     <div>
@@ -146,25 +161,9 @@
                             type="text" 
                             id="age-max-vacancy" 
                             name="age-max-vacancy" 
-                            class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                            class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                             placeholder="00">
                     </div>
-                </div>
-            </div>
-
-            <!-- Campos de largura total -->
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                <!-- Exp -->
-                <div>
-                    <label for="exp-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Experiência *</label>
-                    <select 
-                        id="exp-vacancy" 
-                        name="exp-vacancy" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 md:py-1.5 text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg md:rounded-md">
-                        <option value="">Selecione</option>
-                        <option value="Sim" <?= ($vacancy->exp_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
-                        <option value="Não" <?= ($vacancy->exp_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
-                    </select>
                 </div>
 
                 <!-- Nomenclatura da vaga -->
@@ -175,26 +174,26 @@
                         type="text" 
                         id="nomeclatura-vacancy" 
                         name="nomeclatura-vacancy" 
-                        class="bg-white w-full px-3 py-2 md:py-1.5 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
             </div>
 
             <!-- Descrição / Requisitos da vaga -->
-            <div class="col-span-1 md:col-span-2 lg:col-span-3">
+            <div class="col-span-1 md:col-span-3">
                 <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição / Requisitos da vaga</label>
                 <textarea 
                     id="description-vacancy" 
                     name="description-vacancy" 
-                    rows="3" 
-                    class="bg-white w-full px-3 py-2 text-sm border border-gray-300 rounded-lg md:rounded-md focus:ring-sine-500 focus:border-sine-500" 
+                    rows="4" 
+                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                     placeholder="Digite alguma observação relevante"></textarea>
             </div>
 
             <!-- Botão de confirmação -->
-            <div class="col-span-4 flex justify-end mt-4 md:p-3">
+            <div class="col-span-1 md:col-span-3 flex justify-end mt-4">
                 <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                    type="submit" class="cursor-pointer flex items-center px-6 py-3 md:py-2 text-base md:text-sm bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors w-full md:w-auto justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                     </svg>
