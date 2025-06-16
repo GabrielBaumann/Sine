@@ -51,7 +51,7 @@ $route->post("/verificarcpf", "AppUserSystem:checkCpf");
 $route->get("/trabalhador", "AppWorker:startWorker");
 $route->get("/listatrabalhador", "AppWorker:listtWorker");
 
-$route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
+$route->get("/listatrabalhador/p/{page}/{name}/{status}", "AppWorker:startPagePaginator");
 $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
