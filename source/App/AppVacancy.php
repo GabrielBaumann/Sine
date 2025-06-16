@@ -190,4 +190,17 @@ class AppVacancy extends Controller
         echo json_encode($json);
         return;
     }
+
+    public function infoVacancy()
+    {
+        $vacancy = (new Vacancy())->find()->fetch();
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "title" => "Informações da vaga"
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
 }

@@ -26,3 +26,18 @@ document.addEventListener("click", (e) => {
         })
     }
 })
+
+// Chamar formulário
+document.addEventListener("click", (e) => {
+    const vClick = e.target.closest("button");
+    if(vClick && vClick.id === "btn-info-vacancy") {
+        const vUrl = vClick.dataset.url;
+
+        fetch(vUrl)
+        .then(response => response.json())
+        .then(data => {
+            const vForm = document.getElementById("view-form");
+            vForm.innerHTML = data.html;
+        })
+    }
+})
