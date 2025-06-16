@@ -108,5 +108,34 @@ class Vacancy extends Model
         }
         return ["label" => $label, "total" => $total];
     }
+
+    /**
+     * Lista de vagas
+     */
+    public function listVacancy() : array
+    {
+        $vacancy = $this->find("id_vacancy_fixed = :id","id=0")->fetch(true);    
+        
+        $arrayVacancy = [];
+
+        foreach($vacancy as $vac) {
+
+            $vancyCount = new static(); 
+            $vacancyActive = count($vancyCount->find("id_vacancy_fixed = :id AND status_vacancy = :ac","id={$vac->id_vacancy}&ac=Ativa")->fetch(true));
+            $vacancyTotal = count($vancyCount->find("id_vacancy_fixed = :id","id={$vac->id_vacancy}")->fetch(true));
+            $enterprise = (new Enterprise())->findById($vac->id_enterprise)->name_enterprise;
+            $arrayVacancy[] = [
+                "vacancyActive" => $vacancyActive,
+                "vacancyTotal" => $vacancyTotal,
+                "enterprise" => $enterprise,
+                "nomeclature" => $vac->nomeclatura_vacancy
+            ];
+
+        }
+
+        var_dump($arrayVacancy);
+
+        return $vacancy;
+    }
     
 }

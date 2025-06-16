@@ -27,21 +27,55 @@ class AppVacancy extends Controller
 
     public function startVacancy(?array $data) : void
     {       
+        if(isset($data["page"]) && !empty($data["page"])) {
 
-        if(isset($data["page"])) {
-            
-            $countVacancy = (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(); 
+            $searchVacancy = filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchEnterprise = filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchStatus = filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+
+
+            $conditions = [];   
+            $params = [];
+
+            $conditions[] = "id_vacancy_fixed = :id";
+            $params["id"] = 0;
+
+            if(!empty($searchEnterprise)) {
+                $conditions[] = "id_enterprise = :in";
+                $params["in"] = $searchEnterprise; 
+            }
+
+            if(!empty($searchVacancy)) {
+                $conditions[] = "nomeclatura_vacancy LIKE :n";
+                $params["n"] = "%{$searchVacancy}%";
+            }
+
+            if(!empty($searchStatus)) {
+                $conditions[] = "status_vacancy = :s";
+                $params["s"] = $searchStatus;
+            }
+
+            $where = implode(" AND ", $conditions);
+
+            $vacancy = (new Vacancy())
+                ->find($where, http_build_query($params))
+                ->order("nomeclatura_vacancy")
+                ->fetch(true);
+
+            $vacancyCount = count($vacancy ?? []);
+
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($countVacancy, 10, $page);
+            $pager->Pager($vacancyCount, 10, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new Vacancy())
-                    ->find("id_vacancy_fixed = :id", "id=0")
+                    ->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->order("nomeclatura_vacancy", "DESC")->fetch(true),
-                "countVacancy"=> (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(),
+                "countVacancy"=> $vacancyCount,
                 "listEnterprise" => (new Enterprise())->find()->fetch(true),
                 "paginator" => $pager->render()
             ]);   
@@ -51,6 +85,8 @@ class AppVacancy extends Controller
             echo json_encode($json);
             return;
         }
+
+        // $vac = (new Vacancy())->listVacancy();
 
         $vacancyCount = (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
@@ -72,10 +108,11 @@ class AppVacancy extends Controller
 
     public function listVacancy(?array $data) : void
     {   
-        if(isset($data["search-vacancy"]) || isset($data["search-enterprise"])) {
+        if(isset($data["search-vacancy"]) || isset($data["search-enterprise"]) || isset($data["search-status"])) {
             
             $searchVacancy = isset($data["search-vacancy"]) ? filter_var($data["search-vacancy"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            $searchEnterprise = isset($data["search-enterprise"]) ? filter_var($data["search-enterprise"], FILTER_SANITIZE_SPECIAL_CHARS) : null; 
+            $searchEnterprise = isset($data["search-enterprise"]) ? filter_var($data["search-enterprise"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchStatus = isset($data["search-status"]) ? filter_var($data["search-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
             $conditions = [];   
             $params = [];
@@ -91,6 +128,11 @@ class AppVacancy extends Controller
             if(!empty($searchVacancy)) {
                 $conditions[] = "nomeclatura_vacancy LIKE :n";
                 $params["n"] = "%{$searchVacancy}%";
+            }
+
+            if(!empty($searchStatus)) {
+                $conditions[] = "status_vacancy = :s";
+                $params["s"] = $searchStatus;
             }
 
             $where = implode(" AND ", $conditions);

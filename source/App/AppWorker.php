@@ -51,7 +51,7 @@ class AppWorker extends Controller
             $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(10)->fetch(true);
             $countWorker = (new Worker())->find($where, http_build_query($params))->count();
 
-            $pager = new Pager(url("/listatrabalhador/p/1/"));
+            $pager = new Pager(url("/listatrabalhador/p/"));
             $pager->pager($countWorker, 10, 1);
 
             $html = $this->view->render("pageWorker/listWorkes", [
@@ -146,14 +146,9 @@ class AppWorker extends Controller
     public function startPagePaginator(array $data) : void
     {   
         if (isset($data["page"]) && !empty($data["page"])) {
-
-            var_dump(filter_input(INPUT_GET, "status", FILTER_SANITIZE_SPECIAL_CHARS));
-            var_dump(filter_input(INPUT_GET, "name", FILTER_SANITIZE_SPECIAL_CHARS));
-            // $nameSearch = isset($data["name-search"]) ? filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            // $statusSearch = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            
-            $nameSearch = isset($data["name-search"]) ? urldecode($data["name-search"]) : null;
-            $statusSearch = isset($data["search-all-status"]) ? urldecode($data["search-all-status"]) : null;
+           
+            $nameSearch = filter_input(INPUT_GET, "name-search", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "name-search", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $statusSearch = filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
             $conditions = [];
             $params = [];

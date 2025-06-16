@@ -52,8 +52,6 @@ $route->get("/trabalhador", "AppWorker:startWorker");
 $route->get("/listatrabalhador", "AppWorker:listtWorker");
 
 $route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
-// $route->get("/listatrabalhador/p/{page}/{nameSearch}", "AppWorker:startPagePaginator");
-// $route->get("/listatrabalhador/p/{page}/{nameSearch}/{statusSearch}", "AppWorker:startPagePaginator");
 
 $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");

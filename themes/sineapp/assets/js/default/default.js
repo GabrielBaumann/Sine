@@ -78,38 +78,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Paginação via ajax
-// document.addEventListener("click", (e) => {
-//     const vLinkPaginator = e.target.closest(".paginator_item");
-//     const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
-
-//     if (vLinkPaginator) {
-//         e.preventDefault();
-
-//         const vStatus = document.getElementById("search-all-status")?.value || "" ;
-//         const vName = document.getElementById("name-search")?.value || "" ;
-
-//         const pageHref = new URL(vLinkPaginator.href);
-//         const vPageNumber = pageHref.pathname.split("/").pop();
-//         const vUrl = `/sine/listatrabalhador/p/${vPageNumber}?name=${encodeURIComponent(vName)}&status=${encodeURIComponent(vStatus)}`;
-
-//        fetch(vUrl)
-//        .then(response => response.json())
-//        .then(data => {
-//             const vContent = document.getElementById(data.content);
-//             vContent.innerHTML = data.html;
-
-//             if(vUrlPage === "trabalhador") fncUpdateColorStatus();
-
-//             if(vUrlPage === "vagas") fncUpdateColorStatusVacancy();
-
-//             if(vUrlPage === "empresas") fncSatusColorCompany();
- 
-//             if(vUrlPage === "usuarios") fncStatusUserSystem();
-//        })
-//     };
-// });
-
+// Paginação com critério vínculado
 // Paginação via ajax
 document.addEventListener("click", (e) => {
     const vLinkPaginator = e.target.closest(".paginator_item");
@@ -118,30 +87,35 @@ document.addEventListener("click", (e) => {
     if (vLinkPaginator) {
         e.preventDefault();
 
-        const vidWork = document.getElementById("id-worker")?.value || "" ;
-        const vUrl = vLinkPaginator.href
+        const vSearchs = document.querySelectorAll(".input-search");
 
-       fetch(vUrl + "/" + vidWork)
+        let vString = "";
+
+        vSearchs.forEach((e) => {
+
+            if(vString.includes("?")) {
+                vString += `&${e.name}=${encodeURIComponent(e.value)}`;
+            } else {
+                vString += `?${e.name}=${encodeURIComponent(e.value)}`;
+            }
+        });
+
+        const pageHref = new URL(vLinkPaginator.href);
+        const vUrl = pageHref + vString;
+
+       fetch(vUrl)
        .then(response => response.json())
        .then(data => {
             const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
+            
+            if(vUrlPage === "trabalhador") fncUpdateColorStatus();
 
-            if(vUrlPage === "trabalhador") {
-                fncUpdateColorStatus();
-            }
+            if(vUrlPage === "vagas") fncUpdateColorStatusVacancy();
 
-            if(vUrlPage === "vagas") {
-                fncUpdateColorStatusVacancy();
-            }
-
-            if(vUrlPage === "empresas") {
-                fncSatusColorCompany();
-            }
-
-            if(vUrlPage === "usuarios") {
-                fncStatusUserSystem();
-            }
+            if(vUrlPage === "empresas") fncSatusColorCompany();
+ 
+            if(vUrlPage === "usuarios") fncStatusUserSystem();
        })
     };
 });

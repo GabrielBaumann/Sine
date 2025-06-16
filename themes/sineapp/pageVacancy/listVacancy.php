@@ -34,10 +34,12 @@
                 <?php endforeach; ?>
             </select>
             
-            <select 
-                name="search-all-tatus"
-                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                <option value="*">Todos status</option>
+            <select
+                data-url="<?= url("/listavagas"); ?>"
+                data-ajax="listVacancy" 
+                name="search-status"
+                class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                <option value="">Todos status</option>
                 <option>Ativa</option>
                 <option>Encerrada</option>
             </select>
