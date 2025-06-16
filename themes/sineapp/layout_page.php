@@ -64,7 +64,7 @@
         }
     </style>
 </head>
-<body class="bg-blue-50 flex items-center min-h-screen w-full overflow-hidden">
+<body class="bg-gradient-to-tl from-blue-100 to-blue-50 flex items-center min-h-screen w-full overflow-hidden">
     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
         <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-blue-400 to-blue-600 opacity-40 sm:left-[calc(50%-30rem)] sm:w-288.75" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
     </div>
@@ -74,7 +74,7 @@
 
     <div class="bg-white flex md:h-[768px] h-screen max-h-screen w-[1366px] max-w-full overflow-hidden mx-auto rounded-xl shadow-xl">
         
-        <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
+        <aside class="w-64 p-6 hidden lg:flex flex-col">
             <div class="mb-12 flex items-center ml-4 text-gray-800">
                 <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[60px] mx-auto">
             </div>
