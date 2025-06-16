@@ -147,10 +147,13 @@ class AppWorker extends Controller
     {   
         if (isset($data["page"]) && !empty($data["page"])) {
 
-            var_dump($data);
-
-            $nameSearch = isset($data["name-search"]) ? filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            $statusSearch = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            var_dump(filter_input(INPUT_GET, "status", FILTER_SANITIZE_SPECIAL_CHARS));
+            var_dump(filter_input(INPUT_GET, "name", FILTER_SANITIZE_SPECIAL_CHARS));
+            // $nameSearch = isset($data["name-search"]) ? filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            // $statusSearch = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            
+            $nameSearch = isset($data["name-search"]) ? urldecode($data["name-search"]) : null;
+            $statusSearch = isset($data["search-all-status"]) ? urldecode($data["search-all-status"]) : null;
 
             $conditions = [];
             $params = [];
@@ -169,15 +172,12 @@ class AppWorker extends Controller
 
             $worker = (new Worker())->find($where, http_build_query($params))
                 ->order("name_worker")
-                // ->limit(10)
                 ->fetch(true);
 
             $countWorker = (count($worker ?? []));
 
-            // $worker = (new Worker())->find()->count();
-
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
-            $pager = new Pager(url("/listatrabalhador/p/$nameSearch/$statusSearch"));
+            $pager = new Pager(url("/listatrabalhador/p/"));
             $pager->pager($countWorker, 10, $page);
             
             $html = $this->view->render("pageWorker/listWorkes", [
