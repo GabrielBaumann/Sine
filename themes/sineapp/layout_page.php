@@ -75,7 +75,7 @@
     <div class="bg-white flex md:h-[768px] h-screen max-h-screen w-[1366px] max-w-full overflow-hidden mx-auto rounded-xl shadow-xl">
         
         <aside class="w-64 bg-transparent  p-6 hidden lg:flex flex-col">
-            <div class="mb-10 py-5 flex items-center ml-4 text-gray-800">
+            <div class="mb-12 flex items-center ml-4 text-gray-800">
                 <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[60px] mx-auto">
             </div>
         <nav class="flex flex-col gap-3 flex-grow">

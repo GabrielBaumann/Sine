@@ -31,7 +31,11 @@ $entreprise = new Enterprise();
                                 <div class="text-sm text-gray-900"><?= $entreprise->findById($vacancy->id_enterprise)->name_enterprise; ?></div>
                             </td>
                             <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
-                                <span class="color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5 status-vacancy"><?= $vacancy->status_vacancy; ?></span>
+                                <?php if ($vacancy->status_vacancy == 'Encerrada'): ?>
+                                    <span class="text-sm text-red-500 bg-red-100 rounded-full px-2.5 py-0.5 status-vacancy"><?= $vacancy->status_vacancy; ?></span>
+                                    <?php else: ?>
+                                    <span class="text-sm text-gray-700 px-2.5 py-0.5">41 / 50</span>
+                                <?php endif; ?>
                             </td>
                             
                             <td data-label="Ação" class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
