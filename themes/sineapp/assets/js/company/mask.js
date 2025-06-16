@@ -15,3 +15,22 @@ document.addEventListener("input", function(e) {
     });
   }
 });
+
+// Máscara para telefone
+document.addEventListener('input', function(e) {
+  if (e.target && e.target.id === "phone-enterprise") {
+    let value = e.target.value.replace(/\D/g, '');
+
+    if (value.length > 11) value = value.substring(0, 11);
+    
+    if (value.length <= 10) {
+      value = value.replace(/(\d{2})(\d)/, '($1) $2');
+      value = value.replace(/(\d{4})(\d)/, '$1-$2');
+    } else {
+      value = value.replace(/(\d{2})(\d)/, '($1) $2');
+      value = value.replace(/(\d{5})(\d)/, '$1-$2');
+    }
+    e.target.value = value;       
+  }
+});
+

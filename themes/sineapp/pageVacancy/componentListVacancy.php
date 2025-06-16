@@ -64,7 +64,7 @@ $entreprise = new Enterprise();
                         <?= $paginator; ?>
                     </div>
                 </div>
-            <div>Total: <?= format_number($countVacancy); ?></div>
+                <div>Total: <?= format_number($countVacancy); ?></div>
             </div>
         </div>
     </div>

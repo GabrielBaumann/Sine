@@ -1,5 +1,4 @@
 
-
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
     <!-- Título -->
     <h1 class="text-2xl font-semibold text-gray-900">Trabalhadores</h1>
@@ -14,31 +13,28 @@
             </div>
             <input
                 data-url="<?= url("/pesquisarcandidato"); ?>"
+                data-ajax="listWorkes"
                 name="name-search"
-                id="search" 
+                id="name-search" 
                 type="text" 
                 placeholder="Pesquisar trabalhadores..."
-                class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                class="input-search pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             >
         </div>
         
         <!-- Filtros -->
-        <div class="flex flex-col sm:flex-row gap-2">
+        <div class="flex flex-col sm:flex-row gap-2">           
             <select 
-                name="search-enterprise"
-                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                data-url="<?= url("/pesquisarcandidato"); ?>"
+                data-ajax="listWorkes"
+                name="search-all-status"
+                id="search-all-status"
+                class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
             >
-                <option value="*">Todas empresas</option>
-                <option value="">teste</option>
-            </select>
-            
-            <select 
-                name="search-all-tatus"
-                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            >
-                <option value="*">Todos status</option>
-                <option>Ativa</option>
-                <option>Encerrada</option>
+                <option value="">Todos status</option>
+                <option>Aguardando Resposta</option>
+                <option>Reprovado</option>
+                <option>Atendimento Realizado</option>
             </select>
         </div>
     </div>

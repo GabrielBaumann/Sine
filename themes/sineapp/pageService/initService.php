@@ -22,6 +22,7 @@
         </button>
         <button 
             data-url="<?= url("/atendimentomotivo/telefone"); ?>"
+            
             class="cursor-pointer p-5 border border-gray-300 hover:shadow-xl rounded-lg hover:bg-green-100 transition-all flex flex-col items-center gap-3">
             <div class="w-14 h-14 flex items-center justify-center text-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10">

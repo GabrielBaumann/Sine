@@ -27,13 +27,19 @@ class AppWorker extends Controller
     }
 
     public function startWorker(?array $data) : void
-    {
-        if(isset($data["name-search"])) {
+    {   
+        if(isset($data["name-search"]) || isset($data["search-all-status"])) {
 
-            $nameSearch = filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS);
+            $nameSearch = isset($data["name-search"]) ? filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $statusSearch = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
             $conditions = [];
             $params = [];
+            
+            if(!empty($statusSearch)) {
+                $conditions[] = "status_work = :w";
+                $params["w"] = $statusSearch;
+            }
 
             if(!empty($nameSearch)) {
                 $conditions[] = "name_worker LIKE :n OR cpf_worker LIKE :n";
@@ -42,12 +48,14 @@ class AppWorker extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(8)->fetch(true);
-            
-            $pager = new Pager(url("/paginainicio/p/1"));
-            $pager->pager((new Worker())->find()->count(), 8, 1);
+            $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(10)->fetch(true);
+            $countWorker = (new Worker())->find($where, http_build_query($params))->count();
+
+            $pager = new Pager(url("/listatrabalhador/p/1"));
+            $pager->pager($countWorker, 10, 1);
 
             $html = $this->view->render("pageWorker/listWorkes", [
+                "countWorker" => $countWorker,
                 "workers" => $worker,
                 "paginator" => $pager->render()
             ]);
@@ -58,26 +66,49 @@ class AppWorker extends Controller
         }
 
         $worker = (new Worker())->find()->count();
-        $pager = new Pager(url("/paginainicio/p/"));
-        $pager->pager($worker, 8, 1);
+        $pager = new Pager(url("/listatrabalhador/p/"));
+        $pager->pager($worker, 10, 1);
 
         echo $this->view->render("/pageWorker", [
             "title" => "Trabalhador",
+            "countWorker" => $worker,
             "worker" => (new Worker())->find()->order("name_worker")->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "paginator" => $pager->render()
         ]);  
     }
-        
+
+    public function listtWorker() : void
+    {
+
+        $worker = (new Worker())->find()->count();
+        $pager = new Pager(url("/listatrabalhador/p/"));
+        $pager->pager($worker, 10, 1);
+
+        $html = $this->view->render("pageWorker/componentCompleteWorker", [
+            "countWorker" => $worker,
+            "worker" => (new Worker())->find()
+                ->order("name_worker")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        $json["content"] = "listWorkes";
+        echo json_encode($json);
+        return;
+    }
+    
     public function startHistory(?array $data) : void
     {
         $idWorker = $data["idWorker"];
 
-
         $count = (new Service())->where("service.id_worker","=",$idWorker)->join('worker', 'service.id_worker = worker.id_worker');
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/inicio/p/"));
-        $pager->pager($count->countJoin(), 3, $page);
+        $pager->pager($count->countJoin(), 7, $page);
         $totHistory = $count->countJoin();
 
         $service = new Service();
@@ -119,10 +150,11 @@ class AppWorker extends Controller
             $worker = (new Worker())->find()->count();
 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
-            $pager = new Pager(url("/paginainicio/p/"));
-            $pager->pager($worker, 8, $page);
+            $pager = new Pager(url("/listatrabalhador/p/"));
+            $pager->pager($worker, 10, $page);
             
             $html = $this->view->render("pageWorker/listWorkes", [
+                "countWorker" => $worker,
                 "workers" => (new Worker())->find()->order("name_worker")->limit($pager->limit())->offset($pager->offset())->fetch(true),
                 "paginator" => $pager->render()
             ]);

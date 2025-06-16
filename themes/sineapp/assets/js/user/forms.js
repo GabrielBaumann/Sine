@@ -1,247 +1,110 @@
 /**
- * Envio de formulário
+ * Envio de formulário de cadastro de vagas
  */
-document.addEventListener("submit", (e)=> {
-    if (e.target.tagName === "FORM") {
-        e.preventDefault()
 
-        const form = e.target;
-        const formData = new FormData(form);
-        const actionForm = e.target.action;
-        const formId = e.target.id;
+document.addEventListener("submit", (e) => {
+    if(e.target.tagName === "FORM") {
+        e.preventDefault();
 
-        let load = document.getElementById("response");
-        let timeoutLoading;
+        const vForm = new FormData(e.target);
+        const vActionForm = e.target.action;
+        const vformId = e.target.id;
+        let vtimeLoading;
 
-        // Agenda a exibição do "carregamento..." após 300 milesimo
-        timeoutLoading = setTimeout(() => {
-            load = document.createElement("div");
-            load.id = "response";
-            load.innerHTML = `
-                <div class="alert-container space-y-3">
-                    <div class="alert-message bg-white border border-gray-200 rounded-lg overflow-hidden">
-                        <div class="flex items-center p-4">
-                            <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                                    <i class="fas fa-circle-notch text-gray-500 text-lg animate-spin"></i>
-                                </div>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <h3 class="text-sm font-semibold text-gray-800">Carregando...</h3>
-                                <div class="mt-1 text-sm text-gray-600">
-                                    <p>Aguarde...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Remove mensagem anterior (se existir) e adicona a nova
-            const antigoResponse = document.getElementById("response");
-            if (antigoResponse) antigoResponse.remove();
+        vtimeLoading = showSplash();
         
-            document.body.appendChild(load);
-        }, 300);
-
-        fetch(actionForm, {
+        fetch(vActionForm, {
             method: "POST",
-            body: formData
+            body: vForm
         })
         .then(response => {
-            clearTimeout(timeoutLoading);
-
-            if(!response.ok) throw new Error("Erro no servidor");
-
+            clearTimeout(vtimeLoading);
             return response.json();
         })
         .then(data => {
-            // Para resetar o formulário "resetForm = true"
-            // Para atualizar uma lista ou view "updateList = true"
-            if (data.complete) {
-                const {resetForm, updateList} = data.complete
-                    
-                if(resetForm === true) {
-                    document.getElementById(formId).reset();
-                }
-                if(updateList === true) {
-                    const vHtmlAjax = document.getElementById("usuarioLista");
-                    vHtmlAjax.innerHTML = data.html;
-                }
 
-            }
-
-            // Redirecionar a página patra outro local ou criar mensagem para usuário
-            if(data.redirected) {
-                window.location.href = data.redirected
+            if(data.complete) {
+                fncMessage(data.message);
+                document.getElementById(vformId).reset();
             } else {
-
-                if(load) load.remove();
-
-                const novoResponse = document.createElement("div")
-                novoResponse.id = "response";
-                novoResponse.innerHTML = data.message
-
-                document.body.appendChild(novoResponse);
-
-                setTimeout(() => {
-                    removeElement(novoResponse)
-                }, 3000)
+                fncMessage(data.message);
             }
 
         })
         .catch(error => {
-            clearTimeout(timeoutLoading);
-            if(load) load.remove();
-            
-            console.log("Erro", error);
-            
-            const erroResponse = document.createElement("div");
-            erroResponse.id = "response";
-            erroResponse.innerHTML = `
-                <div class="alert-container">
-                    <div class="alert-message bg-white border border-red-400 rounded-lg p-4 text-red-700">
-                        Erro inesperado. Tente novamente.
+            fncMessage();
+        })
+    }
+});
+
+
+// Funcção que cria tela de splash
+function showSplash() {
+    if(document.getElementById("response")) document.getElementById("response").remove();
+    load = document.createElement("div");
+    load.id = "response";
+    load.innerHTML = 
+    `
+        <div class="main h-full w-full bg-gray-50 absolute top-0 left-0">
+            <div class="container mx-auto px-4 h-full flex items-center justify-center">
+                <div class="text-center">
+                    <!-- Texto animado -->
+                    <h1 class="text-4xl md:text-5xl font-normal text-gray-800">
+                        Carregando
+                    </h1>
+                    <div class="dots flex space-x-6 mt-10 justify-center">
+                        <div class="dot-1 w-6 h-6 bg-blue-900"></div>
+                        <div class="dot-2 w-6 h-6 bg-blue-600"></div>
+                        <div class="dot-3 w-6 h-6 bg-blue-500"></div>
                     </div>
                 </div>
-            `;
-           document.body.appendChild(erroResponse);
+            </div>
+        </div>
 
-           setTimeout(() => {
-                removeElement(erroResponse)
-           }, 3000);            
-        });
-    }
-});
-
-/**
- * evento para fechar messagem
- */
-document.body.addEventListener("click", (e) => {
-    const botao = e.target.closest("#botao");
-    const message = e.target.closest(".alert-container");
-
-    if (botao && message) {
-        message.style.transition = "opacity 0.5s ease";
-        message.style.opacity = "0";
-        setTimeout(() => message.remove(), 2000);
-    }
-})
-
-/**
- * Função para evento de saída 
- */
-function removeElement(element, duration = 1000) {
-    if(!element) return;
-        element.style.transition = "opacity 0.5s ease";
-        element.style.opacity = "0";
-    setTimeout(()=> element.remove(), duration);
+        `;
+    return setTimeout (() => {
+        document.body.appendChild(load);
+    }, 200);
 }
 
-/**
- * pesquisar valores em um input e um um select
- */
+// função para montar a mensagem e remover a mensagem
+function fncMessage(vMessage) {
+
+    // Remove qualquer mensagem que possa estar no DOM
+    if(document.getElementById("response")) document.getElementById("response").remove();
+
+    const vNewMessage = document.createElement("div");
+    vNewMessage.id = "response";
+    
+    // Se a função for chamada sem o argumento mensagem ela devolve a mensagem de erro
+    if(!vMessage) {
+        vMessage = `
+            <div class="alert-container">
+                <div class="alert-message bg-white border border-red-400 rounded-lg p-4 text-red-700">
+                    Erro inesperado. Tente novamente.
+                </div>
+            </div>
+        `;  
+    }
+        
+    vNewMessage.innerHTML = vMessage
+    document.body.appendChild(vNewMessage);
+
+    setTimeout(() => {
+        if(!vNewMessage) return;
+            vNewMessage.style.transition = "opacity 0.5s ease";
+            vNewMessage.style.opacity = "0";
+            setTimeout(() => vNewMessage.remove(), 1000)
+    }, 4000);    
+}
+
+// Evento para fechar mensagem
 document.addEventListener("click", (e) => {
-    if (e.target.id === "search"){
-        const ele = document.getElementById("inputSearch");
-        const nameInput = ele.name;
-        const url = ele.dataset.url;
-        const search = ele.value.trim();
-        const formaData = new FormData();
-        formaData.append(nameInput, search);
-
-        nomeSelect = document.getElementById("selectData");
-        formaData.append(nomeSelect.name, nomeSelect.value);
-
-
-        fetch(url, {
-            method: "POST",
-            body: formaData
-        } )
-        .then(response => response.json())
-        .then(dado => {
-
-            if (dado.erro) {
-                const novoResponse = document.createElement("div");
-                novoResponse.id = "response";
-                novoResponse.innerHTML = dado.message;
-        
-                document.body.appendChild(novoResponse);
-        
-                setTimeout(() => {
-                    removeElement(novoResponse);
-                }, 3000);
- 
-            } else {
-
-                updateList.innerHTML = dado.message; // HTML da listagem
-            }
-        })
-        .catch(error => console.log("erro ao carregar", error));
+    const vButton = e.target.closest("#button-close");   
+    if(vButton) {
+        const vMessage =  e.target.closest(".alert-container");
+        vMessage.style.transition = "opacity 0.5s ease";
+        vMessage.style.opacity = "0";
+        setTimeout(() => vMessage.remove(), 2000)
     }
 });
-
-// Pesquisar valor ao mudar valor de um select
-document.addEventListener("change", (e) => {
-    if (e.target.tagName === "SELECT" && e.target.id === "selectData") {
-        const valor = e.target.value;
-        const name = e.target.name;
-        const url = e.target.dataset.url;
-        const formData = new FormData();
-
-        document.getElementById("inputSearch").value = "";
-        formData.append(name, valor);
-
-        fetch(url, {
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.json())
-        .then(dado => {
-            const updateList = document.getElementById("updateList");
-            updateList.innerHTML = dado.message
-        })
-        .catch(error => console.log("erro ao carregar", error));
-    }
-});
-
-// Pesquisar valor baseado em um único input
-document.addEventListener("click", (e) => {
-    if(e.target.id === "searchMaterial") {
-        const vUrl = e.target.dataset.url;
-        const form = new FormData();
-        const vInputSearch = document.getElementById("inputSearch");
-        const vIdRecipient = document.getElementById("idRecipient");
-
-
-        form.append(vInputSearch.name, vInputSearch.value);
-        form.append(vIdRecipient.name, vIdRecipient.value);
-
-        fetch(vUrl, {
-            method: "POST",
-            body: form
-        })
-        .then(response => response.json())
-        .then(data => {
-
-            if (data.erro) {
-                const novoResponse = document.createElement("div");
-                novoResponse.id = "response";
-                novoResponse.innerHTML = data.message;
-        
-                document.body.appendChild(novoResponse);
-        
-                setTimeout(() => {
-                    removeElement(novoResponse);
-                }, 3000);
- 
-            } else {
-                // const idModal = document.getElementById("modal");
-                const updateList = document.getElementById("updateListModal");
-                // idModal.appendChild(updateList);
-                updateList.innerHTML = data.message; // HTML da listagem
-            }
-        })
-        .catch(error => console.log("erro ao carregar", error));
-    }
-})

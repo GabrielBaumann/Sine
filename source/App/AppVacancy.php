@@ -41,7 +41,7 @@ class AppVacancy extends Controller
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->order("nomeclatura_vacancy", "DESC")->fetch(true),
-                "countVacancy"=> (new Vacancy())->find("id_vacancy_fixed <> :id", "id=0")->count(),
+                "countVacancy"=> (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(),
                 "listEnterprise" => (new Enterprise())->find()->fetch(true),
                 "paginator" => $pager->render()
             ]);   
@@ -64,10 +64,81 @@ class AppVacancy extends Controller
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+            "countVacancy"=> $vacancyCount,
+            "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+            "paginator" => $pager->render()
+        ]);
+    }
+
+    public function listVacancy(?array $data) : void
+    {   
+        if(isset($data["search-vacancy"]) || isset($data["search-enterprise"])) {
+            
+            $searchVacancy = isset($data["search-vacancy"]) ? filter_var($data["search-vacancy"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchEnterprise = isset($data["search-enterprise"]) ? filter_var($data["search-enterprise"], FILTER_SANITIZE_SPECIAL_CHARS) : null; 
+
+            $conditions = [];   
+            $params = [];
+
+            $conditions[] = "id_vacancy_fixed = :id";
+            $params["id"] = 0;
+
+            if(!empty($searchEnterprise)) {
+                $conditions[] = "id_enterprise = :in";
+                $params["in"] = $searchEnterprise; 
+            }
+
+            if(!empty($searchVacancy)) {
+                $conditions[] = "nomeclatura_vacancy LIKE :n";
+                $params["n"] = "%{$searchVacancy}%";
+            }
+
+            $where = implode(" AND ", $conditions);
+
+            $vacancy = (new Vacancy())
+                ->find($where, http_build_query($params))
+                ->order("nomeclatura_vacancy")
+                ->fetch(true);
+
+            $vacancyCount = count($vacancy ?? []);
+
+            $pager = new Pager(url("/pesquisarvagas/p/"));
+            $pager->Pager($vacancyCount, 10, 1);
+
+            $html = $this->view->render("/pageVacancy/componentListVacancy", [
+                "totalVacancy" => (new Vacancy())
+                    ->find($where, http_build_query($params))
+                    ->order("nomeclatura_vacancy")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                "countVacancy" => $vacancyCount,
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            echo json_encode($json);     
+            return;
+        }
+
+        $vacancyCount = (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(); 
+        $pager = new Pager(url("/pesquisarvagas/p/"));
+        $pager->Pager($vacancyCount, 10, 1);
+
+        $html = $this->view->render("/pageVacancy/listVacancy", [
+            "totalVacancy" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id=0")                
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("nomeclatura_vacancy", "DESC")->fetch(true),
             "countVacancy"=> (new Vacancy())->find("id_vacancy_fixed <> :id", "id=0")->count(),
             "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
             "paginator" => $pager->render()
         ]);
+        
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;        
     }
 
     public function addVacancy(?array $data) : void

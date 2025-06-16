@@ -1,12 +1,13 @@
 <div class="">
     <div class="hidden md:flex items-center justify-left p-2 gap-2">
-        <a href="<?= url("/empresas"); ?>">
-            <button
-                data-url="<?= url("/empresas"); ?>"
-                class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
-                < Voltar
-            </button>
-        </a>
+        <button
+            id="btn-back"
+            data-url="<?= url("/listaempresas"); ?>"
+            data-change="companiesView"
+            class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
+            < Voltar
+        </button>
+
         <p class='text-blue-500 flex items-center truncate'>Empresas > Nova Empresa</p>
     </div>
     <input type="number" id="idCompany" name="idCompany" value="<?= $user->id_user ?? ""; ?>">

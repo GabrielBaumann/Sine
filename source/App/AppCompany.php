@@ -2,6 +2,7 @@
 
 namespace Source\App;
 
+use CompileError;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
@@ -21,25 +22,157 @@ class AppCompany extends Controller
             $this->message->warning("")->flash();
             redirect("/");
         }
-    
     }
 
     public function startCompany(?array $data) : void
     {
 
+        if(isset($data["page"])) {
+            $enterprise = (new Enterprise())->find()->count();
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
+            $pager = new Pager(url("/pesquisarempresa/p/"));
+            $pager->Pager($enterprise, 10, $page);
+
+            $html = $this->view->render("/pageCompany/componentListCompany", [
+                "listEnterprise" => (new Enterprise())->find()
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->order("name_enterprise")->fetch(true),
+                "countEnterprise" => (new Enterprise())->find()->count(),
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            $json["content"] = "list-company";
+            echo json_encode($json);
+            return;
+        }
+
+        $enterprise = (new Enterprise())->find()->count(); 
+        $pager = new Pager(url("/pesquisarempresa/p/"));
+        $pager->Pager($enterprise, 10, 1);
+
         echo $this->view->render("/pageCompany", [
             "title" => "Empresas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
-            "countEnterprise" => (new Enterprise())->find()->count()
+            "listEnterprise" => (new Enterprise())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")->fetch(true),
+            "countEnterprise" => (new Enterprise())->find()->count(),
+            "paginator" => $pager->render()
         ]);
     }
 
-    public function formCompany(?array $data)
+    public function listCompany(?array $data) : void
     {
+
+        if(isset($data["search-company"]) || isset($data["search-all-status"])) {
+
+            $searchCompany = isset($data["search-company"]) ? filter_var($data["search-company"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchStatus = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+            $conditions = [];
+            $params = [];
+
+            if(!empty($searchCompany)) {
+                $conditions[] = "name_enterprise LIKE :c";
+                $params["c"] = "%{$searchCompany}%"; 
+            }
+
+            if(!empty($searchStatus)) {
+                $conditions[] = "active = :a";
+                $params["a"] = $searchStatus;
+            }
+
+            $where = implode(" AND ", $conditions);
+
+            $company = (new Enterprise())->find($where, http_build_query($params))->fetch(true);
+            
+            $companyCount = count($company ?? []);
+
+            $pager = new Pager(url("/pesquisarempresa/p/"));
+            $pager->Pager($companyCount, 10, 1);
+
+            $html = $this->view->render("/pageCompany/componentListCompany", [
+                "listEnterprise" => (new Enterprise())
+                    ->find($where, http_build_query($params))
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->order("name_enterprise")
+                    ->fetch(true),
+                "countEnterprise" => $companyCount,
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            echo json_encode($json);
+            return;            
+        }
+
+        $enterprise = (new Enterprise())->find()->count(); 
+        $pager = new Pager(url("/pesquisarempresa/p/"));
+        $pager->Pager($enterprise, 10, 1);
+
+        $html = $this->view->render("/pageCompany/listCompany", [
+            "listEnterprise" => (new Enterprise())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")->fetch(true),
+            "countEnterprise" => (new Enterprise())->find()->count(),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    public function formCompany(?array $data)
+    {   
         if(!empty($data["csrf"])) {
 
-            var_dump($data);
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enviar formulário! Atualize a página e tente novamente!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $cleanInput = cleanInputData($data, ["email-enterprise", "phone-enterprise", "responsible-person"]);
+
+            if(!$cleanInput["valid"]) {
+                $json["message"] = messageHelpers()->error("Preencha todos os campos obrigatórios!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $dataCleanInput = $cleanInput["data"];
+
+            if(!is_email($dataCleanInput["email-enterprise"]) && !empty($dataCleanInput["email-enterprise"])) {
+                $json["message"] = messageHelpers()->warning("Esse email não é válido!")->render();
+                echo json_encode($json);
+                return;
+            }
+            
+            $enterprise = new Enterprise();
+
+            $enterprise->name_enterprise = $dataCleanInput["new-enterprise"];
+            $enterprise->cnpj = cleanCPF($dataCleanInput["cnpj"]);
+            $enterprise->email_enterprise = $dataCleanInput["email-enterprise"];
+            $enterprise->responsible_enterprise = $dataCleanInput["responsible-person"];
+            $enterprise->phone_enterprise = $dataCleanInput["phone-enterprise"];
+            $enterprise->id_user_register = $this->user->id_user;
+
+            if(!$enterprise->save()) {
+                $json["message"] = $enterprise->message()->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $json["message"] = messageHelpers()->success("Empresa cadastrada com sucesso!")->render();
+            $json["complete"] = true;
+            echo json_encode($json);
+            return;
         }
 
         $html = $this->view->render("/pageCompany/formNewCompany", [
@@ -51,11 +184,26 @@ class AppCompany extends Controller
         return;
     }
 
+    // Método para verificar validação do cnpj ou se ele já está cadastrado na base de dados
     public function verificCnpj(array $data) : void
     {
         if (!validateCNPJ($data["cnpj"])) {
-            var_dump("Erro");
+            $json["message"] = messageHelpers()->warning("O número de CNPJ não é válido!")->render();
+            echo json_encode($json);
             return;
         }
+        
+        $enterprise = new Enterprise();
+        
+        if ($enterprise->getByCnpj($data["cnpj"])) {
+            $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($data["cnpj"]) . " já está cadastrado na base!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $json["message"] = "";
+        $json["complete"] = true;
+        echo json_encode($json);
+        return;
     }
 }

@@ -12,17 +12,23 @@
                 </svg>
             </div>
             <input
+                data-url="<?= url("/listavagas"); ?>"
+                data-ajax="listVacancy"
                 type="text"
+                name="search-vacancy"
+                id="search-vacancy"
                 placeholder="Pesquisar vagas..."
-                class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                class="input-search pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
         </div>
         
         <!-- Filtros -->
         <div class="flex flex-col sm:flex-row gap-2">
-            <select 
+            <select
+                data-url="<?= url("/listavagas"); ?>"
+                data-ajax="listVacancy" 
                 name="search-enterprise"
-                class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
-                <option value="*">Todas empresas</option>
+                class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                <option value="">Todas empresas</option>
                 <?php foreach($listEnterprise as $entreprise): ?>
                     <option value="<?= $entreprise->id_enterprise ?>"><?= $entreprise->name_enterprise ?></option>
                 <?php endforeach; ?>

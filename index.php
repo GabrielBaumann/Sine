@@ -30,11 +30,18 @@ $route->get("/inicio", "AppStart:startPage");
  */
 // System User
 $route->get("/usuarios", "AppUserSystem:userSystem");
+$route->get("/usuarios/p/{page}", "AppUserSystem:userSystem");
+
+$route->get("/listausuarios", "AppUserSystem:listUserSystem");
+$route->post("/pesquisarusuarios", "AppUserSystem:listUserSystem");
+
 $route->get("/adicionarusuario", "AppUserSystem:formAddUser");
+$route->post("/adicionarusuario", "AppUserSystem:formAddUser");
+
 $route->get("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");
-$route->post("/adicionarusuario", "AppUserSystem:modelAddUser");
+
 
 
 /**
@@ -42,7 +49,9 @@ $route->post("/adicionarusuario", "AppUserSystem:modelAddUser");
  */
 // Worker
 $route->get("/trabalhador", "AppWorker:startWorker");
-$route->get("/paginainicio/p/{page}", "AppWorker:startPagePaginator");
+$route->get("/listatrabalhador", "AppWorker:listtWorker");
+
+$route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
 $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
@@ -51,6 +60,9 @@ $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
  * AppVacancy
  */
 $route->get("/vagas", "AppVacancy:startVacancy");
+$route->get("/listavagas", "AppVacancy:listVacancy");
+$route->post("/listavagas", "AppVacancy:listVacancy");
+
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
 $route->get("/cadastrarvagas", "AppVacancy:addVacancy");
@@ -60,9 +72,13 @@ $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
  */
 $route->get("/empresas", "AppCompany:startCompany");
+$route->get("/listaempresas", "AppCompany:listCompany");
+$route->post("/pequisarempresas", "AppCompany:listCompany");
+
 $route->get("/adicionarempresa", "AppCompany:formCompany");
 $route->post("/adicionarempresa", "AppCompany:formCompany");
 $route->post("/verificarcnpj", "AppCompany:verificCnpj");
+$route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
 
 

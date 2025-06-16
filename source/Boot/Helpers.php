@@ -325,3 +325,16 @@ function validateCNPJ($cnpj) {
     // Verifica se os dígitos estão corretos
     return $cnpj[12] == $digito1 && $cnpj[13] == $digito2;
 }
+
+function maskCNPJ($cnpj) {
+    // Remove tudo que não for número
+    $cnpj = preg_replace('/\D/', '', $cnpj);
+
+    // Verifica se tem 14 dígitos
+    if (strlen($cnpj) !== 14) {
+        return false; // Ou retorne o próprio CNPJ sem máscara
+    }
+
+    // Aplica a máscara
+    return preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $cnpj);
+}

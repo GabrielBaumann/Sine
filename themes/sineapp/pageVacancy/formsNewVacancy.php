@@ -1,8 +1,14 @@
 <main class="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">
     <!-- Header de localização -->
     <header class="flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
-        <a href="<?= url("/vagas"); ?>" class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">< Voltar</a>
-        <p class="truncate">Vagas > Nova vaga</p> 
+        <button
+            id="btn-back"
+            data-url="<?= url("/listavagas"); ?>"
+            data-change="view-form"
+            class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
+            < Voltar
+        </button>
+        <!-- <p class="truncate">Vagas > Nova vaga</p>  -->
     </header>
 
     <div>

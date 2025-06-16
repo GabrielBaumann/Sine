@@ -1,5 +1,5 @@
 //*  Scripts padrões para todo o sistema *//
-
+let vArrayInput = [];
 // Evento para efeitos do sidebar
 window.onload = function() {
     const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
@@ -12,6 +12,7 @@ window.onload = function() {
     });
 }
 
+//Função usada no evendo de sidebar 
 function fncSanitizeCaractere(vTextSanitize) {
 
     return vTextSanitize
@@ -43,6 +44,126 @@ if (vform) {
     })
 }
 
+// Botões de voltar sem usar o link, via ajax
+document.addEventListener("click", (e) => {
+    const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
 
+    const vClick = e.target.closest("button");
+    if(vClick && vClick.id === "btn-back") {
+        vArrayInput = [];
+        const vUrl = vClick.dataset.url;
+        const vIdView = e.target.dataset.change;
+        fetch(vUrl)
+        .then(response => response.json())
+        .then(data => {
+            const vForm = document.getElementById(vIdView);
+            vForm.innerHTML = data.html;
 
+            if(vUrlPage === "trabalhador") {
+                fncUpdateColorStatus();
+            }
 
+            if(vUrlPage === "vagas") {
+                fncUpdateColorStatusVacancy();
+            }
+
+            if(vUrlPage === "empresas") {
+                fncSatusColorCompany();
+            }
+
+            if(vUrlPage === "usuarios") {
+                fncStatusUserSystem();
+            }
+        });
+    }
+});
+
+// Paginação via ajax
+document.addEventListener("click", (e) => {
+    const vLinkPaginator = e.target.closest(".paginator_item");
+    const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
+
+    if (vLinkPaginator) {
+        e.preventDefault();
+
+        const vidWork = document.getElementById("id-worker")?.value || "" ;
+        const vUrl = vLinkPaginator.href
+
+       fetch(vUrl + "/" + vidWork)
+       .then(response => response.json())
+       .then(data => {
+            const vContent = document.getElementById(data.content);
+            vContent.innerHTML = data.html;
+
+            if(vUrlPage === "trabalhador") {
+                fncUpdateColorStatus();
+            }
+
+            if(vUrlPage === "vagas") {
+                fncUpdateColorStatusVacancy();
+            }
+
+            if(vUrlPage === "empresas") {
+                fncSatusColorCompany();
+            }
+
+            if(vUrlPage === "usuarios") {
+                fncStatusUserSystem();
+            }
+       })
+    };
+});
+
+// Pesquisa dinâmica com qualquer quantidadede de campos de pesquisa, os campos com classe input-search serão capturados
+// Também é necessário colocar um data-ajax no input para indicar o local que será renderizado o novo conteúdo da pesquisa, data-url para encaminhar o local do backend que fará a pesquisa
+document.addEventListener("input", (e) => {
+    const vInputsSearch =  e.target.classList.contains("input-search");
+    const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
+
+    if(vInputsSearch) {
+
+        const vUrl = e.target.dataset.url;
+        const vName = e.target.name;
+        const vValue = e.target.value;
+        const vForm = new FormData();
+        const vIndex = vArrayInput.findIndex(objt => objt.hasOwnProperty(vName));
+        const vListAjax = e.target.dataset.ajax;
+
+        if (vIndex !== -1) {
+            vArrayInput[vIndex][vName] = vValue;
+        } else {
+            vArrayInput.push({[vName] : vValue});
+        }
+
+        vArrayInput.forEach(obj => {
+            for (let key in obj) {
+                vForm.append(key, obj[key]);
+            }
+        });
+
+        fetch(vUrl, {
+            method: "POST",
+            body: vForm
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById(vListAjax).innerHTML = data.html;
+            
+            if(vUrlPage === "trabalhador") {
+                fncUpdateColorStatus();
+            }
+
+            if(vUrlPage === "vagas") {
+                fncUpdateColorStatusVacancy();
+            }
+            
+            if(vUrlPage === "empresas") {
+                fncSatusColorCompany();
+            }
+
+            if(vUrlPage === "usuarios") {
+                fncStatusUserSystem();
+            }
+        });
+    }
+});

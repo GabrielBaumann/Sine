@@ -1,4 +1,5 @@
 // Máscara para CPF em qualquer input mesmo se adicionado dinamicamente
+
 let cpfInitialEdit = "";
 document.addEventListener("input", function(e) {
     if (e.target && e.target.id === "cpf") {

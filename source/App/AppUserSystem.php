@@ -6,6 +6,7 @@ use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\SystemUser;
 use Source\Support\Message;
+use Source\Support\Pager;
 
 class AppUserSystem extends Controller
 {
@@ -21,14 +22,109 @@ class AppUserSystem extends Controller
         }
     }
 
-     public function userSystem() : void
-    {
+    public function userSystem(?array $data) : void
+    {   
+        if(isset($data["page"])) {
+            $userSytemCount = (new SystemUser())->find()->count();
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
+            $pager = new Pager(url("/usuarios/p/"));
+            $pager->Pager($userSytemCount, 10, $page);
+
+            $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
+                "userCount" => $userSytemCount,
+                "users" => (new SystemUser())->find()
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->order("name_user")
+                    ->fetch(true),
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            $json["content"] = "list-user-system";
+            echo json_encode($json);
+            return;
+        }
+
+        $userSytemCount = (new SystemUser())->find()->count();
+        $pager = new Pager(url("/usuarios/p/"));
+        $pager->Pager($userSytemCount, 10, 1);
 
         echo $this->view->render("/pageUserSystem", [
             "title" => "Usuarios",
-            "users" => (new SystemUser())->find()->fetch(true),
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userCount" => (new SystemUser())->find()->count(),
+            "users" => (new SystemUser())->find()
+                ->order("name_user")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "paginator" => $pager->render()
         ]);
+    }
+
+    public function listUserSystem(?array $data) : void
+    {
+
+        if(isset($data["search-user-system"]) || isset($data["search-function-user"]) || isset($data["search-all-status"])) {
+            // var_dump($data);
+            $searchUser = isset($data["search-user-system"]) ? filter_var($data["search-user-system"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searcFunction = isset($data["search-function-user"]) ? filter_var($data["search-function-user"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchStatus = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+            // var_dump($searchStatus);
+            $conditions = [];
+            $params = [];
+
+            if(!empty($searchUser)) {
+                $conditions[] = "name_user LIKE :n";
+                $params["n"] = "%{$searchUser}%";
+            }
+
+            if(!empty($searcFunction)) {
+                $conditions[] = "type_user = :t";
+                $params["t"] = $searcFunction;
+            }
+
+            if(!empty($searchStatus)) {
+                $conditions[] = "active = :s";
+                $params["s"] = $searchStatus;
+            }
+
+            $where = implode(" AND ", $conditions);
+
+            $userSystem = (new SystemUser())
+                ->find($where, http_build_query($params))
+                ->fetch(true);
+
+            $userSystemCount = count($userSystem ?? []);
+
+            $pager = new Pager(url("/usuarios/p/"));
+            $pager->Pager($userSystemCount, 10, 1);
+
+            $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
+                "users" => (new SystemUser())
+                    ->find($where, http_build_query($params))
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                "userCount" => $userSystemCount,
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            echo json_encode($json);
+            return;
+            // var_dump($userSystem, count($userSystem));
+        }
+
+        $html = $this->view->render("/pageUserSystem/listUserSystem", [
+            "users" => (new SystemUser())->find()->fetch(true)
+        ]);
+        
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
     }
 
     public function formAddUser(?array $data) : void
@@ -40,7 +136,7 @@ class AppUserSystem extends Controller
         }
 
         if (!empty($data["csrf"])) {
-            
+
             // Verificar csrf
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Use o fomulário!")->render();
@@ -78,35 +174,18 @@ class AppUserSystem extends Controller
                 $dataClean["type"]
             );
 
-            // Reseta o formulario e atualiza lista
-            $complete = [
-                "resetForm" => true, 
-                "updateList" => true
-            ];
 
             // Para identiticar como edição do cadastro
             if(isset($idUserSystem)) {
                 $SytemUser->id_user = $idUserSystem;
                 $SytemUser->id_user_update = 2;
                 $SytemUser->active = $dataClean["status"];
-                // Não reseta o formulário e atualiza alista
-                $complete = [
-                "resetForm" => false, 
-                "updateList" => true
-                ];
             }
 
-            // var_dump($complete);
             if($SytemUser->save()) {
-                
-                $html = $this->view->render("pageUserSytem/listUserSystem", [
-                "users" => (new SystemUser())->find()->fetch(true)
-                ]);
 
-                $json["complete"] = $complete;
+                $json["complete"] = true;
                 $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
-                $json["html"] = $html;
-
                 echo json_encode($json);
                 return;
             }
