@@ -7,7 +7,8 @@ window.onload = function() {
 
     vMenus.forEach(vElemet => {
         if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-            vElemet.closest("a").classList.add("bg-[#095998]", "text-white")
+            vElemet.closest("a").classList.remove("text-gray-700")
+            vElemet.closest("a").classList.add("text-[#095998]", "border-l-3", "border-[#095998]");
         }
     });
 }
