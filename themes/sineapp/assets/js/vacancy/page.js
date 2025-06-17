@@ -1,4 +1,5 @@
 fncUpdateColorStatusVacancy();
+fnccheckBoxVacancy();
 
 // função para Atualização dos status das vagas - lista
 function fncUpdateColorStatusVacancy(){
@@ -10,6 +11,56 @@ function fncUpdateColorStatusVacancy(){
             }
         }
     });
+}
+
+// Função para marcar as checkbox
+function fnccheckBoxVacancy () {
+    document.addEventListener("click", (e) => {
+    const vCheckClik = e.target.id;
+
+    if(vCheckClik === "chek-vacancy" && e.target.checked === true){
+        document.querySelectorAll(".check-vacancy").forEach((e) => {
+            if(e.disabled === false) {
+                e.checked = true
+                document.querySelector("#info").classList.remove("hidden");
+            }    
+        });
+    }
+
+    if(vCheckClik === "chek-vacancy" && e.target.checked === false){
+        document.querySelectorAll(".check-vacancy").forEach((e) => {
+            if(e.disabled === false) {
+                e.checked = false
+                document.querySelector("#info").classList.add("hidden");
+            }    
+        });
+    }
+});
+
+}
+
+// Função para marcar o checkbox encerrados
+function fncCheckClosedVacancy() {
+    
+    const vCheckVacancy = document.querySelectorAll("input.check-vacancy");
+    let vCounter = 0;
+
+    vCheckVacancy.forEach((e) => {
+        const vTr = e.closest("tr").querySelector("span").textContent;
+        if(vTr === "Encerrada") {
+            const vInputs = e.closest("tr").querySelectorAll("input");
+            vInputs[0].disabled = true;
+            e.checked = true;
+            vCounter++;
+        }
+    });
+
+
+        // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
+    if(vCounter === vCheckVacancy.length) {
+        document.getElementById("chek-vacancy").disabled = true;
+        document.getElementById("btn-new-vacancy").disabled = true;
+    }
 }
 
 // Chamar formulário nova vaga
@@ -39,67 +90,28 @@ document.addEventListener("click", (e) => {
             const vForm = document.getElementById("view-form");
             vForm.innerHTML = data.html;
         
-            const vCheckVacancy = document.querySelectorAll("input.check-vacancy");
-            let vCounter = 0;
-
-            vCheckVacancy.forEach((e) => {
-                const vTr = e.closest("tr").querySelector("span").textContent;
-                if(vTr === "Encerrada") {
-                    const vInputs = e.closest("tr").querySelectorAll("input");
-                    vInputs[0].disabled = true;
-                    e.checked = true;
-                    vCounter++;
-                }
-            });
-
-            // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
-            if(vCounter === vCheckVacancy.length) {
-                document.getElementById("chek-vacancy").disabled = true;
-                document.getElementById("btn-new-vacancy").disabled = true;
-            }
-
+            fncCheckClosedVacancy()
         });
     }
 });
 
-// Marcar todos os checksbox
-document.addEventListener("click", (e) => {
-    const vCheckClik = e.target.id;
-
-    if(vCheckClik === "chek-vacancy" && e.target.checked === true){
-        document.querySelectorAll(".check-vacancy").forEach((e) => {
-            if(e.disabled === false) {
-                e.checked = true
-                document.querySelector("#btn-closed-vacancy").classList.remove("hidden");
-            }    
-        });
-    }
-
-    if(vCheckClik === "chek-vacancy" && e.target.checked === false){
-        document.querySelectorAll(".check-vacancy").forEach((e) => {
-            if(e.disabled === false) {
-                e.checked = false
-                document.querySelector("#btn-closed-vacancy").classList.add("hidden");
-            }    
-        });
-    }
-});
 
 // Clique no checkbox individual e mostrar o botão de encerrar
 document.addEventListener("click", (e) => {
     const vButton = e.target.classList.contains("check-vacancy");
     if(vButton){
         if(e.target.checked) {
-            document.querySelector("#btn-closed-vacancy").classList.remove("hidden");
+            document.querySelector("#info").classList.remove("hidden");
         } else {
             
             document.querySelectorAll(".check-vacancy").forEach((e) => {
                 if(e.disabled === false) {
+
                     if(e.checked === false) {
-                        document.querySelector("#btn-closed-vacancy").classList.add("hidden");
+                        document.querySelector("#info").classList.add("hidden");
                     } 
                     if(e.checked === true) {
-                        document.querySelector("#btn-closed-vacancy").classList.remove("hidden");
+                        document.querySelector("#info").classList.remove("hidden");
                     }
                 }
             }) 
