@@ -2,13 +2,13 @@
 
 namespace Source\App;
 
-use Source\Core\Connect;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\CboOccupation;
 use Source\Models\Enterprise;
 use Source\Models\SystemUser;
 use Source\Models\Vacancy;
+use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
 class AppVacancy extends Controller
@@ -26,20 +26,15 @@ class AppVacancy extends Controller
     }
 
     public function startVacancy(?array $data) : void
-    {       
+    {     
         if(isset($data["page"]) && !empty($data["page"])) {
 
             $searchVacancy = filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) : null;
             $searchEnterprise = filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) : null;
             $searchStatus = filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
-
-
             $conditions = [];   
             $params = [];
-
-            $conditions[] = "id_vacancy_fixed = :id";
-            $params["id"] = 0;
 
             if(!empty($searchEnterprise)) {
                 $conditions[] = "id_enterprise = :in";
@@ -58,7 +53,7 @@ class AppVacancy extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $vacancy = (new Vacancy())
+            $vacancy = (new VwVacancy())
                 ->find($where, http_build_query($params))
                 ->order("nomeclatura_vacancy")
                 ->fetch(true);
@@ -70,7 +65,7 @@ class AppVacancy extends Controller
             $pager->Pager($vacancyCount, 10, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
-                "totalVacancy" => (new Vacancy())
+                "totalVacancy" => (new VwVacancy())
                     ->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
@@ -86,22 +81,23 @@ class AppVacancy extends Controller
             return;
         }
 
-        // $vac = (new Vacancy())->listVacancy();
-
-        $vacancyCount = (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(); 
+        $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager($vacancyCount, 10, 1);
 
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "totalVacancy" => (new Vacancy())
-                ->find("id_vacancy_fixed = :id", "id=0")                
+            "totalVacancy" => (new VwVacancy())
+                ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
-            "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+            "listEnterprise" => (new Enterprise())
+                ->find()
+                ->order("name_enterprise")
+                ->fetch(true),
             "paginator" => $pager->render()
         ]);
     }
@@ -116,9 +112,6 @@ class AppVacancy extends Controller
 
             $conditions = [];   
             $params = [];
-
-            $conditions[] = "id_vacancy_fixed = :id";
-            $params["id"] = 0;
 
             if(!empty($searchEnterprise)) {
                 $conditions[] = "id_enterprise = :in";
@@ -137,7 +130,7 @@ class AppVacancy extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $vacancy = (new Vacancy())
+            $vacancy = (new VwVacancy())
                 ->find($where, http_build_query($params))
                 ->order("nomeclatura_vacancy")
                 ->fetch(true);
@@ -148,7 +141,7 @@ class AppVacancy extends Controller
             $pager->Pager($vacancyCount, 10, 1);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
-                "totalVacancy" => (new Vacancy())
+                "totalVacancy" => (new VwVacancy())
                     ->find($where, http_build_query($params))
                     ->order("nomeclatura_vacancy")
                     ->limit($pager->limit())
@@ -163,18 +156,21 @@ class AppVacancy extends Controller
             return;
         }
 
-        $vacancyCount = (new Vacancy())->find("id_vacancy_fixed = :id", "id=0")->count(); 
+        $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager($vacancyCount, 10, 1);
 
         $html = $this->view->render("/pageVacancy/listVacancy", [
-            "totalVacancy" => (new Vacancy())
-                ->find("id_vacancy_fixed = :id", "id=0")                
+            "totalVacancy" => (new VwVacancy())
+                ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
-            "countVacancy"=> (new Vacancy())->find("id_vacancy_fixed <> :id", "id=0")->count(),
-            "listEnterprise" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+            "countVacancy"=> $vacancyCount,
+            "listEnterprise" => (new Enterprise())
+                ->find()
+                ->order("name_enterprise")
+                ->fetch(true),
             "paginator" => $pager->render()
         ]);
         
@@ -233,12 +229,17 @@ class AppVacancy extends Controller
         return;
     }
 
-    public function infoVacancy()
-    {
-        $vacancy = (new Vacancy())->find()->fetch();
+    public function infoVacancy(?array $data)
+    {   
+        
+        
+
+        $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$data["idvacancy"]}")->fetch(true);
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$data["idvacancy"]}")->fetch();
 
         $html = $this->view->render("/pageVacancy/infoVacancy", [
-            "title" => "Informações da vaga"
+            "vacancyList" => $vacancyList,
+            "vacancyInfo" => $vacancyInfo
         ]);
 
         $json["html"] = $html;

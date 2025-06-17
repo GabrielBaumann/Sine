@@ -2,12 +2,10 @@
 
 namespace Source\App;
 
-use CompileError;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
 use Source\Models\SystemUser;
-use Source\Models\Vacancy;
 use Source\Support\Pager;
 
 class AppCompany extends Controller
