@@ -11,9 +11,7 @@ class Vacancy extends Model
     public function __construct()
     {
         parent::__construct(
-            "vacancy", ["id_vacancy"], ["id_enterprise", "cbo_occupation", "pcd_vacancy", "apprentice_vacancy", "gender_vacancy",
-            "number_vacancy", "quantity_per_vacancy", "date_open_vacancy", "education_vacancy", "age_min_vacancy", "age_max_vacancy", 
-            "exp_vacancy", "nomeclatura_vacancy"],
+            "vacancy", ["id_vacancy"], [],
             "id_vacancy"
         );
     }
@@ -110,12 +108,59 @@ class Vacancy extends Model
     }
 
     /**
-     * Lista de vagas
+     * Lista de empresas filtradas somente por empresas que tenham vagas cadastradas
      */
-    // public function listEnterpriseVacancy() : array
-    // {
+    public function listEnterpriseVacancy() : array
+    {
         
-    //     return $vacancy;
-    // }
-    
+        $enterpriseVancacy = $this->find()->fetch(true);
+
+        foreach($enterpriseVancacy as $enterpriseVancacyItem) {
+            if (empty($ids[$enterpriseVancacyItem->id_enterprise])) {
+
+                $enterprise = (new Enterprise())->findById($enterpriseVancacyItem->id_enterprise);
+
+                $enterpriseDistinct[] = 
+                [
+                    "id_enterprise" => $enterprise->id_enterprise,    
+                    "name_enterprise" => $enterprise->name_enterprise
+                ];
+
+                $ids[$enterpriseVancacyItem->id_enterprise] = true;
+            }
+        }
+
+        usort($enterpriseDistinct, function($a, $b) {
+            return strcmp($a["name_enterprise"], $b["name_enterprise"]);
+        });
+
+        $objetos = array_map(function($item) {
+            return (object) $item;
+        }, $enterpriseDistinct);
+
+        return $objetos;
+    }
+
+    /**
+     * Encerrar vagas e atualizar o espelho de vagas
+     */
+    public function closedVacancy(int $idVacancy, int $idFixedVacancy) : bool
+    {
+
+        $vacancyClosed = new static();
+
+        $vacancyClosed->id_vacancy = $idVacancy;
+        $vacancyClosed->status_vacancy = "Encerrada";
+        $vacancyClosed->save();
+
+        $vacancyTotal = (int)$this->findById($idFixedVacancy)->number_vacancy;
+        $vacancyTotalClosed = count($this->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id={$idFixedVacancy}&st=Encerrada")->fetch(true));
+
+        if($vacancyTotal === $vacancyTotalClosed) {
+            $this->id_vacancy = $idFixedVacancy;
+            $this->status_vacancy = "Encerrada";
+            $this->save();
+        }
+        return true;
+    }
 }

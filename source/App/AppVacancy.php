@@ -26,7 +26,8 @@ class AppVacancy extends Controller
     }
 
     public function startVacancy(?array $data) : void
-    {     
+    {   
+        
         if(isset($data["page"]) && !empty($data["page"])) {
 
             $searchVacancy = filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -71,7 +72,7 @@ class AppVacancy extends Controller
                     ->offset($pager->offset())
                     ->order("nomeclatura_vacancy", "DESC")->fetch(true),
                 "countVacancy"=> $vacancyCount,
-                "listEnterprise" => (new Enterprise())->find()->fetch(true),
+                "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
                 "paginator" => $pager->render()
             ]);   
 
@@ -94,10 +95,7 @@ class AppVacancy extends Controller
                 ->offset($pager->offset())
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
-            "listEnterprise" => (new Enterprise())
-                ->find()
-                ->order("name_enterprise")
-                ->fetch(true),
+            "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()
         ]);
     }
@@ -167,10 +165,7 @@ class AppVacancy extends Controller
                 ->offset($pager->offset())
                 ->order("nomeclatura_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
-            "listEnterprise" => (new Enterprise())
-                ->find()
-                ->order("name_enterprise")
-                ->fetch(true),
+            "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()
         ]);
         
@@ -231,8 +226,19 @@ class AppVacancy extends Controller
 
     public function infoVacancy(?array $data)
     {   
-        
-        
+        if(isset($data["csrf"])) {
+            
+            $vacancyClosed = new Vacancy();
+            $idFixed = $data["id-vacancy-fixed"];
+
+            foreach($data as $key => $value) {
+                if(str_contains($key, "check-vacancy-")) {
+                    $vacancyClosed->closedVacancy((int)$value, (int)$idFixed);
+                }                
+            }
+
+            return;
+        }
 
         $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$data["idvacancy"]}")->fetch(true);
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$data["idvacancy"]}")->fetch();
