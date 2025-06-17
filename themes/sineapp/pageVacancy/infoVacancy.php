@@ -51,9 +51,7 @@
     </div>
 </div>
 <div id="listVacancy">
-<div class="bg-transparent rounded-md overflow-hidden mt-5">
-    <div class="overflow-x-auto">
-        <div class="overflow-x-auto">
+    <div class="bg-transparent rounded-md overflow-hidden mt-5">  
         <table class="min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="">
             <tr>
@@ -65,7 +63,7 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
             </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-200">
                 <!-- Linha 1 -->
                 <?php foreach($vacancyList as $vacancyItem): ?>
                     <tr class="hover:bg-blue-100">
@@ -89,16 +87,20 @@
                 <?php endforeach; ?>           
             </tbody>
         </table>
-    </div>
-</div>
+        
+        <div class="flex justify-end items-center py-5">
+            <button
+                data-url="<?= url("/informacaovagas"); ?>"
+                id="btn-closed-vacancy"
+                class="flex items-center gap-2 cursor-pointer text-sm bg-transparent text-red-500 font-semibold hover:bg-red-500 hover:text-white transition py-2 px-3 rounded-full hover:shadow-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+                <span>Marcar como encerrada</span>
+            </button>
+        </div>
 
-    <!-- falta a paginação aqui -->
-</div>
-</div>
-<button
-    data-url="<?= url("/informacaovagas"); ?>"
-    id="btn-closed-vacancy"
-    class="cursor-pointer">
-        Encerrar
-</button>
+        <!-- falta a paginação aqui -->
+         
+    </div>
 </div>
