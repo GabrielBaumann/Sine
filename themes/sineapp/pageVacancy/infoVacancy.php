@@ -31,7 +31,7 @@
             
             <!-- Botão editar -->
             <button 
-                data-url=""
+                data-url="<?= url("/editarvagas") . "/" . $vacancyInfo->id_vacancy ?>"
                 id="btn-new-vacancy" 
                 class="cursor-pointer flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 px-4 py-2 text-black font-medium rounded-lg transition-colors duration-200 shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
