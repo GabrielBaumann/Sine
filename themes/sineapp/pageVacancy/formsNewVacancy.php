@@ -1,3 +1,10 @@
+<?php 
+
+use Source\Models\Enterprise;
+$enterprise = new Enterprise();
+
+?>
+
 <main class="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">
     <!-- Header de localização -->
     <header class="flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
@@ -20,15 +27,27 @@
             <div class="space-y-4">
                 <div>
                     <label for="enterprise" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
-                    <select 
-                        id="enterprise" 
-                        name="enterprise" 
-                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
-                        <option value="">Empresa</option>
-                            <?php foreach($companys as $company): ?>        
-                                <option value="<?= $company->id_enterprise; ?>" <?= ($vacancy->id_enterprise ?? null) === "{$company->id_enterprise}" ? "selected" : "" ?>><?= $company->name_enterprise; ?></option>
-                            <?php endforeach; ?>
-                    </select>
+                    <?php if($vacancy ?? null): ?>
+                        <select 
+                            id="enterprise" 
+                            name="enterprise" 
+                            class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                            <option value="">Empresa</option>
+                                <?php foreach($companys as $company): ?>        
+                                    <option value="<?= $company->id_enterprise; ?>" <?= ($enterprise->findById($vacancy->id_enterprise)->name_enterprise ?? null) === "{$company->name_enterprise}" ? "selected" : "" ?>><?= $company->name_enterprise; ?></option>
+                                <?php endforeach; ?>
+                        </select>
+                    <?php else:?>
+                        <select 
+                            id="enterprise" 
+                            name="enterprise" 
+                            class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                            <option value="">Empresa</option>
+                                <?php foreach($companys as $company): ?>        
+                                    <option value="<?= $company->id_enterprise; ?>"><?= $company->name_enterprise; ?></option>
+                                <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
                 </div>
                 
                 <!-- CBO - Ocupação -->
@@ -66,8 +85,8 @@
                         name="apprentice-vacancy" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
-                        <option value="Masculino">Sim</option>
-                        <option value="Feminino">Não</option>
+                        <option value="Sim" <?= ($vacancy->apprentice_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
+                        <option value="Não" <?= ($vacancy->apprentice_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
                     </select>
                 </div>
             </div>

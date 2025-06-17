@@ -69,7 +69,10 @@ $route->post("/informacaovagas", "AppVacancy:infoVacancy");
 
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
 $route->get("/pesquisarvagas/p/{page}", "AppVacancy:startVacancy");
+
 $route->get("/cadastrarvagas", "AppVacancy:addVacancy");
+$route->get("/editarvagas/{idvacancy}", "AppVacancy:addVacancy");
+
 $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
 
 /**

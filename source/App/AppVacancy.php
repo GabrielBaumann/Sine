@@ -176,6 +176,25 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
+        if(isset($data["idvacancy"])) {
+
+            // var_dump((new Vacancy())
+            //         ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
+            //         ->fetch());
+
+            $html = $this->view->render("/pageVacancy/formsNewVacancy", [
+                "vacancy" => (new Vacancy())
+                    ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
+                    ->fetch(),
+                "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+                "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
+            ]);
+
+            $json["html"] = $html;
+            echo json_encode($json);
+            return;
+        }
+
         if(!empty($data["csrf"])) {
 
             if(!csrf_verify($data)) {
@@ -227,7 +246,7 @@ class AppVacancy extends Controller
     public function infoVacancy(?array $data)
     {   
         if(isset($data["csrf"])) {
-            
+
             $vacancyClosed = new Vacancy();
             $idFixed = $data["id-vacancy-fixed"];
 
