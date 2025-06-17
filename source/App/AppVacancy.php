@@ -250,12 +250,29 @@ class AppVacancy extends Controller
             $vacancyClosed = new Vacancy();
             $idFixed = $data["id-vacancy-fixed"];
 
+            $count = 0;
+
             foreach($data as $key => $value) {
                 if(str_contains($key, "check-vacancy-")) {
                     $vacancyClosed->closedVacancy((int)$value, (int)$idFixed);
+                    $count++;
                 }                
             }
 
+            $plur = $count > 1 ? "s" : "";
+
+            $json["message"] = messageHelpers()->success("Vaga". $plur ."  encerrada". $plur ." com sucesso!")->render();
+
+            $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$data["id-vacancy-fixed"]}")->fetch(true);
+            $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$data["id-vacancy-fixed"]}")->fetch();
+
+            $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+                "vacancyList" => $vacancyList,
+                "vacancyInfo" => $vacancyInfo
+            ]);
+
+            $json["html"] = $html;
+            echo json_encode($json);
             return;
         }
 

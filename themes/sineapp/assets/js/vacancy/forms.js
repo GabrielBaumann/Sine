@@ -30,6 +30,10 @@ document.addEventListener("submit", (e) => {
                 fncMessage(data.message);
             }
 
+            if(data.html) {
+                document.getElementById("list-info-vacancy").innerHTML = data.html;
+            }
+            
         })
         .catch(error => {
             fncMessage();
