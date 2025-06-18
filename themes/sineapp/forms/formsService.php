@@ -93,7 +93,7 @@
         </div>
 
         <!-- Encaminhamento para entrevistas -->
-        <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <!-- <div class="col-span-4 md:col-span-2 lg:col-span-1">
             <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">CNPJ *</label>
             <input 
                 value=""
@@ -101,21 +101,18 @@
                 id="" 
                 name="" 
                 class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" >
-        </div>
-
-        <!-- Encaminhamento para entrevistas -->
-        <div class="col-span-4 md:col-span-2 lg:col-span-2">
-            <label for="data-atendimento" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
-            <input 
-                value=""
-                type="text" 
-                id="" 
-                name="" 
-                class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" >
-        </div>
+        </div> -->
 
         <!-- Encaminhamento para entrevistas -->
         <div class="col-span-4 md:col-span-2 lg:col-span-1">
+            <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
+            <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                <option>Selecione</option>
+            </select>
+        </div>
+
+        <!-- Encaminhamento para entrevistas -->
+        <!-- <div class="col-span-4 md:col-span-2 lg:col-span-1">
             <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
             <input
                 value="" 
@@ -125,10 +122,10 @@
                 name="" 
                 class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="000.000.000-00">
-        </div>
+        </div> -->
 
         <!-- Encaminhamento para entrevistas -->
-        <div class="col-span-4 md:col-span-2 lg:col-span-1">
+        <div class="col-span-4 md:col-span-2 lg:col-span-2">
             <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">Função *</label>
             <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                 <option>Selecione</option>
@@ -136,7 +133,7 @@
         </div>
 
         <!-- Encaminhamento para entrevistas -->
-        <div class="col-span-4 md:col-span-2 lg:col-span-2">
+        <!-- <div class="col-span-4 md:col-span-2 lg:col-span-2">
             <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Responsável *</label>
             <input 
                 value=""
@@ -145,7 +142,7 @@
                 name="" 
                 class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="Digite o nome completo" >
-        </div>
+        </div> -->
 
         <!-- linha inteira -->
         <div class="col-span-4">
