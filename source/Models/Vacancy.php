@@ -82,10 +82,7 @@ class Vacancy extends Model
     public function updateVacancy(int $idVacancy, ?array $data = null, ?int $userId = null) : bool
     {   
 
-        $lastVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
-            ->order("number_vacancy", "DESC")
-            ->fetch();
-
+        // Atualiza as vagas que foram inseridas a primeira vez e que não estejam vínculadas a nenhum usuário    
         $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
             ->order("number_vacancy", "DESC")
             ->fetch(true);
@@ -115,6 +112,7 @@ class Vacancy extends Model
 
         }
 
+        // Atualiza o espelho da vaga
             $this->id_vacancy = $idVacancy;
             $this->id_enterprise = $data["enterprise"];
             $this->cbo_occupation = $data["cbo-occupation"];
@@ -134,16 +132,18 @@ class Vacancy extends Model
             $this->id_user_update = $userId;
 
             $this->save();
-
+        
+        
+        // Caso a atualização implique em novas vagas, as que forem acrescentadas serão criadas nesse ponto
+        // Pesquisa a última vaga para calcular a quantidade de vaga e verificar se o valor solicitado é maior que o valor já cadastrado 
+            $lastVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
+            ->order("number_vacancy", "DESC")
+            ->fetch();
         
         if($data["number-vacancy"] > $lastVacancy->number_vacancy) {
-
-            //Atualizar os que já exitem
-
             for($i = $lastVacancy->number_vacancy + 1; $i <= $data["number-vacancy"]; $i++) {
-                //    Criar novos
-                $vacancy = new static();
 
+                $vacancy = new static();
                 $vacancy->id_vacancy_fixed = $idVacancy;
                 $vacancy->id_enterprise = $data["enterprise"];
                 $vacancy->cbo_occupation = $data["cbo-occupation"];
