@@ -1,56 +1,75 @@
+// Baseado na lista de empresas encontrar as vagas abertas
+document.addEventListener("click", (e) => {
+    if (e.target.tagName === "SELECT" && e.target.id === "company-name") {
+        const vCompanySelect = document.getElementById("company-name");
+        const vOccupationSelect = document.getElementById("occupation");
 
-// let vArrayNavigation = [];
+        const vUrl = e.target.dataset.url;
+        fetch(vUrl)
+        .then(response => response.json())
+        .then(data => {
 
-// // Chamadas do atendimento
-// document.addEventListener("click", (e) => {
-//     const vButton = e.target.closest("button");
-//     const vUrl = vButton?.dataset.url;
-//     const vIdServiceType = vButton?.dataset.idservice;
-    
-    
-//     if(e.target.id = "bntBack" && e.target.tagName === "BUTTON") {
-//         // vArrayNavigation.pop();
-//     }
+            data.sort((a, b) => a.name_enterprise.localeCompare(b.name_enterprise));
 
-//     if(vUrl) {
+            // document.querySelectorAll("option").forEach((el) => {
+            //     if (el.classList.contains("company")) {
+            //         el.remove();
+            //     }                
+            // });
 
-//         const vTextTitle = vButton.querySelector("span")?.innerText;
-//         const vNavigationText = vButton.querySelector("span")?.textContent;       
+            document.querySelectorAll("option").forEach((el) => {
+                // console.log(el.selected === true);
 
-//         fetch(vUrl)
-//         .then(response => response.text())
-//         .then(data => {
+                if(el.selected){
 
-//             const vElementoNew = document.getElementById("newElement");
-//             vElementoNew.innerHTML = data
+                }else{
+                    if (el.classList.contains("company")) {
+                    el.remove();
+                }  
+                }
+            })
 
-//             const vTitleForm = document.getElementById("titleForm");
-//             const vId = document.getElementById("idServiceType");
+            data.forEach(company => {
+                const vOption = document.createElement("option");
+                vOption.value = company.id_enterprise;
+                vOption.classList.add("company");
+                vOption.textContent = company.name_enterprise;
+                vCompanySelect.appendChild(vOption);
+            });
 
-//             // Criar barra de vavegação por local
-//             const vConteinerLocation = document.querySelector("p.navigation");
-            
-//             if(vConteinerLocation) {
+        });
 
-//                 const vLocation = document.createElement("button");
-//                 vLocation.innerText = vNavigationText + " > ";
-//                 vLocation.id = "navigation"
-//                 vLocation.dataset.url = document.getElementById("bntBack").dataset.url
+        vCompanySelect.addEventListener("change", () => {
+            const vCompanyId = vCompanySelect.value;
 
-//                 vArrayNavigation.push(vLocation);
+            vOccupationSelect.innerHTML = '<option value="">Carregando...</option>';
+            vOccupationSelect.disabled = true;
 
-//                 vArrayNavigation.forEach((item) => {
-//                     vConteinerLocation.appendChild(item);
-//                 });
-//             }
+            if(vCompanyId) {
+                
+                fetch(vUrl + "/" + vCompanyId)
+                .then(response => response.json())
+                .then(data => {
 
-//             if(vTitleForm) {
-//                 if (vTextTitle && vTextTitle) {
-//                     vTitleForm.textContent = vTextTitle;
-//                     vId.value = vIdServiceType;
-                    
-//                 }
-//             }
-//         });
-//     }
-// })
+                    vOccupationSelect.innerHTML = '<option value="">Selecione uma ocupação</option>';
+                    data.sort((a, b) => a.nomeclatura_vacancy.localeCompare(b.nomeclatura_vacancy));
+                    data.forEach(cbo => {
+                        const vOption = document.createElement("option");
+                        vOption.value = cbo.cbo_occupation;
+                        vOption.textContent = cbo.nomeclatura_vacancy;
+                        vOccupationSelect.appendChild(vOption);
+                    });
+                    vOccupationSelect.disabled = false;
+
+                })
+                .catch(error => {
+                    vOccupationSelect.innerHTML = '<option value="">Erro ao carregar vagas</option>';
+                })
+            } else {
+                vOccupationSelect.innerHTML = '<option value="">Selecione uma empresa primeiro</option>';
+                vOccupationSelect.disabled = true;
+            }
+        });
+
+    }
+});

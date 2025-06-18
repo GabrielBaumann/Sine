@@ -4,9 +4,12 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
+use Source\Models\Enterprise;
 use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
+use Source\Models\Vacancy;
+use Source\Models\Views\VwVacancyActive;
 use Source\Models\Worker;
 use Source\Models\WorkerEdit;
 use Source\Support\Message;
@@ -54,6 +57,8 @@ class AppServer extends Controller
 
     public function formService(array $data) : void
     {
+
+        // 
 
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
@@ -254,11 +259,48 @@ class AppServer extends Controller
         }
 
         echo $this->view->render("/forms/formsService", [
-            "title" => "Atendimento",
+            // "title" => "Atendimento",
             "url" => $url ?? null,
-            "idServiceType" => $data["idServiceType"] ?? null
+            "idServiceType" => $data["idServiceType"] ?? null,
+            "idInterview" => $data["interview"] ?? null
         ]);        
 
+    }
+
+    public function listSelectEnterprise(array $data) : void
+    {   
+
+        $enterprise = (new VwVacancyActive())->find()->fetch(true);
+
+        foreach($enterprise as $enterpriseItem) {
+            if(empty($enter[$enterpriseItem->id_enterprise])) {
+                $company[] = 
+                [
+                    "id_enterprise" => $enterpriseItem->id_enterprise,
+                    "name_enterprise" => $enterpriseItem->name_enterprise
+                ];
+
+                $enter[$enterpriseItem->id_enterprise] = true;
+            }
+        }
+        
+        if(isset($data["idcompany"])) {
+
+            $idEnterprise = (int)$data["idcompany"];
+            $occupation = (new VwVacancyActive())
+                ->find("id_enterprise = :id","id={$idEnterprise}")
+                ->fetch(true);
+
+            foreach($occupation as $occupationItem) {
+                $ocup[] = (array)$occupationItem->data();
+            }
+            
+            echo json_encode($ocup);
+            return;
+        }
+
+        echo json_encode($company);
+        return;
     }
 
     public function formCpfCheck(array $data) : void

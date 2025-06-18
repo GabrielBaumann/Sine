@@ -64,7 +64,7 @@
 
         <button
             data-idservice = "<?= $type === "telefone" ? "56" : "4" ?>"
-            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type . "/". ($type === "telefone" ? "56" : "4") ?>"
             class="cursor-pointer hover:bg-white hover:shadow-xl hover:border-gray-300 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

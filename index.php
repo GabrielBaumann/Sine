@@ -90,8 +90,9 @@ $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
 
 
-// Service page
+// Service
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");
+$route->get("/formularioAtendimento/{type}/{typeservice}/{interview}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");
 $route->post("/formularioAtendimento/{idWorker}", "AppServer:formService");
 
@@ -102,6 +103,10 @@ $route->get("/atendimentotipo", "AppServer:serviceType");
 $route->get("/atendimentomotivo/{type}", "AppServer:serviceReason");
 $route->get("/requerimentoEspecial/{type}", "AppServer:serviceRequired");
 $route->get("/sucessoAtendimento", "AppServer:serviceSucess");
+
+$route->get("/selecionarempresa", "AppServer:listSelectEnterprise");
+$route->get("/selecionarempresa/{idcompany}", "AppServer:listSelectEnterprise");
+
 
 $route->get("/sair", "AppServer:logout");
 

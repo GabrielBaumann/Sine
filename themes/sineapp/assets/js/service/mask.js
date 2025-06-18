@@ -99,57 +99,6 @@ document.addEventListener("focusout", function(e) {
     }
 })
 
-// API para retornar estados e cudades do IBGE
-
-document.addEventListener("click", (e) => {
-    if(e.target.tagName === "SELECT" && e.target.id === "state") {
-        const vStateSelect = document.getElementById("state");
-        const vCitSelect = document.getElementById("cit");
-
-        fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
-        .then(response => response.json())
-        .then(data => {
-            data.sort((a, b) => a.nome.localeCompare(b.nome));
-
-            data.forEach(state => {
-                const vOption = document.createElement("option");
-                vOption.value = state.sigla;
-                vOption.textContent = state.nome;
-                vStateSelect.appendChild(vOption);
-            });
-        });
-
-        vStateSelect.addEventListener("change", () => {
-            const vStatId = vStateSelect.value;
-
-            vCitSelect.innerHTML = '<option value="">Carregando...</option>';
-            vCitSelect.disabled = true;
-
-            if (vStatId) {
-                fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${vStatId}/municipios`)
-                .then(response => response.json())
-                .then(cities => {
-                    vCitSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-                    cities.sort((a, b) => a.nome.localeCompare(b.nome));
-                    cities.forEach(cit => {
-                        const vOption = document.createElement("option");
-                        vOption.value = cit.nome;
-                        vOption.textContent = cit.nome;
-                        vCitSelect.appendChild(vOption);
-                    });
-                    vCitSelect.disabled = false;
-                })
-                .catch(error => {
-                    vCitSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
-                    console.error(error);
-                })
-            } else {
-                vCitSelect.innerHTML = '<option value="">Selecione um estado primeiro</option>';
-                vCitSelect.disabled = true;
-            }
-        })
-    }
-})
 
 // Fechar mensagem para usuário
 document.addEventListener("click", (e) => {
