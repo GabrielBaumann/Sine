@@ -43,7 +43,7 @@
             </tbody>
         </table>
         
-        <div id="info" class="hidden flex justify-between items-center gap-3 p-3 bg-red-100 rounded-xl p-3">
+        <div id="info" class="hidden flex justify-between items-center gap-3 p-3 rounded-xl p-3">
             <div class="flex flex-col w-full">
                 <label for="reason-closed" class="text-gray-800 font-semibold mb-4">Motivo do encerramento *</label>
                 <div class="flex items-center w-full gap-4">
