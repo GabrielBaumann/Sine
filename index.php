@@ -74,6 +74,7 @@ $route->get("/cadastrarvagas", "AppVacancy:addVacancy");
 $route->get("/editarvagas/{idvacancy}", "AppVacancy:addVacancy");
 
 $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
+$route->post("/cadastrarvagas/{idvacancy}", "AppVacancy:addVacancy");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

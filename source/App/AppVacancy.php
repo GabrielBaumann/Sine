@@ -176,26 +176,31 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
-        if(isset($data["idvacancy"])) {
+        // if(isset($data["idvacancy"])) {
 
-            // var_dump((new Vacancy())
-            //         ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
-            //         ->fetch());
+        //     $html = $this->view->render("/pageVacancy/formsNewVacancy", [
+        //         "vacancy" => (new Vacancy())
+        //             ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
+        //             ->fetch(),
+        //         "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
+        //         "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
+        //     ]);
 
-            $html = $this->view->render("/pageVacancy/formsNewVacancy", [
-                "vacancy" => (new Vacancy())
-                    ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
-                    ->fetch(),
-                "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
-                "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
-            ]);
-
-            $json["html"] = $html;
-            echo json_encode($json);
-            return;
-        }
+        //     $json["html"] = $html;
+        //     echo json_encode($json);
+        //     return;
+        // }
 
         if(!empty($data["csrf"])) {
+
+            // var_dump($data["idvacancy"]);
+            $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
+
+            return;
+            
+            /**
+             * Construção do update vacancy
+             */
 
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Use o formulário!")->render();
@@ -232,10 +237,25 @@ class AppVacancy extends Controller
             return;
         }
 
+        if(isset($data["idvacancy"])) {
+            $idVacancy = $data["idvacancy"];
+            // var_dump($idVacancy);
+        } else {
+            $idVacancy = null;
+        }
+
         $html = $this->view->render("/pageVacancy/formsNewVacancy", [
-            "title" => "Cadastrar vagas",
-            "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
-            "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
+            "vacancy" => (new Vacancy())
+                    ->find("id_vacancy = :id", "id={$idVacancy}")
+                    ->fetch(),
+            "companys" => (new Enterprise())
+                ->find()
+                ->order("name_enterprise")
+                ->fetch(true),
+            "cbos_occupations" => (new CboOccupation())
+                ->find()
+                ->order("occupation")
+                ->fetch(true)
         ]);
 
         $json["html"] = $html;

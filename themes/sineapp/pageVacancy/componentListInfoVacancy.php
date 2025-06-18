@@ -33,7 +33,7 @@
                             </div>
                         </td>
                         <td data-label="Vaga" class="px-6 py-3 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"><?= $vacancyItem->number_vacancy; ?></div>
+                            <div class="text-sm text-gray-900"><?= $vacancyItem->number_vacancy . "/" . $vacancyInfo->total_vancacy_general; ?></div>
                         </td>
                             <td data-label="Status" class="px-6 py-3 whitespace-nowrap">
                             <span class="text-sm text-gray-700"><?= $vacancyItem->status_vacancy; ?></span>

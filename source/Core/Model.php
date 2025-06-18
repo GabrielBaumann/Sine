@@ -140,9 +140,9 @@ abstract class Model
         return $find->fetch();
     }
 
-    public function order(string $columnOrder): Model
+    public function order(string $columnOrder, ?string $direct = "ASC"): Model
     {
-        $this->order = " ORDER BY {$columnOrder}";
+        $this->order = " ORDER BY {$columnOrder} {$direct}";
         return $this;
     }
 

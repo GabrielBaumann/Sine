@@ -19,7 +19,7 @@ $enterprise = new Enterprise();
     </header>
 
     <div>
-        <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 py-7">Nova vaga</h1>
+        <h1 id="titleForm" class="text-2xl md:text-2xl font-semibold text-gray-900 py-7"><?= ($vacancy->id_vacancy ?? null) ? "Editar vaga" :  "Nova vaga" ?></h1>
 
         <form id="formService" action="<?= url("/cadastrarvagas") . (isset($vacancy->id_vacancy) ? "/" . $vacancy->id_vacancy : "" ) ; ?>" method="post" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             <?= csrf_input(); ?>
