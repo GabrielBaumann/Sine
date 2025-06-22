@@ -9,6 +9,8 @@ use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
 use Source\Models\Vacancy;
+use Source\Models\VacancyWorker;
+use Source\Models\Views\VwVacancy;
 use Source\Models\Views\VwVacancyActive;
 use Source\Models\Worker;
 use Source\Models\WorkerEdit;
@@ -58,7 +60,18 @@ class AppServer extends Controller
     public function formService(array $data) : void
     {
 
-        // 
+        // Encaminhamento para entrevista
+        if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["4", "56"])) {
+            $idVacancy = (int)$data["occupation-id-vacancy"];
+            $vacancyCheck = (new VacancyWorker())->checkVacancyQuantity($idVacancy, $this->user->id_user);
+            
+            if(!$vacancyCheck) {
+                $json["message"] = messageHelpers()->warning("Encaminhamentos já preenchidos para essa vaga.")->render();
+                echo json_encode($json);
+                return;
+            }
+            
+        }
 
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
@@ -179,7 +192,7 @@ class AppServer extends Controller
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
 
-                if($data["idServiceType"] === "56" || $data["idServiceType"] === "4") {
+                if(in_array($data["idServiceType"], ["4", "56"])) {
                     $wokerEdit = (new WorkerEdit());
                     
                     $wokerEdit->id_worker = $idWoker;
@@ -194,6 +207,10 @@ class AppServer extends Controller
                 $service->detail = $data["observation"];
                 $service->save();
 
+                if(in_array($data["idServiceType"], ["4", "56"])) {
+                    $vacancyToWorker = (new VacancyWorker())->addVacancyToWoker($dataClean, $service->id_service, $this->user->id_user);
+                }
+
             } else {
                 $woker->id_user_register = $this->user->id_user;
                 $woker->name_worker = $dataClean["nome"];
@@ -205,7 +222,7 @@ class AppServer extends Controller
                 $woker->apprentice_worker = $dataClean["apprentice"];
                 $woker->cterc = $dataClean["cterc"];
 
-                    if($data["idServiceType"] === "56" || $data["idServiceType"] === "4") {
+                    if(in_array($data["idServiceType"], ["4", "56"])) {
                         $woker->status_work = "Aguardando Resposta";
                     }
 
@@ -218,6 +235,10 @@ class AppServer extends Controller
                 $service->id_type_service = $data["idServiceType"];
                 $service->detail = $data["observation"];
                 $service->save();
+
+                if(in_array($data["idServiceType"], ["4", "56"])) {
+                    $vacancyToWorker = (new VacancyWorker())->addVacancyToWoker($dataClean, $service->id_service, $this->user->id_user, $idWoker);
+                }
 
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
@@ -259,7 +280,6 @@ class AppServer extends Controller
         }
 
         echo $this->view->render("/forms/formsService", [
-            // "title" => "Atendimento",
             "url" => $url ?? null,
             "idServiceType" => $data["idServiceType"] ?? null,
             "idInterview" => $data["interview"] ?? null
@@ -270,7 +290,10 @@ class AppServer extends Controller
     public function listSelectEnterprise(array $data) : void
     {   
 
-        $enterprise = (new VwVacancyActive())->find()->fetch(true);
+        $enterprise = (new VwVacancyActive())->find()->fetch(true) ?? [];
+
+        $company = [];
+        $ocup = [];
 
         foreach($enterprise as $enterpriseItem) {
             if(empty($enter[$enterpriseItem->id_enterprise])) {
@@ -289,12 +312,14 @@ class AppServer extends Controller
             $idEnterprise = (int)$data["idcompany"];
             $occupation = (new VwVacancyActive())
                 ->find("id_enterprise = :id","id={$idEnterprise}")
+                ->order("number_vacancy")
                 ->fetch(true);
 
             foreach($occupation as $occupationItem) {
                 $ocup[] = (array)$occupationItem->data();
+                
             }
-            
+
             echo json_encode($ocup);
             return;
         }
@@ -305,7 +330,6 @@ class AppServer extends Controller
 
     public function formCpfCheck(array $data) : void
     {
-
         $cpfuser = $data["cpf"];
         $url = $data["url"];
         $titleForm = $data["titleForm"];
@@ -323,11 +347,11 @@ class AppServer extends Controller
         if ($worker->fetch()) {
 
             $html = $this->view->render("/forms/formsService", [
-                "titel" => "Atendimento",
                 "worker" => $worker->fetch(),
                 "titleForm" => $titleForm,
                 "url" => $url,
-                "idServiceType" => $idServiceType ?? null
+                "idServiceType" => $idServiceType ?? null,
+                "idInterview" => $idServiceType ?? null
             ]);  
 
             $json["html"] = $html;

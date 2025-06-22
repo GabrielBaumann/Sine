@@ -101,15 +101,15 @@
                     id="company-name" 
                     name="company-name" 
                     class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option>Selecione</option>
+                    <option value="">Selecione</option>
                 </select>
             </div>
 
             <!-- Encaminhamento para entrevistas -->
             <div class="col-span-4 md:col-span-2 lg:col-span-2">
-                <label for="occupation" class="block text-sm font-medium text-gray-700 mb-1">Função *</label>
-                <select id="occupation" name="occupation" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option>Selecione</option>
+                <label for="occupation-id-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Função *</label>
+                <select id="occupation-id-vacancy" name="occupation-id-vacancy" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="">Selecione</option>
                 </select>
             </div>
         <?php endif; ?>

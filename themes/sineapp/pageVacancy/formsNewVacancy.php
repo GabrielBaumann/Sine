@@ -59,7 +59,7 @@ $enterprise = new Enterprise();
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">CBO ocupação</option>
                         <?php foreach($cbos_occupations as $cbo_occupation): ?>
-                            <option value="<?= $cbo_occupation->code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->code}" ? "selected" : "" ?>><?= $cbo_occupation->code; ?> - <?= $cbo_occupation->occupation; ?></option>
+                            <option value="<?= $cbo_occupation->id_code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->id_code}" ? "selected" : "" ?>><?= $cbo_occupation->id_code; ?> - <?= $cbo_occupation->occupation; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

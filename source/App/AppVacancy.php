@@ -194,9 +194,9 @@ class AppVacancy extends Controller
         if(!empty($data["csrf"])) {
 
             // var_dump($data["idvacancy"]);
-            $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
+            // $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
 
-            return;
+            // return;
             
             /**
              * Construção do update vacancy
