@@ -60,7 +60,7 @@ class AppServer extends Controller
     public function formService(array $data) : void
     {
 
-        // Encaminhamento para entrevista
+        // Encaminhamento para entrevista, -- obs --> Esse código deve ser executado antes de enviar os dados para o banco de dados.
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["4", "56"])) {
             $idVacancy = (int)$data["occupation-id-vacancy"];
             $vacancyCheck = (new VacancyWorker())->checkVacancyQuantity($idVacancy, $this->user->id_user);

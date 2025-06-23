@@ -176,32 +176,9 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
-        // if(isset($data["idvacancy"])) {
-
-        //     $html = $this->view->render("/pageVacancy/formsNewVacancy", [
-        //         "vacancy" => (new Vacancy())
-        //             ->find("id_vacancy = :id", "id={$data["idvacancy"]}")
-        //             ->fetch(),
-        //         "companys" => (new Enterprise())->find()->order("name_enterprise")->fetch(true),
-        //         "cbos_occupations" => (new CboOccupation())->find()->order("occupation")->fetch(true)
-        //     ]);
-
-        //     $json["html"] = $html;
-        //     echo json_encode($json);
-        //     return;
-        // }
 
         if(!empty($data["csrf"])) {
-
-            // var_dump($data["idvacancy"]);
-            // $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
-
-            // return;
-            
-            /**
-             * Construção do update vacancy
-             */
-
+         
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Use o formulário!")->render();
                 $json["complete"] = false;
@@ -221,6 +198,32 @@ class AppVacancy extends Controller
 
             $dataCleanOk = $dataClean["data"];
 
+            if (!isset($data["number-vacancy"]) || !is_numeric($data["number-vacancy"]) || $data["number-vacancy"] < 1 ) {
+                $json["message"] = messageHelpers()->warning("Verifique o campo número de vagas!")->render();
+                $json["complete"] = false;
+                echo json_encode($json);
+                return;
+            }
+            
+            if (!isset($data["quantity-per-vacancy"]) || !is_numeric($data["quantity-per-vacancy"]) || $data["quantity-per-vacancy"] < 1 ) {
+                $json["message"] = messageHelpers()->warning("Verifique se a quantidades por vaga é válida!")->render();
+                $json["complete"] = false;
+                echo json_encode($json);
+                return;
+            }
+
+            // Atualização de vagas
+            if(isset($data["idvacancy"]) && !empty($data["idvacancy"])) {
+                
+                $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
+
+                $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
+                $json["complete"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            // Criar vagas
             $vacancy = new Vacancy();
             $createVacancys = $vacancy->createVacancy($dataCleanOk, $this->user->id_user);
 
@@ -230,6 +233,8 @@ class AppVacancy extends Controller
                 echo json_encode($json);
                 return;
             }
+
+
             
             $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
             $json["complete"] = true;
@@ -239,7 +244,6 @@ class AppVacancy extends Controller
 
         if(isset($data["idvacancy"])) {
             $idVacancy = $data["idvacancy"];
-            // var_dump($idVacancy);
         } else {
             $idVacancy = null;
         }
