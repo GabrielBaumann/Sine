@@ -14,19 +14,8 @@ function updateResponsive() {
 
         vMenus.forEach(vElemet => {
             if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-                vElemet.closest("a.mobile").classList.remove("text-gray-600")
-                vElemet.closest("a.mobile").classList.add("text-white", "bg-blue-800", "rounded-full");
-            }
-        });
-    } else {
-        // Modo desktop
-        const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
-        const vMenus = document.querySelectorAll("span.menu");
-
-        vMenus.forEach(vElemet => {
-            if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-                vElemet.closest("a.menu").classList.remove("text-gray-700")
-                vElemet.closest("a.menu").classList.add("text-white", "bg-blue-800", "rounded-md", "hover:text-white");
+                vElemet.closest("a").classList.remove("text-gray-600")
+                vElemet.closest("a").classList.add("text-white", "bg-blue-800", "rounded-full");
             }
         });
     }
