@@ -23,7 +23,7 @@ window.onload = function() {
         vMenus.forEach(vElemet => {
             if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
                 vElemet.closest("a").classList.remove("text-gray-600")
-                vElemet.closest("a").classList.add("text-white", "bg-blue-800", "rounded-full");
+                vElemet.closest("a").classList.add("text-blue-900");
             }
         });
     }
