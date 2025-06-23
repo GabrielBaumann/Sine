@@ -3,6 +3,7 @@
 namespace Source\Models;
 
 use Source\Core\Model;
+use Source\Support\Message;
 
 class Vacancy extends Model
 {
@@ -14,6 +15,12 @@ class Vacancy extends Model
             "vacancy", ["id_vacancy"], [],
             "id_vacancy"
         );
+        // $this->message = new Message();
+    }
+
+    public function message() : ?Message 
+    {
+        return $this->message;   
     }
 
     /**
@@ -81,8 +88,7 @@ class Vacancy extends Model
      */
     public function updateVacancy(int $idVacancy, ?array $data = null, ?int $userId = null) : bool
     {   
-
-        // Atualiza as vagas que foram inseridas a primeira vez e que não estejam vínculadas a nenhum usuário    
+        // Atualiza as vagas que foram inseridas a primeira 
         $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
             ->order("number_vacancy", "DESC")
             ->fetch(true);
@@ -136,10 +142,11 @@ class Vacancy extends Model
         
         // Caso a atualização implique em novas vagas, as que forem acrescentadas serão criadas nesse ponto
         // Pesquisa a última vaga para calcular a quantidade de vaga e verificar se o valor solicitado é maior que o valor já cadastrado 
-            $lastVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
-            ->order("number_vacancy", "DESC")
-            ->fetch();
-        
+        $lastVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
+        ->order("number_vacancy", "DESC")
+        ->fetch();
+
+        // Novas vagas (valor de alteração é maior que o valor cadastrado a primeira vez)
         if($data["number-vacancy"] > $lastVacancy->number_vacancy) {
             for($i = $lastVacancy->number_vacancy + 1; $i <= $data["number-vacancy"]; $i++) {
 
@@ -163,17 +170,21 @@ class Vacancy extends Model
                 $vacancy->id_user_register = $userId;
                 $vacancy->save();
             }
-
         }
 
-
-        
-        
-
+        // Quantidade de vagas de edição menor do que vagas cadastradas a primeira vez
+        if($data["number-vacancy"] < $lastVacancy->number_vacancy) {
+            for($i = $lastVacancy->number_vacancy; $i > $data["number-vacancy"]; $i--) {
+                var_dump("Iteração: " . $i);
+            }
+        }
 
         return false;
     }
 
+    /**
+     * Gráfico de vagas
+     */
     public function chartVacancy() : array
     {
         $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
@@ -190,7 +201,10 @@ class Vacancy extends Model
         }
         return ["label" => $label, "total" => $total];
     }
-    
+
+    /**
+     * Gráfico de vagas
+     */
     public function chartVacancyGender() : array
     {
         $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
@@ -248,7 +262,6 @@ class Vacancy extends Model
      */
     public function closedVacancy(int $idVacancy, int $idFixedVacancy) : bool
     {
-
         $vacancyClosed = new static();
 
         $vacancyClosed->id_vacancy = $idVacancy;
