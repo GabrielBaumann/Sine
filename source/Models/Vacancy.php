@@ -3,11 +3,11 @@
 namespace Source\Models;
 
 use Source\Core\Model;
-use Source\Support\Message;
+
 
 class Vacancy extends Model
 {
-    protected $message;
+
     
     public function __construct()
     {
@@ -16,11 +16,6 @@ class Vacancy extends Model
             "id_vacancy"
         );
         // $this->message = new Message();
-    }
-
-    public function message() : ?Message 
-    {
-        return $this->message;   
     }
 
     /**
@@ -88,66 +83,66 @@ class Vacancy extends Model
      */
     public function updateVacancy(int $idVacancy, ?array $data = null, ?int $userId = null) : bool
     {   
-        // Atualiza as vagas que foram inseridas a primeira 
-        $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
-            ->order("number_vacancy", "DESC")
-            ->fetch(true);
-
-        foreach($oldVacancy as $oldVacancyItem) {
-            
-            $oldVacancyUpdate = new static();
-
-            $oldVacancyUpdate->id_vacancy = $oldVacancyItem->id_vacancy;
-            $oldVacancyUpdate->id_enterprise = $data["enterprise"];
-            $oldVacancyUpdate->cbo_occupation = $data["cbo-occupation"];
-            $oldVacancyUpdate->apprentice_vacancy = $data["apprentice-vacancy"];
-            $oldVacancyUpdate->gender_vacancy = $data["gender"];
-            $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
-            $oldVacancyUpdate->quantity_per_vacancy = $data["quantity-per-vacancy"];
-            $oldVacancyUpdate->date_open_vacancy = $data["date-open-vacancy"];
-            $oldVacancyUpdate->education_vacancy = $data["education-vacancy"];
-            $oldVacancyUpdate->age_min_vacancy = $data["age-min-vacancy"];
-            $oldVacancyUpdate->age_max_vacancy = $data["age-max-vacancy"];
-            $oldVacancyUpdate->exp_vacancy = $data["exp-vacancy"];
-            $oldVacancyUpdate->description_vacancy = $data["description-vacancy"];
-            $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
-            $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
-            $oldVacancyUpdate->id_user_update = $userId;
-
-            $oldVacancyUpdate->save();
-
-        }
-
-        // Atualiza o espelho da vaga
-            $this->id_vacancy = $idVacancy;
-            $this->id_enterprise = $data["enterprise"];
-            $this->cbo_occupation = $data["cbo-occupation"];
-            $this->apprentice_vacancy = $data["apprentice-vacancy"];
-            $this->gender_vacancy = $data["gender"];
-            $this->number_vacancy = $data["number-vacancy"];
-            $this->pcd_vacancy = $data["pcd-vacancy"];
-            $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
-            $this->date_open_vacancy = $data["date-open-vacancy"];
-            $this->education_vacancy = $data["education-vacancy"];
-            $this->age_min_vacancy = $data["age-min-vacancy"];
-            $this->age_max_vacancy = $data["age-max-vacancy"];
-            $this->exp_vacancy = $data["exp-vacancy"];
-            $this->description_vacancy = $data["description-vacancy"];
-            $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
-            $this->request_vacancy = $data["request-vacancy"];
-            $this->id_user_update = $userId;
-
-            $this->save();
-        
-        
-        // Caso a atualização implique em novas vagas, as que forem acrescentadas serão criadas nesse ponto
-        // Pesquisa a última vaga para calcular a quantidade de vaga e verificar se o valor solicitado é maior que o valor já cadastrado 
+        // Pesquisa a última vaga para calcular a quantidade de vaga e verificar se o valor solicitado é maior ou menor que o valor já cadastrado 
         $lastVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
         ->order("number_vacancy", "DESC")
         ->fetch();
 
         // Novas vagas (valor de alteração é maior que o valor cadastrado a primeira vez)
         if($data["number-vacancy"] > $lastVacancy->number_vacancy) {
+
+            // Atualiza as vagas que foram inseridas a primeira 
+            $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
+                ->order("number_vacancy", "DESC")
+                ->fetch(true);
+
+            foreach($oldVacancy as $oldVacancyItem) {
+                
+                $oldVacancyUpdate = new static();
+
+                $oldVacancyUpdate->id_vacancy = $oldVacancyItem->id_vacancy;
+                $oldVacancyUpdate->id_enterprise = $data["enterprise"];
+                $oldVacancyUpdate->cbo_occupation = $data["cbo-occupation"];
+                $oldVacancyUpdate->apprentice_vacancy = $data["apprentice-vacancy"];
+                $oldVacancyUpdate->gender_vacancy = $data["gender"];
+                $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
+                $oldVacancyUpdate->quantity_per_vacancy = $data["quantity-per-vacancy"];
+                $oldVacancyUpdate->date_open_vacancy = $data["date-open-vacancy"];
+                $oldVacancyUpdate->education_vacancy = $data["education-vacancy"];
+                $oldVacancyUpdate->age_min_vacancy = $data["age-min-vacancy"];
+                $oldVacancyUpdate->age_max_vacancy = $data["age-max-vacancy"];
+                $oldVacancyUpdate->exp_vacancy = $data["exp-vacancy"];
+                $oldVacancyUpdate->description_vacancy = $data["description-vacancy"];
+                $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
+                $oldVacancyUpdate->id_user_update = $userId;
+
+                $oldVacancyUpdate->save();
+
+            }
+
+                // Atualiza o espelho da vaga
+                $this->id_vacancy = $idVacancy;
+                $this->id_enterprise = $data["enterprise"];
+                $this->cbo_occupation = $data["cbo-occupation"];
+                $this->apprentice_vacancy = $data["apprentice-vacancy"];
+                $this->gender_vacancy = $data["gender"];
+                $this->number_vacancy = $data["number-vacancy"];
+                $this->pcd_vacancy = $data["pcd-vacancy"];
+                $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
+                $this->date_open_vacancy = $data["date-open-vacancy"];
+                $this->education_vacancy = $data["education-vacancy"];
+                $this->age_min_vacancy = $data["age-min-vacancy"];
+                $this->age_max_vacancy = $data["age-max-vacancy"];
+                $this->exp_vacancy = $data["exp-vacancy"];
+                $this->description_vacancy = $data["description-vacancy"];
+                $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $this->request_vacancy = $data["request-vacancy"];
+                $this->id_user_update = $userId;
+
+                $this->save();
+
+            // Caso a atualização implique em novas vagas, as que forem acrescentadas serão criadas nesse ponto
             for($i = $lastVacancy->number_vacancy + 1; $i <= $data["number-vacancy"]; $i++) {
 
                 $vacancy = new static();
@@ -175,7 +170,11 @@ class Vacancy extends Model
         // Quantidade de vagas de edição menor do que vagas cadastradas a primeira vez
         if($data["number-vacancy"] < $lastVacancy->number_vacancy) {
             for($i = $lastVacancy->number_vacancy; $i > $data["number-vacancy"]; $i--) {
-                var_dump("Iteração: " . $i);
+
+                $vacancyDelete = new static();
+                $idVacancyNotFixed = $vacancyDelete->find("id_vacancy_fixed = :id AND number_vacancy = :nu","id={$idVacancy}&nu={$i}")->fetch();
+
+                var_dump($idVacancyNotFixed);
             }
         }
 
