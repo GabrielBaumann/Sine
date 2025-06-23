@@ -1,12 +1,12 @@
 <!-- Header -->
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 px-4 md:px-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 px-4 md:px-0">
     <div class="mb-4 md:mb-0">
         <h1 class="text-2xl lg:text-2xl font-medium text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
         <p class="text-gray-500 text-sm lg:text-base mt-1">Aqui está o resumo das atividades recentes</p>
     </div>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
     <!-- Atendimentos -->
     <div class="bg-blue-500 rounded-2xl p-4 overflow-hidden relative">
         <div class="flex justify-between items-start">
@@ -71,44 +71,70 @@
 </div>
 
 <!-- Seção de Gráficos -->
-<div class="mt-4 px-4 md:px-6">
-    <!-- Linha 1 -->
+<div class="mt-6">
     <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Gráfico 1 e Tabela Top Cadastradores -->
-        <div class="w-full lg:w-2/3 flex flex-col gap-6">
-            <!-- Gráfico -->
-            <div class="bg-white rounded-lg py-4">
+        <!-- Coluna esquerda - Gráficos -->
+        <div class="w-full lg:w-2/3 flex flex-col">
+            <!-- Gráfico de linha -->
+            <div class="">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-sm font-semibold text-gray-700 flex items-center">Total por mês</h2>
+                    <h2 class="text-lg font-normal text-gray-700">Atendimentos por mês</h2>
                 </div>
-                <div class="h-60">
+                <div class="h-100">
                     <canvas id="graficoVisaoGeral"></canvas>
                 </div>
-            </div>
-            
-            <!-- Cards Top Cadastradores -->
-            <!-- <div class="bg-white rounded-lg">
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-sm font-semibold text-gray-700 flex items-center">Top Cadastradores</h2>
-                </div>
-                <div class="overflow-x-auto">
-                    <div id="top-cadastradores-body" class="flex gap-3 flex-wrap">
-                        
-                    </div>
-                </div>
-            </div> -->
+            </div> 
         </div>
 
-        <!-- Tabela Histórico Geral -->
-        <div class="w-full lg:w-1/3 px-3">
-            <div class="h-full py-5">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-sm font-semibold text-gray-700 flex items-center">Vagas do dia</h2>
+        <!-- Coluna direita - Tabela -->
+        <div class="w-full lg:w-1/3">
+            <div class="rounded-lg flex flex-col">
+                <div class="mb-3">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-lg font-normal text-gray-700">Painel de vagas</h2>
+                        <div class="flex space-x-2">
+
+                            <!-- botao de imrpimir -->
+                            <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a51.299 51.299 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
+                                </svg>
+                            </button>
+
+                            <!-- botao de visualizar em pdf -->
+                            <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                </svg>
+                            </button>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="overflow-y-auto max-h-[500px]">
-                    <table class="w-full">
-                        <tbody id="historico-geral-body">
-                            <!-- Dados serão inseridos via JavaScript -->
+                
+                <div class="overflow-x-auto flex-grow rounded-md overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200 border border-gray-300">
+                        <thead class="bg-blue-500">
+                            <tr>
+                                <th scope="col" class="px-5 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Vaga</th>
+                                <th scope="col" class="py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Qt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- essa é uma linha -->
+                            <tr>
+                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Mecânico</td>
+                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
+                            </tr>
+                            <!-- fim da linha -->
+                            <tr>
+                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Coda fofo</td>
+                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Mecânico</td>
+                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -120,7 +146,7 @@
 <!-- Código dos gráficos e tabelas -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Gráfico 1: Linha (original)
+        // Gráfico de Atendimentos por mês
         const vMonthService = <?= json_encode($chartServiceLabel); ?>;
         const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
         const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
@@ -131,12 +157,12 @@
                 datasets: [{
                     label: 'Atendimentos',
                     data: vMonthServiceTotal,
-                    backgroundColor: 'rgb(255, 255, 255)', 
+                    backgroundColor: 'rgba(9, 89, 152, 0.1)', 
                     borderColor: '#095998', 
-                    borderWidth: 4,
+                    borderWidth: 3,
                     tension: 0.4,
                     fill: true,
-                    pointBackgroundColor: 'rgb(30, 66, 124)', // bg-blue-800
+                    pointBackgroundColor: 'rgb(30, 66, 124)',
                     pointBorderColor: '#fff',
                     pointHoverRadius: 6,
                     pointBorderWidth: 2
@@ -150,7 +176,7 @@
                         display: false
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(30, 66, 124, 0.9)', // bg-blue-800
+                        backgroundColor: 'rgba(30, 66, 124, 0.9)',
                         titleFont: { weight: 'bold', size: 12 },
                         bodyFont: { size: 11 },
                         padding: 10,
@@ -160,137 +186,19 @@
                 },
                 scales: {
                     x: {
-                        display: false, // Remove eixo X
                         grid: {
                             display: false
                         }
                     },
-                    y: {
-                        display: false, // Remove eixo Y
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                elements: {
-                    line: {
-                        tension: 0.4 // Suaviza a linha
-                    }
-                }
-            }
-        });
-
-        // Dados para os cards Top Cadastradores
-        const topCadastradores = [
-            { nome: 'Maria Silva', atendimentos: 24, ultimo: '2h atrás', foto: 'https://randomuser.me/api/portraits/women/44.jpg' },
-            { nome: 'João Oliveira', atendimentos: 18, ultimo: '1h atrás', foto: 'https://randomuser.me/api/portraits/men/32.jpg' },
-            { nome: 'Ana Souza', atendimentos: 15, ultimo: '3h atrás', foto: 'https://randomuser.me/api/portraits/women/65.jpg' },
-            { nome: 'Maria Silva', atendimentos: 24, ultimo: '2h atrás', foto: 'https://randomuser.me/api/portraits/women/44.jpg' },
-            { nome: 'João Oliveira', atendimentos: 18, ultimo: '1h atrás', foto: 'https://randomuser.me/api/portraits/men/32.jpg' }
-        ];
-
-        // Dados para a tabela Histórico Geral
-        const historicoGeral = [
-            { acao: 'Seguro Desemprego', data: '10/06 14:30', icon: 'plus-circle' },
-            { acao: 'Orientação para o Mercado de trabalho', data: '10/06 13:45', icon: 'refresh' },
-            { acao: 'Nova vaga publicada', data: '10/06 12:20', icon: 'briefcase' },
-            { acao: 'Cadastro de trabalhador', data: '10/06 11:10', icon: 'user-add' },
-            { acao: 'Atendimento concluído', data: '09/06 17:35', icon: 'check-circle' },
-            { acao: 'Empresa cadastrada', data: '09/06 16:20', icon: 'cloud-upload' },
-            { acao: 'Relatório gerado', data: '09/06 15:40', icon: 'document-report' },
-            { acao: 'Nova vaga publicada', data: '10/06 12:20', icon: 'briefcase' }
-        ];
-
-        // Ícones HeroIcons
-        const icons = {
-            'plus-circle': 'M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z',
-            'refresh': 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15',
-            'briefcase': 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
-            'user-add': 'M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z',
-            'check-circle': 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-            'cloud-upload': 'M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12',
-            'document-report': 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-            'database': 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4'
-        };
-
-        // Preencher cards Top Cadastradores 
-        // const topCadastradoresBody = document.getElementById('top-cadastradores-body');
-        // topCadastradores.forEach(item => {
-        //     const card = document.createElement('div');
-        //     card.className = 'flex items-center rounded-lg p-2 pr-4 gap-3';
-        //     card.innerHTML = `
-        //         <img src="${item.foto}" alt="${item.nome}" class="w-8 h-8 rounded-full object-cover">
-        //         <div class="flex flex-col">
-        //             <h4 class="text-sm font-medium text-gray-800">${item.nome}</h4>
-        //             <span class="text-xs text-gray-700">${item.atendimentos} atendimentos</span>
-                    
-        //         </div>
-        //     `;
-        //     topCadastradoresBody.appendChild(card);
-        // });
-
-        // Preencher tabela Histórico Geral
-        const historicoGeralBody = document.getElementById('historico-geral-body');
-        historicoGeral.forEach(item => {
-            const row = document.createElement('tr');
-            row.className = 'border-b border-gray-100 hover:bg-gray-50 transition-colors';
-            row.innerHTML = `
-                <td class="py-3 text-xs text-gray-800 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#095998] mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${icons[item.icon]}" />
-                    </svg>
-                    ${item.acao}
-                </td>
-                <td class="py-3 text-xs text-gray-500 text-right">${item.data}</td>
-            `;
-            historicoGeralBody.appendChild(row);
-        });
-
-        // Função para opções comuns
-        function getCommonOptions() {
-            return {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(9, 89, 152, 0.9)',
-                        titleFont: { weight: 'bold', size: 12 },
-                        bodyFont: { size: 11 },
-                        padding: 10,
-                        cornerRadius: 6,
-                        displayColors: false,
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y !== undefined ? 
-                                    context.parsed.y : context.parsed;
-                            }
-                        }
-                    }
-                },
-                scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
                             display: true,
                             color: 'rgba(0, 0, 0, 0.05)'
-                        },
-                        ticks: {
-                            color: '#6B7280'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            color: '#6B7280'
                         }
                     }
                 }
-            };
-        }
+            }
+        });
     });
 </script>
