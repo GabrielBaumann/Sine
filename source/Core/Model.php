@@ -278,6 +278,7 @@ abstract class Model
     {
         try {
             $stmt = Connect::getInstance()->prepare("DELETE FROM " . static::$entity . " WHERE {$terms}");
+
             if ($params) {
                 parse_str($params, $params);
                 $stmt->execute($params);
@@ -294,11 +295,16 @@ abstract class Model
 
     public function destroy() : bool
     {
-        if (empty($this->id)) {
+        // Pegar o valor do ID e não o nome do campo do id
+        $valuePrimaryKey = $this->id;
+        $id = $this->$valuePrimaryKey;
+
+        if (empty($id)) {
             return false;
         }
 
-        $destroy = $this->delete( $this->id . " = :id", "id={$this->id}");
+        $destroy = $this->delete($this->id . " = :id", "id={$id}");
+        
         return $destroy;
     }
 

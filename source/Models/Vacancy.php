@@ -169,13 +169,84 @@ class Vacancy extends Model
 
         // Quantidade de vagas de edição menor do que vagas cadastradas a primeira vez
         if($data["number-vacancy"] < $lastVacancy->number_vacancy) {
+
+            // Atualiza as vagas que foram inseridas a primeira 
+            $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
+                ->order("number_vacancy", "DESC")
+                ->fetch(true);
+
+            foreach($oldVacancy as $oldVacancyItem) {
+                
+                $oldVacancyUpdate = new static();
+
+                $oldVacancyUpdate->id_vacancy = $oldVacancyItem->id_vacancy;
+                $oldVacancyUpdate->id_enterprise = $data["enterprise"];
+                $oldVacancyUpdate->cbo_occupation = $data["cbo-occupation"];
+                $oldVacancyUpdate->apprentice_vacancy = $data["apprentice-vacancy"];
+                $oldVacancyUpdate->gender_vacancy = $data["gender"];
+                $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
+                $oldVacancyUpdate->quantity_per_vacancy = $data["quantity-per-vacancy"];
+                $oldVacancyUpdate->date_open_vacancy = $data["date-open-vacancy"];
+                $oldVacancyUpdate->education_vacancy = $data["education-vacancy"];
+                $oldVacancyUpdate->age_min_vacancy = $data["age-min-vacancy"];
+                $oldVacancyUpdate->age_max_vacancy = $data["age-max-vacancy"];
+                $oldVacancyUpdate->exp_vacancy = $data["exp-vacancy"];
+                $oldVacancyUpdate->description_vacancy = $data["description-vacancy"];
+                $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
+                $oldVacancyUpdate->id_user_update = $userId;
+
+                $oldVacancyUpdate->save();
+
+            }
+
+                // Atualiza o espelho da vaga
+                $this->id_vacancy = $idVacancy;
+                $this->id_enterprise = $data["enterprise"];
+                $this->cbo_occupation = $data["cbo-occupation"];
+                $this->apprentice_vacancy = $data["apprentice-vacancy"];
+                $this->gender_vacancy = $data["gender"];
+                $this->number_vacancy = $data["number-vacancy"];
+                $this->pcd_vacancy = $data["pcd-vacancy"];
+                $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
+                $this->date_open_vacancy = $data["date-open-vacancy"];
+                $this->education_vacancy = $data["education-vacancy"];
+                $this->age_min_vacancy = $data["age-min-vacancy"];
+                $this->age_max_vacancy = $data["age-max-vacancy"];
+                $this->exp_vacancy = $data["exp-vacancy"];
+                $this->description_vacancy = $data["description-vacancy"];
+                $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $this->request_vacancy = $data["request-vacancy"];
+                $this->id_user_update = $userId;
+
+                $this->save();
+
             for($i = $lastVacancy->number_vacancy; $i > $data["number-vacancy"]; $i--) {
 
-                $vacancyDelete = new static();
-                $idVacancyNotFixed = $vacancyDelete->find("id_vacancy_fixed = :id AND number_vacancy = :nu","id={$idVacancy}&nu={$i}")->fetch();
+                $vacancy = new static();
+                $idVacancyNotFixed = $vacancy->find("id_vacancy_fixed = :id AND number_vacancy = :nu","id={$idVacancy}&nu={$i}")->fetch();
 
-                var_dump($idVacancyNotFixed);
+                $vacancyWorker = (new VacancyWorker())->find("id_vacancy = :id", "id={$idVacancyNotFixed->id_vacancy}")->fetch(true);
+
+                if(count($vacancyWorker ?? []) > 0) {
+                    // var_dump("Impossível exluir vaga!");
+                } else {
+                    $deleteVacancy = new static();
+                    $del = $deleteVacancy->findById($idVacancyNotFixed->id_vacancy);
+                    $del->destroy();
+                }
             }
+
+            // verifica se existem vagas ativas caso não existe encerra a vaga espelho
+            $checkedVacancy = new static();
+            $countChecked = count($checkedVacancy->find("id_vacancy_fixed = :id AND status_vacancy = :st","id={$idVacancy}&st=Ativa")->fetch(true) ?? []);
+
+            if($countChecked === 0) {
+                $checkedVacancy->id_vacancy = $idVacancy;
+                $checkedVacancy->status_vacancy = "Encerrada";
+                $checkedVacancy->save();
+            }
+
         }
 
         return false;

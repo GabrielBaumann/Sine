@@ -1,29 +1,32 @@
 //*  Scripts padrões para todo o sistema *//
 let vArrayInput = [];
-// Evento para efeitos do sidebar
-window.onload = function() {
-    const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
-    const vMenus = document.querySelectorAll("span.menu");
 
-    vMenus.forEach(vElemet => {
-        if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-            vElemet.closest("a").classList.remove("text-gray-700")
-            vElemet.closest("a").classList.add("text-white", "bg-blue-800", "rounded-md", "hover:text-white");
-        }
-    });
-}
+// Verifica o tamanho da tela e chama a função de responsividade
+window.addEventListener("resize", updateResponsive);
+updateResponsive();
 
-let vArrayInputSecond = [];
-// Evento para efeitos do sidebar
-window.onload = function() {
-    if (document.querySelectorAll(".mobile-navigation")) {
+// Função para redimencionar o modo de resposividade
+function updateResponsive() {
+    if(window.matchMedia("(max-width: 600px)").matches) {
+        // Modo celular
         const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
         const vMenus = document.querySelectorAll("span.mobile");
 
         vMenus.forEach(vElemet => {
             if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
-                vElemet.closest("a").classList.remove("text-gray-600")
-                vElemet.closest("a").classList.add("text-white", "bg-blue-800", "rounded-full");
+                vElemet.closest("a.mobile").classList.remove("text-gray-600")
+                vElemet.closest("a.mobile").classList.add("text-white", "bg-blue-800", "rounded-full");
+            }
+        });
+    } else {
+        // Modo desktop
+        const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
+        const vMenus = document.querySelectorAll("span.menu");
+
+        vMenus.forEach(vElemet => {
+            if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
+                vElemet.closest("a.menu").classList.remove("text-gray-700")
+                vElemet.closest("a.menu").classList.add("text-white", "bg-blue-800", "rounded-md", "hover:text-white");
             }
         });
     }

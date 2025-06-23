@@ -218,7 +218,7 @@ class AppVacancy extends Controller
                 $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
 
                 $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
-                $json["complete"] = true;
+                $json["complete"] = false;
                 echo json_encode($json);
                 return;
             }
