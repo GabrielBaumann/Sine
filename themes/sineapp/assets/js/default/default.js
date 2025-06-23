@@ -13,6 +13,22 @@ window.onload = function() {
     });
 }
 
+let vArrayInputSecond = [];
+// Evento para efeitos do sidebar
+window.onload = function() {
+    if (document.querySelectorAll(".mobile-navigation")) {
+        const vUrlPage =  window.location.pathname.replace(/\/$/, "").split("/").pop();
+        const vMenus = document.querySelectorAll("span.mobile");
+
+        vMenus.forEach(vElemet => {
+            if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
+                vElemet.closest("a").classList.remove("text-gray-600")
+                vElemet.closest("a").classList.add("text-white", "bg-blue-800", "rounded-full");
+            }
+        });
+    }
+}
+
 //Função usada no evendo de sidebar 
 function fncSanitizeCaractere(vTextSanitize) {
 
