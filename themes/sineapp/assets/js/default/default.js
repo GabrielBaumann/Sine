@@ -15,7 +15,7 @@ function updateResponsive() {
         vMenus.forEach(vElemet => {
             if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
                 vElemet.closest("a.mobile").classList.remove("text-gray-600")
-                vElemet.closest("a.mobile").classList.add("text-white", "bg-blue-800", "rounded-full");
+                vElemet.closest("a.mobile").classList.add("text-blue-800");
             }
         });
     } else {
