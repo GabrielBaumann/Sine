@@ -10,12 +10,11 @@ $enterprise = new Enterprise();
     <header class="flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
         <button
             id="btn-back"
-            data-url="<?= url("/listavagas"); ?>"
+            data-url="<?= isset($vacancy->id_vacancy) ? url("/informacaovagas") . "/" . $vacancy->id_vacancy : url("/listavagas") ; ?>"
             data-change="view-form"
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
             < Voltar
         </button>
-        <!-- <p class="truncate">Vagas > Nova vaga</p>  -->
     </header>
 
     <div>

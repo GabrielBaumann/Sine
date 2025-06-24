@@ -38,6 +38,7 @@ class VacancyWorker extends Model
         return true;
     }
 
+    // Função para atualizar a tabela de vagas
     public function checkVacancyQuantity(int $idVacancy, int $idUserSystem) : bool
     {
 
@@ -50,6 +51,7 @@ class VacancyWorker extends Model
             $vacancyFinish = (new Vacancy())->findById($idVacancy);
             $vacancyFinish->status_vacancy = "Encerrada";
             $vacancyFinish->id_user_update = $idUserSystem;
+            $vacancyFinish->reason_close = "Total preenchido";
             $vacancyFinish->save();
 
 

@@ -45,17 +45,22 @@
         
         <div id="info" class="hidden flex justify-between items-center gap-3 p-3 rounded-xl p-3">
             <div class="flex flex-col w-full">
-                <label for="reason-closed" class="text-gray-800 font-semibold mb-4">Motivo do encerramento *</label>
+                
                 <div class="flex items-center w-full gap-4">
-                    <select name="reason-closed" id="reason-closed" class="border border-gray-400 rounded-md p-2 w-full">
-                        <option value="">Selecione</option>
-                    </select>
+                    <div class="flex flex-col w-full">
+                        <label for="reason-closed" class="text-gray-800 font-semibold mb-4">Motivo do encerramento *</label>
+                        <select name="reason-closed" id="reason-closed" class="border border-gray-400 rounded-md p-2 w-full">
+                            <option value="">Selecione um motivo</option>
+                            <option value="Prazo encerrado">Prazo encerrado</option>
+                            <option value="Empresa encerrou">Empresa encerrou</option>
+                        </select>
+                    </div>
                     <button
                         type="submit"
                         id="btn-closed-vacancy"
-                        class="flex items-center gap-2 cursor-pointer text-sm font-semibold bg-red-500 text-white p-2 rounded-md">
+                        class="flex items-center gap-2 mt-10 cursor-pointer text-sm font-semibold bg-red-500 text-white p-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                         <span>Encerrar</span>
                     </button>

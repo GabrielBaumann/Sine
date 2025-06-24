@@ -1,5 +1,6 @@
 fncUpdateColorStatusVacancy();
 fnccheckBoxVacancy();
+// fncCheckClosedVacancy();
 
 // função para Atualização dos status das vagas - lista
 function fncUpdateColorStatusVacancy(){
@@ -13,30 +14,35 @@ function fncUpdateColorStatusVacancy(){
     });
 }
 
-// Função para marcar as checkbox
+// Função para marcar e desmarcar todas as checkbox
 function fnccheckBoxVacancy () {
     document.addEventListener("click", (e) => {
     const vCheckClik = e.target.id;
+        
+        if(vCheckClik === "chek-vacancy" && e.target.checked === true){
+            document.querySelectorAll(".check-vacancy").forEach((e) => {
+                if(e.disabled === false) {
+                    e.checked = true
+                    document.querySelector("#info").classList.remove("hidden");
+                }    
+            });
+        }
 
-    if(vCheckClik === "chek-vacancy" && e.target.checked === true){
-        document.querySelectorAll(".check-vacancy").forEach((e) => {
-            if(e.disabled === false) {
-                e.checked = true
-                document.querySelector("#info").classList.remove("hidden");
-            }    
-        });
-    }
+        if(vCheckClik === "chek-vacancy" && e.target.checked === false){
+            document.querySelectorAll(".check-vacancy").forEach((e) => {
+                if(e.disabled === false) {
+                    e.checked = false
+                    document.querySelector("#info").classList.add("hidden");
 
-    if(vCheckClik === "chek-vacancy" && e.target.checked === false){
-        document.querySelectorAll(".check-vacancy").forEach((e) => {
-            if(e.disabled === false) {
-                e.checked = false
-                document.querySelector("#info").classList.add("hidden");
-            }    
-        });
-    }
-});
-
+                    // Remover a cor vermelha da mensagem de erro do input
+                    const vAlert = document.querySelector(".requerid-alert") ;
+                    if(vAlert) {
+                        vAlert.classList.remove("requerid-alert");
+                    }
+                }    
+            });
+        }
+    });
 }
 
 // Função para marcar o checkbox encerrados
@@ -55,8 +61,7 @@ function fncCheckClosedVacancy() {
         }
     });
 
-
-        // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
+    // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
     if(vCounter === vCheckVacancy.length) {
         document.getElementById("chek-vacancy").disabled = true;
         document.getElementById("btn-new-vacancy").disabled = true;
@@ -107,12 +112,25 @@ document.addEventListener("click", (e) => {
             document.querySelectorAll(".check-vacancy").forEach((e) => {
                 if(e.disabled === false) {
 
-                    if(e.checked === false) {
+                    let vCont = 0;
+
+                    document.querySelectorAll("input.check-vacancy").forEach((e) => {
+                        if(e.checked === true && !e.disabled) {
+                            vCont++
+                        }
+                    })
+
+                    if(vCont === 0) {
                         document.querySelector("#info").classList.add("hidden");
+                        document.getElementById("chek-vacancy").checked = false;
+                        
+                        // Remover a cor vermelha da mensagem de erro do input
+                        const vAlert = document.querySelector(".requerid-alert") ;
+                        if(vAlert) {
+                            vAlert.classList.remove("requerid-alert");
+                        }
+
                     } 
-                    if(e.checked === true) {
-                        document.querySelector("#info").classList.remove("hidden");
-                    }
                 }
             }) 
         }

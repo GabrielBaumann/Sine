@@ -272,13 +272,20 @@ class AppVacancy extends Controller
         if(isset($data["csrf"])) {
 
             $vacancyClosed = new Vacancy();
-            $idFixed = $data["id-vacancy-fixed"];
+            $idFixed = filter_var($data["id-vacancy-fixed"], FILTER_SANITIZE_NUMBER_INT);
+
+            if(empty($data["reason-closed"])) {
+                $json["message"] = messageHelpers()->warning("Preenchao o motivo do encerramento!")->render();
+                $json["complete"] = false;
+                echo json_encode($json);
+                return;
+            }
 
             $count = 0;
 
             foreach($data as $key => $value) {
                 if(str_contains($key, "check-vacancy-")) {
-                    $vacancyClosed->closedVacancy((int)$value, (int)$idFixed);
+                    $vacancyClosed->closedVacancy((int)$value, (int)$idFixed, $data["reason-closed"]);
                     $count++;
                 }                
             }

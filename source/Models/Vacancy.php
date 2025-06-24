@@ -6,16 +6,13 @@ use Source\Core\Model;
 
 
 class Vacancy extends Model
-{
-
-    
+{   
     public function __construct()
     {
         parent::__construct(
             "vacancy", ["id_vacancy"], [],
             "id_vacancy"
         );
-        // $this->message = new Message();
     }
 
     /**
@@ -89,7 +86,7 @@ class Vacancy extends Model
         ->fetch();
 
         // Novas vagas (valor de alteração é maior que o valor cadastrado a primeira vez)
-        if($data["number-vacancy"] > $lastVacancy->number_vacancy) {
+        if($data["number-vacancy"] >= $lastVacancy->number_vacancy) {
 
             // Atualiza as vagas que foram inseridas a primeira 
             $oldVacancy = $this->find("id_vacancy_fixed = :id","id={$idVacancy}")
@@ -253,45 +250,6 @@ class Vacancy extends Model
     }
 
     /**
-     * Gráfico de vagas
-     */
-    public function chartVacancy() : array
-    {
-        $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
-
-        foreach($chart as $char) {
-            $chartList[] = $char->status_vacancy;
-        }
-
-        $charCount =  array_count_values($chartList);
-
-        foreach($charCount as $key => $value ) {
-            $label[] = $key;
-            $total[] = $value;
-        }
-        return ["label" => $label, "total" => $total];
-    }
-
-    /**
-     * Gráfico de vagas
-     */
-    public function chartVacancyGender() : array
-    {
-        $chart = $this->find("id_vacancy_fixed <> :id", "id=0")->fetch(true);
-        foreach($chart as $char) {
-            $chartList[] = $char->gender_vacancy;
-        }
-
-        $charCount =  array_count_values($chartList);
-
-        foreach($charCount as $key => $value ) {
-            $label[] = $key;
-            $total[] = $value;
-        }
-        return ["label" => $label, "total" => $total];
-    }
-
-    /**
      * Lista de empresas filtradas somente por empresas que tenham vagas cadastradas
      */
     public function listEnterpriseVacancy() : array
@@ -330,12 +288,13 @@ class Vacancy extends Model
     /**
      * Encerrar vagas e atualizar o espelho de vagas
      */
-    public function closedVacancy(int $idVacancy, int $idFixedVacancy) : bool
+    public function closedVacancy(int $idVacancy, int $idFixedVacancy, string $reasonClose) : bool
     {
         $vacancyClosed = new static();
 
         $vacancyClosed->id_vacancy = $idVacancy;
         $vacancyClosed->status_vacancy = "Encerrada";
+        $vacancyClosed->reason_close = filter_var($reasonClose, FILTER_SANITIZE_SPECIAL_CHARS);
         $vacancyClosed->save();
 
         $vacancyTotal = (int)$this->findById($idFixedVacancy)->number_vacancy;

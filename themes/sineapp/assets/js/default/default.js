@@ -85,6 +85,7 @@ document.addEventListener("click", (e) => {
 
             if(vUrlPage === "vagas") {
                 fncUpdateColorStatusVacancy();
+                fncCheckClosedVacancy();
             }
 
             if(vUrlPage === "empresas") {

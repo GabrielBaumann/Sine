@@ -1,7 +1,9 @@
 // Baseado na lista de empresas encontrar as vagas abertas
 let vLasId = null;
+let vCompanySelect = null;
 
 document.addEventListener("click", (e) => {
+
     if(e.target.tagName === "SELECT" && e.target.id === "company-name"){
         vCompanySelect = document.getElementById("company-name");
         vOccupationSelect = document.getElementById("occupation-id-vacancy");
@@ -32,9 +34,10 @@ document.addEventListener("click", (e) => {
 
 
 document.addEventListener("change", (e) => {
+    
     vOccupationSelect = document.getElementById("occupation-id-vacancy");
-    const vCompanyId = vCompanySelect.value;
-    const vUrl = vCompanySelect.dataset.url;
+    const vCompanyId = vCompanySelect?.value;
+    const vUrl = vCompanySelect?.dataset.url;
 
     if(vOccupationSelect.dataset.loaded === "true" && vLasId === vCompanyId) return;
     

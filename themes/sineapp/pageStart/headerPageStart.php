@@ -120,22 +120,22 @@
                                 <th scope="col" class="py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Qt</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <!-- essa é uma linha -->
-                            <tr>
-                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Mecânico</td>
-                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
-                            </tr>
-                            <!-- fim da linha -->
-                            <tr>
-                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Coda fofo</td>
-                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
-                            </tr>
-                            <tr>
-                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Mecânico</td>
-                                <td class="py-3 whitespace-nowrap text-sm text-black">5</td>
-                            </tr>
-                        </tbody>
+                            <tbody class="divide-y divide-gray-200">
+                                <?php if($panelVacancy): ?>
+                                    <?php foreach($panelVacancy as $panelVacancyItem): ?>    
+                                        <!-- This is a line -->
+                                        <tr>
+                                            <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><?= $panelVacancyItem->nomeclatura_vacancy; ?></td>
+                                            <td class="py-3 whitespace-nowrap text-sm text-black"><?= $panelVacancyItem->total_vacancy_active; ?></td>
+                                        </tr>
+                                    <?php endforeach;?>
+                                <?php else: ?>
+                                    <!-- If there are no vacancies -->
+                                    <tr>
+                                        <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Não há vagas cadastradas</td>
+                                    </tr>
+                                <?php endif;?>
+                            </tbody>
                     </table>
                 </div>
             </div>
