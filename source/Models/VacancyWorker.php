@@ -3,6 +3,7 @@
 namespace Source\Models;
 
 use Source\Core\Model;
+use Source\Models\Vacancy;
 
 class VacancyWorker extends Model
 {
@@ -70,4 +71,26 @@ class VacancyWorker extends Model
         return true;
     }
 
+    // Função para normalizar a quantidade permitidade de encaminhamento por vagas
+    public function normalizeWorkerVacancy()
+    {
+        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true);
+
+        if($totalVagas) {
+            foreach($totalVagas as $totalVagasItem) {
+                $vacancyWorker = (new VacancyWorker())->find("id_vacancy = :id","id={$totalVagasItem->id_vacancy}")->fetch(true);
+                
+                if($vacancyWorker) {
+
+                    if($totalVagasItem->quantity_per_vacancy > count($vacancyWorker)) {
+                        $teste = new Vacancy();
+                        $teste->id_vacancy = $totalVagasItem->id_vacancy;
+                        $teste->reason_close = "";
+                        $teste->status_vacancy = "Ativa";
+                        $teste->save();
+                    }
+                }
+            }
+        }
+    }
 }

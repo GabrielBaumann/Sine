@@ -55,7 +55,7 @@ class Service extends Model
             }
         }
 
-        $dataCount = array_count_values($listData);
+        $dataCount = array_count_values($listData ?? []);
 
         if($year) {
             ksort($dataCount);
@@ -70,7 +70,7 @@ class Service extends Model
             $total[] = $value;
         }
         
-        $char = ["label"=>$label,"total"=>$total];
+        $char = ["label"=>$label ?? 0,"total"=>$total ?? 0];
         return $char; 
     }
 

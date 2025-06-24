@@ -226,7 +226,7 @@ class Vacancy extends Model
                 $vacancyWorker = (new VacancyWorker())->find("id_vacancy = :id", "id={$idVacancyNotFixed->id_vacancy}")->fetch(true);
 
                 if(count($vacancyWorker ?? []) > 0) {
-                    // var_dump("Impossível exluir vaga!");
+                    
                 } else {
                     $deleteVacancy = new static();
                     $del = $deleteVacancy->findById($idVacancyNotFixed->id_vacancy);

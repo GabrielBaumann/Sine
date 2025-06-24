@@ -6,10 +6,10 @@ use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
 use Source\Models\Service;
-use Source\Models\Vacancy;
 use Source\Models\Worker;
 use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
+use Source\Models\VacancyWorker;
 
 class AppStart extends Controller
 {
@@ -28,6 +28,12 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
+
+        $teste = (new VacancyWorker())->normalizeWorkerVacancy();
+
+        // var_dump($teste);
+
+
         // Gráfico de atendimentos
         $serve = new Service();
         $charServer = $serve->charService();
