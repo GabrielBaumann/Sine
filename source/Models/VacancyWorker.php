@@ -42,12 +42,11 @@ class VacancyWorker extends Model
     // Função para atualizar a tabela de vagas
     public function checkVacancyQuantity(int $idVacancy, int $idUserSystem) : bool
     {
-
         $viewVacancyToWorker = (new VacancyWorker())->find("id_vacancy = :id","id={$idVacancy}")->fetch(true);
         $idVacancyFixedAll = (new Vacancy())->findById($idVacancy);
         $idVacancyFixed = $idVacancyFixedAll->quantity_per_vacancy;
 
-        // Se o total de encaminhamentos para a vaga já tiver preenchido então ele encerra e não deixa continuar;
+        // Se o total de encaminhamentos para a vaga já tiver preenchido então ele encerra e não deixa continuar
         if($idVacancyFixed === count($viewVacancyToWorker ?? [])) {
             $vacancyFinish = (new Vacancy())->findById($idVacancy);
             $vacancyFinish->status_vacancy = "Encerrada";
@@ -55,17 +54,14 @@ class VacancyWorker extends Model
             $vacancyFinish->reason_close = "Total preenchido";
             $vacancyFinish->save();
 
-
-            // Verifica se todas as vagas estão encerradas e se tiverem encerra também a vaga espelho
+            // Verifica se todas as vagas estão encerradas e se tiverem encerra também encerra a vaga espelho
             $countVacancyActive = count((new Vacancy())->find("id_vacancy_fixed = :id AND status_vacancy = :st","id={$idVacancyFixedAll->id_vacancy_fixed}&st=Ativa")->fetch(true) ?? []);
 
             if($countVacancyActive === 0) {
                 $updateToStatusVacancy = (new Vacancy())->findById($idVacancyFixedAll->id_vacancy_fixed);
                 $updateToStatusVacancy->status_vacancy = "Encerrada";
                 $updateToStatusVacancy->save();
-            
             }
-
             return false;
         }
         return true;
@@ -89,8 +85,62 @@ class VacancyWorker extends Model
                         $teste->status_vacancy = "Ativa";
                         $teste->save();
                     }
+
+                    if($totalVagasItem->quantity_per_vacancy === count($vacancyWorker)) {
+                        $teste = new Vacancy();
+                        $teste->id_vacancy = $totalVagasItem->id_vacancy;
+                        $teste->reason_close = "Total Preenchido";
+                        $teste->status_vacancy = "Encerrada";
+                        $teste->save();
+                    }
+
                 }
             }
         }
+    }
+
+    /**
+     * Verificar se existe vagas vínculadas a trabalhadores (se o valor for true então verifica a quantidade de vagas se for false verifica a quantiade por vagas)
+     */
+    public function checkVacancyWorker(?array $data = null, ?bool $type = null): bool
+    {   
+        $idVacancyFixed = $data["idvacancy"];
+        $numberVacancy = (int)$data["number-vacancy"];
+        $quantityPerVacancy = (int)$data["quantity-per-vacancy"];
+        
+        // Retorna todas as vagas fixas
+        $vacanyGeneral = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$idVacancyFixed}")->fetch(true);
+        
+        // Retorna as vagas vínculadas aos trabalhadores
+        $vacancyToWorker = new static();
+    
+        // Variável que recebe a quantidade de vagas vínculadas a trabalhadores
+        $amountOfVacancyWorker = 0;
+
+        // Variável que recebe a quantidade de vínculos por vaga
+        $amountOfBondVacancy = [];
+
+        foreach($vacanyGeneral as $vacanyGeneralItem) {           
+            $vacancy = count($vacancyToWorker->find("id_vacancy = :id", "id={$vacanyGeneralItem->id_vacancy}")->fetch(true) ?? []);
+            if($vacancy) {
+                $amountOfVacancyWorker++;
+                $amountOfBondVacancy[] = $vacancy;
+            }
+        }
+
+        // Verifica se a quantidade de vagas solicitadas e menor que a quantiade de vagas já vínculada a trabalhadores
+        if($type) {
+            if($amountOfVacancyWorker > $numberVacancy) {
+                return false;
+            }
+        }
+
+        // Verifica se a quantidade de encaminhamentos por vagas é menor do que a quantidade de ecaminhamentos já solicitados
+        if(!$type) {
+            if(max($amountOfBondVacancy) > $quantityPerVacancy) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -3,7 +3,7 @@
 namespace Source\Models;
 
 use Source\Core\Model;
-
+use Source\Models\VacancyWorker;
 
 class Vacancy extends Model
 {   
@@ -242,6 +242,7 @@ class Vacancy extends Model
                 $checkedVacancy->id_vacancy = $idVacancy;
                 $checkedVacancy->status_vacancy = "Encerrada";
                 $checkedVacancy->save();
+                $normalizeVacancy = (new VacancyWorker())->normalizeWorkerVacancy();
             }
 
         }
@@ -307,4 +308,5 @@ class Vacancy extends Model
         }
         return true;
     }
+
 }

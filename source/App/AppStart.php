@@ -28,12 +28,6 @@ class AppStart extends Controller
 
     public function startPage(?array $data) : void
     {   
-
-        $teste = (new VacancyWorker())->normalizeWorkerVacancy();
-
-        // var_dump($teste);
-
-
         // Gráfico de atendimentos
         $serve = new Service();
         $charServer = $serve->charService();

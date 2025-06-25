@@ -8,6 +8,7 @@ use Source\Models\CboOccupation;
 use Source\Models\Enterprise;
 use Source\Models\SystemUser;
 use Source\Models\Vacancy;
+use Source\Models\VacancyWorker;
 use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
@@ -23,11 +24,13 @@ class AppVacancy extends Controller
             $this->message->warning("")->flash();
             redirect("/");
         }
+        
+        $teste = (new VacancyWorker())->normalizeWorkerVacancy();
     }
 
     public function startVacancy(?array $data) : void
     {   
-        
+
         if(isset($data["page"]) && !empty($data["page"])) {
 
             $searchVacancy = filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -215,7 +218,23 @@ class AppVacancy extends Controller
             // Atualização de vagas
             if(isset($data["idvacancy"]) && !empty($data["idvacancy"])) {
                 
-                $updateVacancy = (new Vacancy())->updateVacancy($data["idvacancy"], $data ,$this->user->id_user);
+                // Caso o usuário tente diminuir a quantidade de vagas, mas já tenha sido vínculados encaminhamentos a ela, impede a ação.
+                $checkVacancyWorker = (new VacancyWorker())->checkVacancyWorker($dataCleanOk, true);
+                if(!$checkVacancyWorker) {
+                    $json["message"] = messageHelpers()->warning("A quantidade de vagas não pode ser menor que a quantidade já vínculada a trabalhadores!")->render();
+                    echo json_encode($json);
+                    return;
+                }
+
+                // Verifica se a quantidade de encaminhamentos por vagas é menor do que a quantidade de ecaminhamentos já solicitados
+                $checkWorker = (new VacancyWorker())->checkVacancyWorker($dataCleanOk);
+                if(!$checkWorker) {
+                    $json["message"] = messageHelpers()->warning("A quantidade por vagas não pode ser menor do que a quantidade já vínculada a trabalhadores")->render();
+                    echo json_encode($json);
+                    return;
+                }
+
+                $updateVacancy = (new Vacancy())->updateVacancy($dataCleanOk["idvacancy"], $dataCleanOk ,$this->user->id_user);
 
                 $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
                 $json["complete"] = false;
