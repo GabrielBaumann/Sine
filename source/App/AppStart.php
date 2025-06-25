@@ -23,7 +23,6 @@ class AppStart extends Controller
             $this->message->warning("Efetue login para acessar o sistema.")->flash();
             redirect("/");
         }
-
     }
 
     public function startPage(?array $data) : void
