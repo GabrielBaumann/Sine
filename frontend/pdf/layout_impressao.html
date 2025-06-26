@@ -9,7 +9,7 @@
     margin: 0;
     padding: 0;
     font-size: 16px;
-    background-color: #f5f5f5;
+    background-color: #bebebe;
   }
 
   #visualizar-container {
@@ -42,7 +42,7 @@
 
   .header-left, .header-right {
     font-size: 16px;
-    color: #1f2937;
+    color: #2e7d32;
     font-weight: bold;
   }
 
@@ -59,15 +59,14 @@
 
   .title {
     text-align: center;
-    margin: 0;
+    margin: 10px;
   }
 
   .title h1 {
     font-size: 22px;
     font-weight: bold;
-    color: #1f2937;
+    color: #2e7d32;
     margin: 0;
-    text-transform: uppercase;
   }
 
   .table-container {
@@ -84,7 +83,7 @@
     background-color: #2e7d32;
     color: white;
     padding: 12px;
-    text-align: left;
+    text-align: center;
     font-size: 16px;
     text-transform: uppercase;
   }
@@ -111,6 +110,7 @@
 
   .descricao-cell {
     width: 65%;
+    text-align: justify;
   }
 
   tr:nth-child(even) {
@@ -139,11 +139,11 @@
   }
 
   #visualizar {
-    background-color: #2e7d32;
+    background-color: #ee4236;
     color: white;
     border: none;
     padding: 12px 24px;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
@@ -151,7 +151,7 @@
   }
 
   #visualizar:hover {
-    background-color: #1b5e20;
+    background-color: #b9352c;
   }
 
   /* Estilos específicos para PDF */
@@ -175,7 +175,9 @@
 </head>
 <body>
   <div id="visualizar-container">
-    <button id="visualizar">VISUALIZAR PDF</button>
+    <button id="visualizar">
+      <span>VISUALIZAR PDF</span>
+    </button>
   </div>
 
   <div class="container">
@@ -190,7 +192,7 @@
         <div class="logo-container">
           <img src="../../themes/sineapp/assets/images/logo-nacional.png" alt="logo-nacional" class="logo">
           <div class="title">
-            <h1>PAINEL DE VAGAS</h1>
+            <h1>Painel de vagas</h1>
           </div>
         </div>
 
@@ -200,7 +202,7 @@
               <tr>
                 <th class="vaga-cell">Vaga</th>
                 <th class="qt-cell">QT</th>
-                <th class="descricao-cell">Descrição da Vaga</th>
+                <th class="descricao-cell-head">Descrição da Vaga</th>
               </tr>
             </thead>
             <tbody>
