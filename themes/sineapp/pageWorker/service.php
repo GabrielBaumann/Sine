@@ -57,9 +57,9 @@
     <div class="">
         <div class="flex flex-col sm:flex-row gap-4">
             <?php if(in_array($service->id_type_service, ["4","56"])): ?>
-                <label for=""></label>
+                <label for="motivo">*</label>
                 <select class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
-                    <option value="">motivo um</option>
+                    <option value="">selecione um motivo</option>
                     <option value="">motivo dois</option>
                     <option value="">motivo tres</option>
                 </select>

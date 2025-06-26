@@ -9,7 +9,6 @@ use Source\Models\Service;
 use Source\Models\Worker;
 use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
-use Source\Models\VacancyWorker;
 
 class AppStart extends Controller
 {
