@@ -24,8 +24,8 @@ class AppVacancy extends Controller
             $this->message->warning("")->flash();
             redirect("/");
         }
-        
-        $teste = (new VacancyWorker())->normalizeWorkerVacancy();
+
+        $normalizeWorker = (new VacancyWorker())->normalizeWorkerVacancy();
     }
 
     public function startVacancy(?array $data) : void

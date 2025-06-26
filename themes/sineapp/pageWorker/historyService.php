@@ -15,17 +15,6 @@
                 class="cursor-pointer p-1 px-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#095998] hover:text-white transition-all duration-200 flex items-center gap-1">
                 < Voltar
             </button>
-            <p class='text-blue-600 text-sm md:text-base flex items-center truncate'>
-                <span class="hidden md:inline">Início</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-1 hidden md:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-                <span>Trabalhador</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-                <span class="font-medium truncate max-w-[200px] md:max-w-full"><?= $worker->name_worker; ?></span>
-            </p>
         </div>
     </div>
 
@@ -80,17 +69,18 @@
                                     <div class="text-xs text-gray-500"><?= date('H:i', strtotime($item->date_register)); ?></div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900"><?= $item->service_type; ?></div>
+                                    <div class="text-sm font-medium text-gray-900"><?= $item->type_service; ?></div>
                                     <div class="text-xs text-gray-500 sm:hidden"><?= date('d/m/Y', strtotime($item->date_register)); ?></div>
                                 </td>
                                 <td class="px-4 py-3 hidden md:table-cell">
-                                    <div class="text-sm text-gray-900 truncate max-w-xs"><?= $item->service_detail; ?></div>
+                                    <div class="text-sm text-gray-900 truncate max-w-xs"><?= $item->detail; ?></div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap hidden lg:table-cell">
                                     <div class="text-sm text-gray-900"><?= $item->user_name; ?></div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-right">
-                                    <button class="text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
+                                    <button id="btn-edit" data-url="<?= url("/trabalhadoratendimento/" .  $item->id_service); ?>" 
+                                        class="cursor-pointer text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>

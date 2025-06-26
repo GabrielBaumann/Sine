@@ -6,6 +6,7 @@ use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Service;
 use Source\Models\SystemUser;
+use Source\Models\Views\VwService;
 use Source\Models\Worker;
 use Source\Support\Pager;
 
@@ -109,24 +110,8 @@ class AppWorker extends Controller
         $pager->pager($count->countJoin(), 7, $page);
         $totHistory = $count->countJoin();
 
-        $service = new Service();
-        $data = $service->select(
-            ['service.*',
-            'worker.name_worker AS worker_name',
-            'worker.cpf_worker AS worker_cpf',
-            'system_user.name_user AS user_name',
-            'type_service.group AS group_service',
-            'type_service.type_service AS service_type',
-            'type_service.detail AS service_detail',
-            ])  
-                ->join('worker', 'service.id_worker = worker.id_worker')
-                ->join('system_user', 'service.id_user_register = system_user.id_user')
-                ->join('type_service', 'service.id_type_service = type_service.id_type_service')
-                ->where("service.id_worker","=",$idWorker)
-                ->orderBy("date_register", "DESC")
-                ->limitJoin($pager->limit())
-                ->offsetJoin($pager->offset())
-                ->get();
+        $vwService = new VwService();
+        $data = $vwService->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -189,4 +174,21 @@ class AppWorker extends Controller
             return;
         }
     }
+
+    public function serviceOfWorker(?array $data)
+    {
+        $idService = (int)filter_var($data["idService"], FILTER_SANITIZE_NUMBER_INT);
+        
+        $vwService = new VwService();
+        $data = $vwService->find("id_service = :id", "id={$idService}")->fetch();
+
+        $html = $this->view->render("pageWorker/service", [
+            "service" => $data
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
 }
