@@ -195,7 +195,7 @@
         </div>
 
         <div class="table-container">
-          <table>
+          <table id="tabela">
             <thead>
               <tr>
                 <th class="vaga-cell">Vaga</th>
@@ -279,6 +279,21 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
+      // teste deepseek
+      document.addEventListener('DOMContentLoaded', function() {
+
+    const linhas = document.querySelectorAll('#tabela tr'); // Use o ID da sua tabela
+    
+        linhas.forEach(linha => {
+            const altura = linha.clientHeight;
+            const descricao = linha.querySelector('.descricao-cell').textContent;
+            
+            console.log(`Linha com "${descricao.trim()}" tem ${altura}px de altura`);
+        });
+    });
+
+
+
     document.getElementById('visualizar').addEventListener('click', function () {
       const elemento = document.getElementById('conteudo_pdf');
       
@@ -364,7 +379,7 @@
       };
 
       // Gerar o PDF
-      html2pdf().set(opt).from(elementoClone).save();
+      // html2pdf().set(opt).from(elementoClone).save();
     });
   </script>
 </body>

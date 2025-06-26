@@ -10,7 +10,7 @@ class VacancyWorker extends Model
     public function __construct()
     {
         parent::__construct(
-            "vacancy_worker", ["id_vacancy_worker"], ["id_vacancy", "id_worker"],
+            "vacancy_worker", ["id_vacancy_worker"], [],
             "id_vacancy_worker"
         );
     }
@@ -143,4 +143,43 @@ class VacancyWorker extends Model
         }
         return true;
     }
+
+    /**
+     * Atualizar o status do trbalhador e o status da vaga na tabela vacancy_worker baseado na resposta do empregador 
+     */
+    public function updateOfWorkerVacancy(array $data, int $idUser) : bool
+    {   
+        $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT); 
+        $souceServiceVacancy = filter_var($data["source-service-vacancy"], FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $newVacancyWorker = $this->find("id_service = :id", "id={$idService}")->fetch();
+        
+        if ($souceServiceVacancy === "Na ocupação") {
+
+            $editNewVacancyWork = (new static())->find("id_service = :id", "id={$idService}")->fetch();
+            $editNewVacancyWork->status_vacancy_worker = "Admitido";
+            $editNewVacancyWork->id_user_update = $idUser;
+            $editNewVacancyWork->save();
+
+            $work = (new Worker())->find("id_worker = :id","id={$newVacancyWorker->id_worker}")->fetch();
+            $work->status_work = "Atendimento Realizado";
+            $work->save();
+
+            return true;
+
+        } else {
+            $editNewVacancyWork = (new static())->find("id_service = :id", "id={$idService}")->fetch();
+            $editNewVacancyWork->status_vacancy_worker = $souceServiceVacancy;
+            $editNewVacancyWork->id_user_update = $idUser;
+            $editNewVacancyWork->save();
+
+            $work = (new Worker())->find("id_worker = :id","id={$newVacancyWorker->id_worker}")->fetch();
+            $work->status_work = "Reprovado";
+            $work->save();
+            return true;
+        }
+
+        return false;
+    }
+
 }

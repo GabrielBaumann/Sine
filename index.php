@@ -58,7 +58,7 @@ $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
-
+$route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
 
 /**
  * AppVacancy

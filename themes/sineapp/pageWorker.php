@@ -16,4 +16,5 @@
 <?php $this->start("scripts"); ?>
   <script src="<?= theme("/assets/js/worker/page.js", CONF_VIEW_APP) ?>"></script>
   <script src="<?= theme("/assets/js/worker/search.js", CONF_VIEW_APP) ?>"></script>
+  <script src="<?= theme("/assets/js/worker/forms.js", CONF_VIEW_APP)?>"></script>
 <?php $this->stop("scrpts"); ?>

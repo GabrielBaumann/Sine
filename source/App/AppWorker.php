@@ -6,6 +6,7 @@ use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Service;
 use Source\Models\SystemUser;
+use Source\Models\VacancyWorker;
 use Source\Models\Views\VwService;
 use Source\Models\Worker;
 use Source\Support\Pager;
@@ -176,7 +177,32 @@ class AppWorker extends Controller
     }
 
     public function serviceOfWorker(?array $data)
-    {
+    {   
+        if(isset($data["typeService"])) {
+
+            $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($data, $this->user->id_user);
+
+            if(!$vacancy) {
+                $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            // $data = $vwService->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+
+            // $html = $this->view->render("/pageWorker/historyService", [
+            //     "worker" => (new Worker())->findById($idWorker),
+            //     "history" => $data,
+            //     "countService" => $totHistory,
+            //     "paginator" => $pager->render()
+            // ]);
+
+            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
+            $json["html"] = $html;
+            echo json_encode($json);
+            return;
+        }
+
         $idService = (int)filter_var($data["idService"], FILTER_SANITIZE_NUMBER_INT);
         
         $vwService = new VwService();

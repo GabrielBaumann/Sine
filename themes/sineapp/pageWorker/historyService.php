@@ -76,7 +76,7 @@
                                     <div class="text-sm text-gray-900 truncate max-w-xs"><?= $item->detail; ?></div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap hidden lg:table-cell">
-                                    <div class="text-sm text-gray-900"><?= $item->user_name; ?></div>
+                                    <div class="text-sm text-gray-900"><?= $item->name_user; ?></div>
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap text-right">
                                     <button id="btn-edit" data-url="<?= url("/trabalhadoratendimento/" .  $item->id_service); ?>" 
