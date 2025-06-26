@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
         <button
             id="btn-back"
-            data-url="<?= url("/"); ?>"
+            data-url="<?= url("/historicoatendimento/" .  $service->id_worker); ?>"
             data-change="content"
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#095998] hover:text-white transition-all duration-200 flex items-center gap-1">
             < Voltar
@@ -56,17 +56,22 @@
     <!-- Actions Section -->
     <div class="">
         <div class="flex flex-col sm:flex-row gap-4">
-            <label for=""></label>
-            <select class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
-                <option value="">motivo um</option>
-                <option value="">motivo dois</option>
-                <option value="">motivo tres</option>
-            </select>
-            
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
-                    <span>Salvar</span>
-                </button>
+            <?php if(in_array($service->id_type_service, ["4","56"])): ?>
+                <label for=""></label>
+                <select class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
+                    <option value="">motivo um</option>
+                    <option value="">motivo dois</option>
+                    <option value="">motivo tres</option>
+                </select>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
+                        <span>Salvar</span>
+                    </button>
+                    
+            <?php else:?>
+                <div class="flex flex-col sm:flex-row gap-3">
+            <?php endif;?>
                 <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
                     <span>Excluir</span>
                 </button>

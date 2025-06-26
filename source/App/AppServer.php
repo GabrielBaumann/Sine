@@ -59,7 +59,6 @@ class AppServer extends Controller
 
     public function formService(array $data) : void
     {
-
         // Encaminhamento para entrevista, -- obs --> Esse código deve ser executado antes de enviar os dados para o banco de dados.
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["4", "56"])) {
             $idVacancy = (int)$data["occupation-id-vacancy"];
@@ -75,6 +74,7 @@ class AppServer extends Controller
 
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
+
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
             }
@@ -221,6 +221,7 @@ class AppServer extends Controller
                 $woker->ethnicity_worker = "rosa";
                 $woker->apprentice_worker = $dataClean["apprentice"];
                 $woker->cterc = $dataClean["cterc"];
+                $woker->status_work = "Atendimento Realizado";
 
                     if(in_array($data["idServiceType"], ["4", "56"])) {
                         $woker->status_work = "Aguardando Resposta";
