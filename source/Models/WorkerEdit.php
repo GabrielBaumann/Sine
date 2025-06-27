@@ -3,6 +3,7 @@
 namespace Source\Models;
 
 use Source\Core\Model;
+use Source\Models\VacancyWorker;
 
 class WorkerEdit extends Model
 {
@@ -13,6 +14,36 @@ class WorkerEdit extends Model
       [], 
       "id_worker"
     );
+  }
+
+  /**
+   * Função para excluir entrevista de emprego e atualizar os dados das tabelas relacionadas
+   */
+  public function destroyToServiceVacancy(array $data, int $idUser): bool
+  {
+
+    $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
+    $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+    $idVacancy = (int)filter_var($data["id-vacancy"], FILTER_SANITIZE_NUMBER_INT);
+
+    // Muda o status da tabela worker 
+    $worker = (new static())->findById($idWorker);
+    $worker->status_work = "Atendimento Realizado";
+    $worker->id_user_update = $idUser;
+    var_dump($worker->save());
+
+    // Excluir registro da tabela vacancy_worker
+    $vacancyWorker = (new VacancyWorker("id_service = :id", "id={$idService}"))->find()->fetch();
+    var_dump($vacancyWorker->destroy());
+
+    // Excluir registro da tabela service
+    $service = (new Service())->findById($idService);
+    var_dump($service->destroy());
+
+    // Muda status da tabela vacancy
+    $vacancyWorker->normalizeWorkerVacancy();
+
+    return true;
   }
 
 }

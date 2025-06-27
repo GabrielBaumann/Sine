@@ -30,9 +30,7 @@ document.addEventListener("submit", (e) => {
             }
 
             if(data.html) {
-                document.getElementById("list-info-vacancy").innerHTML = data.html;
-                fnccheckBoxVacancy();
-                fncCheckClosedVacancy()
+                document.getElementById(data.contentajax).innerHTML = data.html;
             }
             
         })

@@ -67,7 +67,7 @@ class VacancyWorker extends Model
         return true;
     }
 
-    // Função para normalizar a quantidade permitidade de encaminhamento por vagas
+    // Função para normalizar a quantidade permitida de encaminhamento por vagas
     public function normalizeWorkerVacancy()
     {
         $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true);
@@ -181,5 +181,4 @@ class VacancyWorker extends Model
 
         return false;
     }
-
 }

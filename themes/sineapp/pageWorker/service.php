@@ -59,9 +59,10 @@
                 <?php if(in_array($service->id_type_service, ["4","56"])): ?>
                     <?php if($service->status_vacancy_worker === "Aguardando resposta"): ?>
                         <form action="<?= url("/editarservicotrabalhador/entrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                        <?= csrf_input(); ?>
+                            <?= csrf_input(); ?>
 
                             <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                            <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">                            
 
                             <label for="motivo">*</label>
                             <select name="source-service-vacancy" class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
@@ -72,23 +73,36 @@
                             </select>
                             
                             <div class="flex flex-col sm:flex-row gap-3">
-                                    <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
-                                        <span>Salvar</span>
-                                    </button>
-                                    <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
-                                        <span>Excluir</span>
-                                    </button>
-                                </form>
+                                <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
+                                    <span>Salvar</span>
+                                </button>
+                            <div>
+                        </form>
+
+                        <form action="<?= url("/editarservicotrabalhador/entrevistaexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                            <?= csrf_input(); ?>
+                            
+                            <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                            <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>"> 
+                            <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> 
+
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
+                                    <span>Excluir</span>
+                                </button>
                             </div>
+                        </fom>
+
                     <?php else:?>
                         <?= $service->status_vacancy_worker ?>
                     <?php endif;?>
                 <?php else:?>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <form action="<?= url("/editarservicotrabalhador/atendimentos"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                        <form action="<?= url("/editarservicotrabalhador/atendimentosexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                         <?= csrf_input(); ?>
 
                         <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                        <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">   
 
                         <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
                             <span>Excluir</span>
