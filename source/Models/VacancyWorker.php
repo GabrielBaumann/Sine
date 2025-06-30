@@ -70,7 +70,9 @@ class VacancyWorker extends Model
     // Função para normalizar a quantidade permitida de encaminhamento por vagas
     public function normalizeWorkerVacancy()
     {
-        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true);
+
+        // Verifica a quantidade de vagas na tabela worker_vacancy e atualiza as vagas na tabela vacancy
+        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true) ?? [];
 
         if($totalVagas) {
             foreach($totalVagas as $totalVagasItem) {
@@ -78,23 +80,39 @@ class VacancyWorker extends Model
                 
                 if($vacancyWorker) {
 
-                    if($totalVagasItem->quantity_per_vacancy > count($vacancyWorker)) {
-                        $teste = new Vacancy();
-                        $teste->id_vacancy = $totalVagasItem->id_vacancy;
-                        $teste->reason_close = "";
-                        $teste->status_vacancy = "Ativa";
-                        $teste->save();
+                    if($totalVagasItem->quantity_per_vacancy > count($vacancyWorker ?? [])) {
+                        $vacancyUpadte = new Vacancy();
+                        $vacancyUpadte->id_vacancy = $totalVagasItem->id_vacancy;
+                        $vacancyUpadte->reason_close = "";
+                        $vacancyUpadte->status_vacancy = "Ativa";
+                        $vacancyUpadte->save();
                     }
 
-                    if($totalVagasItem->quantity_per_vacancy === count($vacancyWorker)) {
-                        $teste = new Vacancy();
-                        $teste->id_vacancy = $totalVagasItem->id_vacancy;
-                        $teste->reason_close = "Total Preenchido";
-                        $teste->status_vacancy = "Encerrada";
-                        $teste->save();
+                    if($totalVagasItem->quantity_per_vacancy === count($vacancyWorker ?? [])) {
+                        $vacancyUpadte = new Vacancy();
+                        $vacancyUpadte->id_vacancy = $totalVagasItem->id_vacancy;
+                        $vacancyUpadte->reason_close = "Total Preenchido";
+                        $vacancyUpadte->status_vacancy = "Encerrada";
+                        $vacancyUpadte->save();
                     }
 
                 }
+            }
+        }
+
+        // Atualiza o espelho da vaga para ativa
+        $vacancy = new Vacancy();
+        $vacancyGlass = $vacancy->find("id_vacancy_fixed = :id", "id=0")->fetch(true) ?? [];
+
+        foreach ($vacancyGlass as $vacancyGlassItem) {
+            
+            $vacancyGeneral = count((new Vacancy())->find("id_vacancy_fixed = :id AND status_vacancy = :st","id={$vacancyGlassItem->id_vacancy}&st=Ativa")->fetch(true) ?? []);
+
+            // Se existe ao menos uma ocorrência de vaga ativa então o espelho de vaga fica ativo;
+            if($vacancyGeneral > 0) {
+                $vacancyGlassEdit = $vacancy->find("id_vacancy = :id","id={$vacancyGlassItem->id_vacancy}")->fetch();
+                $vacancyGlassEdit->status_vacancy = "Ativa";
+                $vacancyGlassEdit->save();
             }
         }
     }

@@ -33,7 +33,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-700">
                 <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z" clip-rule="evenodd" />
                 </svg>
-                <h1 class="text-xl font-normal text-gray-900"><?= formatCPF($service->type_service); ?></h1>
+                <h1 class="text-xl font-normal text-gray-900"><?= $service->type_service; ?></h1>
             </div>
             
 
@@ -76,7 +76,7 @@
                                 <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
                                     <span>Salvar</span>
                                 </button>
-                            <div>
+                            </div>
                         </form>
 
                         <form action="<?= url("/editarservicotrabalhador/entrevistaexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
@@ -91,7 +91,7 @@
                                     <span>Excluir</span>
                                 </button>
                             </div>
-                        </fom>
+                        </form>
 
                     <?php else:?>
                         <?= $service->status_vacancy_worker ?>

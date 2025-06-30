@@ -26,19 +26,25 @@ class WorkerEdit extends Model
     $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
     $idVacancy = (int)filter_var($data["id-vacancy"], FILTER_SANITIZE_NUMBER_INT);
 
+    // Excluir registro da tabela vacancy_worker
+    $vacancyWorker = (new VacancyWorker())->find("id_service = :id", "id={$idService}")->fetch();
+    $vacancyWorker->destroy();
+
+    // Se o trabalhador tiver outros encaminhamentos de vagas com o status aguardando resposta então não muda o status para Atendimento Realizado;
+    $workerVacancyToResponse = count((new VacancyWorker())->find("id_worker = :id AND status_vacancy_worker = :st","id={$idWorker}&st=Aguardando resposta")->fetch(true) ?? []);
+
     // Muda o status da tabela worker 
     $worker = (new static())->findById($idWorker);
-    $worker->status_work = "Atendimento Realizado";
-    $worker->id_user_update = $idUser;
-    var_dump($worker->save());
 
-    // Excluir registro da tabela vacancy_worker
-    $vacancyWorker = (new VacancyWorker("id_service = :id", "id={$idService}"))->find()->fetch();
-    var_dump($vacancyWorker->destroy());
+    if($workerVacancyToResponse === 0) {
+      $worker->status_work = "Atendimento Realizado";
+    }
+    $worker->id_user_update = $idUser;
+    $worker->save();
 
     // Excluir registro da tabela service
     $service = (new Service())->findById($idService);
-    var_dump($service->destroy());
+    $service->destroy();
 
     // Muda status da tabela vacancy
     $vacancyWorker->normalizeWorkerVacancy();
