@@ -288,7 +288,6 @@ class AppVacancy extends Controller
 
     public function infoVacancy(?array $data) : void
     {   
-        
         // Encerrar vagas
         if(isset($data["csrf"])) {
 

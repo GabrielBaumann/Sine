@@ -22,6 +22,7 @@ document.addEventListener("click", (e) => {
         .then(data => {
             const vForm = document.getElementById("companiesView");
             vForm.innerHTML = data.html;
+            fncDesabledInput();
         });
     }
 });
@@ -137,4 +138,21 @@ function fncSatusColorCompany() {
             e.classList.replace("bg-blue-200","bg-red-200")
         }
     })
+}
+
+
+// Bloquear inputs caso a empresa estiver cancelada
+function fncDesabledInput() {
+    const vInput = document.querySelectorAll("input");
+    const vInputId = document.getElementById("active-company").value;
+    if(vInputId === "Cancelada") {
+        vInput.forEach((e) => {
+            e.disabled = true;
+            e.style.backgroundColor = "#f2f2f2";
+            e.style.color = "#666";
+            e.style.cursor = "not-allowed";
+            e.style.borderColor = "#ccc";
+        });
+    }
+
 }

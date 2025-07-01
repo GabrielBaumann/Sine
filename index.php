@@ -42,8 +42,6 @@ $route->get("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");
 
-
-
 /**
  * AppWorker
  */
@@ -56,7 +54,10 @@ $route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
 // $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
-$route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:startHistory");
+
+$route->post("/pesquisartiposervico/{idWorker}", "AppWorker:searchService");
+
+$route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:searchService");
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
 $route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
@@ -95,8 +96,9 @@ $route->post("/adicionarempresa/{idcompany}", "AppCompany:formCompany");
 $route->post("/verificarcnpj", "AppCompany:verificCnpj");
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
-$route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
+$route->post("/cancelarempresa/{idCompany}", "AppCompany:cancelCompany");
 
+$route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 
 
 // Service

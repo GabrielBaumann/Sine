@@ -2,6 +2,7 @@
 
 namespace Source\App;
 
+use Dom\Comment;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
@@ -182,7 +183,7 @@ class AppCompany extends Controller
         }
 
         $html = $this->view->render("/pageCompany/formNewCompany", [
-
+            "userSystem" => $this->user
         ]);
 
         $json["html"] = $html;
@@ -197,12 +198,47 @@ class AppCompany extends Controller
         $company = (new Enterprise())->findById($idCompany);
 
         $html = $this->view->render("/pageCompany/formNewCompany", [
-            "company" => $company
+            "company" => $company,
+            "userSystem" => $this->user
         ]);
 
         $json["html"] = $html;
         echo json_encode($json);
         return;
+    }
+    
+    public function cancelCompany(?array $data) : void
+    {
+        $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+
+        $company = (new Enterprise())->findById($idCompany);
+        $company->id_enterprise = $idCompany;
+        $company->id_user_update =$this->user->id_user;
+        $company->active = "Cancelada";
+        // $company->save();
+
+        if($company->save()) {
+
+        $enterprise = (new Enterprise())->find()->count(); 
+        $pager = new Pager(url("/pesquisarempresa/p/"));
+        $pager->Pager($enterprise, 10, 1);
+
+        $html = $this->view->render("/pageCompany/listCompany", [
+            "listEnterprise" => (new Enterprise())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")->fetch(true),
+            "countEnterprise" => (new Enterprise())->find()->count(),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Registro cancelado com sucesso!")->render();
+        $json["html"] = $html;
+        $json["content"] = "companiesView";
+        echo json_encode($json);
+        return;
+        }
+
     }
 
     // Método para verificar validação do cnpj ou se ele já está cadastrado na base de dados

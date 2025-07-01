@@ -7,13 +7,12 @@
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
             < Voltar
         </button>
-
+        <input type="hidden" id="active-company" value="<?= $company->active ?? ""; ?>">
         <!-- <p class='text-blue-500 flex items-center truncate'>Empresas > Nova Empresa</p> -->
     </div>
     
     <form id="form" action="<?= url("/adicionarempresa") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>" method="post">
         <?= csrf_input(); ?>
-
         <div class="">
             <div class="bg-white px-4">
                 <h3 class="text-2xl leading-6 font-semibold text-gray-900 py-10" id="modalTitle">Nova Empresa</h3>                    
@@ -66,19 +65,44 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>  
                 </div>
-
             </div>
             
             <!-- Botão de confirmação -->
-            <div class="col-span-4 flex justify-end mt-4 md:p-4">
+            <?php if(!isset($company->active) || $company->active === "Ativa"): ?>
+                <div class="col-span-4 flex justify-end mt-4 md:p-4">
+                    <button
+                        type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Confirmar
+                    </button>
+                </div>
+            <?php endif;?>
+        </div>
+    </form>
+    <?php if(isset($company->id_enterprise) && in_array($userSystem->type_user, ["dev","adm"])): ?>
+
+        <?php if($company->active === "Ativa"): ?>
+            <form action="<?= url("cancelarempresa/{$company->id_enterprise}"); ?>" method="post">
                 <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                     </svg>
-                    Confirmar
+                    Cancelar
                 </button>
-            </div>
-        </div>
-    </form>   
+            </form>
+        <?php else: ?>
+            <form action="<?= url("cancelarempresa/{$company->id_enterprise}"); ?>" method="post">
+                <button
+                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Reativar
+                </button>
+            </form>
+        <?php endif;?>
+    <?php endif;?>
 </div>

@@ -30,6 +30,12 @@ document.addEventListener("submit", (e) => {
                 fncMessage(data.message);
             }
 
+            if(data.content) {
+                const vElement = document.getElementById(data.content);
+                vElement.innerHTML = data.html;
+                fncSatusColorCompany()
+            }
+
         })
         .catch(error => {
             fncMessage();

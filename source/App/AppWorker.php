@@ -6,6 +6,7 @@ use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Service;
 use Source\Models\SystemUser;
+use Source\Models\TypeService;
 use Source\Models\VacancyWorker;
 use Source\Models\Views\VwService;
 use Source\Models\Worker;
@@ -82,7 +83,6 @@ class AppWorker extends Controller
 
     public function listtWorker() : void
     {
-
         $worker = (new Worker())->find()->count();
         $pager = new Pager(url("/listatrabalhador/p/"));
         $pager->pager($worker, 10, 1);
@@ -105,40 +105,10 @@ class AppWorker extends Controller
     
     public function startHistory(?array $data) : void
     {
-        if(isset($data["page"]) && !empty($data["page"])) {
-
-            $idWorker = (int)filter_var($data["idWorker"], FILTER_VALIDATE_INT);
-
-            $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
-            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($vWService ?? []), 7, $page);
-
-            $html = $this->view->render("/pageWorker/listHistoryService", [
-                "worker" => (new Worker())->findById($idWorker),
-                "history" => (new VwService())
-                    ->find("id_worker = :id", "id={$idWorker}")
-                    ->order("date_register", "DESC")
-                    ->limit($pager->limit())
-                    ->offset($pager->offset())
-                    ->fetch(true),
-                "countService" => count($vWService ?? []),
-                "paginator" => $pager->render()
-            ]);
-
-            $json["html"] = $html;
-            $json["content"] = "content-history";
-            echo json_encode($json);
-            return;
-        }
-
         $idWorker = (int)filter_var($data["idWorker"], FILTER_VALIDATE_INT);
-
         $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($vWService ?? []), 7, $page);
-
+        $pager->pager(count($vWService ?? []), 7, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -149,11 +119,67 @@ class AppWorker extends Controller
                 ->offset($pager->offset())
                 ->fetch(true),
             "countService" => count($vWService ?? []),
+            "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
             "paginator" => $pager->render()
         ]);
 
         $json["html"] = $html;
         $json["content"] = "content";
+        echo json_encode($json);
+        return;
+    }
+
+    public function searchService(?array $data) : void
+    {
+        $idWorker = filter_var($data["idWorker"], FILTER_VALIDATE_INT);
+
+        $conditions = [];
+        $params = [];
+
+        $conditions[] = "id_worker = :id";
+        $params["id"] = $idWorker; 
+
+        $page = 1;
+
+        // Pesquisar por serviço do atendimento
+        if(isset($data["search-enterprise"])) {
+            $searchEnterprise = filter_var($data["search-enterprise"], FILTER_SANITIZE_SPECIAL_CHARS) ? filter_var($data["search-enterprise"], FILTER_SANITIZE_SPECIAL_CHARS) : null ;
+            if(!empty($searchEnterprise)) {
+                $conditions[] = "type_service = :ty";
+                $params["ty"] = $searchEnterprise; 
+            }
+        }
+
+        // Pesquisa por servico e número de pagina
+        if(isset($data["page"]) && !empty($data["page"]) || isset($data["search-enterprise"])) {
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+            $searchEnterprise = filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-enterprise", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            if(!empty($searchEnterprise)) {
+                $conditions[] = "type_service = :ty";
+                $params["ty"] = $searchEnterprise; 
+            }
+        }
+
+        $where = implode(" AND ", $conditions);
+
+        $vWService = (new VwService())->find($where, http_build_query($params))->fetch(true);
+        $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
+        $pager->pager(count($vWService ?? []), 7, $page);
+
+        $html = $this->view->render("/pageWorker/listHistoryService", [
+            "worker" => (new Worker())->findById($idWorker),
+            "history" => (new VwService())
+                ->find($where, http_build_query($params))
+                ->order("date_register", "DESC")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "countService" => count($vWService ?? []),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        $json["content"] = "content-history";
         echo json_encode($json);
         return;
     }
@@ -228,18 +254,22 @@ class AppWorker extends Controller
                 return;
             }
 
-            $vwService = new VwService();
             $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
 
-            $data = $vwService->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
-            $pager = new Pager(url("/inicio/p/"));
+            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
             $pager->pager(count($data), 7, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),
-                "history" => $data,
+                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                    ->order("date_register", "DESC")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
                 "countService" => count($data),
+                "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
                 "paginator" => $pager->render()
             ]);
 
@@ -262,17 +292,21 @@ class AppWorker extends Controller
                 return;
             }
 
-            $vwService = new VwService();
             $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
 
-            $data = $vwService->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
-            $pager = new Pager(url("/inicio/p/"));
+            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
             $pager->pager(count($data ?? []), 7, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),
-                "history" => $data,
+                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                    ->order("date_register", "DESC")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                    "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
                 "countService" => count($data ?? []),
                 "paginator" => $pager->render()
             ]);
@@ -298,17 +332,21 @@ class AppWorker extends Controller
                 return;
             }
 
-            $vwService = new VwService();
             $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
 
-            $data = $vwService->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
-            $pager = new Pager(url("/inicio/p/"));
+            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
             $pager->pager(count($data ?? []), 7, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),
-                "history" => $data,
+                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                    ->order("date_register", "DESC")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
                 "countService" => count($data ?? []),
                 "paginator" => $pager->render()
             ]);

@@ -36,13 +36,14 @@
                     <div class="relative">
                         <select 
                             name="search-enterprise"
-                            class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                        >
-                            <option value="*">Todos</option>
-                            <option value="">Orientação</option>
-                            <option value="">Abono Salarial</option>
-                            <option value="">Seguro desemprego</option>
-                        </select>
+                            data-ajax="content-history"
+                            data-url="<?= url("/pesquisartiposervico/{$worker->id_worker}"); ?>"
+                            class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                            <option value="">Todos</option>
+                            <?php foreach($typeService as $typeServiceItem): ?>
+                                <option value="<?= $typeServiceItem->type_service ?>"><?= $typeServiceItem->type_service ?></option>
+                            <?php endforeach;?>
+                            </select>
                     </div>
                 </div>
             </div>
