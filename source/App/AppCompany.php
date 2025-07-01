@@ -126,7 +126,7 @@ class AppCompany extends Controller
         return;
     }
 
-    public function formCompany(?array $data)
+    public function formCompany(?array $data) : void
     {   
         if(!empty($data["csrf"])) {
 
@@ -139,7 +139,7 @@ class AppCompany extends Controller
             $cleanInput = cleanInputData($data, ["email-enterprise", "phone-enterprise", "responsible-person"]);
 
             if(!$cleanInput["valid"]) {
-                $json["message"] = messageHelpers()->error("Preencha todos os campos obrigatórios!")->render();
+                $json["message"] = messageHelpers()->error("Preencha todos os campos obrigatórios!!!")->render();
                 echo json_encode($json);
                 return;
             }
@@ -154,6 +154,16 @@ class AppCompany extends Controller
             
             $enterprise = new Enterprise();
 
+            if(isset($data["idcompany"]) && !empty($data["idcompany"])) {
+                $idCompany = filter_var($data["idcompany"], FILTER_VALIDATE_INT);
+                $enterprise->id_enterprise = $idCompany;
+                $json["complete"] = false;
+                $json["message"] = messageHelpers()->success("Dados atualizados com sucesso!")->render();
+            } else {
+                $json["complete"] = true;
+                $json["message"] = messageHelpers()->success("Empresa cadastrada com sucesso!")->render();
+            }
+
             $enterprise->name_enterprise = $dataCleanInput["new-enterprise"];
             $enterprise->cnpj = cleanCPF($dataCleanInput["cnpj"]);
             $enterprise->email_enterprise = $dataCleanInput["email-enterprise"];
@@ -167,14 +177,27 @@ class AppCompany extends Controller
                 return;
             }
 
-            $json["message"] = messageHelpers()->success("Empresa cadastrada com sucesso!")->render();
-            $json["complete"] = true;
             echo json_encode($json);
             return;
         }
 
         $html = $this->view->render("/pageCompany/formNewCompany", [
 
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    public function editCompany(?array $data) : void
+    {   
+        $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+
+        $company = (new Enterprise())->findById($idCompany);
+
+        $html = $this->view->render("/pageCompany/formNewCompany", [
+            "company" => $company
         ]);
 
         $json["html"] = $html;

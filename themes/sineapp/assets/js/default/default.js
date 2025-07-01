@@ -130,13 +130,19 @@ document.addEventListener("click", (e) => {
             const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
             
-            if(vUrlPage === "trabalhador") fncUpdateColorStatus();
-
-            if(vUrlPage === "vagas") fncUpdateColorStatusVacancy();
-
-            if(vUrlPage === "empresas") fncSatusColorCompany();
- 
-            if(vUrlPage === "usuarios") fncStatusUserSystem();
+            if (vUrlPage === "trabalhador") {
+                fncUpdateColorStatus();
+            } 
+            else if (vUrlPage === "vagas") {
+                fncUpdateColorStatusVacancy();
+                fncCheckClosedVacancy();
+            } 
+            else if (vUrlPage === "empresas") {
+                fncSatusColorCompany();
+            } 
+            else if (vUrlPage === "usuarios") {
+                fncStatusUserSystem();
+            }
        })
     };
 });
@@ -177,19 +183,17 @@ document.addEventListener("input", (e) => {
         .then(data => {
             document.getElementById(vListAjax).innerHTML = data.html;
             
-            if(vUrlPage === "trabalhador") {
+            if (vUrlPage === "trabalhador") {
                 fncUpdateColorStatus();
-            }
-
-            if(vUrlPage === "vagas") {
+            } 
+            else if (vUrlPage === "vagas") {
                 fncUpdateColorStatusVacancy();
-            }
-            
-            if(vUrlPage === "empresas") {
+                fncCheckClosedVacancy();
+            } 
+            else if (vUrlPage === "empresas") {
                 fncSatusColorCompany();
-            }
-
-            if(vUrlPage === "usuarios") {
+            } 
+            else if (vUrlPage === "usuarios") {
                 fncStatusUserSystem();
             }
         });

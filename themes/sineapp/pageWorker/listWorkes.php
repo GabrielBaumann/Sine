@@ -1,5 +1,4 @@
 <div class="overflow-hidden mt-5">
-    
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">

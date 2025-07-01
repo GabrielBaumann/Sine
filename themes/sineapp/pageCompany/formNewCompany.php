@@ -8,11 +8,12 @@
             < Voltar
         </button>
 
-        <p class='text-blue-500 flex items-center truncate'>Empresas > Nova Empresa</p>
+        <!-- <p class='text-blue-500 flex items-center truncate'>Empresas > Nova Empresa</p> -->
     </div>
-    <input type="number" id="idCompany" name="idCompany" value="<?= $user->id_user ?? ""; ?>">
-    <form id="form" action="<?= url("/adicionarempresa") . (isset($user->id_user) ? "/" . $user->id_user : "" ) ?>" method="post">
+    
+    <form id="form" action="<?= url("/adicionarempresa") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>" method="post">
         <?= csrf_input(); ?>
+
         <div class="">
             <div class="bg-white px-4">
                 <h3 class="text-2xl leading-6 font-semibold text-gray-900 py-10" id="modalTitle">Nova Empresa</h3>                    
@@ -25,14 +26,15 @@
                                 name="cnpj"
                                 id="cnpj" 
                                 type="text"
-                                value="" 
+                                value="<?= maskCNPJ($company->cnpj ?? 00) ?? ""; ?>" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full">
                             <label for="new-enterprise" class="block text-sm font-medium text-gray-700 mb-1">Nome da Empresa *</label>
-                            <input name="new-enterprise"
+                            <input 
+                                name="new-enterprise"
                                 type="text"
-                                value=""
+                                value="<?= $company->name_enterprise ?? ""; ?>"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
@@ -43,7 +45,7 @@
                             <input name="email-enterprise"
                                 type="email"
                                 id="email-enterprise"
-                                value=""
+                                value="<?= $company->email_enterprise ?? ""; ?>"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full">
@@ -51,7 +53,7 @@
                             <input name="phone-enterprise"
                                 type=""
                                 id="phone-enterprise"
-                                value=""
+                                value="<?= $company->phone_enterprise ?? ""; ?>"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
@@ -60,7 +62,7 @@
                         <input name="responsible-person"
                             type="text"
                             id="responsible-person"
-                            value=""
+                            value="<?= $company->responsible_enterprise ?? ""; ?>"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>  
                 </div>

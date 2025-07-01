@@ -12,6 +12,21 @@ document.addEventListener("click", (e) => {
     }
 });
 
+// formulário de edição
+document.addEventListener("click", (e) => {
+    const vClick = e.target.closest("button");
+    if(vClick && vClick.id === "btn-edit") {
+        const vUrl = vClick.dataset.url;
+        fetch(vUrl)
+        .then(response => response.json())
+        .then(data => {
+            const vForm = document.getElementById("companiesView");
+            vForm.innerHTML = data.html;
+        });
+    }
+});
+
+
 // Verificar se o CNPJ é válido e se já existe na base
 document.addEventListener("focusout", (e) => {
     if(e.target.id === "cnpj"){

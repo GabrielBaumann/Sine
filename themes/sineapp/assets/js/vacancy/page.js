@@ -1,5 +1,5 @@
 fncUpdateColorStatusVacancy();
-fnccheckBoxVacancy();
+// fnccheckBoxVacancy();
 // fncCheckClosedVacancy();
 
 // função para Atualização dos status das vagas - lista

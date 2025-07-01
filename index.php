@@ -53,9 +53,10 @@ $route->get("/listatrabalhador", "AppWorker:listtWorker");
 
 $route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
 
-$route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
+// $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
+$route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:startHistory");
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
 $route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
@@ -68,6 +69,8 @@ $route->get("/listavagas", "AppVacancy:listVacancy");
 $route->post("/listavagas", "AppVacancy:listVacancy");
 
 $route->get("/informacaovagas/{idvacancy}", "AppVacancy:infoVacancy");
+$route->get("/paginarvagas/p/{idvacancy}/{page}", "AppVacancy:infoVacancy");
+$route->post("/pesquisarstatus/{idvacancy}", "AppVacancy:searchVacancy");
 $route->post("/informacaovagas", "AppVacancy:infoVacancy");
 
 $route->post("/pesquisarvagas", "AppVacancy:startVacancy");
@@ -88,8 +91,11 @@ $route->post("/pequisarempresas", "AppCompany:listCompany");
 
 $route->get("/adicionarempresa", "AppCompany:formCompany");
 $route->post("/adicionarempresa", "AppCompany:formCompany");
+$route->post("/adicionarempresa/{idcompany}", "AppCompany:formCompany");
 $route->post("/verificarcnpj", "AppCompany:verificCnpj");
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
+
+$route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 
 
 

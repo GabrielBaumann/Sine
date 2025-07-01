@@ -72,7 +72,7 @@ class VacancyWorker extends Model
     {
 
         // Verifica a quantidade de vagas na tabela worker_vacancy e atualiza as vagas na tabela vacancy
-        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true) ?? [];
+        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true);
 
         if($totalVagas) {
             foreach($totalVagas as $totalVagasItem) {
@@ -154,7 +154,7 @@ class VacancyWorker extends Model
         }
 
         // Verifica se a quantidade de encaminhamentos por vagas é menor do que a quantidade de ecaminhamentos já solicitados
-        if(!$type) {
+        if(!$type && !empty($amountOfBondVacancy)) {
             if(max($amountOfBondVacancy) > $quantityPerVacancy) {
                 return false;
             }

@@ -286,8 +286,10 @@ class AppVacancy extends Controller
         return;
     }
 
-    public function infoVacancy(?array $data)
+    public function infoVacancy(?array $data) : void
     {   
+        
+        // Encerrar vagas
         if(isset($data["csrf"])) {
 
             $vacancyClosed = new Vacancy();
@@ -326,15 +328,128 @@ class AppVacancy extends Controller
             return;
         }
 
-        $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$data["idvacancy"]}")->fetch(true);
-        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$data["idvacancy"]}")->fetch();
+        // Paginar conteúdo
+        if(isset($data["page"]) && !empty($data["page"])) {
 
-        $html = $this->view->render("/pageVacancy/infoVacancy", [
-            "vacancyList" => $vacancyList,
-            "vacancyInfo" => $vacancyInfo
+        $searchStatus = filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $idVacancy = (int)filter_var($data["idvacancy"], FILTER_VALIDATE_INT);
+
+        $conditions = [];
+        $params = [];
+
+        if(!empty($searchStatus)) {
+            $conditions[] = "status_vacancy = :st";
+            $params["st"] = $searchStatus;
+        }
+
+        $conditions[] = "id_vacancy_fixed = :id";
+        $params["id"] = $idVacancy;
+
+        $where = implode(" AND ", $conditions);
+
+        
+        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+
+
+        $vacancyListCount = count((new Vacancy())
+            ->find($where, http_build_query($params))
+            ->fetch(true)
+            ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 7, $page);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+
+        $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+            "vacancyList" => (new Vacancy())
+                ->find($where, http_build_query($params))
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
         ]);
 
         $json["html"] = $html;
+        $json["content"] = "list-info-vacancy";
+        echo json_encode($json);
+        return;
+        }
+
+        $idVacancy = (int)filter_var($data["idvacancy"], FILTER_VALIDATE_INT);
+
+        $vacancyListCount = count((new Vacancy())
+            ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+            ->fetch(true)
+            ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 7, 1);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "vacancyList" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    public function searchVacancy(array $data) : void
+    {
+        $status = filter_var($data["search-status"], FILTER_SANITIZE_SPECIAL_CHARS) ? filter_var($data["search-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $idVacancy = filter_var($data["idvacancy"], FILTER_VALIDATE_INT);
+
+        $conditions = [];
+        $params = [];
+
+        if(!empty($status)) {
+            $conditions[] = "status_vacancy = :st";
+            $params["st"] = $status;
+        }
+
+        $conditions[] = "id_vacancy_fixed = :id";
+        $params["id"] = $idVacancy;
+
+        $where = implode(" AND ", $conditions);
+
+        
+        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+
+        $vacancyListCount = count((new Vacancy())
+            ->find($where, http_build_query($params))
+            ->fetch(true)
+            ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 7, $page);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+
+        $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+            "vacancyList" => (new Vacancy())
+                ->find($where, http_build_query($params))
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        $json["content"] = "list-info-vacancy";
         echo json_encode($json);
         return;
     }

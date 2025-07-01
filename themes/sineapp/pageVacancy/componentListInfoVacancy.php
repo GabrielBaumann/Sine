@@ -15,31 +15,45 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 <!-- Linha 1 -->
-                <?php foreach($vacancyList as $vacancyItem): ?>
-                    <tr class="hover:bg-blue-100">
-                        <td class="whitespace-nowrap">
-                            <input 
-                                type="checkbox" 
-                                name="check-vacancy-<?= $vacancyItem->id_vacancy; ?>"
-                                value="<?= $vacancyItem->id_vacancy; ?>"
-                                id="<?= $vacancyItem->id_vacancy; ?>" 
-                                class="check-vacancy h-4 w-4 ml-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                        </td>
-                        <td data-label="Nome" class="px-6 py-3 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="">
-                                    <div class="text-sm font-medium text-gray-900"><?= $vacancyItem->nomeclatura_vacancy; ?></div>
+                <?php if($vacancyList):?>
+                    <?php foreach($vacancyList as $vacancyItem): ?>
+                        <tr class="hover:bg-blue-100">
+                            <td class="whitespace-nowrap">
+                                <input 
+                                    type="checkbox" 
+                                    name="check-vacancy-<?= $vacancyItem->id_vacancy; ?>"
+                                    value="<?= $vacancyItem->id_vacancy; ?>"
+                                    id="<?= $vacancyItem->id_vacancy; ?>" 
+                                    class="check-vacancy h-4 w-4 ml-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            </td>
+                            <td data-label="Nome" class="px-6 py-3 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="">
+                                        <div class="text-sm font-medium text-gray-900"><?= $vacancyItem->nomeclatura_vacancy; ?></div>
+                                    </div>
                                 </div>
+                            </td>
+                            <td data-label="Vaga" class="px-6 py-3 whitespace-nowrap">
+                                <div class="text-sm text-gray-900"><?= $vacancyItem->number_vacancy . "/" . $vacancyInfo->total_vancacy_general; ?></div>
+                            </td>
+                                <td data-label="Status" class="px-6 py-3 whitespace-nowrap">
+                                <span class="text-sm text-gray-700"><?= $vacancyItem->status_vacancy; ?></span>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>           
+                <?php else:?>
+                    <tr class="h-full">
+                        <td colspan="5" class="px-4 py-8 text-center text-gray-500">
+                            <div class="flex flex-col items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <p class="text-gray-600">Nenhuma vaga registrada</p>
+                                <p class="text-sm text-gray-400">As vagas aparecerão aqui quando forem criadas</p>
                             </div>
                         </td>
-                        <td data-label="Vaga" class="px-6 py-3 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"><?= $vacancyItem->number_vacancy . "/" . $vacancyInfo->total_vancacy_general; ?></div>
-                        </td>
-                            <td data-label="Status" class="px-6 py-3 whitespace-nowrap">
-                            <span class="text-sm text-gray-700"><?= $vacancyItem->status_vacancy; ?></span>
-                        </td>
                     </tr>
-                <?php endforeach; ?>           
+                <?php endif;?>
             </tbody>
         </table>
         
@@ -69,6 +83,15 @@
         </div>
 
         <!-- falta a paginação aqui -->
-
+                 <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <div class="flex gap-2">
+                        <?= $paginator; ?>
+                    </div>
+                </div>
+                <div>Total: <?= format_number($countVacancy); ?></div>
+            </div>
+        </div>
     </div>
 </form>
