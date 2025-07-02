@@ -253,8 +253,6 @@ class AppVacancy extends Controller
                 return;
             }
 
-
-            
             $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
             $json["complete"] = true;
             echo json_encode($json);
@@ -272,7 +270,7 @@ class AppVacancy extends Controller
                     ->find("id_vacancy = :id", "id={$idVacancy}")
                     ->fetch(),
             "companys" => (new Enterprise())
-                ->find()
+                ->find("active = :ac", "ac=Ativa")
                 ->order("name_enterprise")
                 ->fetch(true),
             "cbos_occupations" => (new CboOccupation())

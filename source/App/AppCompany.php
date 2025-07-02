@@ -2,7 +2,6 @@
 
 namespace Source\App;
 
-use Dom\Comment;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
@@ -27,13 +26,32 @@ class AppCompany extends Controller
     {
 
         if(isset($data["page"])) {
+
+            $searchCompany = filter_input(INPUT_GET, "search-company", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-company", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+            $searchAllStatus = filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+            $conditions = [];
+            $params = [];
+
+            if(!empty($searchCompany)) {
+                $conditions[] = "name_enterprise LIKE :co";
+                $params["co"] = "%{$searchCompany}%";
+            }
+
+            if(!empty($searchAllStatus)) {
+                $conditions[] = "active = :st";
+                $params["st"] = $searchAllStatus;
+            }
+
+            $where = implode(" AND ", $conditions);
+
             $enterprise = (new Enterprise())->find()->count();
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
             $pager = new Pager(url("/pesquisarempresa/p/"));
             $pager->Pager($enterprise, 10, $page);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
-                "listEnterprise" => (new Enterprise())->find()
+                "listEnterprise" => (new Enterprise())->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->order("name_enterprise")->fetch(true),
@@ -207,7 +225,7 @@ class AppCompany extends Controller
         return;
     }
     
-    public function cancelCompany(?array $data) : void
+    public function cancelCompany(array $data) : void
     {
         $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
 
@@ -215,7 +233,6 @@ class AppCompany extends Controller
         $company->id_enterprise = $idCompany;
         $company->id_user_update =$this->user->id_user;
         $company->active = "Cancelada";
-        // $company->save();
 
         if($company->save()) {
 
@@ -263,4 +280,37 @@ class AppCompany extends Controller
         echo json_encode($json);
         return;
     }
+
+    public function activeCompany(array $data) : void
+    {
+        $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+
+        $company = (new Enterprise())->findById($idCompany);
+        $company->id_enterprise = $idCompany;
+        $company->id_user_update =$this->user->id_user;
+        $company->active = "Ativa";
+
+        if($company->save()) {
+
+        $enterprise = (new Enterprise())->find()->count(); 
+        $pager = new Pager(url("/pesquisarempresa/p/"));
+        $pager->Pager($enterprise, 10, 1);
+
+        $html = $this->view->render("/pageCompany/listCompany", [
+            "listEnterprise" => (new Enterprise())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")->fetch(true),
+            "countEnterprise" => (new Enterprise())->find()->count(),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Registro reativado com sucesso!")->render();
+        $json["html"] = $html;
+        $json["content"] = "companiesView";
+        echo json_encode($json);
+        return;
+        }  
+    }
+
 }

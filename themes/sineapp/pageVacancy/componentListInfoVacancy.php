@@ -59,7 +59,6 @@
         
         <div id="info" class="hidden flex justify-between items-center gap-3 p-3 rounded-xl p-3">
             <div class="flex flex-col w-full">
-                
                 <div class="flex items-center w-full gap-4">
                     <div class="flex flex-col w-full">
                         <label for="reason-closed" class="text-gray-800 font-semibold mb-4">Motivo do encerramento *</label>
@@ -82,8 +81,8 @@
             </div> 
         </div>
 
-        <!-- falta a paginação aqui -->
-                 <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <!-- paginação aqui -->
+        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">

@@ -94,7 +94,7 @@
                 </button>
             </form>
         <?php else: ?>
-            <form action="<?= url("cancelarempresa/{$company->id_enterprise}"); ?>" method="post">
+            <form action="<?= url("ativarempresa/{$company->id_enterprise}"); ?>" method="post">
                 <button
                     type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">

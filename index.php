@@ -97,6 +97,7 @@ $route->post("/verificarcnpj", "AppCompany:verificCnpj");
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
 $route->post("/cancelarempresa/{idCompany}", "AppCompany:cancelCompany");
+$route->post("/ativarempresa/{idCompany}", "AppCompany:activeCompany");
 
 $route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 

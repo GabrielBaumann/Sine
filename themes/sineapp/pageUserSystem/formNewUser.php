@@ -7,7 +7,7 @@
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-400 text-gray-800 hover:bg-blue-800 hover:text-white transition hover:border-blue-900">
             < Voltar
         </button>
-        <p class='text-blue-500 flex items-center truncate'>Início > Usuários > Novo usuário</p>
+        <!-- <p class='text-blue-500 flex items-center truncate'>Início > Usuários > Novo usuário</p> -->
     </div>
     <input type="number" id="idSystemUser" name="idSystemUser" value="<?= $user->id_user ?? ""; ?>">
     <form id="form" action="<?= url("/adicionarusuario") . (isset($user->id_user) ? "/" . $user->id_user : "" ) ?>" method="post">

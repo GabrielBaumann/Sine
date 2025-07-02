@@ -154,5 +154,4 @@ function fncDesabledInput() {
             e.style.borderColor = "#ccc";
         });
     }
-
 }
