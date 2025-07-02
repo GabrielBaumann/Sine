@@ -79,36 +79,39 @@
                             </div>
                         </form>
 
-                        <form action="<?= url("/editarservicotrabalhador/entrevistaexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                            <?= csrf_input(); ?>
-                            
-                            <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
-                            <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>"> 
-                            <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> 
+                        <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
+                            <form action="<?= url("/editarservicotrabalhador/entrevistaexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                                <?= csrf_input(); ?>
+                                
+                                <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                                <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>"> 
+                                <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> 
 
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
-                                    <span>Excluir</span>
-                                </button>
-                            </div>
-                        </form>
-
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
+                                        <span>Excluir</span>
+                                    </button>
+                                </div>
+                            </form>
+                        <?php endif; ?>
                     <?php else:?>
                         <?= $service->status_vacancy_worker ?>
                     <?php endif;?>
                 <?php else:?>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <form action="<?= url("/editarservicotrabalhador/atendimentosexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                        <?= csrf_input(); ?>
+                <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <form action="<?= url("/editarservicotrabalhador/atendimentosexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                            <?= csrf_input(); ?>
 
-                        <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
-                        <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">   
+                            <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                            <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">   
 
-                        <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
-                            <span>Excluir</span>
-                        </button>
-                        </form>
-                    </div>
+                                <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
+                                    <span>Excluir</span>
+                                </button>
+                            </form>
+                        </div>
+                    <?php endif; ?>
                 <?php endif;?>
             </div>
         </div>

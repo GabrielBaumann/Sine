@@ -12,14 +12,11 @@
             <!-- Linha 1 -->
             <?php if($users): ?>
                 <?php foreach($users as $user): ?>
-                    <tr class="hover:bg-blue-50 bg-white border-b border-gray-300" 
-                        data-url="<?= url("/adicionarusuario/{$user->id_user}") ?>"
-                        data-modal="userModal">
+                    <tr class="hover:bg-blue-50 bg-white border-b border-gray-300">
                         <td data-label="Nome" class=" whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900"><?= $user->name_user; ?></div>
-                                    
                                 </div>
                             </div>
                         </td>
@@ -32,7 +29,10 @@
                         
                         <td data-label="Ação" class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end">
-                                <button id="btn-edit" class="cursor-pointer text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
+                                <button 
+                                    id="btn-form" 
+                                    data-url="<?= url("/editarusuario/{$user->id_user}") ?>"
+                                    class="cursor-pointer text-blue-600 hover:text-blue-800 p-1 rounded-full hover:bg-blue-50 transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>

@@ -365,7 +365,8 @@ class AppWorker extends Controller
         $data = $vwService->find("id_service = :id", "id={$idService}")->fetch();
 
         $html = $this->view->render("pageWorker/service", [
-            "service" => $data
+            "service" => $data,
+            "userSystem" => $this->user
         ]);
 
         $json["html"] = $html;

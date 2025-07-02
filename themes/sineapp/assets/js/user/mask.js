@@ -27,11 +27,11 @@ document.addEventListener("input", function(e) {
 });
 
 document.addEventListener("focusin", (e) => {
-    if (e.target.id === "cpf" && document.getElementById("idSystemUser").value !== "") {
+    if (e.target.id === "cpf" && document.getElementById("idSystemUser")?.value !== "") {
         cpfInitialEdit = e.target.value;
     }
 
-    if (e.target.id === "cpf" && document.getElementById("idSystemUser").value === "") {
+    if (e.target.id === "cpf" && document.getElementById("idSystemUser")?.value === "") {
         cpfInitialEdit = "";
     }
 });
@@ -48,7 +48,7 @@ document.addEventListener("focusout", function(e) {
             vForm.append(vLabel, vValue.replace(/\D/g, ''));
 
             // Verificar se existe o ID para não editar o CPF
-            if(document.getElementById("idSystemUser").value !== "") {
+            if(document.getElementById("idSystemUser")?.value !== "") {
                 const vIdUserSystem = document.getElementById("idSystemUser");
                 vForm.append(vIdUserSystem.name, vIdUserSystem.value);
             }

@@ -4,13 +4,10 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
-use Source\Models\Enterprise;
 use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
-use Source\Models\Vacancy;
 use Source\Models\VacancyWorker;
-use Source\Models\Views\VwVacancy;
 use Source\Models\Views\VwVacancyActive;
 use Source\Models\Worker;
 use Source\Models\WorkerEdit;

@@ -30,6 +30,11 @@ document.addEventListener("submit", (e) => {
                 fncMessage(data.message);
             }
 
+            if(data.content) {
+                const vContent = document.getElementById(data.content);
+                vContent.innerHTML = data.html;
+                fncStatusUserSystem()
+            }
         })
         .catch(error => {
             fncMessage();

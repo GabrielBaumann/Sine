@@ -24,15 +24,48 @@ class AppUserSystem extends Controller
 
     public function userSystem(?array $data) : void
     {   
-        if(isset($data["page"])) {
-            $userSytemCount = (new SystemUser())->find()->count();
-            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
+
+        $searchNameUser = filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $searchFunction = filter_input(INPUT_GET, "search-function-user", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-function-user", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $searchStatus = filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+        if(isset($data["page"]) || isset($searchNameUser) || isset($searchFunction) || isset($searchStatus)) {
+
+
+            $conditions = [];
+            $params = [];
+
+            if(!empty($searchUser)) {
+                $conditions[] = "name_user LIKE :n";
+                $params["n"] = "%{$searchNameUser}%";
+            }
+
+            if(!empty($searchFunction)) {
+                $conditions[] = "type_user = :t";
+                $params["t"] = $searchFunction;
+            }
+
+            if(!empty($searchStatus)) {
+                $conditions[] = "active = :s";
+                $params["s"] = $searchStatus;
+            }
+
+            if($this->user->type_user != "dev") {
+                $conditions[] = "type_user <> :ty";
+                $params["ty"] = "dev";
+            }
+
+            $where = implode(" AND ", $conditions);
+
+            $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
+            $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+
             $pager = new Pager(url("/usuarios/p/"));
             $pager->Pager($userSytemCount, 10, $page);
 
             $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
                 "userCount" => $userSytemCount,
-                "users" => (new SystemUser())->find()
+                "users" => (new SystemUser())->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->order("name_user")
@@ -54,9 +87,9 @@ class AppUserSystem extends Controller
             "title" => "Usuarios",
             "userCount" => (new SystemUser())->find()->count(),
             "users" => (new SystemUser())->find()
-                ->order("name_user")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
+                ->order("name_user")
                 ->fetch(true),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "paginator" => $pager->render()
@@ -67,12 +100,11 @@ class AppUserSystem extends Controller
     {
 
         if(isset($data["search-user-system"]) || isset($data["search-function-user"]) || isset($data["search-all-status"])) {
-            // var_dump($data);
+
             $searchUser = isset($data["search-user-system"]) ? filter_var($data["search-user-system"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
             $searcFunction = isset($data["search-function-user"]) ? filter_var($data["search-function-user"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
             $searchStatus = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
-            // var_dump($searchStatus);
             $conditions = [];
             $params = [];
 
@@ -107,6 +139,7 @@ class AppUserSystem extends Controller
                     ->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
+                    ->order("name_user")
                     ->fetch(true),
                 "userCount" => $userSystemCount,
                 "paginator" => $pager->render()
@@ -115,11 +148,32 @@ class AppUserSystem extends Controller
             $json["html"] = $html;
             echo json_encode($json);
             return;
-            // var_dump($userSystem, count($userSystem));
         }
 
+        $params = [];
+        $conditions = [];
+        
+        if($this->user->type_user != "dev") {
+            $conditions[] = "type_user <> :ty";
+            $params["ty"] = "dev";
+        }
+        
+        $where = implode(" AND ", $conditions);
+
+        $userCount = count((new SystemUser())->find()->fetch(true) ?? []);
+
+        $pager = new Pager(url("/usuarios/p/"));
+        $pager->Pager($userCount, 10, 1);
+
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
-            "users" => (new SystemUser())->find()->fetch(true)
+            "users" => (new SystemUser())->find($where, http_build_query($params))
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_user")
+                ->fetch(true),
+            "userSystem" => $this->user,
+            "userCount" => $userCount,
+            "paginator" => $pager->render()
         ]);
         
         $json["html"] = $html;
@@ -129,9 +183,9 @@ class AppUserSystem extends Controller
 
     public function formAddUser(?array $data) : void
     {   
-
+   
         if(isset($data["idUserSystem"])) {
-            $idUserSystem = $data["idUserSystem"];
+            $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
             $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
         }
 
@@ -165,7 +219,7 @@ class AppUserSystem extends Controller
             $SytemUser = new SystemUser();
 
             $SytemUser->bootstrap(
-                1,
+                $this->user->id_user,
                 $dataClean["name"],
                 $dataClean["cpf"],
                 $dataClean["email"],
@@ -173,18 +227,18 @@ class AppUserSystem extends Controller
                 $dataClean["password"],
                 $dataClean["type"]
             );
-
+            $json["complete"] = true;
 
             // Para identiticar como edição do cadastro
             if(isset($idUserSystem)) {
                 $SytemUser->id_user = $idUserSystem;
-                $SytemUser->id_user_update = 2;
+                $SytemUser->id_user_update = $this->user->id_user;
                 $SytemUser->active = $dataClean["status"];
+                $json["complete"] = false;
             }
 
             if($SytemUser->save()) {
 
-                $json["complete"] = true;
                 $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
                 echo json_encode($json);
                 return;
@@ -192,14 +246,14 @@ class AppUserSystem extends Controller
         }
 
         $html = $this->view->render("/pageUserSystem/formNewUser", [
-            "user" => $userSystem ?? null
+            "user" => $userSystem ?? null,
+            "userSystem" => $this->user
         ]);
 
         $json["html"] = $html;
         echo json_encode($json);
         return;
     }
-
     
     public function checkCpf($data) : void
     {
@@ -226,6 +280,80 @@ class AppUserSystem extends Controller
         }
         $json["message"] = "";
         $json["erro"] = false;
+        echo json_encode($json);
+        return;
+    }
+
+    public function cancelUser(array $data) : void
+    {
+        $iduser = filter_var($data["iduser"], FILTER_VALIDATE_INT);
+
+        $systemUser = (new SystemUser())->findById($iduser);
+        $systemUser->id_user = $iduser;
+        $systemUser->active = 2;
+        $systemUser->id_user_update = $this->user->id_user;
+
+        if(!$systemUser->save()) {
+            $json["message"] = messageHelpers()->warning("Erro, atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $userSytemCount = (new SystemUser())->find()->count();
+        $pager = new Pager(url("/usuarios/p/"));
+        $pager->Pager($userSytemCount, 10, 1);
+
+        $html = $this->view->render("/pageUserSystem/listUserSystem", [
+            "userCount" => (new SystemUser())->find()->count(),
+            "users" => (new SystemUser())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_user")
+                ->fetch(true),
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Registro cancelado com sucesso")->render();
+        $json["content"] = "usersView";
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    public function reactiveUser(array $data) : void
+    {
+        $iduser = filter_var($data["iduser"], FILTER_VALIDATE_INT);
+
+        $systemUser = (new SystemUser())->findById($iduser);
+        $systemUser->id_user = $iduser;
+        $systemUser->active = 1;
+        $systemUser->id_user_update = $this->user->id_user;
+
+        if(!$systemUser->save()) {
+            $json["message"] = messageHelpers()->warning("Erro, atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $userSytemCount = (new SystemUser())->find()->count();
+        $pager = new Pager(url("/usuarios/p/"));
+        $pager->Pager($userSytemCount, 10, 1);
+
+        $html = $this->view->render("/pageUserSystem/listUserSystem", [
+            "userCount" => (new SystemUser())->find()->count(),
+            "users" => (new SystemUser())->find()
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_user")
+                ->fetch(true),
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Registro cancelado com sucesso")->render();
+        $json["content"] = "usersView";
+        $json["html"] = $html;
         echo json_encode($json);
         return;
     }

@@ -9,6 +9,7 @@ use Source\Models\Service;
 use Source\Models\Worker;
 use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
+use Source\Support\Pager;
 
 class AppStart extends Controller
 {
@@ -24,7 +25,7 @@ class AppStart extends Controller
         }
     }
 
-    public function startPage(?array $data) : void
+    public function startPage() : void
     {   
         // Gráfico de atendimentos
         $serve = new Service();
@@ -32,7 +33,12 @@ class AppStart extends Controller
 
         // Painel de vagas
         $vwVacancy = new VwVacancy();
-        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")->order("nomeclatura_vacancy")->fetch(true);
+        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
+            ->order("nomeclatura_vacancy")
+            ->fetch(true);
+
+        $pager = new Pager(url("/painelvagas/p/"));
+        $pager->pager(count($panelVancancy ?? []), 7, 1);
 
         // Total de vagas ativas 
         $totalVacancyActive = $vwVacancy->find("total_vacancy_active <> :to","to=0", "(SELECT sum(total_vacancy_active)) AS total")->order("nomeclatura_vacancy")->fetch();
@@ -46,7 +52,69 @@ class AppStart extends Controller
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "chartServiceLabel" => $charServer["label"],
             "chartServiceTotal" => $charServer["total"],
-            "panelVacancy" =>  $panelVancancy ?? null
+            "panelVacancy" =>  (new VwVacancy())
+                ->find("total_vacancy_active <> :to","to=0")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")
+                ->fetch(true),
+            "paginator" => $pager->render()
         ]);
     }
+
+    public function panelVacancy(?array $data) : void
+    {
+        $vwVacancy = new VwVacancy();
+        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
+            ->order("nomeclatura_vacancy")
+            ->fetch(true);
+
+        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+        $pager = new Pager(url("/painelvagas/p/"));
+        $pager->pager(count($panelVancancy ?? []), 7, $page);
+
+        $html = $this->view->render("/pageStart/panelVacancy", [
+            "panelVacancy" =>  (new VwVacancy())
+                ->find("total_vacancy_active <> :to","to=0")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")
+                ->fetch(true),
+            "paginator" => $pager->render()
+        ]);
+        
+        $json["html"] = $html;
+        $json["content"] = "panel-vacancy";
+        echo json_encode($json);
+        return;
+    }
+
+    public function printPanel(array $data) : void
+    {
+        $vwVacancy = new VwVacancy();
+        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
+            ->order("nomeclatura_vacancy")
+            ->fetch(true);
+
+        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
+        $pager = new Pager(url("/painelvagas/p/"));
+        $pager->pager(count($panelVancancy ?? []), 7, $page);
+
+        $html = $this->view->render("/pageStart/panelVacancy", [
+            "panelVacancy" =>  (new VwVacancy())
+                ->find("total_vacancy_active <> :to","to=0")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_enterprise")
+                ->fetch(true),
+            "paginator" => $pager->render()
+        ]);
+        
+        $json["html"] = $html;
+        $json["content"] = "panel-vacancy";
+        echo json_encode($json);
+        return;    
+    }
+
+
 }

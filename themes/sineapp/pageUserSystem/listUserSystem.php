@@ -32,7 +32,9 @@
                 <option value="">Todas Funções</option>
                 <option value="user">user</option>
                 <option value="adm">adm</option>
-                <option value="dev">dev</option>
+                <?php if($userSystem->type_user === "dev"): ?>
+                    <option value="dev">Dev</option>
+                <?php endif; ?>
             </select>
             
             <select
@@ -48,7 +50,7 @@
             
             <!-- Botão Nova Vaga -->
             <button class="cursor-pointer flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm"
-                    id="btn-new-user" 
+                    id="btn-form" 
                     data-url="<?= url("/adicionarusuario") ?>">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />

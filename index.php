@@ -23,7 +23,9 @@ $route->post("/", "Web:login");
  */
 // Start
 $route->get("/inicio", "AppStart:startPage");
+$route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
 
+$route->get("/imprimirpainel", "AppStart:printPanel");
 
 /**
  * AppServer
@@ -38,9 +40,14 @@ $route->post("/pesquisarusuarios", "AppUserSystem:listUserSystem");
 $route->get("/adicionarusuario", "AppUserSystem:formAddUser");
 $route->post("/adicionarusuario", "AppUserSystem:formAddUser");
 
-$route->get("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
-$route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:modelAddUser");
+$route->get("/editarusuario/{idUserSystem}", "AppUserSystem:formAddUser");
+$route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:formAddUser");
+
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");
+
+$route->post("/cancelarusuario/{iduser}", "AppUserSystem:cancelUser");
+$route->post("/reativarusuario/{iduser}", "AppUserSystem:reactiveUser");
+
 
 /**
  * AppWorker
@@ -51,7 +58,6 @@ $route->get("/listatrabalhador", "AppWorker:listtWorker");
 
 $route->get("/listatrabalhador/p/{page}", "AppWorker:startPagePaginator");
 
-// $route->get("/inicio/p/{page}/{idWorker}", "AppWorker:startHistory");
 $route->post("/pesquisarcandidato", "AppWorker:startWorker");
 $route->get("/historicoatendimento/{idWorker}", "AppWorker:startHistory");
 
@@ -82,6 +88,7 @@ $route->get("/editarvagas/{idvacancy}", "AppVacancy:addVacancy");
 
 $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
 $route->post("/cadastrarvagas/{idvacancy}", "AppVacancy:addVacancy");
+
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
