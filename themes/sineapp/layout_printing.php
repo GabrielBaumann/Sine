@@ -10,6 +10,7 @@
         padding: 0;
         font-size: 16px;
         background-color: #2c2c2c;
+        
     }
 
     #visualizar-container {
@@ -23,14 +24,16 @@
     #conteudo_pdf { 
         width: 210mm;
         margin: 0 auto;
+        margin-top: 0;
         background: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);       
     }
 
     .page {
+        /* /* top: 0; */
         padding: 1.5cm;
         position: relative;
-        min-height: 297mm;
+        min-height: 290mm;
         box-sizing: border-box;
     }
 
@@ -124,17 +127,15 @@
         text-align: center;
         font-size: 14px;
         position: absolute;
-        /* bottom: 1.5cm; */
-        bottom: 1.5cm;
         left: 1.5cm;
         right: 1.5cm;
-        margin-top: 10px;
+        bottom: 0cm;
     }
 
     footer p {
         color: #6b7280;
         line-height: 1.3;
-        margin: 4px 0;
+        margin: 1px 0;
     }
 
     #visualizar {
@@ -157,6 +158,7 @@
     @media print {
         body {
         background-color: white;
+        /* border: 1px dashed #999; */
         }
         
         #visualizar-container {
@@ -164,10 +166,11 @@
         }
         
         .page {
-        min-height: 277mm; /* A4 height - margins */
+        min-height: 277mm;  /* A4 height - margins */
         height: auto;
         margin: 0;
         padding: 1.5cm;
+        
         }
     }
 </style>
@@ -175,7 +178,7 @@
 <body>
     <div id="visualizar-container">
         <button id="visualizar">
-        <span>Fazer download</span>
+            <span>Fazer download</span>
         </button>
     </div>
 
