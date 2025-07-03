@@ -79,6 +79,12 @@ document.addEventListener("click", (e) => {
         .then(data => {
             const vForm = document.getElementById("view-form");
             vForm.innerHTML = data.html;
+
+            $(document).ready(function() {
+                $('#cbo-occupation').select2({
+                    placeholder: 'Selecione uma CBO'
+                });
+            });
         })
     }
 })
@@ -136,3 +142,23 @@ document.addEventListener("click", (e) => {
         }
     }
 });
+
+// Select personalizado
+// $(document).ready(function() {
+//     console.log("teste");
+//     $('#cbo-occupation').select2({
+//         placeholder: 'Selecione uma CBO'
+//     });
+// });
+
+// document.addEventListener("click", (e) => {
+//     const vElem = e.target.id
+//     if(vElem === "cbo-occupation") {
+//             $('#cbo-occupation').select2({
+//             placeholder: 'Selecione uma CBO',
+//             width: '100%'
+//     }).on('select2:open', function() {
+//         $(this).removeAttr('aria-hidden');
+//     });
+//     }
+// });

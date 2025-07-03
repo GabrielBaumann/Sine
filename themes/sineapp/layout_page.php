@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- <link rel="stylesheet" href="src/output.css"> -->
+    <?= $this->section("css") ?>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- graficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

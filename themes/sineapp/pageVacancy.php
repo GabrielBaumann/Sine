@@ -1,5 +1,7 @@
 <?php $this->layout("layout_page"); ?>
-
+<?php $this->start("css"); ?>
+  <link src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<?php $this->stop("css"); ?>
 <!-- Conteúdo principal -->
 
   <main class="flex-1 overflow-y-auto p-6 pb-20 lg:pb-6">
@@ -11,6 +13,8 @@
   </main>
 
 <?php $this->start("scripts"); ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   <script src="<?= theme("/assets/js/vacancy/page.js", CONF_VIEW_APP); ?>"></script>
   <script src="<?= theme("/assets/js/vacancy/forms.js", CONF_VIEW_APP); ?>"></script>
 <?php $this->stop("scripts"); ?>
