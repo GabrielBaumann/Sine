@@ -11,6 +11,8 @@ use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
+use Source\Models\CboOccupation;
+
 class AppStart extends Controller
 {
     private $user;
@@ -89,25 +91,15 @@ class AppStart extends Controller
         return;
     }
 
-    public function printPanel(array $data) : void
+    public function printPanel() : void
     {
         $vwVacancy = new VwVacancy();
-        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
-            ->order("nomeclatura_vacancy")
-            ->fetch(true);
 
-        $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
-        $pager = new Pager(url("/painelvagas/p/"));
-        $pager->pager(count($panelVancancy ?? []), 7, $page);
-
-        $html = $this->view->render("/pageStart/panelVacancy", [
+        $html = $this->view->render("/layout_printing", [
             "panelVacancy" =>  (new VwVacancy())
                 ->find("total_vacancy_active <> :to","to=0")
-                ->limit($pager->limit())
-                ->offset($pager->offset())
-                ->order("name_enterprise")
-                ->fetch(true),
-            "paginator" => $pager->render()
+                ->order("nomeclatura_vacancy")
+                ->fetch(true)
         ]);
         
         $json["html"] = $html;

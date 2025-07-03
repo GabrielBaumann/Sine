@@ -48,23 +48,26 @@ function fnccheckBoxVacancy () {
 // Função para marcar o checkbox encerrados
 function fncCheckClosedVacancy() {
     
-    const vCheckVacancy = document.querySelectorAll("input.check-vacancy");
-    let vCounter = 0;
+    if(document.getElementById("chek-vacancy")) {
 
-    vCheckVacancy.forEach((e) => {
-        const vTr = e.closest("tr").querySelector("span").textContent;
-        if(vTr === "Encerrada") {
-            const vInputs = e.closest("tr").querySelectorAll("input");
-            vInputs[0].disabled = true;
-            e.checked = true;
-            vCounter++;
+        const vCheckVacancy = document.querySelectorAll("input.check-vacancy");
+        let vCounter = 0;
+
+        vCheckVacancy.forEach((e) => {
+            const vTr = e.closest("tr").querySelector("span").textContent;
+            if(vTr === "Encerrada") {
+                const vInputs = e.closest("tr").querySelectorAll("input");
+                vInputs[0].disabled = true;
+                e.checked = true;
+                vCounter++;
+            }
+        });
+
+        // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
+        if(vCounter === vCheckVacancy.length) {
+            document.getElementById("chek-vacancy").disabled = true;
+            document.getElementById("btn-new-vacancy").disabled = true;
         }
-    });
-
-    // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
-    if(vCounter === vCheckVacancy.length) {
-        document.getElementById("chek-vacancy").disabled = true;
-        document.getElementById("btn-new-vacancy").disabled = true;
     }
 }
 
@@ -80,9 +83,11 @@ document.addEventListener("click", (e) => {
             const vForm = document.getElementById("view-form");
             vForm.innerHTML = data.html;
 
+            // Caixa select de lista de ocupações (CBO)
             $(document).ready(function() {
                 $('#cbo-occupation').select2({
-                    placeholder: 'Selecione uma CBO'
+                    placeholder: 'Selecione uma CBO',
+                    minimumResultsForSearch: 20
                 });
             });
         })
@@ -142,23 +147,3 @@ document.addEventListener("click", (e) => {
         }
     }
 });
-
-// Select personalizado
-// $(document).ready(function() {
-//     console.log("teste");
-//     $('#cbo-occupation').select2({
-//         placeholder: 'Selecione uma CBO'
-//     });
-// });
-
-// document.addEventListener("click", (e) => {
-//     const vElem = e.target.id
-//     if(vElem === "cbo-occupation") {
-//             $('#cbo-occupation').select2({
-//             placeholder: 'Selecione uma CBO',
-//             width: '100%'
-//     }).on('select2:open', function() {
-//         $(this).removeAttr('aria-hidden');
-//     });
-//     }
-// });

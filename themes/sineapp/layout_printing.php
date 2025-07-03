@@ -189,7 +189,7 @@
         </header>
 
         <div class="logo-container">
-          <img src="../../themes/sineapp/assets/images/logo-nacional.png" alt="logo-nacional" class="logo">
+          <img src="<?= theme("/assets/images/logo-nacional.png", CONF_VIEW_APP) ?>" alt="logo-nacional" class="logo">
           <div class="title">
             <h1>Painel de vagas</h1>
           </div>
@@ -205,7 +205,14 @@
               </tr>
             </thead>
             <tbody>
-                <?php $tthis->insert("/printing/print_panel"); ?>
+            
+            <?php foreach($panelVacancy as $panelVacancyItem): ?>
+                <tr>
+                    <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy ?></td>
+                    <td class="qt-cell"><?= $panelVacancyItem->total_vacancy_active ?></td>
+                    <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy ?></td>
+                </tr>
+            <?php endforeach; ?>
             </tbody>
           </table>
         </div>
