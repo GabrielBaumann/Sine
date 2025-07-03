@@ -173,210 +173,56 @@
 </style>
 </head>
 <body>
-  <div id="visualizar-container">
-    <button id="visualizar">
-      <span>Fazer download</span>
-    </button>
-  </div>
-
-  <div class="container">
-    <div id="conteudo_pdf">
-      <!-- Página única no HTML -->
-      <div class="page">
-        <header>
-          <div class="header-left">CANAÃ DOS CARAJÁS</div>
-          <div class="header-right">SEGUNDA-FEIRA, 10/06/2025 - 8:00 AM</div>
-        </header>
-
-        <div class="logo-container">
-          <img src="<?= theme("/assets/images/logo-nacional.png", CONF_VIEW_APP) ?>" alt="logo-nacional" class="logo">
-          <div class="title">
-            <h1>Painel de vagas</h1>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table id="tabela">
-            <thead>
-              <tr>
-                <th class="vaga-cell">Vaga</th>
-                <th class="qt-cell">QT</th>
-                <th class="descricao-cell-head">Descrição da Vaga</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-            <?php foreach($panelVacancy as $panelVacancyItem): ?>
-                <tr>
-                    <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy ?></td>
-                    <td class="qt-cell"><?= $panelVacancyItem->total_vacancy_active ?></td>
-                    <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-
-        <footer>
-          <p>Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149</p>
-          <p>Tel. (94) 99123-5373</p>
-          <p>Canaã dos Carajás - PA</p>
-        </footer>
-      </div>
+    <div id="visualizar-container">
+        <button id="visualizar">
+        <span>Fazer download</span>
+        </button>
     </div>
-  </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script>
-     document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM totalmente carregado');
+    <div class="container">
+        <div id="conteudo_pdf">
+            <!-- Página única no HTML -->
+            <div class="page">
+                <header>
+                    <div class="header-left">CANAÃ DOS CARAJÁS</div>
+                    <div class="header-right">SEGUNDA-FEIRA, 10/06/2025 - 8:00 AM</div>
+                </header>
 
-    // Calcular altura de todas as linhas (ignorando cabeçalhos)
-    const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
-    const linhasComAltura = [];
-    
-    linhas.forEach(linha => {
-        const altura = linha.clientHeight;
-        const descricaoCell = linha.querySelector('.descricao-cell');
-        const descricao = descricaoCell ? descricaoCell.textContent : 'Sem descrição';
-        
-        linhasComAltura.push({
-            elemento: linha.cloneNode(true), // Clonamos a linha aqui para evitar referências cruzadas
-            altura: altura,
-            descricao: descricao.trim()
-        });
-        console.log(`Linha com "${descricao.trim()}" tem ${altura}px de altura`);
-    });
+                <div class="logo-container">
+                    <img src="<?= theme("/assets/images/logo-nacional.png", CONF_VIEW_APP) ?>" alt="logo-nacional" class="logo">
+                        <div class="title">
+                            <h1>Painel de vagas</h1>
+                        </div>
+                </div>
 
-    const botaoVisualizar = document.getElementById('visualizar');
-    
-    if (botaoVisualizar) {
-        console.log('Botão visualizar encontrado');
-        
-        botaoVisualizar.addEventListener('click', function() {
-            console.log('Botão visualizar clicado');
-            
-            const elemento = document.getElementById('conteudo_pdf');
-            
-            if (!elemento) {
-                console.error('Elemento conteudo_pdf não encontrado');
-                return;
-            }
+                <div class="table-container">
+                    <table id="tabela">
+                        <thead>
+                            <tr>
+                                <th class="vaga-cell">Vaga</th>
+                                <th class="qt-cell">QT</th>
+                                <th class="descricao-cell-head">Descrição da Vaga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($panelVacancy as $panelVacancyItem): ?>
+                                <tr>
+                                    <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy ?></td>
+                                    <td class="qt-cell"><?= $panelVacancyItem->total_vacancy_active ?></td>
+                                    <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
 
-            // Clonamos todo o conteúdo
-            const elementoClone = elemento.cloneNode(true);
-            const originalPage = elementoClone.querySelector('.page');
-            
-            if (!originalPage) {
-                console.error('Elemento .page não encontrado');
-                return;
-            }
-
-            // Pegamos o cabeçalho da tabela original
-            const originalTable = originalPage.querySelector('table');
-            const originalThead = originalTable ? originalTable.querySelector('thead') : null;
-            
-            // Dividir a tabela em páginas
-            const pages = [];
-            const maxHeightPerPage = 800; // Altura máxima ajustada para 800px
-            
-            // Variáveis para controle de paginação
-            let currentPageRows = [];
-            let currentHeight = 0;
-            
-            for (let i = 0; i < linhasComAltura.length; i++) {
-                const linha = linhasComAltura[i];
-                
-                // Verificar se precisamos criar uma nova página
-                if (currentHeight + linha.altura > maxHeightPerPage) {
-                    if (currentPageRows.length > 0) {
-                        // Criar nova página com as linhas acumuladas
-                        const newPage = originalPage.cloneNode(true);
-                        const newTable = newPage.querySelector('table');
-                        const newTbody = newTable.querySelector('tbody');
-                        
-                        // Manter apenas o cabeçalho e remover conteúdo antigo
-                        newTbody.innerHTML = '';
-                        
-                        // Adicionar linhas à nova página
-                        currentPageRows.forEach(linha => {
-                            newTbody.appendChild(linha.elemento.cloneNode(true));
-                        });
-                        
-                        pages.push(newPage);
-                    }
-                    
-                    // Resetar para a próxima página
-                    currentPageRows = [linha];
-                    currentHeight = linha.altura;
-                } else {
-                    // Adicionar linha à página atual
-                    currentPageRows.push(linha);
-                    currentHeight += linha.altura;
-                }
-            }
-            
-            // Adicionar a última página (se houver linhas e não estiver vazia)
-            if (currentPageRows.length > 0) {
-                const newPage = originalPage.cloneNode(true);
-                const newTable = newPage.querySelector('table');
-                const newTbody = newTable.querySelector('tbody');
-                newTbody.innerHTML = '';
-                
-                currentPageRows.forEach(linha => {
-                    newTbody.appendChild(linha.elemento.cloneNode(true));
-                });
-                
-                pages.push(newPage);
-            }
-            
-            // Substituir o conteúdo original pelas páginas divididas
-            elementoClone.innerHTML = '';
-            
-            // Adicionar todas as páginas exceto a última se estiver vazia
-            const effectivePages = pages.filter(page => {
-                const tbody = page.querySelector('tbody');
-                return tbody.children.length > 0;
-            });
-            
-            effectivePages.forEach(page => elementoClone.appendChild(page));
-            
-            // Configurações para o PDF
-            const opt = {
-                margin: [1.5, 1.5, 1.5, 1.5],
-                filename: 'painel_de_vagas.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2,
-                    useCORS: true,
-                    scrollX: 0,
-                    scrollY: 0,
-                    letterRendering: true
-                },
-                jsPDF: { 
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                },
-                pagebreak: {
-                    mode: ['css', 'legacy'],
-                    avoid: ['tr', '.page']
-                }
-            };
-
-            if (typeof html2pdf !== 'undefined') {
-                console.log('Iniciando geração do PDF');
-                html2pdf().set(opt).from(elementoClone).save();
-            } else {
-                console.error('html2pdf não está definido');
-                alert('Erro: Biblioteca html2pdf não carregada corretamente');
-            }
-        });
-    } else {
-        console.error('Botão com ID "visualizar" não encontrado');
-        alert('Erro: Botão "Visualizar" não encontrado');
-    }
-});
-  </script>
+                <footer>
+                    <p>Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149</p>
+                    <p>Tel. (94) 99123-5373</p>
+                    <p>Canaã dos Carajás - PA</p>
+                </footer>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
