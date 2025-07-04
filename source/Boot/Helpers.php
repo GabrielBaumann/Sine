@@ -216,6 +216,28 @@ function date_simple(string $date = "now", string $format = "d/m/Y"): string
     return (new DateTime($date))->format($format);
 }
 
+function day_now_string(): string
+{
+    $dias = array(
+    'Sunday' => 'Domingo',
+    'Monday' => 'Segunda-feira',
+    'Tuesday' => 'Terça-feira',
+    'Wednesday' => 'Quarta-feira',
+    'Thursday' => 'Quinta-feira',
+    'Friday' => 'Sexta-feira',
+    'Saturday' => 'Sábado'
+    );
+
+    $diaIngles = date('l'); // Retorna o dia em inglês
+    $diaPortugues = strtoupper($dias[$diaIngles]);
+    return strtoupper($diaPortugues);
+}
+
+function time_now(string $date = "now", string $format = "g:i A"): string
+{
+    return (new DateTime($date))->format($format);
+}
+
 /**
  * NUMBER
  */

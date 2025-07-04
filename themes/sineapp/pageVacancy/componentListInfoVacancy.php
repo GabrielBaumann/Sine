@@ -86,10 +86,10 @@
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">
-                        <?= $paginator; ?>
+                        <?= $paginator ?? null; ?>
                     </div>
                 </div>
-                <div>Total: <?= format_number($countVacancy); ?></div>
+                <div>Total: <?= format_number($countVacancy ?? 000); ?></div>
             </div>
         </div>
     </div>

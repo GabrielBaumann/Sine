@@ -312,12 +312,21 @@ class AppVacancy extends Controller
 
             $json["message"] = messageHelpers()->success("Vaga". $plur ."  encerrada". $plur ." com sucesso!")->render();
 
-            $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$data["id-vacancy-fixed"]}")->fetch(true);
-            $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$data["id-vacancy-fixed"]}")->fetch();
+            $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$idFixed}")->fetch(true);
+            $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
+
+            $pager = new Pager(url("/paginarvagas/p/{$idFixed}/"));
+            $pager->Pager(count($vacancyList ?? []), 7, 1);
 
             $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
-                "vacancyList" => $vacancyList,
-                "vacancyInfo" => $vacancyInfo
+                "vacancyList" => (new Vacancy())
+                    ->find("id_vacancy_fixed = :id", "id={$idFixed}")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                "vacancyInfo" => $vacancyInfo,
+                "countVacancy" => count($vacancyList ?? []),
+                "paginator" => $pager->render()
             ]);
 
             $json["html"] = $html;

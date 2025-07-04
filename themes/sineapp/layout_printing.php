@@ -188,7 +188,7 @@
             <div class="page">
                 <header>
                     <div class="header-left">CANAÃ DOS CARAJÁS</div>
-                    <div class="header-right">SEGUNDA-FEIRA, 10/06/2025 - 8:00 AM</div>
+                    <div class="header-right"><?= day_now_string() ?>, <?= date_simple() ?> - <?= time_now() ?></div>
                 </header>
 
                 <div class="logo-container">
