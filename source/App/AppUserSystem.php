@@ -183,7 +183,6 @@ class AppUserSystem extends Controller
 
     public function formAddUser(?array $data) : void
     {   
-   
         if(isset($data["idUserSystem"])) {
             $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
             $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
@@ -224,7 +223,7 @@ class AppUserSystem extends Controller
                 $dataClean["cpf"],
                 $dataClean["email"],
                 $dataClean["phone"],
-                $dataClean["password"],
+                passwd($dataClean["password"]),
                 $dataClean["type"]
             );
             $json["complete"] = true;

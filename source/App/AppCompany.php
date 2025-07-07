@@ -260,7 +260,9 @@ class AppCompany extends Controller
 
     // Método para verificar validação do cnpj ou se ele já está cadastrado na base de dados
     public function verificCnpj(array $data) : void
-    {
+    {   
+        // var_dump($data);
+
         if (!validateCNPJ($data["cnpj"])) {
             $json["message"] = messageHelpers()->warning("O número de CNPJ não é válido!")->render();
             echo json_encode($json);

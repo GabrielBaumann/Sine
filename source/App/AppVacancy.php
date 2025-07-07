@@ -73,7 +73,7 @@ class AppVacancy extends Controller
                     ->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
-                    ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+                    ->order("nomeclatura_vacancy")->fetch(true),
                 "countVacancy"=> $vacancyCount,
                 "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
                 "paginator" => $pager->render()
@@ -96,7 +96,7 @@ class AppVacancy extends Controller
                 ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+                ->order("nomeclatura_vacancy")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()
@@ -166,7 +166,7 @@ class AppVacancy extends Controller
                 ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("nomeclatura_vacancy", "DESC")->fetch(true),
+                ->order("nomeclatura_vacancy")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()

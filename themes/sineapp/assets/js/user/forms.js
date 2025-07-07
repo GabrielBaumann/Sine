@@ -1,7 +1,6 @@
 /**
  * Envio de formulário de cadastro de vagas
  */
-
 document.addEventListener("submit", (e) => {
     if(e.target.tagName === "FORM") {
         e.preventDefault();
@@ -42,7 +41,6 @@ document.addEventListener("submit", (e) => {
     }
 });
 
-
 // Funcção que cria tela de splash
 function showSplash() {
     if(document.getElementById("response")) document.getElementById("response").remove();
@@ -69,7 +67,7 @@ function showSplash() {
         `;
     return setTimeout (() => {
         document.body.appendChild(load);
-    }, 200);
+    }, 500);
 }
 
 // função para montar a mensagem e remover a mensagem

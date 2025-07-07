@@ -30,26 +30,28 @@ class Auth extends Model
         $session->unset("authUser");
     }
 
-    public function login(string $id_user, string $passwordUser) : bool
+    public function login(string $cpf, string $passwordUser) : bool
     {
-        $instanciaUser = (new SystemUser())->find("cpf_user = :u", "u={$id_user}");
+        $instanciaUser = (new SystemUser())->find("cpf_user = :u", "u={$cpf}");
         $userData = $instanciaUser->fetch();
+       
+        if(!$userData) {
+            $this->message->error("Usuário não cadastrado no sistema!");
+            return false;
+        }
+
+        if ($userData->active === 2) {
+            $this->message->error("Usuário desativado do sistema!");
+            return false;
+        }
         
         if (!$userData) {
             $this->message->error("O usuário informado não está cadastrado!");
             return false;
         }
-       
-        // Inserir a verificação de hash de senha
-        if (password_verify($passwordUser, $userData->password_user)) {
-            $this->message->error("A senha informada não confere!"); {
-                return true; // Login válido
-            }
-            return false; //Senha inválida
-        }
 
-        if ($userData->ativo === 0) {
-            $this->message->error("Usuário desativado do sistema!");
+        if (!password_verify($passwordUser, $userData->password_user)) {
+            $this->message->error("A senha informada não confere!");
             return false;
         }
 

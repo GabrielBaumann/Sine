@@ -72,7 +72,7 @@ class VacancyWorker extends Model
     {
 
         // Verifica a quantidade de vagas na tabela worker_vacancy e atualiza as vagas na tabela vacancy
-        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id","id=0")->fetch(true);
+        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id AND reason_close IS NULL","id=0")->fetch(true);
 
         if($totalVagas) {
             foreach($totalVagas as $totalVagasItem) {

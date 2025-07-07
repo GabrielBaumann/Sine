@@ -67,7 +67,7 @@ function showSplash() {
         `;
     return setTimeout (() => {
         document.body.appendChild(load);
-    }, 200);
+    }, 500);
 }
 
 // função para montar a mensagem e remover a mensagem

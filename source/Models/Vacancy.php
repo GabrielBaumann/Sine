@@ -290,7 +290,8 @@ class Vacancy extends Model
      * Encerrar vagas e atualizar o espelho de vagas
      */
     public function closedVacancy(int $idVacancy, int $idFixedVacancy, string $reasonClose) : bool
-    {
+    {   
+       
         $vacancyClosed = new static();
 
         $vacancyClosed->id_vacancy = $idVacancy;

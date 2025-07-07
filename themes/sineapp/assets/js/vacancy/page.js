@@ -86,8 +86,7 @@ document.addEventListener("click", (e) => {
             // Caixa select de lista de ocupações (CBO)
             $(document).ready(function() {
                 $('#cbo-occupation').select2({
-                    placeholder: 'Selecione uma CBO',
-                    minimumResultsForSearch: 20
+                    placeholder: 'Selecione uma CBO ou Ocupação'
                 });
             });
         })

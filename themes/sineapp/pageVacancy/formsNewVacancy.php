@@ -53,7 +53,6 @@ $enterprise = new Enterprise();
                 <div>
                     <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
                     <select
-                        hidden
                         id="cbo-occupation" 
                         name="cbo-occupation"
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
