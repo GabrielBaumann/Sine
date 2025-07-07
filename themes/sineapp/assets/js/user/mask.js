@@ -164,28 +164,3 @@ document.addEventListener("click", (e) => {
         setTimeout(() => message.remove(), 2000);
     }
 })
-
-// Função de mensagem para usuário
-function fncMessages(vText = "Atenção algo de errado não está certo!") {
-    const vResponse = document.createElement("div");
-    vResponse.id = "response";
-    vResponse.innerHTML =   vText
-
-    const vResponseBefore = document.getElementById("response");
-    if (vResponseBefore) vResponseBefore.remove();
-
-    document.body.appendChild(vResponse);
-
-    setTimeout(() => {
-        fncRemoveMenssage(vResponse)
-    }, 3000);
-
-}
-
-// Função para remover mensagem com efeito
-function fncRemoveMenssage(element, timeDuration = 1000) {
-    if(!element) return;
-        element.style.transition = "opacity 0.5s ease";
-        element.style.opacity = "0";
-        setTimeout(() => element.remove(), timeDuration);
-}

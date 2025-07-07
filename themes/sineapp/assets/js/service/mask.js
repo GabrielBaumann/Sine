@@ -99,19 +99,18 @@ document.addEventListener("focusout", function(e) {
     }
 })
 
-
 // Fechar mensagem para usuário
-document.addEventListener("click", (e) => {
+// document.addEventListener("click", (e) => {
 
-    const botao = e.target.closest("#botao");
-    const message = e.target.closest(".alert-container");
+//     const botao = e.target.closest("#botao");
+//     const message = e.target.closest(".alert-container");
 
-    if (botao && message) {
-        message.style.transition = "opacity 0.5s ease";
-        message.style.opacity = "0";
-        setTimeout(() => message.remove(), 2000);
-    }
-})
+//     if (botao && message) {
+//         message.style.transition = "opacity 0.5s ease";
+//         message.style.opacity = "0";
+//         setTimeout(() => message.remove(), 2000);
+//     }
+// })
 
 // Opção de voltar limpar variável do cpf
 document.addEventListener("click", (e) => {
@@ -138,30 +137,13 @@ function fncClearForm() {
     cpfInitialEdit = "";
 }
 
-// Função de mensagem para usuário
-function fncMessage(vText = "Atenção algo de errado não está certo!") {
-    const vResponse = document.createElement("div");
-    vResponse.id = "response";
-    vResponse.innerHTML =   vText
-
-    const vResponseBefore = document.getElementById("response");
-    if (vResponseBefore) vResponseBefore.remove();
-
-    document.body.appendChild(vResponse);
-
-    setTimeout(() => {
-        fncRemoveMenssage(vResponse)
-    }, 3000);
-
-}
-
 // Função para remover mensagem com efeito
-function fncRemoveMenssage(element, timeDuration = 1000) {
-    if(!element) return;
-        element.style.transition = "opacity 0.5s ease";
-        element.style.opacity = "0";
-        setTimeout(() => element.remove(), timeDuration);
-}
+// function fncRemoveMenssage(element, timeDuration = 1000) {
+//     if(!element) return;
+//         element.style.transition = "opacity 0.5s ease";
+//         element.style.opacity = "0";
+//         setTimeout(() => element.remove(), timeDuration);
+// }
 
 // Chamadas do atendimento
 document.addEventListener("click", (e) => {
