@@ -9,8 +9,13 @@ document.addEventListener("click", (e) => {
         .then(response => response.json())
         .then(data => {
 
+            if(data.message) {
+                return fncMessage(data.message)
+            }
+
             const vDiv = document.getElementById("content");
             vDiv.innerHTML = data.html;
+
         })
     }
 })

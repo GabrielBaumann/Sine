@@ -12,6 +12,7 @@ use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
 use Source\Models\CboOccupation;
+use Source\Models\Views\VwVacancyActive;
 
 class AppStart extends Controller
 {
@@ -93,7 +94,13 @@ class AppStart extends Controller
 
     public function printPanel() : void
     {
-        $vwVacancy = new VwVacancy();
+        $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
+
+        if(!$vwVacancy) {
+            $json["message"] = messageHelpers()->warning("Não há vagas no painél!")->render();
+            echo json_encode($json);            
+            return;
+        }
 
         $html = $this->view->render("/layout_printing", [
             "panelVacancy" =>  (new VwVacancy())

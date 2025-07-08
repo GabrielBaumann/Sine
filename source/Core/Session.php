@@ -32,7 +32,7 @@ class Session
      * @param $name
      * @return bool
      */
-    public function __isset($name)
+    public function __isset($name): bool
     {
         return $this->has($name);
     }

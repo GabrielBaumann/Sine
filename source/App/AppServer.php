@@ -174,12 +174,12 @@ class AppServer extends Controller
             }
 
                 $serviceRetorn = (new TypeService())->findById($data["idServiceType"]);
-                    
-                if ($serviceRetorn->group === "Telefone") {
+
+                if ($serviceRetorn->group_type === "Telefone") {
                     $group = 16;
                 }
 
-                if ($serviceRetorn->group === "Atendimento Presencial") {
+                if ($serviceRetorn->group_type === "Atendimento Presencial") {
                     $group = 1;
                 }
 
@@ -191,7 +191,6 @@ class AppServer extends Controller
 
                 if(in_array($data["idServiceType"], ["4", "56"])) {
                     $wokerEdit = (new WorkerEdit());
-                    
                     $wokerEdit->id_worker = $idWoker;
                     $wokerEdit->status_work = "Aguardando Resposta";
                     $wokerEdit->save();
@@ -241,7 +240,7 @@ class AppServer extends Controller
                 $serviceAddWork = (new Service());
                 $serviceAddWork->id_worker = $idWoker;
                 $serviceAddWork->id_user_register = $this->user->id_user;
-                $serviceAddWork->id_type_service = $group ;
+                $serviceAddWork->id_type_service = $group;
                 $serviceAddWork->detail = $data["observation"];
                 $serviceAddWork->save();
             }
