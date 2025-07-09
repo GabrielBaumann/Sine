@@ -44,18 +44,9 @@ function fncUpdateColorStatus() {
     })
 }
 
-// Elementos da modal
-const confirmBtn = document.getElementById('confirmBtn');
-const cancelBtn = document.getElementById('cancelBtn');
-
-
-// Confirmar ação
-// confirmBtn.addEventListener('click', () => {
-//     // Lógica para reativar a vaga
-//     console.log('Vaga reativada com sucesso!');
-//     // Fechar a modal após a ação
-//     document.getElementById('confirmationModal').style.display = 'none';
-// });
+/*########################################*/
+/*#############  Modal yes/no ############*/
+/*########################################*/
 
 // Cancelar ação
 document.addEventListener("click", (e) => {
@@ -64,23 +55,17 @@ document.addEventListener("click", (e) => {
     }
 });
 
-
-// cancelBtn.addEventListener('click', () => {
-//     // Fechar a modal
-//     document.getElementById('confirmationModal').style.display = 'none';
-// });
-
 // Fechar modal clicando no overlay (fora da modal)
-document.getElementById('confirmationModal').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('confirmationModal')) {
-        document.getElementById('confirmationModal').style.display = 'none';
+document.addEventListener("click", (e) => {
+    if(e.target.id === "confirmationModal") {
+        document.getElementById("modal").remove();
     }
-});
+})
 
 // Fechar com ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        document.getElementById('confirmationModal').style.display = 'none';
+        document.getElementById('modal').remove();
     }
 });
 

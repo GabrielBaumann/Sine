@@ -200,8 +200,9 @@ document.addEventListener("input", (e) => {
     }
 });
 
-
-/** Função de mensagem */
+/*#################################*/
+/**###### Função de mensagem ######*/
+/**############################### */
 function showSplash() {
     if(document.getElementById("response")) document.getElementById("response").remove();
     load = document.createElement("div");
@@ -213,7 +214,7 @@ function showSplash() {
                 <div class="text-center">
                     <!-- Texto animado -->
                     <h1 class="text-4xl md:text-5xl font-normal text-gray-800">
-                        Carregando teste
+                        Carregando
                     </h1>
                     <div class="dots flex space-x-6 mt-10 justify-center">
                         <div class="dot-1 w-6 h-6 bg-blue-900"></div>
@@ -227,7 +228,7 @@ function showSplash() {
         `;
     return setTimeout (() => {
         document.body.appendChild(load);
-    }, 1500);
+    }, 500);
 }
 
 // função para montar a mensagem e remover a mensagem
@@ -271,3 +272,49 @@ document.addEventListener("click", (e) => {
         setTimeout(() => vMessage.remove(), 2000)
     }
 });
+
+/*######## End ##################*/
+
+/**loading href */
+document.addEventListener("DOMContentLoaded", function () {
+    const vLinks = document.querySelectorAll("a");
+
+    vLinks.forEach(link => {
+        if (link.hostname === window.location.hostname) {
+            
+            link.addEventListener("click", function(e) {
+                if (link.target === "_black") return;
+                showSplashNavigation();
+            });
+        }
+    });
+});
+
+
+function showSplashNavigation() {
+    if(document.getElementById("response")) document.getElementById("response").remove();
+    load = document.createElement("div");
+    load.id = "response";
+    load.innerHTML = 
+    `
+        <div class="main h-full w-full bg-gray-50 absolute top-0 left-0">
+            <div class="container mx-auto px-4 h-full flex items-center justify-center">
+                <div class="text-center">
+                    <!-- Texto animado -->
+                    <h1 class="text-4xl md:text-5xl font-normal text-gray-800">
+                        Carregando
+                    </h1>
+                    <div class="dots flex space-x-6 mt-10 justify-center">
+                        <div class="dot-1 w-6 h-6 bg-blue-900"></div>
+                        <div class="dot-2 w-6 h-6 bg-blue-600"></div>
+                        <div class="dot-3 w-6 h-6 bg-blue-500"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        `;
+    return setTimeout (() => {
+        document.body.appendChild(load);
+    }, 1500);
+}

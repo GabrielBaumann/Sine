@@ -36,6 +36,8 @@ document.addEventListener("submit", (e)=> {
 
                 if(load) load.remove();
 
+                if(document.getElementById("response")) document.getElementById("response").remove()
+
                 const novoResponse = document.createElement("div")
                 novoResponse.id = "response";
                 novoResponse.innerHTML = data.message

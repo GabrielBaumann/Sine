@@ -11,24 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- graficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- <script>
-        fetch('dados.php')
-        .then(response => response.json())
-        .then(data => {
-            const ctx = document.getElementById('meuGrafico').getContext('2d');
-            new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                label: 'Vendas',
-                data: data.valores,
-                backgroundColor: 'rgba(75, 192, 192, 0.7)'
-                }]
-            }
-            });
-        });
-    </script> -->
     <title><?= $this->e($title); ?></title>
     <style>
         @media (max-width: 640px) {

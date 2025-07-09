@@ -56,19 +56,6 @@ class AppServer extends Controller
 
     public function formService(array $data) : void
     {
-        // Encaminhamento para entrevista, -- obs --> Esse código deve ser executado antes de enviar os dados para o banco de dados.
-        if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["4", "56"])) {
-            $idVacancy = (int)$data["occupation-id-vacancy"];
-            $vacancyCheck = (new VacancyWorker())->checkVacancyQuantity($idVacancy, $this->user->id_user);
-            
-            if(!$vacancyCheck) {
-                $json["message"] = messageHelpers()->warning("Encaminhamentos já preenchidos para essa vaga.")->render();
-                echo json_encode($json);
-                return;
-            }
-            
-        }
-
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
 
@@ -172,6 +159,20 @@ class AppServer extends Controller
                 echo json_encode($json);
                 return;
             }
+
+                // Encaminhamento para entrevista, -- obs --> Esse código deve ser executado antes de enviar os dados para o banco de dados.
+                if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["4", "56"])) {
+
+                    $idVacancy = (int)$data["occupation-id-vacancy"];
+                    $vacancyCheck = (new VacancyWorker())->checkVacancyQuantity($idVacancy, $this->user->id_user);
+                    
+                    if(!$vacancyCheck) {
+                        $json["message"] = messageHelpers()->warning("Encaminhamentos já preenchidos para essa vaga.")->render();
+                        echo json_encode($json);
+                        return;
+                    }  
+                }
+
 
                 $serviceRetorn = (new TypeService())->findById($data["idServiceType"]);
 
@@ -281,7 +282,6 @@ class AppServer extends Controller
             "idServiceType" => $data["idServiceType"] ?? null,
             "idInterview" => $data["interview"] ?? null
         ]);        
-
     }
 
     public function listSelectEnterprise(array $data) : void

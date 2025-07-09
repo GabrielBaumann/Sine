@@ -183,11 +183,6 @@ class AppUserSystem extends Controller
 
     public function formAddUser(?array $data) : void
     {   
-        if(isset($data["idUserSystem"])) {
-            $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
-            $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
-        }
-
         if (!empty($data["csrf"])) {
 
             // Verificar csrf
@@ -226,18 +221,9 @@ class AppUserSystem extends Controller
                 passwd($dataClean["password"]),
                 $dataClean["type"]
             );
-            $json["complete"] = true;
-
-            // Para identiticar como edição do cadastro
-            if(isset($idUserSystem)) {
-                $SytemUser->id_user = $idUserSystem;
-                $SytemUser->id_user_update = $this->user->id_user;
-                $SytemUser->active = $dataClean["status"];
-                $json["complete"] = false;
-            }
-
+            
             if($SytemUser->save()) {
-
+                $json["complete"] = true;
                 $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
                 echo json_encode($json);
                 return;
@@ -254,6 +240,68 @@ class AppUserSystem extends Controller
         return;
     }
     
+    public function editUser(array $data) : void
+    {
+        $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
+        $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
+
+        // Para identiticar como edição do cadastro
+        if (!empty($data["csrf"])) {
+
+            // Verificar csrf
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Atualize a página e tente novamente!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            // Verificar campos obrigatórios e sanitizá-los
+            $dataCleanCheck = cleanInputData($data);
+
+            if(!$dataCleanCheck['valid']) {
+                $json["message"] = messageHelpers()->warning("Preencha todos os campos!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $dataClean = $dataCleanCheck["data"];
+
+            // Verificar se é um email válido
+            if(!is_email($dataClean["email"])) {
+                $json["message"] = messageHelpers()->warning("Esse email não é válido!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $SytemUser = new SystemUser();
+            
+            $SytemUser->id_user = $dataClean["idUserSystem"];
+            $SytemUser->name_user = $dataClean["name"];
+            $SytemUser->cpf_user = $dataClean["cpf"];
+            $SytemUser->email_user = $dataClean["email"];
+            $SytemUser->phone_user = $dataClean["phone"];
+            $SytemUser->password_user = passwd($dataClean["password"]);
+            $SytemUser->id_user_update = $this->user->id_user;
+            $SytemUser->type_user = $dataClean["type"];
+
+            if($SytemUser->save()) {
+                $json["complete"] = false;
+                $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
+                echo json_encode($json);
+                return;
+            }
+        }
+
+        $html = $this->view->render("/pageUserSystem/formNewUser", [
+            "user" => $userSystem ?? null,
+            "userSystem" => $this->user
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
     public function checkCpf($data) : void
     {
         $cpfuser = $data["cpf"];

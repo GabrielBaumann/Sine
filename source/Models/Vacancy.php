@@ -310,4 +310,32 @@ class Vacancy extends Model
         return true;
     }
 
+    /**
+     * Reativar vaga após excluir encaminhamento para entrevista
+     */
+    public function reactiveVacancy(int $idVacancy) : bool
+    {   
+        // Reativar a propria vaga em si e limpar o reason_close
+        $vacancy = new static();
+        $vacancy->findById($idVacancy);
+
+        $vacancy->id_vacancy = $idVacancy;
+        $vacancy->status_vacancy = "Ativa";
+        $vacancy->reason_close = null;
+        $vacancy->save();
+
+        // Verificar se o eseplho está ativo, se não, reativar e limpar o reason_close
+        $idvacancyGlass = $vacancy->findById($idVacancy)->id_vacancy_fixed;
+        $vacancyGlass = new static();
+        $vacancyGlass->findById($idvacancyGlass);
+
+        if($vacancyGlass->findById($idvacancyGlass)->status_vacancy === "Encerrada") {
+
+            $vacancyGlass->id_vacancy = $idvacancyGlass;
+            $vacancyGlass->status_vacancy = "Ativa";
+            $vacancyGlass->reason_close = null;
+            $vacancyGlass->save();
+        };
+        return true;       
+    }
 }

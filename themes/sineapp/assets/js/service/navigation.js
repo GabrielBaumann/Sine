@@ -36,39 +36,43 @@ document.addEventListener("click", (e) => {
 document.addEventListener("change", (e) => {
     
     vOccupationSelect = document.getElementById("occupation-id-vacancy");
-    const vCompanyId = vCompanySelect?.value;
-    const vUrl = vCompanySelect?.dataset.url;
-
-    if(vOccupationSelect.dataset.loaded === "true" && vLasId === vCompanyId) return;
     
-    vLasId = vCompanyId;
+    if(vOccupationSelect) {
 
-    vOccupationSelect.innerHTML = '<option value="">Carregando...</option>';
-    vOccupationSelect.disabled = true;
+        const vCompanyId = vCompanySelect?.value;
+        const vUrl = vCompanySelect?.dataset.url;
 
-
-    if(vCompanyId) {
+        if(vOccupationSelect.dataset.loaded === "true" && vLasId === vCompanyId) return;
         
-        fetch(`${vUrl}/${vCompanyId}`)
-        .then(response => response.json())
-        .then(data => {
+        vLasId = vCompanyId;
 
-            vOccupationSelect.innerHTML = '<option value="">Selecione uma ocupação</option>';
-            data.sort((a, b) => a.nomeclatura_vacancy.localeCompare(b.nomeclatura_vacancy));
-            data.forEach(cbo => {
-                const vOption = document.createElement("option");
-                vOption.value = cbo.id_vacancy;
-                vOption.textContent = `${cbo.number_vacancy}ª - ${cbo.nomeclatura_vacancy}`;
-                vOccupationSelect.appendChild(vOption);
-            });
-            vOccupationSelect.disabled = false;
-            vOccupationSelect.dataset.loaded =  "true";
-        })
-        .catch(error => {
-            vOccupationSelect.innerHTML = '<option value="">Erro ao carregar vagas</option>';
-        })
-    } else {
-        vOccupationSelect.innerHTML = '<option value="">Selecione uma empresa primeiro</option>';
+        vOccupationSelect.innerHTML = '<option value="">Carregando...</option>';
         vOccupationSelect.disabled = true;
+
+
+        if(vCompanyId) {
+            
+            fetch(`${vUrl}/${vCompanyId}`)
+            .then(response => response.json())
+            .then(data => {
+
+                vOccupationSelect.innerHTML = '<option value="">Selecione uma ocupação</option>';
+                data.sort((a, b) => a.nomeclatura_vacancy.localeCompare(b.nomeclatura_vacancy));
+                data.forEach(cbo => {
+                    const vOption = document.createElement("option");
+                    vOption.value = cbo.id_vacancy;
+                    vOption.textContent = `${cbo.number_vacancy}ª - ${cbo.nomeclatura_vacancy}`;
+                    vOccupationSelect.appendChild(vOption);
+                });
+                vOccupationSelect.disabled = false;
+                vOccupationSelect.dataset.loaded =  "true";
+            })
+            .catch(error => {
+                vOccupationSelect.innerHTML = '<option value="">Erro ao carregar vagas</option>';
+            })
+        } else {
+            vOccupationSelect.innerHTML = '<option value="">Selecione uma empresa primeiro</option>';
+            vOccupationSelect.disabled = true;
+        }
     }
 });

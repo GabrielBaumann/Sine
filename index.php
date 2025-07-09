@@ -40,8 +40,8 @@ $route->post("/pesquisarusuarios", "AppUserSystem:listUserSystem");
 $route->get("/adicionarusuario", "AppUserSystem:formAddUser");
 $route->post("/adicionarusuario", "AppUserSystem:formAddUser");
 
-$route->get("/editarusuario/{idUserSystem}", "AppUserSystem:formAddUser");
-$route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:formAddUser");
+$route->get("/editarusuario/{idUserSystem}", "AppUserSystem:editUser");
+$route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:editUser");
 
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");
 
@@ -66,8 +66,11 @@ $route->post("/pesquisartiposervico/{idWorker}", "AppWorker:searchService");
 $route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:searchService");
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
-// $route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
+$route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
 $route->post("/excluirencaminhatoentrevista", "AppWorker:deleteInterviewToWork");
+$route->post("/confirmarexclusaoreativar", "AppWorker:confirmedDeleteInterviewToWork");
+$route->post("/confirmarexclusaonaoreativar", "AppWorker:confirmedDeleteInterviewToWorkNot");
+
 $route->post("/finalizarencaminhatoentrevista", "AppWorker:finishInterviewToWork");
 
 /**
@@ -133,7 +136,7 @@ $route->get("/sair", "AppServer:logout");
 
 // ERROR ROUTES
 
-$route->namespace("Source\AppServer")->group("/ops");
+$route->namespace("Source\App")->group("/ops");
 $route->get("/{errcode}", "Web:error");
 
 // ROUTE

@@ -104,17 +104,24 @@
     <!-- Modal de confirmação -->
     <div class="modal-overlay" id="confirmationModal">
         <div class="modal-content">
+            <button id="cancelBtn">x</button>
             <div class="modal-title">Deseja reativar esta vaga de emprego?</div>
             <p class="modal-message">Ao reativar, esta vaga ficará visível para todos os candidatos novamente em nossa plataforma.</p>
             <div class="modal-buttons">
-                <button class="modal-button confirm-button" id="confirmBtn">Sim, reativar</button>
-                <button class="modal-button cancel-button" id="cancelBtn">Não, cancelar</button>
+                <form action="<?= url("/confirmarexclusaoreativar") ?>" method="post">
+                    <input type="hidden" value="<?= $data["id-vacancy"] ;?>" name="id-vacancy">
+                    <input type="hidden" value="<?= $data["id-worker"]; ?>" name="id-worker">
+                    <input type="hidden" value="<?= $data["id-service"]; ?>" name="id-service">
+                    <button class="modal-button confirm-button" id="confirmBtn">Sim</button>
+                </form>
+                <form action="<?= url("/confirmarexclusaonaoreativar") ?>" method="post">
+                    <input type="hidden" value="<?= $data["id-vacancy"] ;?>" name="id-vacancy">
+                    <input type="hidden" value="<?= $data["id-worker"]; ?>" name="id-worker">
+                    <input type="hidden" value="<?= $data["id-service"]; ?>" name="id-service">                
+                    <button class="modal-button cancel-button">Não</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <script>
-
-    </script>
 </body>
 </html>

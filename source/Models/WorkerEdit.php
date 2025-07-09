@@ -19,11 +19,12 @@ class WorkerEdit extends Model
   /**
    * Função para excluir entrevista de emprego e atualizar os dados das tabelas relacionadas
    */
-  public function destroyToServiceVacancy(array $data, int $idUser): bool
+  public function destroyToServiceVacancy(array $data, int $idUser, ?bool $question = null): bool
   {
-    $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
-    $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-    // $idVacancy = (int)filter_var($data["id-vacancy"], FILTER_SANITIZE_NUMBER_INT);
+
+      $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
+      $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+      $idVacancy = (int)filter_var($data["id-vacancy"], FILTER_SANITIZE_NUMBER_INT);
 
       // Excluir registro da tabela vacancy_worker
       $vacancyWorker = (new VacancyWorker())->find("id_service = :id", "id={$idService}")->fetch();
@@ -45,8 +46,12 @@ class WorkerEdit extends Model
       $service = (new Service())->findById($idService);
       $service->destroy();
 
-      // Muda status da tabela vacancy
-      // $vacancyWorker->normalizeWorkerVacancy();
+      if($question === true) {
+        // Muda status da tabela vacancy
+        $vacancy = new Vacancy();
+        $vacancy->reactiveVacancy($idVacancy);
+        return true;
+      }
 
     return true;
   }
@@ -58,11 +63,9 @@ class WorkerEdit extends Model
     // Se tiver ecerrada returna false e pergunta se deve reativar
     if($vacancy->status_vacancy === "Encerrada") {
       // A vaga espelho foi encerrada
-      // $this->message->warning("Deseja reativar a vaga?");
       return false;
     }
     // Se tiver ativa retorna true
-    $this->message->success("Vaga já ativafa");
     return true;
   }
 }

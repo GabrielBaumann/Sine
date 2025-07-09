@@ -49,7 +49,7 @@ class Web extends Controller
 
     public function error() : void
     {
-        echo "<h1>404</h1>";    
+        echo $this->view->render("/PageError/error", [
+        ]);
     }
-
 }

@@ -65,7 +65,7 @@
                             <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">                            
 
                             <label for="motivo">*</label>
-                            <select name="source-service-vacancy" class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
+                            <select id="motivo" name="source-service-vacancy" class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
                                 <option value="">selecione um motivo</option>
                                 <option value="Na ocupação">Na ocupação</option>
                                 <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
