@@ -22,17 +22,24 @@ document.addEventListener("submit", (e) => {
         })
         .then(data => {
 
-            if(data.complete) {
-                fncMessage(data.message);
-                document.getElementById(vformId).reset();
-            } else {
-                fncMessage(data.message);
-            }
+            // Se não existir nenhum modal, então ele executa as mensagens
+            if(data.modal != true){
+                if(data.complete) {
+                    fncMessage(data.message);
+                    document.getElementById(vformId).reset();
+                } else {
+                    fncMessage(data.message);
+                }
+                if(data.html) {
+                    document.getElementById(data.contentajax).innerHTML = data.html;
+                }
 
-            if(data.html) {
-                document.getElementById(data.contentajax).innerHTML = data.html;
+                return;
             }
-            
+            const vElemente = document.createElement("div");
+            vElemente.id = "modal"
+            vElemente.innerHTML = data.html;
+            document.body.appendChild(vElemente);
         })
         .catch(error => {
             fncMessage();

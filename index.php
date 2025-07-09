@@ -66,7 +66,9 @@ $route->post("/pesquisartiposervico/{idWorker}", "AppWorker:searchService");
 $route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:searchService");
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
-$route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
+// $route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
+$route->post("/excluirencaminhatoentrevista", "AppWorker:deleteInterviewToWork");
+$route->post("/finalizarencaminhatoentrevista", "AppWorker:finishInterviewToWork");
 
 /**
  * AppVacancy

@@ -58,7 +58,7 @@
             <div class="flex flex-col sm:flex-row gap-4">
                 <?php if(in_array($service->id_type_service, ["4","56"])): ?>
                     <?php if($service->status_vacancy_worker === "Aguardando resposta"): ?>
-                        <form action="<?= url("/editarservicotrabalhador/entrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                        <form action="<?= url("/finalizarencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                             <?= csrf_input(); ?>
 
                             <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
@@ -80,7 +80,7 @@
                         </form>
 
                         <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                            <form action="<?= url("/editarservicotrabalhador/entrevistaexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                            <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                                 <?= csrf_input(); ?>
                                 
                                 <input name="id-service" type="hidden" value="<?= $service->id_service ?>">

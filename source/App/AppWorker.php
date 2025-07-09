@@ -13,7 +13,6 @@ use Source\Models\Worker;
 use Source\Models\WorkerEdit;
 use Source\Support\Pager;
 
-
 class AppWorker extends Controller
 {
     private $user;
@@ -235,90 +234,6 @@ class AppWorker extends Controller
 
     public function serviceOfWorker(?array $data)
     {   
-        // finalizar a entrevista com aprovado ou reprovado
-        if(isset($data["typeService"]) && $data["typeService"] === "entrevista" ) {
-
-            if(isset($data["source-service-vacancy"]) && empty($data["source-service-vacancy"])) {
-                $json["message"] = messageHelpers()->warning("Preencha o campo obrigatório!")->render();
-                $json["complete"] = false;
-                echo json_encode($json);
-                return;
-            }
-
-            $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($data, $this->user->id_user);
-
-            if(!$vacancy) {
-                $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
-                $json["complete"] = false;
-                echo json_encode($json);
-                return;
-            }
-
-            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
-            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
-            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($data), 7, 1);
-
-            $html = $this->view->render("/pageWorker/historyService", [
-                "worker" => (new Worker())->findById($idWorker),
-                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
-                    ->order("date_register", "DESC")
-                    ->limit($pager->limit())
-                    ->offset($pager->offset())
-                    ->fetch(true),
-                "countService" => count($data),
-                "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
-                "paginator" => $pager->render()
-            ]);
-
-            $json["html"] = $html;
-            $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
-            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
-            echo json_encode($json);
-            return;
-        }
-
-        // Exluir atendimentos encaminhados para entrevista de emprego
-        if(isset($data["typeService"]) && $data["typeService"] === "entrevistaexcluir" ) {
-
-            $destroyService = (new WorkerEdit())->destroyToServiceVacancy($data, $this->user->id_user);
-            
-            if(!$destroyService) {
-                $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
-                $json["complete"] = false;
-                echo json_encode($json);
-                return;
-            }
-
-            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
-            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
-            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($data ?? []), 7, 1);
-
-            $html = $this->view->render("/pageWorker/historyService", [
-                "worker" => (new Worker())->findById($idWorker),
-                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
-                    ->order("date_register", "DESC")
-                    ->limit($pager->limit())
-                    ->offset($pager->offset())
-                    ->fetch(true),
-                    "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
-                "countService" => count($data ?? []),
-                "paginator" => $pager->render()
-            ]);
-
-            $json["html"] = $html;
-            $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
-            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
-            echo json_encode($json);
-
-            return;
-        }   
-
         // Exluir atendimentos
         if(isset($data["typeService"]) && $data["typeService"] === "atendimentosexcluir" ) {
             $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
@@ -374,4 +289,104 @@ class AppWorker extends Controller
         return;
     }
 
+    // Excluir encaminhamento de entrevista para vaga de emprego
+    public function deleteInterviewToWork(array $data) : void
+    {
+        if(!empty($data["csrf"])){
+
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            $destroyService = (new WorkerEdit());
+
+            if(!$destroyService->checkdVacancyStatus($data["id-vacancy"])) {
+
+                $html = $this->view->render("/pageWorker/modalYesNo", [
+                    
+                ]);
+                $json["html"] = $html;
+                $json["modal"] = true;
+                $json["contentajax"] = "content";
+                echo json_encode($json);
+                return;
+            }
+
+            $destroyService->destroyToServiceVacancy($data, $this->user->id_user);
+
+            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+
+            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+
+            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
+            $pager->pager(count($data ?? []), 7, 1);
+
+            $html = $this->view->render("/pageWorker/historyService", [
+                "worker" => (new Worker())->findById($idWorker),
+                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                    ->order("date_register", "DESC")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                    "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
+                "countService" => count($data ?? []),
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
+            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
+            echo json_encode($json);
+        }
+         
+    }
+
+    // Finalizar encaminhamento de entrevista
+    public function finishInterviewToWork(array $data) : void
+    {
+        // finalizar a entrevista com aprovado ou reprovado
+        if(isset($data["source-service-vacancy"]) && empty($data["source-service-vacancy"])) {
+            $json["message"] = messageHelpers()->warning("Preencha o campo obrigatório!")->render();
+            $json["complete"] = false;
+            echo json_encode($json);
+            return;
+        }
+
+        $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($data, $this->user->id_user);
+
+        if(!$vacancy) {
+            $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
+            $json["complete"] = false;
+            echo json_encode($json);
+            return;
+        }
+
+        $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+
+        $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+
+        $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
+        $pager->pager(count($data), 7, 1);
+
+        $html = $this->view->render("/pageWorker/historyService", [
+            "worker" => (new Worker())->findById($idWorker),
+            "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                ->order("date_register", "DESC")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "countService" => count($data),
+            "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
+            "paginator" => $pager->render()
+        ]);
+
+        $json["html"] = $html;
+        $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
+        $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
+        echo json_encode($json);
+        return;
+    }
 }
