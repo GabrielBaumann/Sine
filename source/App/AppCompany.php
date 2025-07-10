@@ -261,7 +261,9 @@ class AppCompany extends Controller
     // Método para verificar validação do cnpj ou se ele já está cadastrado na base de dados
     public function verificCnpj(array $data) : void
     {   
-        // var_dump($data);
+        $enterprise = new Enterprise();
+
+        $cnpj = filter_var($data["cnpj"], FILTER_VALIDATE_INT);
 
         if (!validateCNPJ($data["cnpj"])) {
             $json["message"] = messageHelpers()->warning("O número de CNPJ não é válido!")->render();
@@ -269,14 +271,29 @@ class AppCompany extends Controller
             return;
         }
         
-        $enterprise = new Enterprise();
+        if(isset($data["idCompany"]) && !empty($data["cnpj"])){
+            
+            $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+            $enterpriseCnpj = $enterprise->find("cnpj = :cn AND id_enterprise <> :id", "cn={$cnpj}&id={$idCompany}")->fetch();
+
+            if ($enterpriseCnpj) {
+                $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($cnpj) . " já está cadastrado na base!")->render();
+                echo json_encode($json);
+                return;
+            }
+            
+            $json["message"] = "";
+            $json["complete"] = true;
+            echo json_encode($json);
+            return;
+        }
         
         if ($enterprise->getByCnpj($data["cnpj"])) {
             $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($data["cnpj"]) . " já está cadastrado na base!")->render();
             echo json_encode($json);
             return;
         }
-
+        
         $json["message"] = "";
         $json["complete"] = true;
         echo json_encode($json);

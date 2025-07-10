@@ -43,7 +43,7 @@ class Web extends Controller
         }
 
         echo $this->view->render("login", [
-            "title" => "Login - OrçaFácil"
+            "title" => "Login - Sine 360"
         ]);
     }
 

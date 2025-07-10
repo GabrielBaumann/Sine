@@ -49,7 +49,7 @@ document.addEventListener("focusout", (e) => {
                 return response.json();
             })
             .then(data => {
-                console.log("teste");
+
                 if(!data.complete) {
                     fncMessage(data.message);
                     document.getElementById("cnpj").value = "";

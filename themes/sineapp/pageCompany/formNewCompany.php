@@ -21,7 +21,7 @@
                         <div class="w-full">
                             <label for="cnpj" class="block text-sm font-medium text-gray-700 mb-1">CNPJ *</label>
                             <input 
-                                data-url="<?= url("/verificarcnpj") ?>"
+                                data-url="<?= url("/verificarcnpj") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>"
                                 name="cnpj"
                                 id="cnpj" 
                                 type="text"

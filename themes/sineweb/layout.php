@@ -89,7 +89,7 @@
                 </div>
                 <p class="font-light text-xs opacity-70 mt-2">
                     Desenvolvido por Cerberus. Saiba mais. <br> 
-                    Versao Beta 1.0.0
+                    Versão Beta 1.0.0
                 </p>
             </div>
         </div>

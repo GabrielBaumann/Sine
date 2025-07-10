@@ -105,7 +105,10 @@ $route->post("/pequisarempresas", "AppCompany:listCompany");
 $route->get("/adicionarempresa", "AppCompany:formCompany");
 $route->post("/adicionarempresa", "AppCompany:formCompany");
 $route->post("/adicionarempresa/{idcompany}", "AppCompany:formCompany");
+
 $route->post("/verificarcnpj", "AppCompany:verificCnpj");
+$route->post("/verificarcnpj/{idCompany}", "AppCompany:verificCnpj");
+
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
 $route->post("/cancelarempresa/{idCompany}", "AppCompany:cancelCompany");
