@@ -24,13 +24,11 @@ class AppUserSystem extends Controller
 
     public function userSystem(?array $data) : void
     {   
-
         $searchNameUser = filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) : null;
         $searchFunction = filter_input(INPUT_GET, "search-function-user", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-function-user", FILTER_SANITIZE_SPECIAL_CHARS) : null;
         $searchStatus = filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
         if(isset($data["page"]) || isset($searchNameUser) || isset($searchFunction) || isset($searchStatus)) {
-
 
             $conditions = [];
             $params = [];
@@ -79,14 +77,25 @@ class AppUserSystem extends Controller
             return;
         }
 
-        $userSytemCount = (new SystemUser())->find()->count();
+        $conditions = [];
+        $params = [];
+
+        if($this->user->type_user != "dev") {
+            $conditions[] = "type_user <> :ty";
+            $params["ty"] = "dev";
+        }
+
+        $where = implode(" AND ", $conditions);
+
+        $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
         $pager->Pager($userSytemCount, 10, 1);
 
         echo $this->view->render("/pageUserSystem", [
             "title" => "Usuarios",
-            "userCount" => (new SystemUser())->find()->count(),
-            "users" => (new SystemUser())->find()
+            "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),
+            "users" => (new SystemUser())
+                ->find($where, http_build_query($params))
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("name_user")
@@ -98,58 +107,6 @@ class AppUserSystem extends Controller
 
     public function listUserSystem(?array $data) : void
     {
-
-        if(isset($data["search-user-system"]) || isset($data["search-function-user"]) || isset($data["search-all-status"])) {
-
-            $searchUser = isset($data["search-user-system"]) ? filter_var($data["search-user-system"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            $searcFunction = isset($data["search-function-user"]) ? filter_var($data["search-function-user"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-            $searchStatus = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
-
-            $conditions = [];
-            $params = [];
-
-            if(!empty($searchUser)) {
-                $conditions[] = "name_user LIKE :n";
-                $params["n"] = "%{$searchUser}%";
-            }
-
-            if(!empty($searcFunction)) {
-                $conditions[] = "type_user = :t";
-                $params["t"] = $searcFunction;
-            }
-
-            if(!empty($searchStatus)) {
-                $conditions[] = "active = :s";
-                $params["s"] = $searchStatus;
-            }
-
-            $where = implode(" AND ", $conditions);
-
-            $userSystem = (new SystemUser())
-                ->find($where, http_build_query($params))
-                ->fetch(true);
-
-            $userSystemCount = count($userSystem ?? []);
-
-            $pager = new Pager(url("/usuarios/p/"));
-            $pager->Pager($userSystemCount, 10, 1);
-
-            $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
-                "users" => (new SystemUser())
-                    ->find($where, http_build_query($params))
-                    ->limit($pager->limit())
-                    ->offset($pager->offset())
-                    ->order("name_user")
-                    ->fetch(true),
-                "userCount" => $userSystemCount,
-                "paginator" => $pager->render()
-            ]);
-
-            $json["html"] = $html;
-            echo json_encode($json);
-            return;
-        }
-
         $params = [];
         $conditions = [];
         
@@ -176,6 +133,62 @@ class AppUserSystem extends Controller
             "paginator" => $pager->render()
         ]);
         
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    public function searchUsers(array $data) : void
+    {
+        $searchUser = isset($data["search-user-system"]) ? filter_var($data["search-user-system"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $searcFunction = isset($data["search-function-user"]) ? filter_var($data["search-function-user"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+        $searchStatus = isset($data["search-all-status"]) ? filter_var($data["search-all-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+        $conditions = [];
+        $params = [];
+
+        if($this->user->type_user != "dev") {
+            $conditions[] = "type_user <> :ty";
+            $params["ty"] = "dev";
+        }
+
+        if(!empty($searchUser)) {
+            $conditions[] = "name_user LIKE :n";
+            $params["n"] = "%{$searchUser}%";
+        }
+
+        if(!empty($searcFunction)) {
+            $conditions[] = "type_user = :t";
+            $params["t"] = $searcFunction;
+        }
+
+        if(!empty($searchStatus)) {
+            $conditions[] = "active = :s";
+            $params["s"] = $searchStatus;
+        }
+
+        $where = implode(" AND ", $conditions);
+
+        $userSystem = (new SystemUser())
+            ->find($where, http_build_query($params))
+            ->fetch(true);
+
+        $userSystemCount = count($userSystem ?? []);
+
+        $pager = new Pager(url("/usuarios/p/"));
+        $pager->Pager($userSystemCount, 10, 1);
+
+        $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
+            "users" => (new SystemUser())
+                ->find($where, http_build_query($params))
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("name_user")
+                ->fetch(true),
+            "userCount" => $userSystemCount,
+            "paginator" => $pager->render()
+        ]);
+
         $json["html"] = $html;
         echo json_encode($json);
         return;
@@ -315,7 +328,8 @@ class AppUserSystem extends Controller
 
         if(isset($data["idSystemUser"])) {
             $user = (new SystemUser())->find("cpf_user = :c AND id_user <> :i", "c={$cpfuser}&i={$data["idSystemUser"]}");
-        } else {
+        } 
+        else {
             $user = (new SystemUser())->find("cpf_user = :c", "c={$cpfuser}");
         }
 
@@ -346,13 +360,24 @@ class AppUserSystem extends Controller
             return;
         }
 
-        $userSytemCount = (new SystemUser())->find()->count();
+        $conditions = [];
+        $params = [];
+
+        if($this->user->type_user != "dev") {
+            $conditions[] = "type_user <> :ty";
+            $params["ty"] = "dev";
+        }
+
+        $where = implode(" AND ", $conditions);
+
+
+        $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
         $pager->Pager($userSytemCount, 10, 1);
 
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
-            "userCount" => (new SystemUser())->find()->count(),
-            "users" => (new SystemUser())->find()
+            "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),
+            "users" => (new SystemUser())->find($where, http_build_query($params))
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("name_user")
@@ -383,13 +408,23 @@ class AppUserSystem extends Controller
             return;
         }
 
-        $userSytemCount = (new SystemUser())->find()->count();
+        $conditions = [];
+        $params = [];
+
+        if($this->user->type_user != "dev") {
+            $conditions[] = "type_user <> :ty";
+            $params["ty"] = "dev";
+        }
+
+        $where = implode(" AND ", $conditions);        
+
+        $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
         $pager->Pager($userSytemCount, 10, 1);
 
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
-            "userCount" => (new SystemUser())->find()->count(),
-            "users" => (new SystemUser())->find()
+            "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),
+            "users" => (new SystemUser())->find($where, http_build_query($params))
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("name_user")
@@ -408,7 +443,6 @@ class AppUserSystem extends Controller
     public function logout()
     {
         (new Message())->success("Você saiu com sucesso " . Auth::user()->nome . ". Volte logo :)")->flash();    
-        
         Auth::logout();
         redirect("/");
     }

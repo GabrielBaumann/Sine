@@ -35,7 +35,7 @@ $route->get("/usuarios", "AppUserSystem:userSystem");
 $route->get("/usuarios/p/{page}", "AppUserSystem:userSystem");
 
 $route->get("/listausuarios", "AppUserSystem:listUserSystem");
-$route->post("/pesquisarusuarios", "AppUserSystem:listUserSystem");
+$route->post("/pesquisarusuarios", "AppUserSystem:searchUsers");
 
 $route->get("/adicionarusuario", "AppUserSystem:formAddUser");
 $route->post("/adicionarusuario", "AppUserSystem:formAddUser");

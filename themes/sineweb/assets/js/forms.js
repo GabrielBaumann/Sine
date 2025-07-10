@@ -138,3 +138,23 @@ function fncSplash() {
         `;
     return load;
 }
+
+document.addEventListener("input", function(e) {
+    if (e.target && e.target.id === "cpfuser") {
+        let value = e.target.value.replace(/\D/g, '');
+
+        // Limita a 11 dígitos
+        value = value.slice(0, 11);
+
+        // Aplica a máscara do CPF
+        if (value.length >= 10) {
+            value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        } else if (value.length >= 7) {
+            value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (value.length >= 4) {
+            value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        }
+
+        e.target.value = value;
+    }
+});

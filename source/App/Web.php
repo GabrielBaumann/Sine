@@ -31,7 +31,7 @@ class Web extends Controller
 
             $auth = (new Auth());
 
-            if (!$auth->login($data['cpfuser'], $data['password'])) {
+            if (!$auth->login(cleanCPF($data['cpfuser']), $data['password'])) {
                 $json['message'] = $auth->message()->render();
                 echo json_encode($json);
                 return;

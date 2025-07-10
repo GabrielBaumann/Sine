@@ -13,7 +13,7 @@
             <label for="cpf" class="block text-sm font-light text-gray-700 mb-1">CPF</label>
             <input 
                 type="text"
-                id="user"
+                id="cpfuser"
                 type="text"
                 required
                 name="cpfuser"
