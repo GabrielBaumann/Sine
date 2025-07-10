@@ -21,7 +21,7 @@ class AppVacancy extends Controller
         parent::__construct(__DIR__ . "/../../themes/" .CONF_VIEW_APP . "/");
         
         if (!$this->user = Auth::user()) {
-            $this->message->warning("")->flash();
+            $this->message->warning("Efetue login para acessar o sistema!")->flash();
             redirect("/");
         }
 
