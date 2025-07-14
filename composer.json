@@ -34,6 +34,7 @@
     "ext-pdo": "*",
     "league/plates": "^3.6",
     "coffeecode/paginator": "^2.0",
-    "coffeecode/router": "^2.0"
+    "coffeecode/router": "^2.0",
+    "phpoffice/phpword": "^1.4"
   }
 }

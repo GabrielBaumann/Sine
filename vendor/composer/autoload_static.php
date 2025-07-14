@@ -16,6 +16,11 @@ class ComposerStaticInit87cdbe1ac7f6376f619aebd7c2989134
         array (
             'Source\\' => 7,
         ),
+        'P' => 
+        array (
+            'PhpOffice\\PhpWord\\' => 18,
+            'PhpOffice\\Math\\' => 15,
+        ),
         'L' => 
         array (
             'League\\Plates\\' => 14,
@@ -31,6 +36,14 @@ class ComposerStaticInit87cdbe1ac7f6376f619aebd7c2989134
         'Source\\' => 
         array (
             0 => __DIR__ . '/../..' . '/source',
+        ),
+        'PhpOffice\\PhpWord\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpword/src/PhpWord',
+        ),
+        'PhpOffice\\Math\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/math/src/Math',
         ),
         'League\\Plates\\' => 
         array (

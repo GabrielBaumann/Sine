@@ -178,8 +178,13 @@
 <body>
     <div id="visualizar-container">
         <button id="visualizar">
-            <span>Fazer download</span>
+            <span>Download PDF</span>
         </button>
+        <a href="<?= url("/baixarpainelword") ?>">
+            <button id="visualizar">
+                <span>Download Word</span>
+            </button>
+        </a>
     </div>
 
     <div class="container">
