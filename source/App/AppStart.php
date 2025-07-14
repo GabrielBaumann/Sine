@@ -2,6 +2,8 @@
 
 namespace Source\App;
 
+use DateTime;
+use IntlDateFormatter;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
@@ -121,33 +123,112 @@ class AppStart extends Controller
 
     public function reportDownloadWord($data) : void
     {
+        $formatterDate = new IntlDateFormatter(
+            'pt_BR',
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::SHORT,
+            null,
+            IntlDateFormatter::GREGORIAN,
+            "EEEE, dd/MM/yyyy - HH:mm a"
+        );
+
+        $dataFormated = $formatterDate->format(new DateTime());
+
         ob_start();
         $vwVacancy = (new VwVacancy())->find("total_vacancy_active <> :to","to=0")->order("nomeclatura_vacancy")->fetch(true);
 
         $newWord = new PhpWord();
-        $section = $newWord->addSection();
+        
+        // ========= Margens ============
+        $section = $newWord->addSection([
+            "marginTop" => 238,
+            "marginBottom" => 238,
+            "marginLeft" => 238,
+            "marginRight" => 244,
+            "color" => "red"
+        ]);
 
         // ========= CABEÇALHO SUPERIOR =========
-        $header = $section->addTextRun(['alignment' => Jc::BOTH]);
-        $header->addText("CANAÃ DOS CARAJÁS", ["bold" => true, "color" => "2e7d32", "size" =>12]);
-        $header->addText(strtoupper(',   ' . strftime("%A, %d/%m/%Y - %H:%M")), ["bold" => true, "color" => "2e7d32", "size" => 12]);
+        $header = $section->addTextRun(['alignment' => Jc::CENTER]);
+        $header->addText("CANAÃ DOS CARAJÁS", ["bold" => true, "color" => "2e7d32", "size" =>14]);
+        $header->addText(strtoupper('           ' . $dataFormated), ["bold" => true, "color" => "2e7d32", "size" => 14]);
 
 
-        // Linha separadora (com <hr>)
-        // $section->addShape("line", ["width" => 500, "height" => 0, "lineColor" => "2e7d32"]);
+        // ========== LOGO linha colorida ================
+        $logoLine = __DIR__ . "/../../themes/sineapp/assets/images/line-sine.png";
 
-        // $section->addTextBreak(1);
-
-        // ========== LOGO SINE E TÍTULO ================
-        $logoPath = __DIR__ . "/../../sineapp/assets/images/logo_sine.png";
-
-        if (file_exists($logoPath)) {
-            $section->addImage($logoPath, [
-                "width" => 120,
+        if (file_exists($logoLine)) {
+            $section->addImage($logoLine, [
+                "width" => 500,
                 "alignment" => Jc::CENTER
             ]);
         }
 
+        // ========== LOGO SINE E TÍTULO ================
+        $logoPath = __DIR__ . "/../../themes/sineapp/assets/images/logo-nacional.png";
+
+        if (file_exists($logoPath)) {
+            $section->addImage($logoPath, [
+                "width" => 200,
+                "alignment" => Jc::CENTER
+            ]);
+        }
+
+        $section->addText("Painel de vagas", ["bold" => true, "size" => 14, "color" => "2e7d32"], ["alignment" => Jc::CENTER]);
+        $section->addTextBreak(1);        
+
+
+        // ========== Tabela =========
+        $newWord->addTableStyle("PainelVagas", [
+            "borderSize" => 6,
+            "borderColor" => "999999",
+            "cellMargin" => 80,
+            "valign" => "center"
+        ]);
+
+        $table = $section->addTable("PainelVagas");
+
+        // Estilo de célula
+        $cellHeaderStyle = ["bgColor" => "2e7d32", "valign" => "center"];
+        $cellBodyStyle = ["valign" => "center"];
+
+        $center = ["alignment" => Jc::CENTER];
+        $justify = ["alignment" => Jc::BOTH];
+        $whiteText = ["bold" => true, "color" => "ffffff"];
+
+        // Cabeçalho da tabela
+        $table->addRow();
+        $table->addCell(3000, $cellHeaderStyle)->addText("VAGA", $whiteText, $center);
+        $table->addCell(1000, $cellHeaderStyle)->addText("QT", $whiteText, $center);
+        $table->addCell(6000, $cellHeaderStyle)->addText("DESCRIÇÃO DA VAGA", $whiteText, $center);
+
+
+        foreach ($vwVacancy as $vwVacancyItem) {
+            $table->addRow();
+            $table->addCell(3000, $cellBodyStyle)->addText(
+                mb_strtoupper($vwVacancyItem->nomeclatura_vacancy),
+                ["bold" => true],
+                $center
+            );
+            $table->addCell(1000, $cellBodyStyle)->addText(
+                (string)$vwVacancyItem->total_vacancy_active,
+                [],
+                $center
+            );
+            $table->addCell(6000, $cellBodyStyle)->addText(
+                $vwVacancyItem->description_vacancy,
+                [],
+                $justify
+            );
+        }
+
+        $section->addTextBreak(2);
+
+        // =========== RODAPÉ ============
+        $footer = $section->addTextRun(['alignment' => Jc::CENTER]);
+        $footer->addText("Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149\n", ['size' => 10, 'color' => '666666']);
+        $footer->addText("Tel. (94) 99123-5373\n", ['size' => 10, 'color' => '666666']);
+        $footer->addText("Canaã dos Carajás - PA", ['size' => 10, 'color' => '666666']);
 
         // ==== DOWNLOAD ====
         ob_clean();
