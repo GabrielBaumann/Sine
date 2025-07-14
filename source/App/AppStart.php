@@ -2,7 +2,6 @@
 
 namespace Source\App;
 
-use PhpOffice\PhpWord\Style\Cell;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
@@ -126,72 +125,39 @@ class AppStart extends Controller
         $vwVacancy = (new VwVacancy())->find("total_vacancy_active <> :to","to=0")->order("nomeclatura_vacancy")->fetch(true);
 
         $newWord = new PhpWord();
+        $section = $newWord->addSection();
 
-        $section = $newWord->addSection([
-            "marginTop" => 720,
-            "marginBottom" => 720,
-            "marginLeft" => 720,
-            "marginRight" => 720,
-        ]);
-
-
-        // Logo
+        // ========= CABEÇALHO SUPERIOR =========
+        $header = $section->addTextRun(['alignment' => Jc::BOTH]);
+        $header->addText("CANAÃ DOS CARAJÁS", ["bold" => true, "color" => "2e7d32", "size" =>12]);
+        $header->addText(strtoupper(',   ' . strftime("%A, %d/%m/%Y - %H:%M")), ["bold" => true, "color" => "2e7d32", "size" => 12]);
 
 
-        // Título
-        $section->addText(
-            "Painel de Vagas",
-            ["bold" => true, "size" => 18, "color" => "2e7d32"],
-            ["alignment" => "center"]
-        );
+        // Linha separadora (com <hr>)
+        // $section->addShape("line", ["width" => 500, "height" => 0, "lineColor" => "2e7d32"]);
 
-        // Tabela
-        $newWord->addTableStyle("TabelaVagas", [
-            "borderSize" => 6,
-            "borderColor" => "999999",
-            "callMargin" => 50,
-        ]);
+        // $section->addTextBreak(1);
 
-        $table = $section->addTable("TabelaVagas");
+        // ========== LOGO SINE E TÍTULO ================
+        $logoPath = __DIR__ . "/../../sineapp/assets/images/logo_sine.png";
 
-        // Estilos de célula
-        $cellValignCenter = ["valign" => Cell::];
-
-        // Estilo de parágrafo (alinhamento horizontal)
-        $paraAlignCenter = ['alignment' => Jc::CENTER];
-
-        // Cabeçalhos
-        $table->addRow();
-        $table->addCell(3000)->addText("Vaga", ["bold" => true], ["alignment" => "center"]);
-        $table->addCell(1000)->addText("QT", ["bold" => true], ["alignment" => "center"]);
-        $table->addCell(6000)->addText("Descrição da Vaga", ["bold" => true], ["alignment" => "center"]);
-
-        // Dados
-        foreach($vwVacancy as $vwVacancyItem) {
-            $table->addRow();
-            $table->addCell(3000)->addText($vwVacancyItem->nomeclatura_vacancy);
-            $table->addCell(1000)->addText($vwVacancyItem->total_vacancy_active);
-            $table->addCell(6000)->addText($vwVacancyItem->description_vacancy);
+        if (file_exists($logoPath)) {
+            $section->addImage($logoPath, [
+                "width" => 120,
+                "alignment" => Jc::CENTER
+            ]);
         }
 
-        // Rodapé
-        $section->addTextBreak(2);
-        $section->addText(
-            "Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149\nTel. (94) 99123-5373\nCanaã dos Carajás - PA",
-            ['italic' => true, 'size' => 10],
-            ['alignment' => 'center']
-        );
 
-        // Enviar como download
+        // ==== DOWNLOAD ====
         ob_clean();
-        $fileName = "painel_de_vagas.docx";
         header("Content-Description: File Transfer");
-        header("Content-Disposition: attachment; filename={$fileName}");
-        header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Expires: 0");
+        header('Content-Disposition: attachment; filename="painel_de_vagas.docx"');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
 
-        $writer = IOFactory::createWriter($newWord, "Word2007");
+        $writer = IOFactory::createWriter($newWord, 'Word2007');
         $writer->save("php://output");
         exit;
     }
