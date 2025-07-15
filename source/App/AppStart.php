@@ -134,33 +134,44 @@ class AppStart extends Controller
 
         $dataFormated = $formatterDate->format(new DateTime());
 
+        $dataFormatCorrect = preg_replace_callback('/([ap]m)$/i', function ($m) {
+            return mb_strtoupper($m[1]); // transforma em AM ou PM
+        }, ucwords(str_replace('-feira', '-Feira', $dataFormated)));
+
         ob_start();
-        $vwVacancy = (new VwVacancy())->find("total_vacancy_active <> :to","to=0")->order("nomeclatura_vacancy")->fetch(true);
+        $vwVacancy = (new VwVacancy())
+            ->find("total_vacancy_active <> :to","to=0")
+            ->order("nomeclatura_vacancy")
+            ->fetch(true);
 
         $newWord = new PhpWord();
         
         // ========= Margens ============
         $section = $newWord->addSection([
-            "marginTop" => 238,
-            "marginBottom" => 238,
+            "marginTop" => 2500,
+            "marginBottom" => 1000,
             "marginLeft" => 238,
             "marginRight" => 244,
-            "color" => "red"
+            "headerHeight" => 350,
+            "distanceHeader" => 0,
+            "footerHeight" => 100,
+            "distanceFooter" => 0
         ]);
 
         // ========= CABEÇALHO SUPERIOR =========
-        $header = $section->addTextRun(['alignment' => Jc::CENTER]);
-        $header->addText("CANAÃ DOS CARAJÁS", ["bold" => true, "color" => "2e7d32", "size" =>14]);
-        $header->addText(strtoupper('           ' . $dataFormated), ["bold" => true, "color" => "2e7d32", "size" => 14]);
+        $header = $section->addHeader();
 
+        $headerText = $header->addTextRun(['alignment' => Jc::CENTER]);
+        $headerText->addText("Canaã dos Carajás-PA", ["bold" => true, "color" => "2e7d32", "size" =>14]);
+        $headerText->addText('                                '. $dataFormatCorrect, ["bold" => true, "color" => "2e7d32", "size" => 14]);
 
         // ========== LOGO linha colorida ================
         $logoLine = __DIR__ . "/../../themes/sineapp/assets/images/line-sine.png";
 
         if (file_exists($logoLine)) {
-            $section->addImage($logoLine, [
-                "width" => 500,
-                "alignment" => Jc::CENTER
+            $header->addImage($logoLine, [
+                "width" => 550,
+                "alignment" => Jc::CENTER,
             ]);
         }
 
@@ -168,43 +179,96 @@ class AppStart extends Controller
         $logoPath = __DIR__ . "/../../themes/sineapp/assets/images/logo-nacional.png";
 
         if (file_exists($logoPath)) {
-            $section->addImage($logoPath, [
-                "width" => 200,
+            $header->addImage($logoPath, [
+                "width" => 150,
                 "alignment" => Jc::CENTER
             ]);
         }
 
+        // =========== RODAPÉ ============
+        $foot = $section->addFooter();
+
+        $footer = $foot->addTextRun(['alignment' => Jc::CENTER]);
+        $footer->addText("Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149\n", ['size' => 10, 'color' => '666666']);
+        $footer->addTextBreak(1);
+        $footer->addText("Tel. (94) 99123-5373\n", ['size' => 10, 'color' => '666666']);
+        $footer->addTextBreak(1);
+        $footer->addText("Canaã dos Carajás - PA", ['size' => 10, 'color' => '666666']);
+
+        // Corpo do texto
         $section->addText("Painel de vagas", ["bold" => true, "size" => 14, "color" => "2e7d32"], ["alignment" => Jc::CENTER]);
-        $section->addTextBreak(1);        
-
-
+   
         // ========== Tabela =========
         $newWord->addTableStyle("PainelVagas", [
             "borderSize" => 6,
-            "borderColor" => "999999",
+            "borderColor" => "#e7dfdf",
             "cellMargin" => 80,
-            "valign" => "center"
+            "alignment" => JC::CENTER
         ]);
 
         $table = $section->addTable("PainelVagas");
 
         // Estilo de célula
-        $cellHeaderStyle = ["bgColor" => "2e7d32", "valign" => "center"];
+        $cellHeaderStyle = ["bgColor" => "6fac45", "valign" => "center"];
         $cellBodyStyle = ["valign" => "center"];
 
-        $center = ["alignment" => Jc::CENTER];
-        $justify = ["alignment" => Jc::BOTH];
+        $center = [
+            "alignment" => Jc::CENTER,
+            "spaceAfter" => 0,
+            "spaceBefore" => 0,
+            "lineSpacing" => 1.0
+        ];
+
+        $justify = [
+            "alignment" => Jc::BOTH,
+            "spaceAfter" => 0,
+            "spaceBefore" => 0,
+            "lineSpacing" => 1.0
+        ];
+
         $whiteText = ["bold" => true, "color" => "ffffff"];
 
-        // Cabeçalho da tabela
-        $table->addRow();
+        $heightPage = 13088;
+        $heightCurrent = 800;
+
+        $table->addRow(650);
         $table->addCell(3000, $cellHeaderStyle)->addText("VAGA", $whiteText, $center);
         $table->addCell(1000, $cellHeaderStyle)->addText("QT", $whiteText, $center);
         $table->addCell(6000, $cellHeaderStyle)->addText("DESCRIÇÃO DA VAGA", $whiteText, $center);
 
-
         foreach ($vwVacancy as $vwVacancyItem) {
+            $lineHeight = estimateHeightLine($vwVacancyItem->description_vacancy);
+
+            // Se ultrapassar altura útil da página, cria nova seção e reinicia a tabela
+            if ($heightCurrent + $lineHeight > $heightPage) {
+                
+                $section = $newWord->addSection([
+                    "marginTop" => 2500,
+                    "marginBottom" => 1000,
+                    "marginLeft" => 238,
+                    "marginRight" => 244,
+                    "headerHeight" => 350,
+                    "distanceHeader" => 0,
+                    "footerHeight" => 100,
+                    "distanceFooter" => 0
+                ]);
+
+                // Corpo do texto
+                $section->addText("Painel de vagas", ["bold" => true, "size" => 14, "color" => "2e7d32"], ["alignment" => Jc::CENTER]);
+
+                // Recria o cabeçalho da tabela
+                $table = $section->addTable("PainelVagas");
+                $table->addRow(650);
+                $table->addCell(3000, $cellHeaderStyle)->addText("VAGA", $whiteText, $center);
+                $table->addCell(1000, $cellHeaderStyle)->addText("QT", $whiteText, $center);
+                $table->addCell(6000, $cellHeaderStyle)->addText("DESCRIÇÃO DA VAGA", $whiteText, $center);
+                $heightCurrent = 800;
+            }
+
+            // Adicionar linha da vaga
             $table->addRow();
+            $heightCurrent += $lineHeight;
+
             $table->addCell(3000, $cellBodyStyle)->addText(
                 mb_strtoupper($vwVacancyItem->nomeclatura_vacancy),
                 ["bold" => true],
@@ -212,7 +276,7 @@ class AppStart extends Controller
             );
             $table->addCell(1000, $cellBodyStyle)->addText(
                 (string)$vwVacancyItem->total_vacancy_active,
-                [],
+                ["bold" => true],
                 $center
             );
             $table->addCell(6000, $cellBodyStyle)->addText(
@@ -222,16 +286,9 @@ class AppStart extends Controller
             );
         }
 
-        $section->addTextBreak(2);
-
-        // =========== RODAPÉ ============
-        $footer = $section->addTextRun(['alignment' => Jc::CENTER]);
-        $footer->addText("Avenida JK, N° 104, Vale Dourado - CEP: 68.534-149\n", ['size' => 10, 'color' => '666666']);
-        $footer->addText("Tel. (94) 99123-5373\n", ['size' => 10, 'color' => '666666']);
-        $footer->addText("Canaã dos Carajás - PA", ['size' => 10, 'color' => '666666']);
-
         // ==== DOWNLOAD ====
         ob_clean();
+        
         header("Content-Description: File Transfer");
         header('Content-Disposition: attachment; filename="painel_de_vagas.docx"');
         header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');

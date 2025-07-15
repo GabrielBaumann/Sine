@@ -360,3 +360,12 @@ function maskCNPJ($cnpj) {
     // Aplica a máscara
     return preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $cnpj);
 }
+
+/**
+ * Função para estimar linha para gerar documento Word
+ */
+function estimateHeightLine(string $text): int {
+    $characterLine = 60;
+    $lineDear = ceil(strlen($text) / $characterLine);
+    return max(800, $lineDear * 400);
+}
