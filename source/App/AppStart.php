@@ -18,6 +18,7 @@ use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
 use Source\Models\CboOccupation;
+use Source\Models\Vacancy;
 use Source\Models\Views\VwVacancyActive;
 
 class AppStart extends Controller
@@ -36,6 +37,7 @@ class AppStart extends Controller
 
     public function startPage() : void
     {   
+
         // Gráfico de atendimentos
         $serve = new Service();
         $charServer = $serve->charService();

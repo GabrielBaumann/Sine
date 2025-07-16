@@ -2,6 +2,7 @@
 
 namespace Source\Models;
 
+use DateTime;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
 
@@ -306,13 +307,16 @@ class Vacancy extends Model
         $vacancyClosed->reason_close = filter_var($reasonClose, FILTER_SANITIZE_SPECIAL_CHARS);
         $vacancyClosed->save();
 
-        $vacancyTotal = (int)$this->findById($idFixedVacancy)->number_vacancy;
-        $vacancyTotalClosed = count($this->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id={$idFixedVacancy}&st=Encerrada")->fetch(true));
+        if($idFixedVacancy <> 0) {
+            $vacancyTotal = (int)$this->findById($idFixedVacancy)->number_vacancy;
+            
+            $vacancyTotalClosed = count($this->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id={$idFixedVacancy}&st=Encerrada")->fetch(true));
 
-        if($vacancyTotal === $vacancyTotalClosed) {
-            $this->id_vacancy = $idFixedVacancy;
-            $this->status_vacancy = "Encerrada";
-            $this->save();
+            if($vacancyTotal === $vacancyTotalClosed) {
+                $this->id_vacancy = $idFixedVacancy;
+                $this->status_vacancy = "Encerrada";
+                $this->save();
+            }
         }
         return true;
     }
@@ -344,5 +348,46 @@ class Vacancy extends Model
             $vacancyGlass->save();
         };
         return true;       
+    }
+
+    /**
+     * Cria um array com todos os horários de encerramento de vagas de hoje
+     * @return array
+     */
+    public function todoClousureToday() : array {
+        
+        $vacancy = (new static())->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id=0&st=Ativa")->fetch(true);
+
+        $dateTodoToday = [];
+
+        if($vacancy) {
+            foreach($vacancy as $vacancyItem) {
+                if(date_simple($vacancyItem->date_closed_vacancy) === date_simple()) {
+
+                    $dateTodoToday[] = [
+                        // "dateTodo" => date_fmt($vacancyItem->date_closed_vacancy),
+                        "timeTodo" => (new DateTime($vacancyItem->date_closed_vacancy))->format("c"),
+                        "idVacancy" => $vacancyItem->id_vacancy
+                    ];
+                } 
+            }
+        }
+        return $dateTodoToday;
+    }   
+
+    /**
+     * Verificar se existe encerramentos que já passaram e encerra caso não tenha encerrado
+     * @return void
+     */
+    public function checkdDateClousure() : void
+    {
+        $vacancy = (new static())->find("status_vacancy = :st AND reason_close IS NULL", "st=Ativa")->fetch(true);
+
+        foreach($vacancy as $vacancyItem) {
+
+            if(date_fmt($vacancyItem->date_closed_vacancy) <= date_fmt()) {
+                $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
+            }
+        }
     }
 }

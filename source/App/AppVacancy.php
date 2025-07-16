@@ -458,4 +458,17 @@ class AppVacancy extends Controller
         echo json_encode($json);
         return;
     }
+    /**
+     * Enviar dados para javascript agendamento do dia e encerra no horário
+     */
+    public function todoClousureToday(?array $data) : void
+    {
+        if(isset($data) && !empty($data)) {
+            var_dump($data);
+            return;
+        }
+
+        $vaca = (new Vacancy())->todoClousureToday();
+        echo json_encode($vaca);
+    }
 }

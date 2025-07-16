@@ -129,7 +129,7 @@ document.addEventListener("click", (e) => {
        .then(data => {
             const vContent = document.getElementById(data.content);
             vContent.innerHTML = data.html;
-            
+
             if (vUrlPage === "trabalhador") {
                 fncUpdateColorStatus();
             } 
@@ -277,7 +277,7 @@ document.addEventListener("click", (e) => {
 
 /**loading href */
 document.addEventListener("DOMContentLoaded", function () {
-    const vLinks = document.querySelectorAll("a");
+    const vLinks = document.querySelectorAll("a.menu, a.mobile");
 
     vLinks.forEach(link => {
         if (link.hostname === window.location.hostname) {
@@ -289,7 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
 
 function showSplashNavigation() {
     if(document.getElementById("response")) document.getElementById("response").remove();
@@ -316,5 +315,42 @@ function showSplashNavigation() {
         `;
     return setTimeout (() => {
         document.body.appendChild(load);
-    }, 1500);
+    }, 300);
 }
+
+/**
+ * Programação de encerramento de vagas
+ */
+fetch("/sine/encerramentoautomatico")
+.then(response => response.json())
+.then(data => {
+    data.forEach(todo => {
+        const vNow = new Date();
+        const vTimeClousure = new Date(todo.timeTodo);
+
+        const vDelay = vTimeClousure - vNow;
+        // console.log(vDelay);
+
+        if (vDelay > 0) {
+            // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
+
+            setTimeout(() => {
+                // console.log(`Encerrando tarefas ${todo.idVacancy}`);
+
+                fetch("/sine/encerramentoautomatico", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: "id=" + encodeURIComponent(todo.idVacancy)
+                })
+                .then(res => res.text())
+                .then(text => {
+                    console.log("Encerrar");
+                });
+            }, vDelay);
+        } else {
+            // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
+        }
+    });
+});

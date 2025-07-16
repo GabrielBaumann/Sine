@@ -95,6 +95,9 @@ $route->get("/editarvagas/{idvacancy}", "AppVacancy:addVacancy");
 $route->post("/cadastrarvagas", "AppVacancy:addVacancy");
 $route->post("/cadastrarvagas/{idvacancy}", "AppVacancy:addVacancy");
 
+$route->get("/encerramentoautomatico", "AppVacancy:todoClousureToday");
+$route->post("/encerramentoautomatico", "AppVacancy:todoClousureToday");
+
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL
