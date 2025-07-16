@@ -32,6 +32,7 @@ class Vacancy extends Model
         $this->pcd_vacancy = $data["pcd-vacancy"];
         $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
         $this->date_open_vacancy = $data["date-open-vacancy"];
+        $this->date_closed_vacancy = $data["date-close-vacancy"];
         $this->education_vacancy = $data["education-vacancy"];
         $this->age_min_vacancy = $data["age-min-vacancy"];
         $this->age_max_vacancy = $data["age-max-vacancy"];
@@ -61,6 +62,7 @@ class Vacancy extends Model
             $vacancy->pcd_vacancy = $data["pcd-vacancy"];
             $vacancy->quantity_per_vacancy = $data["quantity-per-vacancy"];
             $vacancy->date_open_vacancy = $data["date-open-vacancy"];
+            $vacancy->date_closed_vacancy = $data["date-close-vacancy"];
             $vacancy->education_vacancy = $data["education-vacancy"];
             $vacancy->age_min_vacancy = $data["age-min-vacancy"];
             $vacancy->age_max_vacancy = $data["age-max-vacancy"];
@@ -105,6 +107,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
                 $oldVacancyUpdate->quantity_per_vacancy = $data["quantity-per-vacancy"];
                 $oldVacancyUpdate->date_open_vacancy = $data["date-open-vacancy"];
+                $oldVacancyUpdate->date_closed_vacancy = $data["date-close-vacancy"];
                 $oldVacancyUpdate->education_vacancy = $data["education-vacancy"];
                 $oldVacancyUpdate->age_min_vacancy = $data["age-min-vacancy"];
                 $oldVacancyUpdate->age_max_vacancy = $data["age-max-vacancy"];
@@ -128,6 +131,7 @@ class Vacancy extends Model
                 $this->pcd_vacancy = $data["pcd-vacancy"];
                 $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
                 $this->date_open_vacancy = $data["date-open-vacancy"];
+                $this->date_closed_vacancy = $data["date-close-vacancy"];
                 $this->education_vacancy = $data["education-vacancy"];
                 $this->age_min_vacancy = $data["age-min-vacancy"];
                 $this->age_max_vacancy = $data["age-max-vacancy"];
@@ -152,6 +156,7 @@ class Vacancy extends Model
                 $vacancy->pcd_vacancy = $data["pcd-vacancy"];
                 $vacancy->quantity_per_vacancy = $data["quantity-per-vacancy"];
                 $vacancy->date_open_vacancy = $data["date-open-vacancy"];
+                $vacancy->date_closed_vacancy = $data["date-close-vacancy"];
                 $vacancy->education_vacancy = $data["education-vacancy"];
                 $vacancy->age_min_vacancy = $data["age-min-vacancy"];
                 $vacancy->age_max_vacancy = $data["age-max-vacancy"];
@@ -184,6 +189,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
                 $oldVacancyUpdate->quantity_per_vacancy = $data["quantity-per-vacancy"];
                 $oldVacancyUpdate->date_open_vacancy = $data["date-open-vacancy"];
+                $oldVacancyUpdate->date_closed_vacancy = $data["date-close-vacancy"];
                 $oldVacancyUpdate->education_vacancy = $data["education-vacancy"];
                 $oldVacancyUpdate->age_min_vacancy = $data["age-min-vacancy"];
                 $oldVacancyUpdate->age_max_vacancy = $data["age-max-vacancy"];
@@ -207,6 +213,7 @@ class Vacancy extends Model
                 $this->pcd_vacancy = $data["pcd-vacancy"];
                 $this->quantity_per_vacancy = $data["quantity-per-vacancy"];
                 $this->date_open_vacancy = $data["date-open-vacancy"];
+                $this->date_closed_vacancy = $data["date-close-vacancy"];
                 $this->education_vacancy = $data["education-vacancy"];
                 $this->age_min_vacancy = $data["age-min-vacancy"];
                 $this->age_max_vacancy = $data["age-max-vacancy"];
