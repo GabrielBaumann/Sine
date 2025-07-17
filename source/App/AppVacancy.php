@@ -237,6 +237,7 @@ class AppVacancy extends Controller
 
                 $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
                 $json["complete"] = false;
+                $json["updatetodo"] = true;
                 echo json_encode($json);
                 return;
             }
@@ -464,7 +465,8 @@ class AppVacancy extends Controller
     public function todoClousureToday(?array $data) : void
     {
         if(isset($data) && !empty($data)) {
-            var_dump($data);
+            $idFixedVacancy = filter_var($data["id"], FILTER_SANITIZE_NUMBER_INT);
+            $executeClosedVacancy = (new Vacancy())->executeDateClousure($idFixedVacancy);
             return;
         }
 

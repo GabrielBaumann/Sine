@@ -25,6 +25,7 @@ document.addEventListener("submit", (e) => {
             if(data.complete) {
                 fncMessage(data.message);
                 document.getElementById(vformId).reset();
+                fncTodoClousureToday()
             } else {
                 fncMessage(data.message);
             }
@@ -35,6 +36,10 @@ document.addEventListener("submit", (e) => {
                 fncCheckClosedVacancy()
             }
             
+            if(data.updatetodo) {
+                fncTodoClousureToday()
+            }
+
         })
         .catch(error => {
             fncMessage();

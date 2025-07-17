@@ -314,6 +314,7 @@ class Vacancy extends Model
 
             if($vacancyTotal === $vacancyTotalClosed) {
                 $this->id_vacancy = $idFixedVacancy;
+                $this->reason_close = filter_var($reasonClose, FILTER_SANITIZE_SPECIAL_CHARS);
                 $this->status_vacancy = "Encerrada";
                 $this->save();
             }
@@ -376,7 +377,7 @@ class Vacancy extends Model
     }   
 
     /**
-     * Verificar se existe encerramentos que já passaram e encerra caso não tenha encerrado
+     * Verificar se existe encerramentos que já passaram e encerra caso não tenha encerrado - inserir no arranque do sistema
      * @return void
      */
     public function checkdDateClousure() : void
@@ -388,6 +389,19 @@ class Vacancy extends Model
             if(date_fmt($vacancyItem->date_closed_vacancy) <= date_fmt()) {
                 $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
             }
+        }
+    }
+
+    /**
+     * Executa o encerramento a partir do agendamento feito no javascript
+     * @return void
+     */
+    public function executeDateClousure($idFixedVacancy) : void
+    {
+        $vacancy = (new static())->find("id_vacancy_fixed = :id AND reason_close IS NULL", "id={$idFixedVacancy}")->fetch(true);
+
+        foreach($vacancy as $vacancyItem) {
+            $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
         }
     }
 }

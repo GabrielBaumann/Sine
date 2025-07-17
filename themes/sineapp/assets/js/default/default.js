@@ -1,5 +1,6 @@
 //*  Scripts padrões para todo o sistema *//
 let vArrayInput = [];
+fncTodoClousureToday()
 
 // Verifica o tamanho da tela e chama a função de responsividade
 window.addEventListener("resize", updateResponsive);
@@ -321,36 +322,39 @@ function showSplashNavigation() {
 /**
  * Programação de encerramento de vagas
  */
-fetch("/sine/encerramentoautomatico")
-.then(response => response.json())
-.then(data => {
-    data.forEach(todo => {
-        const vNow = new Date();
-        const vTimeClousure = new Date(todo.timeTodo);
 
-        const vDelay = vTimeClousure - vNow;
-        // console.log(vDelay);
+function fncTodoClousureToday() {
+    fetch("/sine/encerramentoautomatico")
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(todo => {
+            const vNow = new Date();
+            const vTimeClousure = new Date(todo.timeTodo);
 
-        if (vDelay > 0) {
-            // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
+            const vDelay = vTimeClousure - vNow;
+            // console.log(vDelay);
 
-            setTimeout(() => {
-                // console.log(`Encerrando tarefas ${todo.idVacancy}`);
+            if (vDelay > 0) {
+                // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
 
-                fetch("/sine/encerramentoautomatico", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: "id=" + encodeURIComponent(todo.idVacancy)
-                })
-                .then(res => res.text())
-                .then(text => {
-                    console.log("Encerrar");
-                });
-            }, vDelay);
-        } else {
-            // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
-        }
+                setTimeout(() => {
+                    // console.log(`Encerrando tarefas ${todo.idVacancy}`);
+
+                    fetch("/sine/encerramentoautomatico", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: "id=" + encodeURIComponent(todo.idVacancy)
+                    })
+                    .then(res => res.text())
+                    .then(text => {
+                        // console.log("Encerrar");
+                    });
+                }, vDelay);
+            } else {
+                // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
+            }
+        });
     });
-});
+}

@@ -60,6 +60,7 @@ class VacancyWorker extends Model
             if($countVacancyActive === 0) {
                 $updateToStatusVacancy = (new Vacancy())->findById($idVacancyFixedAll->id_vacancy_fixed);
                 $updateToStatusVacancy->status_vacancy = "Encerrada";
+                $updateToStatusVacancy->reason_close = "Total preenchido";
                 $updateToStatusVacancy->save();
             }
             return false;
