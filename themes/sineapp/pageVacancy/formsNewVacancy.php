@@ -5,7 +5,13 @@ $enterprise = new Enterprise();
 
 ?>
 
-<main class="flex-1 overflow-y-auto p-4 md:p-6 pb-20 lg:pb-6">
+<style>
+    .select2-container .select2-selection--multiple {
+        padding: 6px;
+    }
+</style>
+
+<main class="flex-1 overflow-y-auto p-4 md:p-0 pb-20">
     <!-- Header de localização -->
     <header class="flex items-center gap-3 md:gap-5 text-blue-800 text-sm md:text-base">
         <button
@@ -55,7 +61,7 @@ $enterprise = new Enterprise();
                     <select
                         id="cbo-occupation" 
                         name="cbo-occupation"
-                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                        class="js-example-responsive select2-container select2-selection--multiple" multiple="multiple" style="width: 100%">
                         <option value="">CBO ocupação</option>
                         <?php foreach($cbos_occupations as $cbo_occupation): ?>
                             <option value="<?= $cbo_occupation->id_code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->id_code}" ? "selected" : "" ?>><?= $cbo_occupation->id_code; ?> - <?= $cbo_occupation->occupation; ?></option>
@@ -88,10 +94,7 @@ $enterprise = new Enterprise();
                         <option value="Não" <?= ($vacancy->apprentice_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
                     </select>
                 </div>
-            </div>
 
-            <!-- Coluna 2 -->
-            <div class="space-y-4">
                 <!-- Sexo -->
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
@@ -104,6 +107,21 @@ $enterprise = new Enterprise();
                         <option value="Feminino" <?= ($vacancy->gender_vacancy ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
                         <option value="Outro" <?= ($vacancy->gender_vacancy ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
                     </select>
+                </div>
+            </div>
+
+            <!-- Coluna 2 -->
+            <div class="space-y-4">
+
+                <!-- Data de abertura -->
+                <div>
+                    <label for="date-open-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de abertura *</label>
+                    <input 
+                        value="<?= $vacancy->date_open_vacancy ?? "" ?>" 
+                        type="date" 
+                        id="date-open-vacancy" 
+                        name="date-open-vacancy" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 text-gray-900">
                 </div>
 
                 <!-- N° de Vagas -->
@@ -141,20 +159,33 @@ $enterprise = new Enterprise();
                         <option value="Não" <?= ($vacancy->exp_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
                     </select>
                 </div>
+
+                <!-- Requisitos da vaga -->
+                <div class="col-span-1 md:col-span-3">
+                    <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
+                    <input 
+                        value="<?= $vacancy->request_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="request-vacancy" 
+                        name="request-vacancy" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                        placeholder="Ex: técnico em informática, CNH D...">
+                </div>
             </div>
 
             <!-- Coluna 3 -->
             <div class="space-y-4">
-                <!-- Data de abertura -->
+                
+                <!-- Data de encerramento da vaga -->
                 <div>
-                    <label for="date-open-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de abertura *</label>
+                    <label for="date-close-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento *</label>
                     <input 
-                        value="<?= $vacancy->date_open_vacancy ?? "" ?>" 
-                        type="date" 
-                        id="date-open-vacancy" 
-                        name="date-open-vacancy" 
+                        value="<?= $vacancy->date_closed_vacancy ?? "" ?>" 
+                        type="datetime-local" 
+                        id="date-close-vacancy" 
+                        name="date-close-vacancy" 
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 text-gray-900">
-                </div>
+                </div>  
 
                 <!-- Escolaridade -->
                 <div>
@@ -206,19 +237,6 @@ $enterprise = new Enterprise();
                 </div>
             </div>
 
-
-            <!-- Requisitos da vaga -->
-            <div class="col-span-1 md:col-span-3">
-                <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
-                <input 
-                    value="<?= $vacancy->request_vacancy ?? "" ?>" 
-                    type="text" 
-                    id="request-vacancy" 
-                    name="request-vacancy" 
-                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                    placeholder="Ex: técnico em informática, CNH D...">
-            </div>
-
             <!-- Descrição -->
             <div class="col-span-1 md:col-span-3">
                 <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição (Opcional)</label>
@@ -231,18 +249,8 @@ $enterprise = new Enterprise();
                     placeholder="">
             </div>
 
-            <div>
-                <label for="date-close-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento *</label>
-                <input 
-                    value="<?= $vacancy->date_closed_vacancy ?? "" ?>" 
-                    type="datetime-local" 
-                    id="date-close-vacancy" 
-                    name="date-close-vacancy" 
-                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 text-gray-900">
-            </div>
-
             <!-- Botão de confirmação -->
-            <div class="col-span-1 md:col-span-3 flex justify-end mt-4">
+            <div class="col-span-1 md:col-span-3 flex justify-end">
                 <button
                     type="submit" class="cursor-pointer flex items-center px-6 py-3 md:py-2 text-base md:text-sm bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors w-full md:w-auto justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
