@@ -4,7 +4,7 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
-
+use Source\Models\Vacancy;
 
 class Web extends Controller
 {
@@ -38,6 +38,7 @@ class Web extends Controller
             }
 
             $json['redirected'] = url("/inicio");
+            $vaca = (new Vacancy())->checkdDateClousure();
             echo json_encode($json);
             return;
         }

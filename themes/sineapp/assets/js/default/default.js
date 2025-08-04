@@ -327,34 +327,33 @@ function fncTodoClousureToday() {
     fetch("/sine/encerramentoautomatico")
     .then(response => response.json())
     .then(data => {
-        data.forEach(todo => {
-            const vNow = new Date();
-            const vTimeClousure = new Date(todo.timeTodo);
+        if(data) {
+            data.forEach(todo => {
+                const vNow = new Date();
+                const vTimeClousure = new Date(todo.timeTodo);
+                const vDelay = vTimeClousure - vNow;
 
-            const vDelay = vTimeClousure - vNow;
-            // console.log(vDelay);
+                if (vDelay > 0) {
+                    // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
+                    setTimeout(() => {
+                        // console.log(`Encerrando tarefas ${todo.idVacancy}`);
 
-            if (vDelay > 0) {
-                // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
-
-                setTimeout(() => {
-                    // console.log(`Encerrando tarefas ${todo.idVacancy}`);
-
-                    fetch("/sine/encerramentoautomatico", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: "id=" + encodeURIComponent(todo.idVacancy)
-                    })
-                    .then(res => res.text())
-                    .then(text => {
-                        // console.log("Encerrar");
-                    });
-                }, vDelay);
-            } else {
-                // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
-            }
-        });
+                        fetch("/sine/encerramentoautomatico", {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: "id=" + encodeURIComponent(todo.idVacancy)
+                        })
+                        .then(res => res.text())
+                        .then(text => {
+                            // console.log("Encerrar");
+                        });
+                    }, vDelay);
+                } else {
+                    // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
+                }
+            });
+        }
     });
 }

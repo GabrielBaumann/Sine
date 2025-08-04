@@ -470,7 +470,13 @@ class AppVacancy extends Controller
             return;
         }
 
-        $vaca = (new Vacancy())->todoClousureToday();
-        echo json_encode($vaca);
+        $checkDateClousure = (new Vacancy())->todoClousureToday();
+        $arrayDateClousure = [];
+
+        if($checkDateClousure) {
+            $arrayDateClousure =  $checkDateClousure;
+        }
+
+        echo json_encode($arrayDateClousure);
     }
 }

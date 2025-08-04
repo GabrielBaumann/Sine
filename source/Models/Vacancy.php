@@ -366,7 +366,6 @@ class Vacancy extends Model
                 if(date_simple($vacancyItem->date_closed_vacancy) === date_simple()) {
 
                     $dateTodoToday[] = [
-                        // "dateTodo" => date_fmt($vacancyItem->date_closed_vacancy),
                         "timeTodo" => (new DateTime($vacancyItem->date_closed_vacancy))->format("c"),
                         "idVacancy" => $vacancyItem->id_vacancy
                     ];
@@ -383,11 +382,12 @@ class Vacancy extends Model
     public function checkdDateClousure() : void
     {
         $vacancy = (new static())->find("status_vacancy = :st AND reason_close IS NULL", "st=Ativa")->fetch(true);
+        if($vacancy) {
+            foreach($vacancy as $vacancyItem) {
 
-        foreach($vacancy as $vacancyItem) {
-
-            if(date_fmt($vacancyItem->date_closed_vacancy) <= date_fmt()) {
-                $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
+                if(date_fmt($vacancyItem->date_closed_vacancy) <= date_fmt()) {
+                    $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
+                }
             }
         }
     }

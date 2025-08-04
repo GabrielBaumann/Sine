@@ -51,7 +51,7 @@ $enterprise = new Enterprise();
                 
                 <!-- CBO - Ocupação -->
                 <div>
-                    <label for="pcd-vacancy" class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação *</label>
                     <select
                         id="cbo-occupation" 
                         name="cbo-occupation"
