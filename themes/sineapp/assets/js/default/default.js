@@ -14,7 +14,7 @@ function updateResponsive() {
         const vMenus = document.querySelectorAll("span.mobile");
 
         vMenus.forEach(vElemet => {
-            if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
+            if(fncSanitizeCaractere(vElemet.textContent).replace(/\s/g, "") === vUrlPage) {
                 vElemet.closest("a.mobile").classList.remove("text-gray-600")
                 vElemet.closest("a.mobile").classList.add("text-blue-800");
             }
@@ -25,7 +25,7 @@ function updateResponsive() {
         const vMenus = document.querySelectorAll("span.menu");
 
         vMenus.forEach(vElemet => {
-            if(fncSanitizeCaractere(vElemet.textContent) === vUrlPage) {
+            if(fncSanitizeCaractere(vElemet.textContent).replace(/\s/g, "") === vUrlPage) {
                 vElemet.closest("a.menu").classList.remove("text-gray-700")
                 vElemet.closest("a.menu").classList.add("text-white", "bg-blue-800", "rounded-md", "hover:text-white");
             }

@@ -139,6 +139,10 @@ $route->get("/selecionarempresa", "AppServer:listSelectEnterprise");
 $route->get("/selecionarempresa/{idcompany}", "AppServer:listSelectEnterprise");
 
 
+// ServicePhone
+$route->get("/trabalhadortelefone", "AppWorkerPhone:pagePhone");
+
+
 $route->get("/sair", "AppServer:logout");
 
 // ERROR ROUTES

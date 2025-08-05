@@ -25,7 +25,7 @@ document.addEventListener("click", (e) => {
 
     const vButton = e.target.closest("button");
 
-    if(vButton && vButton.id === "visualizar") {
+    if(vButton && vButton.id === "nada") {
             
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
@@ -166,3 +166,61 @@ document.addEventListener("click", (e) => {
 
     }
 })
+
+
+// Baixar JPEG
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("button");
+    
+    if(vButton && vButton.id === "visualizar") {
+        // Elemento a ser convertido em imagem
+        const elemento = document.getElementById('conteudo_pdf');
+        
+        if (!elemento) {
+            console.error('Elemento conteudo_pdf não encontrado');
+            alert('Elemento não encontrado!');
+            return;
+        }
+        
+        // Adicionar efeito de carregamento ao botão
+        const originalText = vButton.innerHTML;
+        vButton.innerHTML = '<i>⏳</i> Gerando imagem...';
+        vButton.disabled = true;
+        
+        // Configurações do html2canvas
+        const opcoes = {
+            scale: 3,          // Aumenta a qualidade da imagem
+            useCORS: true,      // Permite carregar imagens externas
+            logging: false,     // Desativa logs no console
+            backgroundColor: '#FFFFFF' // Fundo branco
+        };
+        
+        // Converter o elemento em canvas e depois em JPEG
+        html2canvas(elemento, opcoes).then(canvas => {
+            // Converter canvas para imagem JPEG
+            const imagemURL = canvas.toDataURL('image/jpeg', 0.95);
+            
+            // Criar link para download
+            const link = document.createElement('a');
+            link.href = imagemURL;
+            link.download = 'painel_de_vagas.jpg';
+            
+            // Disparar o download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Restaurar botão
+            vButton.innerHTML = originalText;
+            vButton.disabled = false;
+            
+        }).catch(err => {
+            console.error('Erro ao gerar imagem:', err);
+            alert('Ocorreu um erro ao gerar a imagem. Tente novamente.');
+            
+            // Restaurar botão em caso de erro
+            vButton.innerHTML = originalText;
+            vButton.disabled = false;
+        });
+    }
+});
