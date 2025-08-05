@@ -75,7 +75,7 @@
                             <label for="">Data de Respota *</label>
                             <input type="date">
 
-                            <label for="">Observação *</label>
+                            <label for="">Observação</label>
                             <input type="text">
 
                             <div class="flex flex-col sm:flex-row gap-3">
