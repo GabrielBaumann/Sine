@@ -25,11 +25,7 @@ document.addEventListener("click", (e) => {
 
     const vButton = e.target.closest("button");
 
-<<<<<<< HEAD
     if(vButton && vButton.id === "visualizar-pdf") {
-=======
-    if(vButton && vButton.id === "visualizar") {
->>>>>>> 7287f8cb7ab1a05c0940cd6dfad12dd8a48b1bc2
             
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
@@ -176,18 +172,9 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
     
-<<<<<<< HEAD
-    if(vButton && vButton.id === "visualizar-jpeg") {
-        // Mostrar tela de carregamento
-        // const loading = document.getElementById('loading');
-        // const progressBar = document.getElementById('progress-bar');
-        // const progressText = document.getElementById('progress-text');
-        // loading.style.display = 'flex';
-=======
     if(vButton && vButton.id === "download_image") {
         // Elemento a ser convertido em imagem
         const elemento = document.getElementById('conteudo_pdf');
->>>>>>> 7287f8cb7ab1a05c0940cd6dfad12dd8a48b1bc2
         
         // Desabilitar o botão durante o processamento
         vButton.disabled = true;
