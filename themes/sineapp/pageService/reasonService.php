@@ -61,21 +61,23 @@
                 <p class="text-sm text-gray-500">Dicas e informações sobre como se inserir no mercado</p>
             </div>
         </button>
-
-        <button
-            data-idservice = "<?= $type === "telefone" ? "56" : "4" ?>"
-            data-url="<?= url("/formularioAtendimento/atendimento/"). $type . "/". ($type === "telefone" ? "56" : "4") ?>"
-            class="cursor-pointer hover:bg-white hover:shadow-xl hover:border-gray-300 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
-            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                </svg>
-            </div>
-            <div>
-                <span class="font-medium text-gray-800 block mb-1">Encaminhamento para entrevistas</span>
-                <p class="text-sm text-gray-500">Agendamento e preparação para entrevistas de emprego</p>
-            </div>
-        </button>
+        
+        <?php if($type != "telefone"): ?>
+            <button
+                data-idservice = "<?= $type === "telefone" ? "56" : "4" ?>"
+                data-url="<?= url("/formularioAtendimento/atendimento/"). $type . "/". ($type === "telefone" ? "56" : "4") ?>"
+                class="cursor-pointer hover:bg-white hover:shadow-xl hover:border-gray-300 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-medium text-gray-800 block mb-1">Encaminhamento para entrevistas</span>
+                    <p class="text-sm text-gray-500">Agendamento e preparação para entrevistas de emprego</p>
+                </div>
+            </button>
+        <?php endif; ?>
 
         <button
             data-idservice = "<?= $type === "telefone" ? "57" : "5" ?>" 

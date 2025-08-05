@@ -29,7 +29,7 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full">
-                            <label for="new-enterprise" class="block text-sm font-medium text-gray-700 mb-1">Nome da Empresa *</label>
+                            <label for="new-enterprise" class="block text-sm font-medium text-gray-700 mb-1">Nome Empresarial *</label>
                             <input 
                                 name="new-enterprise"
                                 type="text"
@@ -37,6 +37,15 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
+
+                        <div class="w-full">
+                            <label for="name-fantasy" class="block text-sm font-medium text-gray-700 mb-1">Nome Fantasia *</label>
+                            <input 
+                                name="name-fantasy"
+                                type="text"
+                                value="<?= $company->name_fantasy_enterpise ?? ""; ?>"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="w-full">
@@ -53,6 +62,7 @@
                                 type=""
                                 id="phone-enterprise"
                                 value="<?= $company->phone_enterprise ?? ""; ?>"
+                                placeholder="(99) 99999-9999"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>

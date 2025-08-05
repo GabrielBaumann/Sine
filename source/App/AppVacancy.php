@@ -459,6 +459,7 @@ class AppVacancy extends Controller
         echo json_encode($json);
         return;
     }
+    
     /**
      * Enviar dados para javascript agendamento do dia e encerra no horário
      */

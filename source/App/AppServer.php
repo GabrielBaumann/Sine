@@ -11,6 +11,7 @@ use Source\Models\VacancyWorker;
 use Source\Models\Views\VwVacancyActive;
 use Source\Models\Worker;
 use Source\Models\WorkerEdit;
+use Source\Models\WorkerPhone;
 use Source\Support\Message;
 
 class AppServer extends Controller
@@ -56,6 +57,59 @@ class AppServer extends Controller
 
     public function formService(array $data) : void
     {
+        // Encaminhar dados quando for por telefone
+        if(isset($data["typeService"]) && $data["typeService"] === "telefone") {
+
+            if(!empty($data["csrf"])){
+
+                if(!csrf_verify($data)) {
+                    $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+                    $json["erro"] = true;
+                    echo json_encode($json);
+                    return;
+                }
+
+                $dataArray = cleanInputData($data, ["observation"]);
+
+                if(!$dataArray["valid"]) {
+                    $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
+                    $json["erro"] = true;
+                    echo json_encode($json);
+                    return;
+                }
+
+                $dataClean = $dataArray["data"];
+                $woker = (new WorkerPhone());
+
+                $woker->id_user_register = $this->user->id_user;
+                $woker->name_work_phone = $dataClean["nome"];
+                $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                $woker->contact_work = $dataClean["contact-work"];
+                $woker->save();
+                
+                $idWoker = $woker->id_work_phone;
+                $service = (new Service());
+                
+                $service->id_worker = $idWoker;
+                $service->id_user_register = $this->user->id_user;
+                $service->id_type_service = $data["idServiceType"];
+                $service->detail = $data["observation"];
+                $service->save();
+
+                $html = $this->view->render("/pageService/sucessService", [
+                    "title" => "Atendimento",
+                    "type" => (new TypeService())->findById($data["idServiceType"]) ?? null,
+                    "candidate" => (new WorkerPhone())->findById($idWoker) ?? null
+                ]);
+
+                $json["html"] = $html;
+                $json["erro"] = false;
+                echo json_encode($json);
+                return;
+
+            }
+        }
+
         // Cadastro e atualização
         if(isset($data["idServiceType"]) && in_array($data["idServiceType"], ["1", "16"])) {
 
@@ -92,7 +146,9 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
-                    $woker->ethnicity_worker = "rosa";
+                    $woker->ethnicity_worker = $dataClean["gender"];
+                    $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                    $woker->contact_work = $dataClean["contact-work"];
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
                     $woker->save();
@@ -111,6 +167,8 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
+                    $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                    $woker->contact_work = $dataClean["contact-work"];
                     $woker->ethnicity_worker = "rosa";
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
@@ -126,7 +184,6 @@ class AppServer extends Controller
                     $service->save();
                 }
 
-
                 $html = $this->view->render("/pageService/sucessService", [
                     "title" => "Atendimento",
                     "type" => (new TypeService())->findById($data["idServiceType"]) ?? null,
@@ -136,7 +193,6 @@ class AppServer extends Controller
                 $json["html"] = $html;
                 $json["erro"] = false;
                 echo json_encode($json);
-
                 return;
             }
         }
@@ -215,6 +271,8 @@ class AppServer extends Controller
                 $woker->cpf_worker = $dataClean["cpf"];
                 $woker->pcd_worker = $dataClean["pcd"];
                 $woker->gender_worker = $dataClean["gender"];
+                $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                $woker->contact_work = $dataClean["contact-work"];
                 $woker->ethnicity_worker = "rosa";
                 $woker->apprentice_worker = $dataClean["apprentice"];
                 $woker->cterc = $dataClean["cterc"];
@@ -280,7 +338,8 @@ class AppServer extends Controller
         echo $this->view->render("/forms/formsService", [
             "url" => $url ?? null,
             "idServiceType" => $data["idServiceType"] ?? null,
-            "idInterview" => $data["interview"] ?? null
+            "idInterview" => $data["interview"] ?? null,
+            "typeService" => $data["typeservice"] ?? null
         ]);        
     }
 
@@ -348,7 +407,8 @@ class AppServer extends Controller
                 "titleForm" => $titleForm,
                 "url" => $url,
                 "idServiceType" => $idServiceType ?? null,
-                "idInterview" => $idServiceType ?? null
+                "idInterview" => $idServiceType ?? null,
+                "typeService" => $data["idServiceType"] ?? null
             ]);  
 
             $json["html"] = $html;

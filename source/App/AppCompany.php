@@ -145,6 +145,9 @@ class AppCompany extends Controller
         return;
     }
 
+    /**
+     * Cadastrar empresa e editar
+     */
     public function formCompany(?array $data) : void
     {   
         if(!empty($data["csrf"])) {
@@ -184,6 +187,7 @@ class AppCompany extends Controller
             }
 
             $enterprise->name_enterprise = $dataCleanInput["new-enterprise"];
+            $enterprise->name_fantasy_enterpise = $dataCleanInput["name-fantasy"];
             $enterprise->cnpj = cleanCPF($dataCleanInput["cnpj"]);
             $enterprise->email_enterprise = $dataCleanInput["email-enterprise"];
             $enterprise->responsible_enterprise = $dataCleanInput["responsible-person"];

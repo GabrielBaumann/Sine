@@ -40,11 +40,13 @@ document.addEventListener("focusout", function(e) {
             const vUrlBack = document.getElementById("bntBack").dataset.url;
             const vTitleForm = document.getElementById("titleForm").textContent;
             const vidService = document.getElementById("idServiceType").value;
+            const vTypeService = document.getElementById("typeService").value;
 
             vForm.append(vLabel, vValue.replace(/\D/g, ''));
             vForm.append("url", vUrlBack);
             vForm.append("titleForm", vTitleForm);
             vForm.append("idServiceType", vidService);
+            vForm.append("typeService", vTypeService);
 
             if(cpfInitialEdit != vValue && vValue.length === 14) {
 
@@ -64,6 +66,7 @@ document.addEventListener("focusout", function(e) {
                         } else{
                             document.getElementById("newElement").innerHTML = data.html;
                             cpfInitialEdit = vValue;
+                            fncPhoneMask();
                         }
                     }
                 })
@@ -71,46 +74,6 @@ document.addEventListener("focusout", function(e) {
         }
     }
 });
-
-// Máscara para telefone
-document.addEventListener('input', function(e) {
-    if (e.target && e.target.id === "telephone") {
-        let value = e.target.value.replace(/\D/g, '');
-
-            if (value.length > 11) value = value.substring(0, 11);
-            
-            if (value.length <= 10) {
-                value = value.replace(/(\d{2})(\d)/, '($1) $2');
-                value = value.replace(/(\d{4})(\d)/, '$1-$2');
-            } else {
-                value = value.replace(/(\d{2})(\d)/, '($1) $2');
-                value = value.replace(/(\d{5})(\d)/, '$1-$2');
-            }
-            e.target.value = value;       
-    }
-});
-
-document.addEventListener("focusout", function(e) {
-    if (e.target.id === "telephone") {
-        const vCountCpf = e.target.value.replace(/\D/g, '');
-        if (vCountCpf.length < 11) {
-            e.target.value ="";
-        }
-    }
-})
-
-// Fechar mensagem para usuário
-// document.addEventListener("click", (e) => {
-
-//     const botao = e.target.closest("#botao");
-//     const message = e.target.closest(".alert-container");
-
-//     if (botao && message) {
-//         message.style.transition = "opacity 0.5s ease";
-//         message.style.opacity = "0";
-//         setTimeout(() => message.remove(), 2000);
-//     }
-// })
 
 // Opção de voltar limpar variável do cpf
 document.addEventListener("click", (e) => {
@@ -137,14 +100,6 @@ function fncClearForm() {
     cpfInitialEdit = "";
 }
 
-// Função para remover mensagem com efeito
-// function fncRemoveMenssage(element, timeDuration = 1000) {
-//     if(!element) return;
-//         element.style.transition = "opacity 0.5s ease";
-//         element.style.opacity = "0";
-//         setTimeout(() => element.remove(), timeDuration);
-// }
-
 // Chamadas do atendimento
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
@@ -169,8 +124,20 @@ document.addEventListener("click", (e) => {
                 if (vTextTitle && vTextTitle) {
                     vTitleForm.textContent = vTextTitle;
                     vId.value = vIdServiceType;
+                    fncPhoneMask();
                 }
             }
         });
     }
 })
+
+// Máscara para telefone
+function fncPhoneMask() {
+    const vPhone = document.getElementById("contact-work").addEventListener("input", (e) => {
+        let vValor = e.target.value.replace(/\D/g, '');
+        if (vValor.length > 6) {
+            vValor = vValor.slice(0 ,5) + "-" + vValor.slice(5, 11);
+        }
+        e.target.value = vValor;
+    })
+}

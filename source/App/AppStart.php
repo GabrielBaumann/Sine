@@ -37,7 +37,6 @@ class AppStart extends Controller
 
     public function startPage() : void
     {   
-        
         // Gráfico de atendimentos
         $serve = new Service();
         $charServer = $serve->charService();

@@ -15,7 +15,7 @@
             </div>
             <div class="flex justify-between pb-3 mb-3">
                 <span class="text-gray-900 font-medium">Nome Candidato:</span>
-                <span class="font-semibold text-blue-900" id="confirm-reason"><?= $candidate->name_worker ?? "" ?></span>
+                <span class="font-semibold text-blue-900" id="confirm-reason"><?= $candidate->name_worker ?? $candidate->name_work_phone ?></span>
             </div>
             <div class="flex justify-between pb-3 mb-3" id="confirm-service-container">
                 <span class="text-gray-900 font-medium">Serviço:</span>
