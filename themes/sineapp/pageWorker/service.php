@@ -64,42 +64,51 @@
                             <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
                             <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">                            
 
-                            <label for="motivo">*</label>
-                            <select id="motivo" name="source-service-vacancy" class="flex-1 border border-gray-300 p-2 rounded-md cursor-pointer">
-                                <option value="">selecione um motivo</option>
-                                <option value="Na ocupação">Na ocupação</option>
-                                <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
-                                <option value="Turma Cancelada">Turma Cancelada</option>
-                            </select>
-
-                            <label for="">Data de Respota *</label>
-                            <input type="date">
-
-                            <label for="">Observação</label>
-                            <input type="text">
-
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
-                                    <span>Salvar</span>
-                                </button>
-                            </div>
-                        </form>
-
-                        <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                            <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                                <?= csrf_input(); ?>
-                                
-                                <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
-                                <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>"> 
-                                <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> 
-
+                            <div class="flex flex-col gap-4 w-full">
+                                <div class="flex gap-4 w-full">
+                                    <div class="flex flex-col w-full">
+                                        <label for="motivo">*</label>
+                                        <select id="motivo" name="source-service-vacancy" class="bg-gray-200 flex-1 border border-gray-100 p-2 rounded-md cursor-pointer">
+                                            <option value="">selecione um motivo</option>
+                                            <option value="Na ocupação">Na ocupação</option>
+                                            <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
+                                            <option value="Turma Cancelada">Turma Cancelada</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="" class="text-gray-500">Data de Resposta *</label>
+                                        <input type="date" class="p-2 bg-gray-200 border border-gray-100 rounded-md">
+                                    </div>
+                                    <div class="flex flex-col w-full">
+                                        <label for="" class="text-gray-500">Observação</label>
+                                        <input type="text" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
+                                    </div>
+                                </div>
+                            <div class="flex w-full gap-4">
                                 <div class="flex flex-col sm:flex-row gap-3">
-                                    <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
-                                        <span>Excluir</span>
+                                    <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium p-3 rounded-md transition duration-200">
+                                        <span>Salvar</span>
                                     </button>
                                 </div>
-                            </form>
-                        <?php endif; ?>
+                                </form>
+                                
+                                <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
+                                    <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                                        <?= csrf_input(); ?>
+                                
+                                        <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                                        <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">
+                                        <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>">
+                                        <div class="flex flex-col sm:flex-row gap-3">
+                                            <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
+                                                <span>Excluir</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
                     <?php else:?>
                         <?= $service->status_vacancy_worker ?>
                     <?php endif;?>
@@ -121,5 +130,3 @@
                 <?php endif;?>
             </div>
         </div>
-    </div>
-</div>

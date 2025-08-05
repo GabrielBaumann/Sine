@@ -26,8 +26,8 @@ function updateResponsive() {
 
         vMenus.forEach(vElemet => {
             if(fncSanitizeCaractere(vElemet.textContent).replace(/\s/g, "") === vUrlPage) {
-                vElemet.closest("a.menu").classList.remove("text-gray-700")
-                vElemet.closest("a.menu").classList.add("text-white", "bg-blue-800", "rounded-md", "hover:text-white");
+                vElemet.closest("a.menu").classList.remove("text-gray-500")
+                vElemet.closest("a.menu").classList.add("text-blue-900", "font-bold",);
             }
         });
     }
