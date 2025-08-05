@@ -2,8 +2,8 @@
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
 
-    if(vButton && vButton.id === "print-panel") {
-        // console.log(vButton.dataset.url);
+    if(vButton && vButton.classList.contains("print")) {
+
         const vUrl = vButton.dataset.url
         fetch(vUrl)
         .then(response => response.json())
@@ -25,7 +25,7 @@ document.addEventListener("click", (e) => {
 
     const vButton = e.target.closest("button");
 
-    if(vButton && vButton.id === "nada") {
+    if(vButton && vButton.id === "visualizar-pdf") {
             
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
@@ -41,7 +41,7 @@ document.addEventListener("click", (e) => {
                 altura: altura,
                 descricao: descricao.trim()
             });
-            // console.log(`Linha com "${descricao.trim()}" tem ${altura}px de altura`);
+
         });
    
         const elemento = document.getElementById('conteudo_pdf');
@@ -172,55 +172,182 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
     
-    if(vButton && vButton.id === "visualizar") {
-        // Elemento a ser convertido em imagem
-        const elemento = document.getElementById('conteudo_pdf');
+    if(vButton && vButton.id === "visualizar-jpeg") {
+        // Mostrar tela de carregamento
+        // const loading = document.getElementById('loading');
+        // const progressBar = document.getElementById('progress-bar');
+        // const progressText = document.getElementById('progress-text');
+        // loading.style.display = 'flex';
         
-        if (!elemento) {
-            console.error('Elemento conteudo_pdf não encontrado');
-            alert('Elemento não encontrado!');
+        // Desabilitar o botão durante o processamento
+        vButton.disabled = true;
+        vButton.textContent = "Processando...";
+        
+        // Calcular altura de todas as linhas (ignorando cabeçalhos)
+        const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
+        const linhasComAltura = [];
+        
+        linhas.forEach(linha => {
+            const altura = linha.clientHeight;
+            const descricaoCell = linha.querySelector('.descricao-cell');
+            const descricao = descricaoCell ? descricaoCell.textContent : 'Sem descrição';
+            
+            linhasComAltura.push({
+                elemento: linha.cloneNode(true),
+                altura: altura,
+                descricao: descricao.trim()
+            });
+        });
+        
+        const elementoOriginal = document.querySelector('.page');
+        
+        if (!elementoOriginal) {
+            console.error('Elemento .page não encontrado');
             return;
         }
         
-        // Adicionar efeito de carregamento ao botão
-        const originalText = vButton.innerHTML;
-        vButton.innerHTML = '<i>⏳</i> Gerando imagem...';
-        vButton.disabled = true;
+        // Dividir a tabela em páginas
+        const pages = [];
+        const maxHeightPerPage = 800; // Altura máxima por página (ajustável)
         
-        // Configurações do html2canvas
-        const opcoes = {
-            scale: 3,          // Aumenta a qualidade da imagem
-            useCORS: true,      // Permite carregar imagens externas
-            logging: false,     // Desativa logs no console
-            backgroundColor: '#FFFFFF' // Fundo branco
-        };
+        // Variáveis para controle de paginação
+        let currentPageRows = [];
+        let currentHeight = 0;
+        let pageNumber = 1;
         
-        // Converter o elemento em canvas e depois em JPEG
-        html2canvas(elemento, opcoes).then(canvas => {
-            // Converter canvas para imagem JPEG
-            const imagemURL = canvas.toDataURL('image/jpeg', 0.95);
+        for (let i = 0; i < linhasComAltura.length; i++) {
+            const linha = linhasComAltura[i];
             
-            // Criar link para download
-            const link = document.createElement('a');
-            link.href = imagemURL;
-            link.download = 'painel_de_vagas.jpg';
+            // Verificar se precisamos criar uma nova página
+            if (currentHeight + linha.altura > maxHeightPerPage) {
+                
+                if (currentPageRows.length > 0) {
+                    // Criar nova página com as linhas acumuladas
+                    const newPage = elementoOriginal.cloneNode(true);
+                    const newTable = newPage.querySelector('#tabela');
+                    const newTbody = newTable.querySelector('tbody');
+                    
+                    // Remover conteúdo antigo
+                    newTbody.innerHTML = '';
+                    
+                    // Adicionar linhas à nova página
+                    currentPageRows.forEach(linha => {
+                        newTbody.appendChild(linha.elemento.cloneNode(true));
+                    });
+                    
+                    // Atualizar número da página
+                    newPage.querySelector('.page-number').textContent = `Página ${pageNumber}`;
+                    pageNumber++;
+                    
+                    pages.push(newPage);
+                }
+                
+                // Resetar para a próxima página
+                currentPageRows = [linha];
+                currentHeight = linha.altura;
+                
+            } else {
+                // Adicionar linha à página atual
+                currentPageRows.push(linha);
+                currentHeight += linha.altura;
+            }
+        }
+        
+        // Adicionar a última página (se houver linhas)
+        if (currentPageRows.length > 0) {
+            const newPage = elementoOriginal.cloneNode(true);
+            const newTable = newPage.querySelector('#tabela');
+            const newTbody = newTable.querySelector('tbody');
+            newTbody.innerHTML = '';
             
-            // Disparar o download
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            currentPageRows.forEach(linha => {
+                newTbody.appendChild(linha.elemento.cloneNode(true));
+            });
             
-            // Restaurar botão
-            vButton.innerHTML = originalText;
+            newPage.querySelector('.page-number').textContent = `Página ${pageNumber}`;
+            pages.push(newPage);
+        }
+        
+        // Criar ZIP com todas as páginas como imagens
+        const zip = new JSZip();
+        const promises = [];
+        
+        // Atualizar informações de progresso
+        const totalPages = pages.length;
+        let completedPages = 0;
+        
+        // Função para atualizar a barra de progresso
+        // const updateProgress = () => {
+        //     const percent = Math.round((completedPages / totalPages) * 100);
+        //     progressBar.style.width = `${percent}%`;
+        //     progressText.textContent = `${percent}% concluído (${completedPages}/${totalPages} páginas)`;
+        // };
+        
+        // Processar cada página
+        pages.forEach((page, index) => {
+            // Criar um container temporário para renderizar a página
+            
+            const container = document.createElement('div');
+            container.style.position = 'absolute';
+            container.style.left = '0px';
+            container.style.top = '0px';
+            container.style.width = '794px';
+            container.style.height = '1110px';
+            container.appendChild(page);
+            document.body.appendChild(container);
+
+            const promise = html2canvas(container, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#FFFFFF',
+                logging: false
+            }).then(canvas => {
+                return new Promise((resolve) => {
+                    canvas.toBlob(blob => {
+                        // Adicionar imagem ao ZIP
+                        zip.file(`Painel_Vagas_Pagina_${index + 1}.jpeg`, blob);
+                        
+                        // Remover container temporário
+                        document.body.removeChild(container);
+                        
+                        // Atualizar progresso
+                        completedPages++;
+                        // updateProgress();
+                        
+                        resolve();
+                    }, 'image/jpeg', 0.95);
+                });
+            });
+            
+            promises.push(promise);
+        });
+        
+        // Aguardar todas as páginas serem processadas
+        Promise.all(promises).then(() => {
+            // Gerar o arquivo ZIP
+            zip.generateAsync({type: 'blob'}).then(content => {
+                // Fazer download do ZIP
+                saveAs(content, 'Painel_de_Vagas.zip');
+                
+                // Ocultar tela de carregamento
+                loading.style.display = 'none';
+                
+                // Resetar progresso
+                progressBar.style.width = '0%';
+                progressText.textContent = '0% concluído';
+                
+                // Reabilitar o botão
+                vButton.disabled = false;
+                vButton.textContent = "📷 Baixar Painel como JPEGs";
+            });
+        }).catch(error => {
+            console.error('Erro ao gerar imagens:', error);
+            loading.style.display = 'none';
+            alert('Ocorreu um erro ao gerar as imagens. Tente novamente.');
+            
+            // Reabilitar o botão
             vButton.disabled = false;
-            
-        }).catch(err => {
-            console.error('Erro ao gerar imagem:', err);
-            alert('Ocorreu um erro ao gerar a imagem. Tente novamente.');
-            
-            // Restaurar botão em caso de erro
-            vButton.innerHTML = originalText;
-            vButton.disabled = false;
+            vButton.textContent = "📷 Baixar Painel como JPEGs";
         });
     }
 });

@@ -122,6 +122,29 @@ class AppStart extends Controller
         return;    
     }
 
+    public function printPanelInternal() : void
+    {
+        $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
+
+        if(!$vwVacancy) {
+            $json["message"] = messageHelpers()->warning("Não há vagas no painél!")->render();
+            echo json_encode($json);            
+            return;
+        }
+
+        $html = $this->view->render("/printingInternalVacancy", [
+            "panelVacancy" =>  (new VwVacancy())
+                ->find("total_vacancy_active <> :to","to=0")
+                ->order("nomeclatura_vacancy")
+                ->fetch(true)
+        ]);
+        
+        $json["html"] = $html;
+        $json["content"] = "panel-vacancy";
+        echo json_encode($json);
+        return;    
+    }
+
     public function reportDownloadWord($data) : void
     {
         $formatterDate = new IntlDateFormatter(

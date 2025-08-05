@@ -26,6 +26,7 @@ $route->get("/inicio", "AppStart:startPage");
 $route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
 
 $route->get("/imprimirpainel", "AppStart:printPanel");
+$route->get("/imprimirpainelinterno", "AppStart:printPanelInternal");
 $route->get("/baixarpainelword", "AppStart:reportDownloadWord");
 
 /**

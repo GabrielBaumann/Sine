@@ -4,14 +4,8 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
-use Source\Models\Service;
 use Source\Models\SystemUser;
-use Source\Models\TypeService;
-use Source\Models\VacancyWorker;
-use Source\Models\Views\VwVacancyActive;
-use Source\Models\Worker;
-use Source\Models\WorkerEdit;
-use Source\Models\WorkerPhone;
+use Source\Models\Views\VwServicePhone;
 use Source\Support\Message;
 
 class AppWorkerPhone extends Controller
@@ -33,7 +27,8 @@ class AppWorkerPhone extends Controller
     {
         echo $this->view->render("/pageServicePhone", [
             "title" => "Atendimento",
-            "userSystem" => (new SystemUser())->findById($this->user->id_user)
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "worksPhone" => (new VwServicePhone())->find()->fetch(true)
         ]);    
     }
 

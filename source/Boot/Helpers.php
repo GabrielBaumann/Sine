@@ -183,7 +183,7 @@ function cleanInputData(array $data, ?array $removerFilds = null): array
             $value = preg_replace("/\D/", "", $data['phone']);
         }
 
-        $sanitezed[$field] = $value;
+        $sanitezed[$field] = strtoupper($value);
     }
 
     return [

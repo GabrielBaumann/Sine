@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="<?= theme("/assets/css/message.css", CONF_VIEW_APP); ?>">
     <link rel="stylesheet" href="<?= theme("/assets/css/style.css", CONF_VIEW_APP); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
     <!-- <link rel="stylesheet" href="src/output.css"> -->
     <?= $this->section("css") ?>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>

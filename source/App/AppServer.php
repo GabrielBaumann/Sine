@@ -61,7 +61,7 @@ class AppServer extends Controller
         if(isset($data["typeService"]) && $data["typeService"] === "telefone") {
 
             if(!empty($data["csrf"])){
-
+                    
                 if(!csrf_verify($data)) {
                     $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
                     $json["erro"] = true;
@@ -77,14 +77,14 @@ class AppServer extends Controller
                     echo json_encode($json);
                     return;
                 }
-
+                
                 $dataClean = $dataArray["data"];
                 $woker = (new WorkerPhone());
 
                 $woker->id_user_register = $this->user->id_user;
                 $woker->name_work_phone = $dataClean["nome"];
                 $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
-                $woker->contact_work = $dataClean["contact-work"];
+                $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
                 $woker->save();
                 
                 $idWoker = $woker->id_work_phone;
