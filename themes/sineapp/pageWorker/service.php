@@ -71,7 +71,13 @@
                                 <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
                                 <option value="Turma Cancelada">Turma Cancelada</option>
                             </select>
-                            
+
+                            <label for="">Data de Respota *</label>
+                            <input type="date">
+
+                            <label for="">Observação *</label>
+                            <input type="text">
+
                             <div class="flex flex-col sm:flex-row gap-3">
                                 <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium py-3 md:py-0 px-4 rounded-md transition duration-200">
                                     <span>Salvar</span>

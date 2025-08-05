@@ -246,22 +246,33 @@ function time_now(string $date = "now", string $format = "g:i A"): string
     return str_pad($number, 3, '0', STR_PAD_LEFT);
 }
 
-function mask_phone(string $phone): string
+function mask_phone(string $phone, $simple = false): string
 {   
-
-    // Remove tudo que não for número
-    $digits = preg_replace('/\D/', '', $phone);
-
-    if (strlen($digits) === 11) {
-        // Celular: (11) 91234-5678
-        return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $digits);
-    } elseif (strlen($digits) === 10) {
-        // Fixo: (11) 1234-5678
-        return preg_replace('/(\d{2})(\d{4})(\d{4})/', '($1) $2-$3', $digits);
+    if($simple) {
+        // Remove qualquer caractere não numérico
+        $digitos = preg_replace('/\D/', '', $phone);
+        
+        // Verifica se tem 9 dígitos
+        if (strlen($digitos) !== 9) {
+            return $phone; // Retorna original se não tiver 9 dígitos
+        }
+        
+        // Aplica a máscara: #####-####
+        return substr($digitos, 0, 5) . '-' . substr($digitos, 5);
     }
+        // Remove tudo que não for número
+        $digits = preg_replace('/\D/', '', $phone);
 
-    // Se não for 10 ou 11 dígitos, retorna como está
-    return $phone;
+        if (strlen($digits) === 11) {
+            // Celular: (11) 91234-5678
+            return preg_replace('/(\d{2})(\d{5})(\d{4})/', '($1) $2-$3', $digits);
+        } elseif (strlen($digits) === 10) {
+            // Fixo: (11) 1234-5678
+            return preg_replace('/(\d{2})(\d{4})(\d{4})/', '($1) $2-$3', $digits);
+        }
+
+        // Se não for 10 ou 11 dígitos, retorna como está
+        return $phone;
 }
 
 /**
