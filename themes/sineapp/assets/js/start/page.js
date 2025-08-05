@@ -25,7 +25,7 @@ document.addEventListener("click", (e) => {
 
     const vButton = e.target.closest("button");
 
-    if(vButton && vButton.id === "nada") {
+    if(vButton && vButton.id === "visualizar") {
             
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
@@ -172,7 +172,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
     
-    if(vButton && vButton.id === "visualizar") {
+    if(vButton && vButton.id === "download_image") {
         // Elemento a ser convertido em imagem
         const elemento = document.getElementById('conteudo_pdf');
         
