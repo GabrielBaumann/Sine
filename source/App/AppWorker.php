@@ -29,7 +29,7 @@ class AppWorker extends Controller
 
     public function startWorker(?array $data) : void
     {   
-
+        
         if(isset($data["name-search"]) || isset($data["search-all-status"])) {
 
             $nameSearch = isset($data["name-search"]) ? filter_var($data["name-search"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -74,7 +74,12 @@ class AppWorker extends Controller
         echo $this->view->render("/pageWorker", [
             "title" => "Trabalhador",
             "countWorker" => $worker,
-            "worker" => (new Worker())->find()->order("name_worker")->limit($pager->limit())->offset($pager->offset())->fetch(true),
+            "worker" => (new Worker())
+                ->find()
+                ->order("name_worker")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "paginator" => $pager->render()
         ]);  

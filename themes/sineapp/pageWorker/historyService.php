@@ -2,9 +2,9 @@
     id="id-worker" 
     type="hidden"
     name="id-worker" 
-    value="<?= $worker->id_worker; ?>"
-    >
-<div class="">
+    value="<?= $worker->id_worker; ?>">
+
+<div>
     <!-- Cabeçalho -->
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 md:mb-0">
         <div class="flex items-center gap-3">

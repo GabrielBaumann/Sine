@@ -142,6 +142,10 @@ $route->get("/selecionarempresa/{idcompany}", "AppServer:listSelectEnterprise");
 
 // ServicePhone
 $route->get("/trabalhadortelefone", "AppWorkerPhone:pagePhone");
+$route->post("/pesquisatrabalhadortelefone","AppWorkerPhone:pagePhone");
+$route->get("/pesquisatrabalhadortelefone/p/{page}", "AppWorkerPhone:startPagePaginator");
+$route->get("/abriratendimento/{idservice}", "AppWorkerPhone:editService");
+$route->get("/voltartrabalhadortelefone", "AppWorkerPhone:pagePhone");
 
 
 $route->get("/sair", "AppServer:logout");

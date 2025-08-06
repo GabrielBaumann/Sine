@@ -14,7 +14,8 @@ function updateResponsive() {
         const vMenus = document.querySelectorAll("span.mobile");
 
         vMenus.forEach(vElemet => {
-            if(fncSanitizeCaractere(vElemet.textContent).replace(/\s/g, "") === vUrlPage) {
+
+            if(vElemet.dataset.sidebar === vUrlPage) {
                 vElemet.closest("a.mobile").classList.remove("text-gray-600")
                 vElemet.closest("a.mobile").classList.add("text-blue-800");
             }
@@ -25,7 +26,7 @@ function updateResponsive() {
         const vMenus = document.querySelectorAll("span.menu");
 
         vMenus.forEach(vElemet => {
-            if(fncSanitizeCaractere(vElemet.textContent).replace(/\s/g, "") === vUrlPage) {
+            if(vElemet.dataset.sidebar === vUrlPage) {
                 vElemet.closest("a.menu").classList.remove("text-gray-500")
                 vElemet.closest("a.menu").classList.add("text-blue-900", "font-bold",);
             }

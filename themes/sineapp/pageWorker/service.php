@@ -47,7 +47,7 @@
                 <div class="col-span-2">
                     <label for="observation" class="block text-sm font-medium text-gray-700 mb-2">Observação</label>
                     <div id="observation" name="observation" class="bg-gray-100 w-full p-4 rounded-md  min-h-32 text-gray-600">
-                        Observação bem observada
+                       <?= $service->type_service->detail ?? null; ?>
                     </div>
                 </div>
             </div>

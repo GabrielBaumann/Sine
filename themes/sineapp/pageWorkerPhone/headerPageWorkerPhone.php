@@ -1,7 +1,6 @@
-
 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
     <!-- Título -->
-    <h1 class="text-2xl font-semibold text-gray-900">Trabalhadores atendimento por telefone</h1>
+    <h1 class="text-2xl font-semibold text-gray-900">Trabalhadores atendimentos por telefone</h1>
     <!-- Controles -->
     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
         <!-- Barra de Pesquisa com Ícone -->
@@ -12,29 +11,29 @@
                 </svg>
             </div>
             <input
-                data-url="<?= url("/pesquisarcandidato"); ?>"
+                data-url="<?= url("/pesquisatrabalhadortelefone"); ?>"
                 data-ajax="listWorkes"
                 name="name-search"
                 id="name-search" 
                 type="text" 
                 placeholder="Pesquisar trabalhadores..."
-                class="input-search pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            >
+                class="input-search pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
         </div>
         
         <!-- Filtros -->
         <div class="flex flex-col sm:flex-row gap-2">           
             <select 
-                data-url="<?= url("/pesquisarcandidato"); ?>"
+                data-url="<?= url("/pesquisatrabalhadortelefone"); ?>"
                 data-ajax="listWorkes"
                 name="search-all-status"
                 id="search-all-status"
-                class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            >
+                class="input-search px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                 <option value="">Todos status</option>
-                <option>Aguardando Resposta</option>
-                <option>Reprovado</option>
-                <option>Atendimento Realizado</option>
+
+                <?php foreach($typeService as $typeServiceItem): ?>
+                    <option value="<?= $typeServiceItem->type_service ?>"><?= $typeServiceItem->type_service ?></option>
+                <?php endforeach;?>
+
             </select>
         </div>
     </div>
