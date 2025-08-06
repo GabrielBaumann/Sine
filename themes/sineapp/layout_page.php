@@ -52,21 +52,31 @@
         }
     </style>
 </head>
-<body class=" flex items-center h-screen">
-    <!-- <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-blue-400 to-blue-600 opacity-40 sm:left-[calc(50%-30rem)] sm:w-288.75" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div>
-    <div class="hidden sm:absolute sm:-top-10 sm:right-0 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
-        <div class="aspect-1097/845 w-274.25 bg-linear-to-tr from-blue-400 to-blue-400 opacity-40" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-    </div> -->
+<body class="flex h-screen">
+    <div class="menu-desktop bg-white flex h-screen w-full">
+        <aside class="w-80 p-6 hidden lg:flex flex-col border-r border-gray-200">
 
-    <div class="menu-desktop bg-white flex h-screen max-h-screen w-[1366px] max-w-full overflow-hidden mx-auto">
-        
-        <aside class="w-64 p-6 hidden lg:flex flex-col">
-            <div class="mb-12 flex items-center text-gray-800">
-                <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[60px] mx-auto">
+        <!-- logo area -->
+        <div class="mb-12 flex items-center text-gray-800">
+            <img src="<?= theme("/assets/images/logo_sine.png")?>" alt="sine" class="h-[40px] mx-auto">
+        </div>
+
+        <!-- User Info -->
+        <div class="flex flex-col items-center justify-center text-center mb-12">
+           
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-20 text-blue-600">
+            <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+            </svg>
+
+            <div>
+                <p class="font-medium text-gray-900"><?= $userSystem->name_user ?? null; ?></p>
+                <p class="text-xs text-gray-500"><?= $userSystem->profession_user ?? null; ?></p>
             </div>
-        <nav class="flex flex-col gap-3 flex-grow">
+            
+            
+        </div>
+
+        <nav class="flex flex-col gap-3 flex-grow pl-5">
             <a href="<?= url("/inicio"); ?>" class="menu hover:text-blue-800 text-gray-500 px-4 py-2 flex items-center gap-2 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                 <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
@@ -115,28 +125,14 @@
                     <span class="menu" data-sidebar="usuarios">Usuarios</span>
                 </a>
             <?php endif;?>
-        </nav>
 
-        <!-- User Info -->
-        <div class="mt-auto pt-4 px-1">
-            <div class="flex items-center gap-2 mb-4">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center text-[#095998]">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-10">
-                    <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div>
-                    <p class="font-medium text-gray-900"><?= $userSystem->name_user ?? null; ?></p>
-                    <p class="text-xs text-gray-500"><?= $userSystem->profession_user ?? null; ?></p>
-                </div>
-            </div>
-            <a href="<?= url("/sair"); ?>" class="text-red-500 py-2 rounded-lg flex items-center gap-2">
+            <a href="<?= url("/sair"); ?>" class="text-red-500 py-2 rounded-lg flex items-center gap-2 absolute bottom-10">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                 <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
                 </svg>
                 <span>Sair do sistema</span>
             </a>
-        </div>
+        </nav>
         </aside>
 
         <?= $this->section("content")?>
