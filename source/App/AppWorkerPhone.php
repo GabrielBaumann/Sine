@@ -4,6 +4,7 @@ namespace Source\App;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
+use Source\Models\Service;
 use Source\Models\SystemUser;
 use Source\Models\TypeService;
 use Source\Models\Views\VwServicePhone;
@@ -153,7 +154,58 @@ class AppWorkerPhone extends Controller
         return;
     }
 
-    // Voltar página
+    // Voltar página para o início
+    public function backWorker() : void
+    {
+        $workerPhone = (new VwServicePhone())->find()->count();
+        $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
+        $pager->pager($workerPhone, 10, 1);
+        $countWorker = (new VwServicePhone())->find()->count();
+
+        $html = $this->view->render("/pageWorkerPhone/componentCompleteWorkerPhone", [
+            "title" => "Atendimento",
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "worksPhone" => (new VwServicePhone())
+                ->find()
+                ->order("name_work_phone")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
+            "countWorker" => $countWorker,
+            "paginator" => $pager->render()
+        ]);
+    
+        $json["html"] = $html;
+        $json["content"] = "listWorkes";
+        echo json_encode($json);
+        return;
+    }
+
+    // Exlcuir atendimento por telefone
+    public function deleteServicePhone(array $data) : void
+    {
+        if(!empty($data["csrf"])){
+            
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enivar! Atualize a página e tente novamente.")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            $service = (new Service())->find("id_worker = :w AND id_type_service = :t","w={$data["id-worker"]}&t={$data["id-type-service"]}")->fetch();
+            $service->destroy();
+
+            if($service) {
+                $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->flash();
+                $json["redirect"] = url("/trabalhadortelefone");
+                echo json_encode($json);
+                return;
+            }
+
+        }
+    }
 
     public function logout()
     {

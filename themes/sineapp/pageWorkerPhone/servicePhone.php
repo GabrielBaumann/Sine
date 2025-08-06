@@ -57,18 +57,17 @@
         <div>
             <div class="flex flex-col sm:flex-row gap-4">
                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <form action="<?= url("/editarservicotrabalhador/atendimentosexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                            <?= csrf_input(); ?>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <form action="<?= url("/excluiratendimentotelefone"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                        <?= csrf_input(); ?>
 
-                            <!-- <input name="id-service" type="hidden" value="<?= $servicePhone->id_service ?>"> -->
-                            <input name="id-worker" type="hidden" value="<?= $servicePhone->id_worker ?>">   
-
-                                <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
-                                    <span>Excluir</span>
-                                </button>
-                            </form>
-                        </div>
-                    <?php endif; ?>
+                        <input name="id-type-service" type="hidden" value="<?= $servicePhone->id_type_service ?>">
+                        <input name="id-worker" type="hidden" value="<?= $servicePhone->id_worker ?>">   
+                            <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 py-3 md:py-0 font-medium px-4 rounded-md transition duration-200">
+                                <span>Excluir</span>
+                            </button>
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>

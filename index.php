@@ -145,8 +145,8 @@ $route->get("/trabalhadortelefone", "AppWorkerPhone:pagePhone");
 $route->post("/pesquisatrabalhadortelefone","AppWorkerPhone:pagePhone");
 $route->get("/pesquisatrabalhadortelefone/p/{page}", "AppWorkerPhone:startPagePaginator");
 $route->get("/abriratendimento/{idservice}", "AppWorkerPhone:editService");
-$route->get("/voltartrabalhadortelefone", "AppWorkerPhone:pagePhone");
-
+$route->get("/voltartrabalhadortelefone", "AppWorkerPhone:backWorker");
+$route->post("/excluiratendimentotelefone", "AppWorkerPhone:deleteServicePhone");
 
 $route->get("/sair", "AppServer:logout");
 
