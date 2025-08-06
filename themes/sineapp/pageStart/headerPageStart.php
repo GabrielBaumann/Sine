@@ -1,14 +1,19 @@
-<!-- Header -->
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 px-4 md:px-0">
-    <div class="mb-4 md:mb-0">
+<!-- Main Container -->
+<div class="flex flex-col lg:flex-row">
+  <!-- main -->
+  <div class="flex flex-col w-full lg:w-4/5">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 px-4 pt-6">
+      <div class="mb-4 md:mb-0">
         <h1 class="text-2xl lg:text-2xl font-medium text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
         <p class="text-gray-500 text-sm lg:text-base mt-1">Aqui está o resumo das atividades recentes</p>
+      </div>
     </div>
-</div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
-    <!-- Atendimentos -->
-    <div class="bg-blue-500 rounded-2xl p-4 overflow-hidden relative">
+    <!-- Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 w-full justify-center">
+      <!-- Atendimentos -->
+      <div class="bg-blue-500 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <h3 class="text-4xl font-medium text-white"><?= format_number($serviceCount ?? 000) ?></h3>
@@ -20,10 +25,10 @@
                 </svg>
             </div>
         </div>
-    </div>
-
-    <!-- Vagas -->
-    <div class="bg-blue-600 rounded-2xl p-4 overflow-hidden relative">
+      </div>
+      
+      <!-- Vagas -->
+      <div class="bg-blue-600 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <h3 class="text-4xl font-medium text-white"><?= format_number($vavancysCount ?? 000) ?></h3>
@@ -36,10 +41,10 @@
                 </svg>
             </div>
         </div>
-    </div>
-
-    <!-- Trabalhadores -->
-    <div class="bg-blue-700 rounded-2xl p-4 overflow-hidden relative">
+      </div>
+      
+      <!-- Trabalhadores -->
+      <div class="bg-blue-700 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <h3 class="text-4xl font-medium text-white"><?= format_number($workerCount ?? 000) ?></h3>
@@ -52,10 +57,10 @@
                 </svg>
             </div>
         </div>
-    </div>
-
-    <!-- Empresas -->
-    <div class="bg-blue-800 rounded-2xl p-4 overflow-hidden relative">
+      </div>
+      
+      <!-- Empresas -->
+      <div class="bg-blue-800 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
                 <h3 class="text-4xl font-medium text-white"><?= format_number($enterprisesCount ?? 000) ?></h3>
@@ -67,31 +72,29 @@
                 </svg>
             </div>
         </div>
+      </div>
     </div>
+
+    <!-- Seção de Gráficos -->
+    <div class="mt-6 w-full px-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-normal text-gray-700">Atendimentos por mês</h2>
+      </div>
+      <div class="h-64 md:h-80 lg:h-96 xl:h-120">
+        <canvas id="graficoVisaoGeral"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar direita -->
+  <aside class="block lg:w-1/3 p-6 border-l border-gray-200 lg:h-screen">
+    <!-- Painel de vagas -->
+    <div id="panel-vacancy">
+      <?php $this->insert("/pageStart/panelVacancy"); ?>
+    </div>
+  </aside>
 </div>
 
-<!-- Seção de Gráficos -->
-<div class="mt-6">
-    <div class="flex flex-col lg:flex-row gap-6">
-        <!-- Coluna esquerda - Gráficos -->
-        <div class="w-full lg:w-2/3 flex flex-col">
-            <!-- Gráfico de linha -->
-            <div class="">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-normal text-gray-700">Atendimentos por mês</h2>
-                </div>
-                <div class="h-100">
-                    <canvas id="graficoVisaoGeral"></canvas>
-                </div>
-            </div> 
-        </div>
-
-        <!-- Painel de vagas - Tabela -->
-        <div class="w-full lg:w-1/3" id="panel-vacancy">
-            <?php $this->insert("/pageStart/panelVacancy"); ?>
-        </div>
-    </div>
-</div>
 
 <!-- Código dos gráficos e tabelas -->
 <script>
