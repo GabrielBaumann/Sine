@@ -235,6 +235,13 @@ $enterprise = new Enterprise();
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
+
+                <!-- Pegar currículo -->
+                <div class="flex items-center gap-2 mt-12">
+                    <input type="radio" class="cursor-pointer"></input>
+                    <label for="">Pegar currículo</label>
+                </div>
+
             </div>
 
             <!-- Descrição -->

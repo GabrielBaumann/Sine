@@ -80,7 +80,7 @@
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-normal text-gray-700">Atendimentos por mês</h2>
       </div>
-      <div class="h-64 md:h-80 lg:h-96 xl:h-120">
+      <div class="h-64 md:h-80 lg:h-96 2xl:h-120">
         <canvas id="graficoVisaoGeral"></canvas>
       </div>
     </div>
