@@ -179,6 +179,7 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
+        var_dump($data);
         if(!empty($data["csrf"])) {
          
             if(!csrf_verify($data)) {

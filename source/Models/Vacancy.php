@@ -40,6 +40,7 @@ class Vacancy extends Model
         $this->exp_vacancy = $data["exp-vacancy"];
         $this->description_vacancy = $data["description-vacancy"];
         $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+        $this->accept_curriculum = $data["curriculum-vacancy"] ?? "";
         $this->request_vacancy = $data["request-vacancy"];
         $this->id_user_register = $userId;
 
@@ -70,6 +71,7 @@ class Vacancy extends Model
             $vacancy->exp_vacancy = $data["exp-vacancy"];
             $vacancy->description_vacancy = $data["description-vacancy"];
             $vacancy->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+            $vacancy->accept_curriculum = $data["curriculum-vacancy"] ?? "";
             $vacancy->request_vacancy = $data["request-vacancy"];
             $vacancy->id_user_register = $userId;
             $vacancy->save();
@@ -115,6 +117,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->exp_vacancy = $data["exp-vacancy"];
                 $oldVacancyUpdate->description_vacancy = $data["description-vacancy"];
                 $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $oldVacancyUpdate->accept_curriculum = $data["curriculum-vacancy"] ?? "";
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
@@ -139,6 +142,7 @@ class Vacancy extends Model
                 $this->exp_vacancy = $data["exp-vacancy"];
                 $this->description_vacancy = $data["description-vacancy"];
                 $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $this->accept_curriculum = $data["curriculum-vacancy"] ?? "";
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->id_user_update = $userId;
 
@@ -164,6 +168,7 @@ class Vacancy extends Model
                 $vacancy->exp_vacancy = $data["exp-vacancy"];
                 $vacancy->description_vacancy = $data["description-vacancy"];
                 $vacancy->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $vacancy->accept_curriculum = $data["curriculum-vacancy"] ?? "";
                 $vacancy->request_vacancy = $data["request-vacancy"];
                 $vacancy->id_user_register = $userId;
                 $vacancy->save();
@@ -197,6 +202,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->exp_vacancy = $data["exp-vacancy"];
                 $oldVacancyUpdate->description_vacancy = $data["description-vacancy"];
                 $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $oldVacancyUpdate->accept_curriculum = $data["curriculum-vacancy"] ?? "";
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
@@ -221,6 +227,7 @@ class Vacancy extends Model
                 $this->exp_vacancy = $data["exp-vacancy"];
                 $this->description_vacancy = $data["description-vacancy"];
                 $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
+                $this->accept_curriculum = $data["curriculum-vacancy"] ?? "";
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->id_user_update = $userId;
 

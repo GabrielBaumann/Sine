@@ -238,8 +238,8 @@ $enterprise = new Enterprise();
 
                 <!-- Pegar currículo -->
                 <div class="flex items-center gap-2 mt-12">
-                    <input type="radio" class="cursor-pointer"></input>
-                    <label for="">Pegar currículo</label>
+                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1"></input>
+                    <label for="curriculum-vacancy">Pegar currículo</label>
                 </div>
 
             </div>
