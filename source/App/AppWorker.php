@@ -416,46 +416,59 @@ class AppWorker extends Controller
     // Finalizar encaminhamento de entrevista
     public function finishInterviewToWork(array $data) : void
     {
+        // var_dump($data);
         // finalizar a entrevista com aprovado ou reprovado
-        if(isset($data["source-service-vacancy"]) && empty($data["source-service-vacancy"])) {
-            $json["message"] = messageHelpers()->warning("Preencha o campo obrigatório!")->render();
-            $json["complete"] = false;
+        if(!empty($data["csrf"])){
+
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enviar! Atualize a página e tente novamente.")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            $sanitizeData = cleanInputData($data, ["detail-response-company"]);
+
+            if(!$sanitizeData["valid"]) {
+                $json["message"] = messageHelpers()->warning("Preencha o campo obrigatório!")->render();
+                $json["complete"] = false;
+                echo json_encode($json);
+                return;
+            }
+            
+            $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($sanitizeData["data"], $this->user->id_user);
+
+            if(!$vacancy) {
+                $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
+                $json["complete"] = false;
+                echo json_encode($json);
+                return;
+            }
+
+            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+
+            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+
+            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
+            $pager->pager(count($data), 7, 1);
+
+            $html = $this->view->render("/pageWorker/historyService", [
+                "worker" => (new Worker())->findById($idWorker),
+                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
+                    ->order("date_register", "DESC")
+                    ->limit($pager->limit())
+                    ->offset($pager->offset())
+                    ->fetch(true),
+                "countService" => count($data),
+                "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
+                "paginator" => $pager->render()
+            ]);
+
+            $json["html"] = $html;
+            $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
+            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
             echo json_encode($json);
             return;
         }
-
-        $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($data, $this->user->id_user);
-
-        if(!$vacancy) {
-            $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
-            $json["complete"] = false;
-            echo json_encode($json);
-            return;
-        }
-
-        $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
-        $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
-        $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($data), 7, 1);
-
-        $html = $this->view->render("/pageWorker/historyService", [
-            "worker" => (new Worker())->findById($idWorker),
-            "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
-                ->order("date_register", "DESC")
-                ->limit($pager->limit())
-                ->offset($pager->offset())
-                ->fetch(true),
-            "countService" => count($data),
-            "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
-            "paginator" => $pager->render()
-        ]);
-
-        $json["html"] = $html;
-        $json["message"] = messageHelpers()->success("Registro salvo com sucesso!")->render();
-        $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
-        echo json_encode($json);
-        return;
     }
 }

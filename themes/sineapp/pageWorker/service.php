@@ -71,17 +71,26 @@
                                         <select id="motivo" name="source-service-vacancy" class="bg-gray-200 flex-1 border border-gray-100 p-2 rounded-md cursor-pointer">
                                             <option value="">selecione um motivo</option>
                                             <option value="Na ocupação">Na ocupação</option>
+                                            <option value="Em outra ocupação">Em outra ocupação</option>
                                             <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
+                                            <option value="Trabalhador reprovado no processo de seleção">Trabalhador reprovado no processo de seleção</option>
+                                            <option value="Trabalhador não atendeu às exigências do empregador">Trabalhador não atendeu às exigências do empregador</option>
+                                            <option value="Trabalhador já trabalhou na empresa e foi dispensado da mesma">Trabalhador já trabalhou na empresa e foi dispensado da mesma</option>
+                                            <option value="Trabalhador não compareceu à empresa">Trabalhador não compareceu à empresa</option>
+                                            <option value="Empregador não atendeu o trabalhador">Empregador não atendeu o trabalhador</option>
+                                            <option value="Vaga cancelada pelo empregador">Vaga cancelada pelo empregador</option>
+                                            <option value="Vaga preenchida por outro trabalhador">Vaga preenchida por outro trabalhador</option>
+                                            <option value="Vaga preenchida por outras fontes">Vaga preenchida por outras fontes</option>
                                             <option value="Turma Cancelada">Turma Cancelada</option>
                                         </select>
                                     </div>
                                     <div class="flex flex-col">
-                                        <label for="" class="text-gray-500">Data de Resposta *</label>
-                                        <input type="date" class="p-2 bg-gray-200 border border-gray-100 rounded-md">
+                                        <label for="date-response-company" class="text-gray-500">Data de Resposta *</label>
+                                        <input type="date" name="date-response-company" id="date-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md">
                                     </div>
                                     <div class="flex flex-col w-full">
-                                        <label for="" class="text-gray-500">Observação</label>
-                                        <input type="text" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
+                                        <label for="detail-response-company" class="text-gray-500">Observação</label>
+                                        <input type="text" name="detail-response-company" id="detail-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
                                     </div>
                                 </div>
                             <div class="flex w-full gap-4">
@@ -110,7 +119,9 @@
                         </div>
                         
                     <?php else:?>
-                        <?= $service->status_vacancy_worker ?>
+                        Status: <?= $service->status_vacancy_worker; ?> 
+                        Data: <?= date_simple($service->date_response_company); ?> 
+                        Obs: <?= $service->detail_response; ?>
                     <?php endif;?>
                 <?php else:?>
                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>

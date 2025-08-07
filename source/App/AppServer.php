@@ -138,6 +138,7 @@ class AppServer extends Controller
                 $dataClean = $dataArray["data"];
                 $woker = (new Worker());
 
+                // Atualização
                 if(isset($idWoker)) {
                     $woker->id_worker = $idWoker;
                     $woker->id_user_update = $this->user->id_user;
@@ -151,6 +152,7 @@ class AppServer extends Controller
                     $woker->contact_work = $dataClean["contact-work"];
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
+                    $woker->status_work = "Atendimento Realizado";
                     $woker->save();
 
                     $service = (new Service());
@@ -160,6 +162,7 @@ class AppServer extends Controller
                     $service->detail = $data["observation"];
                     $service->save();
 
+                // Cadastro
                 } else {
                     $woker->id_user_register = $this->user->id_user;
                     $woker->name_worker = $dataClean["nome"];
@@ -245,8 +248,13 @@ class AppServer extends Controller
 
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
+                // Testar atualização
+                // $wokerEdit = (new WorkerEdit());
+                // $wokerEdit->id_worker = $idWoker;
+                // $wokerEdit->status_work = "Atendimento Realizado";
+                // $wokerEdit->save();
 
-                if(in_array($data["idServiceType"], ["4", "56"])) {
+                if (in_array($data["idServiceType"], ["4", "56"])) {
                     $wokerEdit = (new WorkerEdit());
                     $wokerEdit->id_worker = $idWoker;
                     $wokerEdit->status_work = "Aguardando Resposta";
