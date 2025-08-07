@@ -37,6 +37,10 @@ class AppStart extends Controller
 
     public function startPage() : void
     {   
+        // Encerrar vagas já passadas
+        $closetVacancyOld = new Vacancy();
+        $closetVacancyOld->checkdDateClousure();
+
         // Gráfico de atendimentos
         $serve = new Service();
         $charServer = $serve->charService();
