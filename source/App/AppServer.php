@@ -249,10 +249,6 @@ class AppServer extends Controller
             if(isset($data["idWorker"])) {
                 $idWoker = $data["idWorker"];
                 // Testar atualização
-                // $wokerEdit = (new WorkerEdit());
-                // $wokerEdit->id_worker = $idWoker;
-                // $wokerEdit->status_work = "Atendimento Realizado";
-                // $wokerEdit->save();
 
                 if (in_array($data["idServiceType"], ["4", "56"])) {
                     $wokerEdit = (new WorkerEdit());

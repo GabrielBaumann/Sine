@@ -35,7 +35,7 @@
                 </svg>
                 <h1 class="text-xl font-normal text-gray-900"><?= $service->type_service;?><?=  $service->nomeclatura_vacancy ? ": Ocupação " . $service->nomeclatura_vacancy : ""; ?></h1>
             </div>
-            
+            <h1 class="text-xl font-normal text-gray-900">Empresa <?= $service->name_fantasy_enterpise; ?></h1>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Date -->
@@ -102,14 +102,12 @@
                                 </form>
                                 
                                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                                    <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                                        <?= csrf_input(); ?>
-                                
+                                    <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">                               
                                         <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
                                         <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">
                                         <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>">
                                         <div class="flex flex-col sm:flex-row gap-3">
-                                            <button class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
+                                            <button type="submit" class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
                                                 <span>Excluir</span>
                                             </button>
                                         </div>
@@ -119,9 +117,11 @@
                         </div>
                         
                     <?php else:?>
-                        Status: <?= $service->status_vacancy_worker; ?> 
-                        Data: <?= date_simple($service->date_response_company); ?> 
-                        Obs: <?= $service->detail_response; ?>
+                        <div class="flex justify-between gap-4 w-full">
+                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Status: <?= $service->status_vacancy_worker; ?></div>
+                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Data: <?= date_simple($service->date_response_company); ?></div>
+                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Obs: <?= $service->detail_response; ?></div>
+                        </div>
                     <?php endif;?>
                 <?php else:?>
                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>

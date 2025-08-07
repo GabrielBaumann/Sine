@@ -297,15 +297,15 @@ class AppWorker extends Controller
     // Excluir encaminhamento de entrevista para vaga de emprego
     public function deleteInterviewToWork(array $data) : void
     {
-        if(!empty($data["csrf"])){
+        // if(!empty($data["csrf"])){
 
-            if(!csrf_verify($data)) {
-                $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
-                $json["erro"] = true;
-                echo json_encode($json);
-                return;
-            }
-
+            // if(!csrf_verify($data)) {
+            //     $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+            //     $json["erro"] = true;
+            //     echo json_encode($json);
+            //     return;
+            // }
+            var_dump($data);
             $destroyService = (new WorkerEdit());
 
             if(!$destroyService->checkdVacancyStatus($data["id-vacancy"])) {
@@ -346,7 +346,7 @@ class AppWorker extends Controller
             $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
             $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
             echo json_encode($json);
-        }
+        // }
          
     }
 
