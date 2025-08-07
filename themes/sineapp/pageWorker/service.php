@@ -117,10 +117,19 @@
                         </div>
                         
                     <?php else:?>
-                        <div class="flex justify-between gap-4 w-full">
-                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Status: <?= $service->status_vacancy_worker; ?></div>
-                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Data: <?= date_simple($service->date_response_company); ?></div>
-                            <div class="flex flex-col p-3 border border-gray-200 rounded-md">Obs: <?= $service->detail_response; ?></div>
+                        <div class="flex gap-4 w-full">
+                            <div class="flex flex-col">
+                                <div class="text-gray-700">Status:</div> 
+                                <div class="p-3 border border-green-400 bg-green-100 text-green-500 rounded-md"><?= $service->status_vacancy_worker; ?></div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="text-gray-700">Data:</div> 
+                                <div class="p-3 bg-gray-200 rounded-md"><?= date_simple($service->date_response_company); ?></div>
+                            </div>
+                            <div class="flex flex-col w-full max-w-[300px]">
+                                <div class="text-gray-700">Obs:</div> 
+                                <div class="p-3 bg-gray-200 rounded-md"><?= $service->detail_response; ?></div>
+                            </div>
                         </div>
                     <?php endif;?>
                 <?php else:?>
