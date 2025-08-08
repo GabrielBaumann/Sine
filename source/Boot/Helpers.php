@@ -380,3 +380,22 @@ function estimateHeightLine(string $text): int {
     $lineDear = ceil(strlen($text) / $characterLine);
     return max(800, $lineDear * 400);
 }
+
+/**
+ * Crytion data
+ */
+function fncEncrypt($data) {
+    $key = "lucasthiverysbeautifull";
+
+    return rtrim(strtr(base64_encode(
+        openssl_encrypt($data, "aes-256-cbc", $key, 0, substr($key, 0, 16))
+    ), "+/", "-_"), "=");
+}
+
+function fncDecrypt($hash) {
+    $key = "lucasthiverysbeautifull";
+    $data = strtr($hash, "-_", "+/");
+    return openssl_decrypt(
+        base64_decode($data), "aes-256-cbc", $key, 0, substr($key, 0, 16)
+    );
+}

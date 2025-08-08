@@ -3,7 +3,7 @@
     <div class="flex items-center gap-3">
         <button
             id="btn-back"
-            data-url="<?= url("/historicoatendimento/" .  $service->id_worker); ?>"
+            data-url="<?= url("/historicoatendimento/" .  fncEncrypt($service->id_worker)); ?>"
             data-change="content"
             class="cursor-pointer p-1 px-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#095998] hover:text-white transition-all duration-200 flex items-center gap-1">
             < Voltar
@@ -47,7 +47,7 @@
                 <div class="col-span-2">
                     <label for="observation" class="block text-sm font-medium text-gray-700 mb-2">Observação</label>
                     <div id="observation" name="observation" class="bg-gray-100 w-full p-4 rounded-md  min-h-32 text-gray-600">
-                       <?= $service->type_service->detail ?? null; ?>
+                       <?= $service->service_detail ?? null; ?>
                     </div>
                 </div>
             </div>
@@ -61,8 +61,9 @@
                         <form action="<?= url("/finalizarencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                             <?= csrf_input(); ?>
 
-                            <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
-                            <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">                            
+                            <input name="id-service" type="hidden" value="<?= fncEncrypt($service->id_service) ?>">
+                            <input name="id-worker" type="hidden" value="<?= fncEncrypt($service->id_worker) ?>">                            
+                            <input name="id-vacancy" type="hidden" value="<?= fncEncrypt($service->id_vacancy) ?>">
 
                             <div class="flex flex-col gap-4 w-full">
                                 <div class="flex gap-4 w-full">
@@ -102,16 +103,16 @@
                                 </form>
                                 
                                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                                    <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">                               
-                                        <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
+                                    <!-- <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">-->
+                                        <!-- <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
                                         <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">
-                                        <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>">
+                                        <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> -->
                                         <div class="flex flex-col sm:flex-row gap-3">
-                                            <button type="submit" class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
+                                            <button name="actionbtn" value="delete" class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
                                                 <span>Excluir</span>
                                             </button>
                                         </div>
-                                    </form>
+                                    <!-- </form> -->
                                 <?php endif; ?>
                             </div>
                         </div>

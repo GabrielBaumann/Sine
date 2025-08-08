@@ -22,9 +22,9 @@ class WorkerEdit extends Model
   public function destroyToServiceVacancy(array $data, int $idUser, ?bool $question = null): bool
   {
 
-      $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
-      $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-      $idVacancy = (int)filter_var($data["id-vacancy"], FILTER_SANITIZE_NUMBER_INT);
+      $idService = (int)filter_var(fncDecrypt($data["id-service"]), FILTER_SANITIZE_NUMBER_INT);
+      $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_SANITIZE_NUMBER_INT);
+      $idVacancy = (int)filter_var(fncDecrypt($data["id-vacancy"]), FILTER_SANITIZE_NUMBER_INT);
 
       // Excluir registro da tabela vacancy_worker
       $vacancyWorker = (new VacancyWorker())->find("id_service = :id", "id={$idService}")->fetch();

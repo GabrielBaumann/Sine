@@ -1,14 +1,31 @@
 /**
+ * Botão clicado
+ */
+let vBotaoClick = null;
+
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("BUTTON");
+    if(vButton) {
+        if (vButton.tagName === "BUTTON" && vButton.type === "submit") {
+            vBotaoClick = vButton;
+        }
+    }
+});
+
+/**
  * Envio de formulário de cadastro de vagas
  */
 document.addEventListener("submit", (e) => {
     if(e.target.tagName === "FORM") {
         e.preventDefault();
-
         const vForm = new FormData(e.target);
         const vActionForm = e.target.action;
         const vformId = e.target.id;
         let vtimeLoading;
+
+        if (vBotaoClick && vBotaoClick.name) {
+            vForm.append(vBotaoClick.name, vBotaoClick.value);
+        }
 
         vtimeLoading = showSplash();
         
@@ -21,6 +38,10 @@ document.addEventListener("submit", (e) => {
             return response.json();
         })
         .then(data => {
+
+            if(data.redirect) {
+                window.location.href = data.redirect;
+            }
 
             // Se não existir nenhum modal, então ele executa as mensagens
             if(data.modal != true){
@@ -63,3 +84,8 @@ function fncRemoverLabel() {
         };
     })
 }
+
+// document.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     console.log("sss");
+// })
