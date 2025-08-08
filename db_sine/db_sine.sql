@@ -50,7 +50,7 @@ CREATE TABLE `enterprise` (
   `name_enterprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cnpj` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_enterprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name_fantasy_enterpise` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_fantasy_enterpise` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `responsible_enterprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone_enterprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `observation_enterprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE `vacancy_worker` (
   `id_worker` int NOT NULL,
   `id_service` int DEFAULT NULL,
   `status_vacancy_worker` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `detail_response` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `detail_response` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_response_company` date DEFAULT NULL,
   `date_register` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_update` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -427,8 +427,8 @@ DROP TABLE IF EXISTS `worker`;
 CREATE TABLE `worker` (
   `id_worker` int NOT NULL AUTO_INCREMENT,
   `name_worker` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contact_ddd_work` varchar(3) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `contact_work` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_ddd_work` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_work` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_birth_worker` date NOT NULL,
   `cpf_worker` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender_worker` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -573,4 +573,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-07 13:30:30
+-- Dump completed on 2025-08-08 14:02:02
