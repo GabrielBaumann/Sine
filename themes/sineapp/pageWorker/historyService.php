@@ -2,7 +2,7 @@
     id="id-worker" 
     type="hidden"
     name="id-worker" 
-    value="<?= $worker->id_worker; ?>">
+    value="<?= $worker->id_worker ?? null; ?>">
 
 <div>
     <!-- Cabeçalho -->
@@ -17,18 +17,18 @@
             </button>
         </div>
     </div>
-
+    <div><?= flash(); ?></div>
     <!-- Histórico de Atendimentos -->
     <div class="overflow-hidden">
         <div class="py-4 md:py-12">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex flex-col md:px-3">
                     <h3 class="text-2xl text-gray-800 font-bold flex items-center gap-2">
-                        <?= $worker->name_worker; ?>
+                        <?= $worker->name_worker ?? null; ?>
                     </h3>
                     <div class="flex items-center gap-3">
                         <div>
-                            <p class="text-md text-gray-600">CPF: <?= formatCPF($worker->cpf_worker); ?></p>
+                            <p class="text-md text-gray-600">CPF: <?= formatCPF($worker->cpf_worker ?? '00000'); ?></p>
                         </div>
                     </div>
                 </div>

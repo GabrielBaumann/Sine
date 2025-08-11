@@ -61,7 +61,7 @@ $enterprise = new Enterprise();
                     <select
                         id="cbo-occupation" 
                         name="cbo-occupation"
-                        class="js-example-responsive select2-container select2-selection--multiple" multiple="multiple" style="width: 100%">
+                        class="js-example-responsive select2-container select2-selection--multiple" style="width: 100%">
                         <option value="">CBO ocupação</option>
                         <?php foreach($cbos_occupations as $cbo_occupation): ?>
                             <option value="<?= $cbo_occupation->id_code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->id_code}" ? "selected" : "" ?>><?= $cbo_occupation->id_code; ?> - <?= $cbo_occupation->occupation; ?></option>
@@ -77,8 +77,8 @@ $enterprise = new Enterprise();
                         name="pcd-vacancy"
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
-                        <option value="Sim" <?= ($vacancy->pcd_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
-                        <option value="Não" <?= ($vacancy->pcd_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
+                        <option value="SIM" <?= ($vacancy->pcd_vacancy ?? '') === 'SIM' ? 'selected' : '' ?>>SIM</option>
+                        <option value="NÃO" <?= ($vacancy->pcd_vacancy ?? '') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
                     </select>
                 </div>
 
@@ -90,8 +90,8 @@ $enterprise = new Enterprise();
                         name="apprentice-vacancy" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
-                        <option value="Sim" <?= ($vacancy->apprentice_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
-                        <option value="Não" <?= ($vacancy->apprentice_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
+                        <option value="SIM" <?= ($vacancy->apprentice_vacancy ?? '') === 'SIM' ? 'selected' : '' ?>>SIM</option>
+                        <option value="NÃO" <?= ($vacancy->apprentice_vacancy ?? '') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
                     </select>
                 </div>
 
@@ -155,8 +155,9 @@ $enterprise = new Enterprise();
                         name="exp-vacancy" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
-                        <option value="Sim" <?= ($vacancy->exp_vacancy ?? '') === 'Sim' ? 'selected' : '' ?>>Sim</option>
-                        <option value="Não" <?= ($vacancy->exp_vacancy ?? '') === 'Não' ? 'selected' : '' ?>>Não</option>
+                        <option value="SIM" <?= ($vacancy->exp_vacancy ?? '') === 'SIM' ? 'selected' : '' ?>>SIM</option>
+                        <option value="NÃO" <?= ($vacancy->exp_vacancy ?? '') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                        <option value="DESEJÁVEL" <?= ($vacancy->exp_vacancy ?? '') === 'DESEJÁVEL' ? 'selected' : '' ?>>DESEJÁVEL</option>
                     </select>
                 </div>
 
@@ -195,8 +196,16 @@ $enterprise = new Enterprise();
                         name="education-vacancy" 
                         class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                         <option value="">Selecione</option>
-                        <option value="Ensino médio completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino médio completo' ? 'selected' : '' ?>>Ensino médio completo</option>
-                        <option value="Ensino superior completo" <?= ($vacancy->education_vacancy ?? '') === 'Ensino superior completo' ? 'selected' : '' ?>>Ensino superior completo</option>
+                        <option value="SEM INSTRUÇÃO" <?= ($vacancy->education_vacancy ?? '') === 'SEM INSTRUÇÃO' ? 'selected' : '' ?>>SEM INSTRUÇÃO</option>
+                        <option value="FUNDAMENTAL INCOMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'FUNDAMENTAL INCOMPLETO' ? 'selected' : '' ?>>FUNDAMENTAL INCOMPLETO</option>
+                        <option value="FUNDAMENTAL COMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'FUNDAMENTAL COMPLETO' ? 'selected' : '' ?>>FUNDAMENTAL COMPLETO</option>
+                        <option value="ENSINO MÉDIO INCOMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'ENSINO MÉDIO INCOMPLETO' ? 'selected' : '' ?>>ENSINO MÉDIO INCOMPLETO</option>
+                        <option value="ENSINO MÉDIO COMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'ENSINO MÉDIO COMPLETO' ? 'selected' : '' ?>>ENSINO MÉDIO COMPLETO</option>
+                        <option value="SUPERIOR INCOMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'SUPERIOR INCOMPLETO' ? 'selected' : '' ?>>SUPERIOR INCOMPLETO</option>
+                        <option value="SUPERIOR COMPLETO" <?= ($vacancy->education_vacancy ?? '') === 'SUPERIOR COMPLETO' ? 'selected' : '' ?>>SUPERIOR COMPLETO</option>
+                        <option value="PÓS-GRADUAÇÃO INCOMPLETA" <?= ($vacancy->education_vacancy ?? '') === 'PÓS-GRADUAÇÃO INCOMPLETA' ? 'selected' : '' ?>>PÓS-GRADUAÇÃO INCOMPLETA</option>
+                        <option value="PÓS-GRADUAÇÃO COMPLETA" <?= ($vacancy->education_vacancy ?? '') === 'PÓS-GRADUAÇÃO COMPLETA' ? 'selected' : '' ?>>PÓS-GRADUAÇÃO COMPLETA</option>
+                        <option value="PREFIRO NÃO RESPONDER" <?= ($vacancy->education_vacancy ?? '') === 'PREFIRO NÃO RESPONDER' ? 'selected' : '' ?>>PREFIRO NÃO RESPONDER</option>
                     </select>
                 </div>
 
@@ -238,7 +247,7 @@ $enterprise = new Enterprise();
 
                 <!-- Pegar currículo -->
                 <div class="flex items-center gap-2 mt-12">
-                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1"></input>
+                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1" <?= isset($vacancy->accept_curriculum) ? ($vacancy->accept_curriculum === 1 ? "checked" : "" ) : "" ?>></input>
                     <label for="curriculum-vacancy">Pegar currículo</label>
                 </div>
 

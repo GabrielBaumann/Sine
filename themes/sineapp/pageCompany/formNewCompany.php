@@ -25,7 +25,8 @@
                                 name="cnpj"
                                 id="cnpj" 
                                 type="text"
-                                value="<?= maskCNPJ($company->cnpj ?? 00) ?? ""; ?>" 
+                                value="<?= maskCNPJ($company->cnpj ?? 00) ?? ""; ?>"
+                                placeholder="11.111.111/1111-11" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full">
@@ -34,6 +35,7 @@
                                 name="new-enterprise"
                                 type="text"
                                 value="<?= $company->name_enterprise ?? ""; ?>"
+                                placeholder="Comércio LTDA" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
@@ -44,6 +46,7 @@
                                 name="name-fantasy"
                                 type="text"
                                 value="<?= $company->name_fantasy_enterpise ?? ""; ?>"
+                                placeholder="Casa do Comerciante"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
 
@@ -54,6 +57,7 @@
                                 type="email"
                                 id="email-enterprise"
                                 value="<?= $company->email_enterprise ?? ""; ?>"
+                                placeholder="casadocomerciante@comercio.com"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full">
@@ -72,47 +76,55 @@
                             type="text"
                             id="responsible-person"
                             value="<?= $company->responsible_enterprise ?? ""; ?>"
+                            placeholder="Fulano de tal"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>  
                 </div>
             </div>
             
             <!-- Botão de confirmação -->
-            <?php if(!isset($company->active) || $company->active === "Ativa"): ?>
-                <div class="col-span-4 flex justify-end mt-4 md:p-4">
+            
+            <div class="col-span-4 flex justify-end mt-4 md:p-4">
+                <?php if(!isset($company->active) || $company->active === "Ativa"): ?>
                     <button
+                        name="btnform"
+                        value="save"
                         type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                         </svg>
-                        Confirmar
+                        <?= isset($company->id_enterprise) ? "Atualizar" : "Cadastrar"; ?>
                     </button>
-                </div>
-            <?php endif;?>
+
+                    <!-- Os botões de cancelar e reativar só podem ser renderizados para devs ou adms -->
+                    <?php if(isset($company->id_enterprise) && in_array($userSystem->type_user, ["DEV","ADM"])): ?>
+                        <!-- O botão de cancelar só é renderizado quando o status está ativos -->
+                        <?php if($company->active === "Ativa"): ?>
+                            <button
+                                name="btnform"
+                                value="cancel"
+                                type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Cancelar
+                            </button>
+                        <?php endif;?>
+                    <?php endif;?>
+                <?php else: ?>
+                    <?php if(isset($company->id_enterprise) && in_array($userSystem->type_user, ["DEV","ADM"])): ?>
+                        <button
+                            name="btnform"
+                            value="reactve"
+                            type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Reativar
+                        </button>
+                    <?php endif;?>
+                 <?php endif;?>
+            </div>
         </div>
     </form>
-    <?php if(isset($company->id_enterprise) && in_array($userSystem->type_user, ["dev","adm"])): ?>
-
-        <?php if($company->active === "Ativa"): ?>
-            <form action="<?= url("cancelarempresa/{$company->id_enterprise}"); ?>" method="post">
-                <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Cancelar
-                </button>
-            </form>
-        <?php else: ?>
-            <form action="<?= url("ativarempresa/{$company->id_enterprise}"); ?>" method="post">
-                <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Reativar
-                </button>
-            </form>
-        <?php endif;?>
-    <?php endif;?>
 </div>

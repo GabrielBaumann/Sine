@@ -384,18 +384,39 @@ function estimateHeightLine(string $text): int {
 /**
  * Crytion data
  */
-function fncEncrypt($data) {
-    $key = "lucasthiverysbeautifull";
+function fncEncrypt($value) {
 
-    return rtrim(strtr(base64_encode(
-        openssl_encrypt($data, "aes-256-cbc", $key, 0, substr($key, 0, 16))
-    ), "+/", "-_"), "=");
+    $key = "lucasthiverysbeautifull";
+    $iv = openssl_random_pseudo_bytes(16);
+    $step = random_bytes(4);
+
+    $data = $step . $value;
+
+    $crypt = openssl_encrypt($data, "aes-256-cbc", $key, OPENSSL_RAW_DATA, $iv);
+
+    $payload = base64_encode($iv . $crypt);    
+
+    return rtrim(strtr($payload, "+/", "-_"), "=");
 }
 
 function fncDecrypt($hash) {
+    
     $key = "lucasthiverysbeautifull";
-    $data = strtr($hash, "-_", "+/");
-    return openssl_decrypt(
-        base64_decode($data), "aes-256-cbc", $key, 0, substr($key, 0, 16)
-    );
-}
+
+    $data = base64_decode(strtr($hash, "-_", "+/"));
+    
+    if (!$data || strlen($data) < 16) {
+        return false;
+    }
+
+    $iv = substr($data, 0, 16);
+    $crypto = substr($data, 16);
+
+    $decrypetd = openssl_decrypt($crypto, "aes-256-cbc", $key, OPENSSL_RAW_DATA, $iv);
+
+    if ($decrypetd === false) {
+        return false;
+    }
+
+    return substr($decrypetd, 4);
+}   

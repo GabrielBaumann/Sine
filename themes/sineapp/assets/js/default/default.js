@@ -233,6 +233,19 @@ function showSplash() {
     }, 500);
 }
 
+function removeFlash() {
+    const element = document.querySelectorAll(".alert-container");
+
+    element.forEach(el => {
+        setTimeout(() => {
+            el.style.transition = "opacity 0.5s ease";
+            el.style.opacity = "0";
+            
+            setTimeout(() => el.remove(), 2000);
+        }, 2000);
+    });
+}
+
 // função para montar a mensagem e remover a mensagem
 function fncMessage(vMessage) {
 

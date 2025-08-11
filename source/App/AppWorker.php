@@ -294,74 +294,18 @@ class AppWorker extends Controller
         return;
     }
 
-    // Excluir encaminhamento de entrevista para vaga de emprego
-    public function deleteInterviewToWork(array $data) : void
-    {
-        // if(!empty($data["csrf"])){
-
-            // if(!csrf_verify($data)) {
-            //     $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
-            //     $json["erro"] = true;
-            //     echo json_encode($json);
-            //     return;
-            // }
-            var_dump($data);
-            $destroyService = (new WorkerEdit());
-
-            if(!$destroyService->checkdVacancyStatus($data["id-vacancy"])) {
-
-                $html = $this->view->render("/pageWorker/modalYesNo", [
-                    "data" => $data
-                ]);
-                
-                $json["html"] = $html;
-                $json["modal"] = true;
-                $json["contentajax"] = "content";
-                echo json_encode($json);
-                return;
-            }
-
-            $destroyService->destroyToServiceVacancy($data, $this->user->id_user);
-
-            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
-            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
-            $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($data ?? []), 7, 1);
-
-            $html = $this->view->render("/pageWorker/historyService", [
-                "worker" => (new Worker())->findById($idWorker),
-                "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
-                    ->order("date_register", "DESC")
-                    ->limit($pager->limit())
-                    ->offset($pager->offset())
-                    ->fetch(true),
-                    "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
-                "countService" => count($data ?? []),
-                "paginator" => $pager->render()
-            ]);
-
-            $json["html"] = $html;
-            $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
-            $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
-            echo json_encode($json);
-        // }
-         
-    }
-
     // Confirmar exclusão de entrevista para vaga e reativar a vaga
     public function confirmedDeleteInterviewToWork(array $data) : void
     {
+        // var_dump($data);
         $editWorker = new WorkerEdit();
         $deleteService = $editWorker->destroyToServiceVacancy($data, $this->user->id_user, true);
 
-        $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
-        $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
+        $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_SANITIZE_NUMBER_INT);
+        $dataCount = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+        
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($data ?? []), 7, 1);
+        $pager->pager(count($dataCount ?? []), 7, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -388,7 +332,7 @@ class AppWorker extends Controller
         $editWorker = new WorkerEdit();
         $deleteService = $editWorker->destroyToServiceVacancy($data, $this->user->id_user);
 
-        $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+        $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_SANITIZE_NUMBER_INT);
 
         $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
@@ -416,8 +360,6 @@ class AppWorker extends Controller
     // Finalizar encaminhamento de entrevista
     public function finishInterviewToWork(array $data) : void
     {
-        // var_dump($data);
-        // var_dump(fncDecrypt($data["id-vacancy"]));
         // finalizar a entrevista com aprovado ou reprovado
         if(!empty($data["csrf"])){
 
@@ -428,9 +370,11 @@ class AppWorker extends Controller
                 return;
             }
 
+            // Verifica se o botão pressionado foi o de deletar
             if(isset($data["actionbtn"]) && $data["actionbtn"] === "delete") {
                 $destroyService = (new WorkerEdit());
 
+                // Caso todas as vagas estejam encerradas
                 if(!$destroyService->checkdVacancyStatus(fncDecrypt($data["id-vacancy"]))) {
 
                     $html = $this->view->render("/pageWorker/modalYesNo", [
@@ -444,41 +388,35 @@ class AppWorker extends Controller
                     return;
                 }
 
-                // $destroyService->destroyToServiceVacancy($data, $this->user->id_user);
+                // Exlui a entrevista e reativa a vaga (caso não tenha encerrado todas as vagas)
+                $destroyService->destroyToServiceVacancy($data, $this->user->id_user);
+                $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->flash();
 
-                // $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_SANITIZE_NUMBER_INT);
-                // var_dump($idWorker);
-                // $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->flash();
-                // $json["redirect"] = url("/historicoatendimento/{$idWorker}");
-                // echo json_encode($json);                
-                // return;
-                // echo json_encode($json);                
+                $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_VALIDATE_INT);
+                $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+                $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
+                $pager->pager(count($vWService ?? []), 7, 1);
 
-                // $this->confirmedDeleteInterviewToWorkNot($data);
+                $html = $this->view->render("/pageWorker/historyService", [
+                    "worker" => (new Worker())->findById($idWorker),
+                    "history" => (new VwService())
+                        ->find("id_worker = :id", "id={$idWorker}")
+                        ->order("date_register", "DESC")
+                        ->limit($pager->limit())
+                        ->offset($pager->offset())
+                        ->fetch(true),
+                    "countService" => count($vWService ?? []),
+                    "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
+                    "paginator" => $pager->render()
+                ]);
 
-                // $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
-
-                // $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-                // $pager->pager(count($data ?? []), 7, 1);
-
-                // $html = $this->view->render("/pageWorker/historyService", [
-                //     "worker" => (new Worker())->findById($idWorker),
-                //     "history" => (new VwService())->find("id_worker = :id", "id={$idWorker}")
-                //         ->order("date_register", "DESC")
-                //         ->limit($pager->limit())
-                //         ->offset($pager->offset())
-                //         ->fetch(true),
-                //         "typeService" => (new TypeService())->find("group_type = :g","g=Atendimento Presencial")->fetch(true),
-                //     "countService" => count($data ?? []),
-                //     "paginator" => $pager->render()
-                // ]);
-
-                // $json["html"] = $html;
-                // $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
-                // $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
-                // echo json_encode($json);
-                // return;
+                $json["html"] = $html;
+                $json["contentajax"] = "content";
+                echo json_encode($json);
+                return;
             }
+
+            // Finaliza a entrevista com a resposta ou não do empregador
 
             $sanitizeData = cleanInputData($data, ["detail-response-company"]);
 
@@ -489,7 +427,7 @@ class AppWorker extends Controller
                 return;
             }
             
-            $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($sanitizeData["data"], $this->user->id_user);
+            $vacancy = (new VacancyWorker())->updateOfWorkerVacancy($data, $this->user->id_user);
 
             if(!$vacancy) {
                 $json["message"] = messageHelpers()->warning("Erro não esperado, tente novamente!")->render();
@@ -498,12 +436,12 @@ class AppWorker extends Controller
                 return;
             }
 
-            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
+            $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_SANITIZE_NUMBER_INT);
 
-            $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
+            $dataCount = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
             $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($data), 7, 1);
+            $pager->pager(count($dataCount), 7, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),

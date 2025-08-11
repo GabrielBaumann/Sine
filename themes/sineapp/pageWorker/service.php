@@ -103,16 +103,11 @@
                                 </form>
                                 
                                 <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
-                                    <!-- <form action="<?= url("/excluirencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">-->
-                                        <!-- <input name="id-service" type="hidden" value="<?= $service->id_service ?>">
-                                        <input name="id-worker" type="hidden" value="<?= $service->id_worker ?>">
-                                        <input name="id-vacancy" type="hidden" value="<?= $service->id_vacancy ?>"> -->
                                         <div class="flex flex-col sm:flex-row gap-3">
                                             <button name="actionbtn" value="delete" class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
                                                 <span>Excluir</span>
                                             </button>
                                         </div>
-                                    <!-- </form> -->
                                 <?php endif; ?>
                             </div>
                         </div>

@@ -55,8 +55,22 @@ class AppServer extends Controller
         ]);
     }
 
+    // Cadastrar/Editar e excluir atendimentos
     public function formService(array $data) : void
     {
+        // Verificar se existe vagas
+        if(isset($data["interview"]) && $data["interview"] === "4") {
+
+            $vwVacancy = new VwVacancyActive;
+            $vCountVacancy = count($vwVacancy->find()->fetch(true) ?? []);
+            if($vCountVacancy === 0) {
+                echo $this->view->render("/pageService/notVacancy", [
+
+                ]);
+                return;
+            }
+        }
+
         // Encaminhar dados quando for por telefone
         if(isset($data["typeService"]) && $data["typeService"] === "telefone") {
 
@@ -147,7 +161,7 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
-                    $woker->ethnicity_worker = $dataClean["gender"];
+                    $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
                     $woker->contact_work = $dataClean["contact-work"];
                     $woker->apprentice_worker = $dataClean["apprentice"];
@@ -170,6 +184,7 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
+                    $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
                     $woker->contact_work = $dataClean["contact-work"];
                     $woker->ethnicity_worker = "rosa";

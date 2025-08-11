@@ -168,15 +168,14 @@ class VacancyWorker extends Model
      */
     public function updateOfWorkerVacancy(array $data, int $idUser) : bool
     {   
-        $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT); 
+        $idService = (int)filter_var(fncDecrypt($data["id-service"]), FILTER_SANITIZE_NUMBER_INT); 
         $souceServiceVacancy = filter_var($data["source-service-vacancy"], FILTER_SANITIZE_SPECIAL_CHARS);
-
         $newVacancyWorker = $this->find("id_service = :id", "id={$idService}")->fetch();
 
         if (in_array($souceServiceVacancy,["NA OCUPAÇÃO","EM OUTRA OCUPAÇÃO"])) {
 
             $editNewVacancyWork = (new static())->find("id_service = :id", "id={$idService}")->fetch();
-            $editNewVacancyWork->status_vacancy_worker = $data["source-service-vacancy"];
+            $editNewVacancyWork->status_vacancy_worker = $souceServiceVacancy;
             $editNewVacancyWork->detail_response = $data["detail-response-company"];
             $editNewVacancyWork->date_response_company = $data["date-response-company"];
             $editNewVacancyWork->id_user_update = $idUser;
@@ -189,6 +188,7 @@ class VacancyWorker extends Model
             return true;
 
         } else {
+
             $editNewVacancyWork = (new static())->find("id_service = :id", "id={$idService}")->fetch();
             $editNewVacancyWork->status_vacancy_worker = $souceServiceVacancy;
             $editNewVacancyWork->detail_response = $data["detail-response-company"];

@@ -197,8 +197,6 @@ class AppUserSystem extends Controller
     public function formAddUser(?array $data) : void
     {   
         if (!empty($data["csrf"])) {
-
-            // Verificar csrf
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Use o fomulário!")->render();
                 echo json_encode($json);
@@ -255,6 +253,7 @@ class AppUserSystem extends Controller
     
     public function editUser(array $data) : void
     {
+        
         $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
         $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
 
@@ -265,6 +264,12 @@ class AppUserSystem extends Controller
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Atualize a página e tente novamente!")->render();
                 echo json_encode($json);
+                return;
+            }
+            
+            // Cancelar usuário
+            if($data["btnform"]) {
+                $this->cancelUser($data);
                 return;
             }
 
@@ -347,7 +352,7 @@ class AppUserSystem extends Controller
 
     public function cancelUser(array $data) : void
     {
-        $iduser = filter_var($data["iduser"], FILTER_VALIDATE_INT);
+        $iduser = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
 
         $systemUser = (new SystemUser())->findById($iduser);
         $systemUser->id_user = $iduser;

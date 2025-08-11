@@ -52,10 +52,13 @@ document.addEventListener("submit", (e) => {
                     fncMessage(data.message);
                     document.getElementById(vformId).reset();
                 } else {
-                    fncMessage(data.message);
+                    if(data.message) {
+                        fncMessage(data.message);
+                    }
                 }
                 if(data.html) {
                     document.getElementById(data.contentajax).innerHTML = data.html;
+                    removeFlash();
                 }
                 return;
             }
@@ -84,8 +87,3 @@ function fncRemoverLabel() {
         };
     })
 }
-
-// document.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     console.log("sss");
-// })

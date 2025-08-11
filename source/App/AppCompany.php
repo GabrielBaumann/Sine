@@ -150,7 +150,19 @@ class AppCompany extends Controller
      */
     public function formCompany(?array $data) : void
     {   
+        // Reativar empresa
+        if(isset($data["btnform"]) && $data["btnform"] === "reactve") {
+            $this->activeCompany($data);
+            return;
+        }
+
         if(!empty($data["csrf"])) {
+            
+            // Cancelar empresa
+            if($data["btnform"] === "cancel") {
+                $this->cancelCompany($data);
+                return;
+            }
 
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Erro ao enviar formulário! Atualize a página e tente novamente!")->render();
@@ -231,8 +243,7 @@ class AppCompany extends Controller
     
     public function cancelCompany(array $data) : void
     {
-        $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
-
+        $idCompany = filter_var($data["idcompany"], FILTER_VALIDATE_INT);
         $company = (new Enterprise())->findById($idCompany);
         $company->id_enterprise = $idCompany;
         $company->id_user_update =$this->user->id_user;
@@ -304,9 +315,10 @@ class AppCompany extends Controller
         return;
     }
 
+    // Reativar empresa
     public function activeCompany(array $data) : void
     {
-        $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+        $idCompany = filter_var($data["idcompany"], FILTER_VALIDATE_INT);
 
         $company = (new Enterprise())->findById($idCompany);
         $company->id_enterprise = $idCompany;

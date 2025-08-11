@@ -21,7 +21,8 @@
                         <input name="name" 
                             type="text"
                             id="name"
-                            value="<?= $user->name_user ?? ""; ?>" 
+                            value="<?= $user->name_user ?? ""; ?>"
+                            placeholder="ex: Fulando de tal"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     
@@ -33,6 +34,7 @@
                                 id="email"
                                 autocomplete="username"
                                 value="<?= $user->email_user ?? ""; ?>"
+                                placeholder="ex: fulandodetal@sine360.com"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         
@@ -43,6 +45,7 @@
                                 id="cpf"
                                 value="<?= formatCPF($user->cpf_user ?? ""); ?>"
                                 data-url="<?= url("/verificarcpf"); ?>"
+                                placeholder="ex: 111.111.111.-11"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
@@ -54,6 +57,7 @@
                                 type="text"
                                 id="phone"
                                 value="<?= mask_phone($user->phone_user ?? ""); ?>"
+                                placeholder="ex: (94) 99999-9999"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div class="w-full" <?= isset($user->password_user) ? "hidden" : ""; ?>>
@@ -63,6 +67,7 @@
                                 id="password"
                                 autocomplete="new-password"
                                 value="<?= $user->password_user ?? ""; ?>"
+                                placeholder="ex: 123456"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                     </div>
@@ -72,11 +77,11 @@
                             <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Acesso *</label>
                             <select name="type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <option value="" selected>Selecione</option>
-                                <option value="adm" <?= ($user->type_user ?? null) === "adm" ? "selected" : "" ?>>Adm</option>
+                                <option value="ADM" <?= ($user->type_user ?? null) === "ADM" ? "selected" : "" ?>>ADM</option>
                                     <?php if($userSystem->type_user === "dev"): ?>
-                                        <option value="dev" <?= ($user->type_user ?? null) === "dev" ? "selected" : "" ?>>Dev</option>
+                                        <option value="DEV" <?= ($user->type_user ?? null) === "DEV" ? "selected" : "" ?>>DEV</option>
                                     <?php endif; ?>
-                                <option value="user" <?= ($user->type_user ?? null) === "user" ? "selected" : "" ?>>User</option>
+                                <option value="USER" <?= ($user->type_user ?? null) === "USER" ? "selected" : "" ?>>USER</option>
                             </select>
                         </div>
                     </div>
@@ -95,41 +100,46 @@
                 </div>
 
             </div>
-        <?php if(($user->active ?? null) != "2"):?>    
+  
             <!-- Botão de confirmação -->
             <div class="col-span-4 flex justify-end mt-4 md:p-3">
-                <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Confirmar
-                </button>
+                <?php if(($user->active ?? null) != "2"):?>  
+                    <button
+                        name="btnform"
+                        value="save"
+                        type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-blue-800 text-white rounded-lg hover:bg-blue-900 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        <?= isset($user->id_user) ? "Atualizar" : "Cadastrar"; ?>
+                    </button>
+                <?php endif;?>
+
+                <?php if(!empty($user->id_user) && $user->active != "2"):?>     
+                        <button
+                            name="btnform"
+                            value="cancel"
+                            type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            Cancelar
+                        </button>
+               <?php endif;?>  
+
+                <?php if(!empty($user->id_user) && $user->active == "2"):?> 
+                    <button
+                        name="btnform"
+                        value="reactive"
+                        type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Reativar
+                    </button>
+                <?php endif;?> 
             </div>
-        <?php endif;?>
         </div>
     </form>
-    <?php if(isset($user->id_user)):?>   
-        <?php if($user->active == "1"):?>
-            <form action="<?= url("/cancelarusuario/{$user->id_user}"); ?>" method="post">
-                <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Cancelar
-                </button>
-            </form>
-        <?php else:?>
-            <form action="<?= url("/reativarusuario/{$user->id_user}"); ?>" method="post">
-                <button
-                    type="submit" class="cursor-pointer flex items-center px-6 py-2 bg-green-800 text-white rounded-lg hover:bg-green-900 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                    </svg>
-                    Reativar
-                </button>
-            </form>
-        <?php endif;?>
-    <?php endif;?> 
+
 </div>

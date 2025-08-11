@@ -1,4 +1,19 @@
 /**
+ * Botão clicado
+ */
+let vBotaoClick = null;
+
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("BUTTON");
+    if(vButton) {
+        if (vButton.tagName === "BUTTON" && vButton.type === "submit") {
+            vBotaoClick = vButton;
+        }
+    }
+});
+
+
+/**
  * Envio de formulário de cadastro de vagas
  */
 
@@ -10,6 +25,10 @@ document.addEventListener("submit", (e) => {
         const vActionForm = e.target.action;
         const vformId = e.target.id;
         let vtimeLoading;
+
+        if (vBotaoClick && vBotaoClick.name) {
+            vForm.append(vBotaoClick.name, vBotaoClick.value);
+        }
 
         vtimeLoading = showSplash();
         

@@ -47,8 +47,8 @@ $route->post("/adicionarusuario/{idUserSystem}", "AppUserSystem:editUser");
 
 $route->post("/verificarcpf", "AppUserSystem:checkCpf");
 
-$route->post("/cancelarusuario/{iduser}", "AppUserSystem:cancelUser");
-$route->post("/reativarusuario/{iduser}", "AppUserSystem:reactiveUser");
+// $route->post("/cancelarusuario/{iduser}", "AppUserSystem:cancelUser");
+// $route->post("/reativarusuario/{iduser}", "AppUserSystem:reactiveUser");
 
 
 /**
@@ -69,7 +69,6 @@ $route->get("/historicotrabalhador/p/{idWorker}/{page}", "AppWorker:searchServic
 
 $route->get("/trabalhadoratendimento/{idService}", "AppWorker:serviceOfWorker");
 $route->post("/editarservicotrabalhador/{typeService}", "AppWorker:serviceOfWorker");
-$route->post("/excluirencaminhatoentrevista", "AppWorker:deleteInterviewToWork");
 $route->post("/confirmarexclusaoreativar", "AppWorker:confirmedDeleteInterviewToWork");
 $route->post("/confirmarexclusaonaoreativar", "AppWorker:confirmedDeleteInterviewToWorkNot");
 
@@ -116,8 +115,8 @@ $route->post("/verificarcnpj/{idCompany}", "AppCompany:verificCnpj");
 
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
-$route->post("/cancelarempresa/{idCompany}", "AppCompany:cancelCompany");
-$route->post("/ativarempresa/{idCompany}", "AppCompany:activeCompany");
+// $route->post("/cancelarempresa/{idCompany}", "AppCompany:cancelCompany");
+// $route->post("/ativarempresa/{idCompany}", "AppCompany:activeCompany");
 
 $route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 

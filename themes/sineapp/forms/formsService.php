@@ -92,9 +92,21 @@
                 <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
                 <select id="gender" name="gender" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
                     <option value="">Selecione</option>
-                    <option value="Masculino" <?= ($worker->gender_worker ?? '') === 'Masculino' ? 'selected' : '' ?>>Masculino</option>
-                    <option value="Feminino" <?= ($worker->gender_worker ?? '') === 'Feminino' ? 'selected' : '' ?>>Feminino</option>
-                    <option value="Outro" <?= ($worker->gender_worker ?? '') === 'Outro' ? 'selected' : '' ?>>Outro</option>
+                    <option value="MASCULINO" <?= ($worker->gender_worker ?? '') === 'MASCULINO' ? 'selected' : '' ?>>MASCULINO</option>
+                    <option value="FEMININO" <?= ($worker->gender_worker ?? '') === 'FEMININO' ? 'selected' : '' ?>>FEMININO</option>
+                    <option value="OUTRO" <?= ($worker->gender_worker ?? '') === 'OUTRO' ? 'selected' : '' ?>>OUTRO</option>
+                </select>
+            </div>
+
+            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+                <label for="ethnicity-worker" class="block text-sm font-medium text-gray-700 mb-1">Cor *</label>
+                <select id="ethnicity-worker" name="ethnicity-worker" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="">Selecione</option>
+                    <option value="AMARELA" <?= ($worker->ethnicity_worker ?? '') === 'AMARELA' ? 'selected' : '' ?>>AMARELA</option>
+                    <option value="BRANCA" <?= ($worker->ethnicity_worker ?? '') === 'BRANCA' ? 'selected' : '' ?>>BRANCA</option>
+                    <option value="PRETA" <?= ($worker->ethnicity_worker ?? '') === 'PRETA' ? 'selected' : '' ?>>PRETA</option>
+                    <option value="INDÍGENA" <?= ($worker->ethnicity_worker ?? '') === 'INDÍGENA' ? 'selected' : '' ?>>INDÍGENA</option>
+                    <option value="PREFIRO NÃO RESPONDER" <?= ($worker->ethnicity_worker ?? '') === 'PREFIRO NÃO RESPONDER' ? 'selected' : '' ?>>PREFIRO NÃO RESPONDER</option>
                 </select>
             </div>
 
@@ -151,7 +163,7 @@
             <div class="col-span-4 md:col-span-2 lg:col-span-2">
                 <label for="occupation-id-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Função *</label>
                 <select id="occupation-id-vacancy" name="occupation-id-vacancy" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="">Selecione</option>
+                    <option value="">Selecione uma empresa</option>
                 </select>
             </div>
         <?php endif; ?>
