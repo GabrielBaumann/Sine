@@ -253,7 +253,12 @@ class AppUserSystem extends Controller
     
     public function editUser(array $data) : void
     {
-        
+        // Reativar usuário
+        if(isset($data["btnform"]) && $data["btnform"] === "reactive") {
+            $this->reactiveUser($data);
+            return;
+        }
+
         $idUserSystem = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
         $userSystem = (new SystemUser())->find("id_user = :id","id={$idUserSystem}")->fetch();
 
@@ -268,7 +273,7 @@ class AppUserSystem extends Controller
             }
             
             // Cancelar usuário
-            if($data["btnform"]) {
+            if($data["btnform"] === "cancel") {
                 $this->cancelUser($data);
                 return;
             }
@@ -400,7 +405,7 @@ class AppUserSystem extends Controller
 
     public function reactiveUser(array $data) : void
     {
-        $iduser = filter_var($data["iduser"], FILTER_VALIDATE_INT);
+        $iduser = filter_var($data["idUserSystem"], FILTER_VALIDATE_INT);
 
         $systemUser = (new SystemUser())->findById($iduser);
         $systemUser->id_user = $iduser;

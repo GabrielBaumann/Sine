@@ -388,7 +388,7 @@ class Vacancy extends Model
      */
     public function checkdDateClousure() : void
     {
-        $vacancy = (new static())->find("status_vacancy = :st AND reason_close IS NULL", "st=Ativa")->fetch(true);
+        $vacancy = (new static())->find("status_vacancy = :st AND (reason_close IS NULL OR reason_close = '')", "st=Ativa")->fetch(true);
         if($vacancy) {
             foreach($vacancy as $vacancyItem) {
 

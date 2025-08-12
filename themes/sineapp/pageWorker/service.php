@@ -35,7 +35,7 @@
                 </svg>
                 <h1 class="text-xl font-normal text-gray-900"><?= $service->type_service;?><?=  $service->nomeclatura_vacancy ? ": Ocupação " . $service->nomeclatura_vacancy : ""; ?></h1>
             </div>
-            <h1 class="text-xl font-normal text-gray-900">Empresa <?= $service->name_fantasy_enterpise; ?></h1>
+            <?php if($service->nomeclatura_vacancy): ?><h1 class="text-xl font-normal text-gray-900">Empresa: <?= $service->name_fantasy_enterpise; ?></h1><?php endif;?>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Date -->

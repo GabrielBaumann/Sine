@@ -2,6 +2,7 @@
 
 namespace Source\Core;
 
+use Source\Models\Vacancy;
 use Source\Support\Message;
 
 class Controller
@@ -13,5 +14,10 @@ class Controller
     {
         $this->view = new View($pathToViews);
         $this->message = new Message();
+
+        // Encerrar vagas já passadas
+        $closetVacancyOld = new Vacancy();
+        $closetVacancyOld->checkdDateClousure();
+
     }
 }

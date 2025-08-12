@@ -229,8 +229,8 @@ function day_now_string(): string
     );
 
     $diaIngles = date('l'); // Retorna o dia em inglês
-    $diaPortugues = strtoupper($dias[$diaIngles]);
-    return strtoupper($diaPortugues);
+    $diaPortugues = mb_strtoupper($dias[$diaIngles]);
+    return mb_strtoupper($diaPortugues);
 }
 
 function time_now(string $date = "now", string $format = "g:i A"): string
