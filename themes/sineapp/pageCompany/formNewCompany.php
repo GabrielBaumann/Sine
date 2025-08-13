@@ -84,7 +84,7 @@
             
             <!-- Botão de confirmação -->
             
-            <div class="col-span-4 flex justify-end mt-4 md:p-4">
+            <div class="col-span-4 flex justify-end mt-4 md:p-4 gap-3">
                 <?php if(!isset($company->active) || $company->active === "Ativa"): ?>
                     <button
                         name="btnform"
