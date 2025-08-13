@@ -265,7 +265,7 @@
                     </div>
                 </div>
                 <!-- Idade Mínima/Máxima -->
-                <div class="md:grid md:grid-cols-4 gap-3 items-center flex flex-col">
+                <div class="md:grid md:grid-cols-6 gap-3 items-center flex flex-col">
                     <div>
                         <label for="age-min-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima *</label>
                         <input
