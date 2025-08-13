@@ -11,7 +11,7 @@ class CboOccupation extends Model
     parent::__construct(
       "cbo_list", ["code"], 
       [], 
-      "code"
+      "id_cod_cbo"
     );
   }
 }

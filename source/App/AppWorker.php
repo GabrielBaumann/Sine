@@ -297,7 +297,6 @@ class AppWorker extends Controller
     // Confirmar exclusão de entrevista para vaga e reativar a vaga
     public function confirmedDeleteInterviewToWork(array $data) : void
     {
-        // var_dump($data);
         $editWorker = new WorkerEdit();
         $deleteService = $editWorker->destroyToServiceVacancy($data, $this->user->id_user, true);
 

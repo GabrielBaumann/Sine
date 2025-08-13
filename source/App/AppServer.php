@@ -63,6 +63,7 @@ class AppServer extends Controller
 
             $vwVacancy = new VwVacancyActive;
             $vCountVacancy = count($vwVacancy->find()->fetch(true) ?? []);
+            
             if($vCountVacancy === 0) {
                 echo $this->view->render("/pageService/notVacancy", [
 
@@ -163,7 +164,7 @@ class AppServer extends Controller
                     $woker->gender_worker = $dataClean["gender"];
                     $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
-                    $woker->contact_work = $dataClean["contact-work"];
+                    $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
                     $woker->status_work = "Atendimento Realizado";
@@ -185,9 +186,9 @@ class AppServer extends Controller
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
                     $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
-                    $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                    $woker->contact_ddd_work = str_replace("-", "", $dataClean["contact-ddd-work"]);
                     $woker->contact_work = $dataClean["contact-work"];
-                    $woker->ethnicity_worker = "rosa";
+                    $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->apprentice_worker = $dataClean["apprentice"];
                     $woker->cterc = $dataClean["cterc"];
                     $woker->save();
@@ -291,8 +292,8 @@ class AppServer extends Controller
                 $woker->pcd_worker = $dataClean["pcd"];
                 $woker->gender_worker = $dataClean["gender"];
                 $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
-                $woker->contact_work = $dataClean["contact-work"];
-                $woker->ethnicity_worker = "rosa";
+                $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
+                $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                 $woker->apprentice_worker = $dataClean["apprentice"];
                 $woker->cterc = $dataClean["cterc"];
                 $woker->status_work = "Atendimento Realizado";
@@ -416,6 +417,10 @@ class AppServer extends Controller
             echo json_encode($json);
             return;
         }
+
+        // Verificar se existe encaminhamento de emprego não finalizado para o usuário
+        $chekedForWarting = new VacancyWorker();
+        $chekedForWarting->checkForWardingWork($cpfuser);
 
         $worker = (new Worker())->find("cpf_worker = :c", "c={$cpfuser}");
 

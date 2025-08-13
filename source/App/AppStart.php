@@ -10,6 +10,7 @@ use PhpOffice\PhpWord\SimpleType\Jc;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
+use Source\Models\CboOccupation;
 use Source\Models\Enterprise;
 use Source\Models\Service;
 use Source\Models\Worker;
@@ -17,7 +18,6 @@ use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
-use Source\Models\CboOccupation;
 use Source\Models\Vacancy;
 use Source\Models\Views\VwVacancyActive;
 

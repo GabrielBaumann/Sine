@@ -74,7 +74,7 @@
         <div class="col-span-4 md:col-span-2 lg:col-span-1">
             <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
             <input
-                value="<?= $worker->contact_work ?? ""; ?>" 
+                value="<?= mask_phone($worker->contact_work ?? "", true) ?? ""; ?>" 
                 type="text" 
                 id="contact-work" 
                 name="contact-work"
@@ -123,16 +123,16 @@
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
                 <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
                 <select id="pcd" name="pcd" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="não" <?= ($worker->pcd_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
-                    <option value="sim" <?= ($worker->pcd_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+                    <option value="NÃO" <?= ($worker->pcd_worker ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                    <option value="SIM" <?= ($worker->pcd_worker ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                 </select>
             </div>
 
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
                 <label for="apprentice" class="block text-sm font-medium text-gray-700 mb-1">Aprendiz *</label>
                 <select id="apprentice" name="apprentice" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="não" <?= ($worker->apprentice_worker ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
-                    <option value="sim" <?= ($worker->apprentice_worker ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+                    <option value="NÃO" <?= ($worker->apprentice_worker ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                    <option value="SIM" <?= ($worker->apprentice_worker ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                 </select>
             </div>
 
@@ -140,8 +140,8 @@
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
                 <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC *</label>
                 <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="não" <?= ($worker->cterc ?? 'não') === 'não' ? 'selected' : '' ?>>Não</option>
-                    <option value="sim" <?= ($worker->cterc ?? 'não') === 'sim' ? 'selected' : '' ?>>Sim</option>
+                    <option value="NÃO" <?= ($worker->cterc ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                    <option value="SIM" <?= ($worker->cterc ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                 </select>
             </div>
         <?php endif; ?>

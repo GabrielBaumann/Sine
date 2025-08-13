@@ -179,7 +179,6 @@ class AppVacancy extends Controller
 
     public function addVacancy(?array $data) : void
     {
-
         if(!empty($data["csrf"])) {
          
             if(!csrf_verify($data)) {
@@ -266,6 +265,7 @@ class AppVacancy extends Controller
             $idVacancy = null;
         }
 
+
         $html = $this->view->render("/pageVacancy/formsNewVacancy", [
             "vacancy" => (new Vacancy())
                     ->find("id_vacancy = :id", "id={$idVacancy}")
@@ -276,7 +276,7 @@ class AppVacancy extends Controller
                 ->fetch(true),
             "cbos_occupations" => (new CboOccupation())
                 ->find()
-                ->order("occupation")
+                ->order("id_code")
                 ->fetch(true)
         ]);
 

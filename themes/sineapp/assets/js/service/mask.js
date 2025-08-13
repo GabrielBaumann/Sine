@@ -93,9 +93,15 @@ function fncClearForm() {
     document.getElementById("nome").value = "";
     document.getElementById("cpf").value = "";
     document.getElementById("date-birth-worker").value = "";
-    document.getElementById("pcd").checked = true;
-    document.getElementById("apprentice").checked = true;
-    document.getElementById("cterc").checked = true;
+    document.getElementById("contact-ddd-work").value = "";
+    document.getElementById("contact-work").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("ethnicity-worker").value = "";
+    document.getElementById("pcd").value = "NÃO";
+    document.getElementById("apprentice").value = "NÃO";
+    document.getElementById("cterc").value = "NÃO";
+    document.getElementById("company-name").value = "";
+    document.getElementById("occupation-id-vacancy").value = "";
 
     cpfInitialEdit = "";
 }

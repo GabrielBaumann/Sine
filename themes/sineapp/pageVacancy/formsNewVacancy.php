@@ -64,7 +64,7 @@ $enterprise = new Enterprise();
                         class="js-example-responsive select2-container select2-selection--multiple" style="width: 100%">
                         <option value="">CBO ocupação</option>
                         <?php foreach($cbos_occupations as $cbo_occupation): ?>
-                            <option value="<?= $cbo_occupation->id_code; ?>" <?= ($vacancy->cbo_occupation ?? null) === "{$cbo_occupation->id_code}" ? "selected" : "" ?>><?= $cbo_occupation->id_code; ?> - <?= $cbo_occupation->occupation; ?></option>
+                            <option value="<?= $cbo_occupation->id_cod_cbo; ?>" <?= ($vacancy->id_cod_cbo ?? null) == "{$cbo_occupation->id_cod_cbo}" ? "selected" : "" ?>><?= $cbo_occupation->id_code; ?> - <?= $cbo_occupation->occupation; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

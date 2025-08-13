@@ -26,7 +26,7 @@ class Vacancy extends Model
         }
 
         $this->id_enterprise = $data["enterprise"];
-        $this->cbo_occupation = $data["cbo-occupation"];
+        $this->id_cod_cbo = $data["cbo-occupation"];
         $this->apprentice_vacancy = $data["apprentice-vacancy"];
         $this->gender_vacancy = $data["gender"];
         $this->number_vacancy = $data["number-vacancy"];
@@ -57,7 +57,7 @@ class Vacancy extends Model
 
             $vacancy->id_vacancy_fixed = $idFixedVacancy;
             $vacancy->id_enterprise = $data["enterprise"];
-            $vacancy->cbo_occupation = $data["cbo-occupation"];
+            $vacancy->id_cod_cbo = $data["cbo-occupation"];
             $vacancy->apprentice_vacancy = $data["apprentice-vacancy"];
             $vacancy->gender_vacancy = $data["gender"];
             $vacancy->number_vacancy = $i;
@@ -104,7 +104,7 @@ class Vacancy extends Model
 
                 $oldVacancyUpdate->id_vacancy = $oldVacancyItem->id_vacancy;
                 $oldVacancyUpdate->id_enterprise = $data["enterprise"];
-                $oldVacancyUpdate->cbo_occupation = $data["cbo-occupation"];
+                $oldVacancyUpdate->id_cod_cbo = $data["cbo-occupation"];
                 $oldVacancyUpdate->apprentice_vacancy = $data["apprentice-vacancy"];
                 $oldVacancyUpdate->gender_vacancy = $data["gender"];
                 $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
@@ -128,7 +128,7 @@ class Vacancy extends Model
                 // Atualiza o espelho da vaga
                 $this->id_vacancy = $idVacancy;
                 $this->id_enterprise = $data["enterprise"];
-                $this->cbo_occupation = $data["cbo-occupation"];
+                $this->id_cod_cbo = $data["cbo-occupation"];
                 $this->apprentice_vacancy = $data["apprentice-vacancy"];
                 $this->gender_vacancy = $data["gender"];
                 $this->number_vacancy = $data["number-vacancy"];
@@ -154,7 +154,7 @@ class Vacancy extends Model
                 $vacancy = new static();
                 $vacancy->id_vacancy_fixed = $idVacancy;
                 $vacancy->id_enterprise = $data["enterprise"];
-                $vacancy->cbo_occupation = $data["cbo-occupation"];
+                $vacancy->id_cod_cbo = $data["cbo-occupation"];
                 $vacancy->apprentice_vacancy = $data["apprentice-vacancy"];
                 $vacancy->gender_vacancy = $data["gender"];
                 $vacancy->number_vacancy = $i;
@@ -189,7 +189,7 @@ class Vacancy extends Model
 
                 $oldVacancyUpdate->id_vacancy = $oldVacancyItem->id_vacancy;
                 $oldVacancyUpdate->id_enterprise = $data["enterprise"];
-                $oldVacancyUpdate->cbo_occupation = $data["cbo-occupation"];
+                $oldVacancyUpdate->id_cod_cbo = $data["cbo-occupation"];
                 $oldVacancyUpdate->apprentice_vacancy = $data["apprentice-vacancy"];
                 $oldVacancyUpdate->gender_vacancy = $data["gender"];
                 $oldVacancyUpdate->pcd_vacancy = $data["pcd-vacancy"];
@@ -213,7 +213,7 @@ class Vacancy extends Model
                 // Atualiza o espelho da vaga
                 $this->id_vacancy = $idVacancy;
                 $this->id_enterprise = $data["enterprise"];
-                $this->cbo_occupation = $data["cbo-occupation"];
+                $this->id_cod_cbo = $data["cbo-occupation"];
                 $this->apprentice_vacancy = $data["apprentice-vacancy"];
                 $this->gender_vacancy = $data["gender"];
                 $this->number_vacancy = $data["number-vacancy"];

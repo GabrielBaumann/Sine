@@ -172,7 +172,7 @@ class VacancyWorker extends Model
         $souceServiceVacancy = filter_var($data["source-service-vacancy"], FILTER_SANITIZE_SPECIAL_CHARS);
         $newVacancyWorker = $this->find("id_service = :id", "id={$idService}")->fetch();
 
-        if (in_array($souceServiceVacancy,["NA OCUPAÇÃO","EM OUTRA OCUPAÇÃO"])) {
+        if (in_array($souceServiceVacancy,["Na ocupação","Em outra ocupação"])) {
 
             $editNewVacancyWork = (new static())->find("id_service = :id", "id={$idService}")->fetch();
             $editNewVacancyWork->status_vacancy_worker = $souceServiceVacancy;
@@ -203,5 +203,20 @@ class VacancyWorker extends Model
         }
 
         return false;
+    }
+
+    /**
+     * Verificar se existe encaminhamento para entrevista de emprego não finalizado
+     */
+    public function checkForWardingWork($cpf) : bool
+    {
+        // Pega o CPF e retorna o ID do usuário
+        $cpfWorker = new Worker();
+        $idWorker = $cpfWorker->find("cpf_worker = :id", "id={$cpf}")->fetch();
+
+        // Retorna se o trabalhador tem ou não 
+
+        var_dump($idWorker->id_worker);
+        return true;
     }
 }
