@@ -119,8 +119,8 @@ $route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formService");
 $route->get("/formularioAtendimento/{type}/{typeservice}/{interview}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");
-// $route->post("/formularioAtendimento/{idWorker}", "AppServer:formService");
-$route->post("/formularioAtendimento/{idWorker}", "AppServer:checkedForWarting");
+$route->post("/formularioAtendimento/{idWorker}", "AppServer:formService");
+// $route->post("/formularioAtendimento/{idWorker}", "AppServer:checkedForWarting");
 
 $route->post("/verificarCpfAtendimento", "AppServer:formCpfCheck");
 $route->get("/segurodesemprego/{type}", "AppServer:serviceInsurance");

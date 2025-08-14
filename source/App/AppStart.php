@@ -52,7 +52,7 @@ class AppStart extends Controller
             ->fetch(true);
 
         $pager = new Pager(url("/painelvagas/p/"));
-        $pager->pager(count($panelVancancy ?? []), 7, 1);
+        $pager->pager(count($panelVancancy ?? []), 15, 1);
 
         // Total de vagas ativas 
         $totalVacancyActive = $vwVacancy->find("total_vacancy_active <> :to","to=0", "(SELECT sum(total_vacancy_active)) AS total")->order("nomeclatura_vacancy")->fetch();
@@ -85,7 +85,7 @@ class AppStart extends Controller
 
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/painelvagas/p/"));
-        $pager->pager(count($panelVancancy ?? []), 7, $page);
+        $pager->pager(count($panelVancancy ?? []), 15, $page);
 
         $html = $this->view->render("/pageStart/panelVacancy", [
             "panelVacancy" =>  (new VwVacancy())
