@@ -13,7 +13,7 @@
                 <?php foreach($listEnterprise as $entreprise): ?>
                     <tr class="hover:bg-blue-50 bg-white border-b border-gray-300">
                         <td data-label="Unidade" class="px-6 py-2 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"><?= $entreprise->name_enterprise ?></div>
+                            <div class="text-sm text-gray-900"><?= $entreprise->name_enterprise; ?> (<?= maskCNPJ($entreprise->cnpj); ?>)</div>
                         </td>
                         <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
                             <span class="status-company color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5"><?= $entreprise->active ?></span>

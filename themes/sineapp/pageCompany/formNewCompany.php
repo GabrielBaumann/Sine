@@ -8,7 +8,6 @@
             < Voltar
         </button>
         <input type="hidden" id="active-company" value="<?= $company->active ?? ""; ?>">
-        <!-- <p class='text-blue-500 flex items-center truncate'>Empresas > Nova Empresa</p> -->
     </div>
     
     <form id="form" action="<?= url("/adicionarempresa") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>" method="post">
@@ -65,7 +64,7 @@
                             <input name="phone-enterprise"
                                 type=""
                                 id="phone-enterprise"
-                                value="<?= $company->phone_enterprise ?? ""; ?>"
+                                value="<?= mask_phone($company->phone_enterprise ?? "") ?? ""; ?>"
                                 placeholder="(99) 99999-9999"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
@@ -79,6 +78,15 @@
                             placeholder="Fulano de tal"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>  
+                    <div class="col-span-4">
+                    <label for="observation" class="block text-sm font-medium text-gray-700 mb-1">Observação</label>
+                        <textarea 
+                            id="observation" 
+                            name="observation" 
+                            rows="3" 
+                            class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                            placeholder="Digite alguma observação relevante"><?= $company->observation_enterprise ?? "" ?></textarea>
+                    </div>
                 </div>
             </div>
             

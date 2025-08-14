@@ -9,7 +9,7 @@ document.addEventListener("submit", (e) => {
         const vActionForm = e.target.action;
         const vformId = e.target.id;
         let vtimeLoading;
-
+        console.log(vformId);
         vtimeLoading = showSplash();
         
         fetch(vActionForm, {
@@ -25,6 +25,8 @@ document.addEventListener("submit", (e) => {
             if(data.complete) {
                 fncMessage(data.message);
                 document.getElementById(vformId).reset();
+                $('#enterprise').val(null).trigger('change');
+                $('#cbo-occupation').val(null).trigger('change');
                 fncTodoClousureToday()
             } else {
                 fncMessage(data.message);

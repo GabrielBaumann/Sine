@@ -8,7 +8,6 @@ document.addEventListener("submit", (e)=> {
         const form = e.target;
         const formData = new FormData(form);
         const actionForm = e.target.action;
-        // const formId = e.target.id;
 
         let vtimeLoading;
 
