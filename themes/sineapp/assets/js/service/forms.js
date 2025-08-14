@@ -27,6 +27,14 @@ document.addEventListener("submit", (e)=> {
         })
         .then(data => {
 
+            if (data.htmlquestion) {
+                const vElement = document.createElement("div");
+                vElement.id = "modal";
+                vElement.innerHTML = data.htmlquestion;
+                document.body.appendChild(vElement);
+                return;
+            }
+
             if (data.erro === false) {
                 const vHtmlAjax = document.getElementById("newElement");
                 vHtmlAjax.innerHTML = data.html;

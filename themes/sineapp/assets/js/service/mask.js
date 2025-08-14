@@ -56,10 +56,15 @@ document.addEventListener("focusout", function(e) {
                 })
                 .then(response => response.json())
                 .then(data => {
-
-                    if(data.erro === true) {
-                        fncMessage(data.message)
-                        fncClearForm();
+                    if(data.htmlquestion) {
+                        const vElement = document.createElement("div");
+                        vElement.id = "modal";
+                        vElement.innerHTML = data.htmlquestion;
+                        document.body.appendChild(vElement);
+                    } else {
+                        if(data.erro === true) {
+                            fncMessage(data.message)
+                            fncClearForm();
                     } else {
                         if(data.freeCpf){
                             cpfInitialEdit = vValue;
@@ -69,6 +74,7 @@ document.addEventListener("focusout", function(e) {
                             fncPhoneMask();
                         }
                     }
+                }
                 })
             }
         }
@@ -100,7 +106,9 @@ function fncClearForm() {
     document.getElementById("pcd").value = "NÃO";
     document.getElementById("apprentice").value = "NÃO";
     document.getElementById("cterc").value = "NÃO";
+    if (document.getElementById("company-name")) 
     document.getElementById("company-name").value = "";
+    if (document.getElementById("company-name")) 
     document.getElementById("occupation-id-vacancy").value = "";
 
     cpfInitialEdit = "";

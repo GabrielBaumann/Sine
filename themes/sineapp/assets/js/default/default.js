@@ -371,3 +371,28 @@ function fncTodoClousureToday() {
         }
     });
 }
+
+/*########################################*/
+/*#############  Modal yes/no ############*/
+/*########################################*/
+
+// Cancelar ação
+document.addEventListener("click", (e) => {
+    if(e.target.id === "cancelBtn") {
+        document.getElementById('modal').remove();
+    }
+});
+
+// Fechar modal clicando no overlay (fora da modal)
+document.addEventListener("click", (e) => {
+    if(e.target.id === "confirmationModal") {
+        document.getElementById("modal").remove();
+    }
+})
+
+// Fechar com ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        document.getElementById('modal').remove();
+    }
+});
