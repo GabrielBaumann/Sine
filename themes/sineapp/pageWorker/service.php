@@ -58,57 +58,57 @@
             <div class="flex flex-col sm:flex-row gap-4">
                 <?php if(in_array($service->id_type_service, ["4","56"])): ?>
                     <?php if($service->status_vacancy_worker === "Aguardando resposta"): ?>
-                        <form action="<?= url("/finalizarencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
-                            <?= csrf_input(); ?>
+                        <?php if(in_array($userSystem ->type_user, ["DEV","ADM"])): ?>
+                            <form action="<?= url("/finalizarencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
+                                <?= csrf_input(); ?>
 
-                            <input name="id-service" type="hidden" value="<?= fncEncrypt($service->id_service) ?>">
-                            <input name="id-worker" type="hidden" value="<?= fncEncrypt($service->id_worker) ?>">                            
-                            <input name="id-vacancy" type="hidden" value="<?= fncEncrypt($service->id_vacancy) ?>">
+                                <input name="id-service" type="hidden" value="<?= fncEncrypt($service->id_service) ?>">
+                                <input name="id-worker" type="hidden" value="<?= fncEncrypt($service->id_worker) ?>">                            
+                                <input name="id-vacancy" type="hidden" value="<?= fncEncrypt($service->id_vacancy) ?>">
 
-                            <div class="flex flex-col gap-4 w-full">
-                                <div class="flex gap-4 w-full">
-                                    <div class="flex flex-col w-full">
-                                        <label for="motivo">*</label>
-                                        <select id="motivo" name="source-service-vacancy" class="bg-gray-200 flex-1 border border-gray-100 p-2 rounded-md cursor-pointer">
-                                            <option value="">selecione um motivo</option>
-                                            <option value="Na ocupação">Na ocupação</option>
-                                            <option value="Em outra ocupação">Em outra ocupação</option>
-                                            <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
-                                            <option value="Trabalhador reprovado no processo de seleção">Trabalhador reprovado no processo de seleção</option>
-                                            <option value="Trabalhador não atendeu às exigências do empregador">Trabalhador não atendeu às exigências do empregador</option>
-                                            <option value="Trabalhador já trabalhou na empresa e foi dispensado da mesma">Trabalhador já trabalhou na empresa e foi dispensado da mesma</option>
-                                            <option value="Trabalhador não compareceu à empresa">Trabalhador não compareceu à empresa</option>
-                                            <option value="Empregador não atendeu o trabalhador">Empregador não atendeu o trabalhador</option>
-                                            <option value="Vaga cancelada pelo empregador">Vaga cancelada pelo empregador</option>
-                                            <option value="Vaga preenchida por outro trabalhador">Vaga preenchida por outro trabalhador</option>
-                                            <option value="Vaga preenchida por outras fontes">Vaga preenchida por outras fontes</option>
-                                            <option value="Turma Cancelada">Turma Cancelada</option>
-                                        </select>
+                                <div class="flex flex-col gap-4 w-full">
+                                    <div class="flex gap-4 w-full">
+                                        <div class="flex flex-col w-full">
+                                            <label for="motivo">*</label>
+                                            <select id="motivo" name="source-service-vacancy" class="bg-gray-200 flex-1 border border-gray-100 p-2 rounded-md cursor-pointer">
+                                                <option value="">selecione um motivo</option>
+                                                <option value="Na ocupação">Na ocupação</option>
+                                                <option value="Em outra ocupação">Em outra ocupação</option>
+                                                <option value="Trabalhador recusou condições oferecidas pelo empregador">Trabalhador recusou condições oferecidas pelo empregador</option>
+                                                <option value="Trabalhador reprovado no processo de seleção">Trabalhador reprovado no processo de seleção</option>
+                                                <option value="Trabalhador não atendeu às exigências do empregador">Trabalhador não atendeu às exigências do empregador</option>
+                                                <option value="Trabalhador já trabalhou na empresa e foi dispensado da mesma">Trabalhador já trabalhou na empresa e foi dispensado da mesma</option>
+                                                <option value="Trabalhador não compareceu à empresa">Trabalhador não compareceu à empresa</option>
+                                                <option value="Empregador não atendeu o trabalhador">Empregador não atendeu o trabalhador</option>
+                                                <option value="Vaga cancelada pelo empregador">Vaga cancelada pelo empregador</option>
+                                                <option value="Vaga preenchida por outro trabalhador">Vaga preenchida por outro trabalhador</option>
+                                                <option value="Vaga preenchida por outras fontes">Vaga preenchida por outras fontes</option>
+                                                <option value="Turma Cancelada">Turma Cancelada</option>
+                                            </select>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <label for="date-response-company" class="text-gray-500">Data de Resposta *</label>
+                                            <input type="date" name="date-response-company" id="date-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md">
+                                        </div>
+                                        <div class="flex flex-col w-full">
+                                            <label for="detail-response-company" class="text-gray-500">Observação</label>
+                                            <input type="text" name="detail-response-company" id="detail-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label for="date-response-company" class="text-gray-500">Data de Resposta *</label>
-                                        <input type="date" name="date-response-company" id="date-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md">
-                                    </div>
-                                    <div class="flex flex-col w-full">
-                                        <label for="detail-response-company" class="text-gray-500">Observação</label>
-                                        <input type="text" name="detail-response-company" id="detail-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
-                                    </div>
-                                </div>
-                            <div class="flex w-full gap-4">
-                                <div class="flex flex-col sm:flex-row gap-3">
-                                    <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium p-3 rounded-md transition duration-200">
-                                        <span>Salvar</span>
-                                    </button>
-                                </div>
-                                </form>
-                                
-                                <?php if(in_array($userSystem ->type_user, ["DEV","ADM"])): ?>
+                                    <div class="flex w-full gap-4">
+                                        <div class="flex flex-col sm:flex-row gap-3">
+                                            <button class="flex-1 cursor-pointer bg-green-600 hover:bg-green-700 text-white font-medium p-3 rounded-md transition duration-200">
+                                                <span>Salvar</span>
+                                            </button>
+                                        </div>
+                                    
                                         <div class="flex flex-col sm:flex-row gap-3">
                                             <button name="actionbtn" value="delete" class="flex-1 cursor-pointer border border-red-400 hover:bg-red-500 hover:text-white text-red-500 p-3  font-medium rounded-md transition duration-200">
                                                 <span>Excluir</span>
                                             </button>
                                         </div>
-                                <?php endif; ?>
+                                    </form>
+                        <?php endif; ?>
                             </div>
                         </div>
                         
@@ -129,6 +129,7 @@
                         </div>
                     <?php endif;?>
                 <?php else:?>
+
                 <?php if(in_array($userSystem ->type_user, ["DEV","ADM"])): ?>
                         <div class="flex flex-col sm:flex-row gap-3">
                             <form action="<?= url("/editarservicotrabalhador/atendimentosexcluir"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">

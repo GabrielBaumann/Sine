@@ -348,9 +348,7 @@ function fncTodoClousureToday() {
                 const vDelay = vTimeClousure - vNow;
 
                 if (vDelay > 0) {
-                    // console.log(`Id da vaga ${todo.idVacancy} agendada para ${vTimeClousure}`);
                     setTimeout(() => {
-                        // console.log(`Encerrando tarefas ${todo.idVacancy}`);
 
                         fetch("/sine/encerramentoautomatico", {
                             method: "POST",
@@ -361,11 +359,9 @@ function fncTodoClousureToday() {
                         })
                         .then(res => res.text())
                         .then(text => {
-                            // console.log("Encerrar");
                         });
                     }, vDelay);
                 } else {
-                    // console.log(`Tarefa ${todo.idVacancy} já deveria ter sido encerrada`);
                 }
             });
         }

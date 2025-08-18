@@ -101,7 +101,7 @@
             <div class="flex flex-col">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    Nome da Empresa
+                    <?= $vacancyInfo->name_enterprise; ?>
                 </div>
             </div>
             
@@ -109,7 +109,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    1234 - Operador de Máquinas
+                    <?= $vacancyInfo->id_code; ?> - <?= $vacancyInfo->occupation; ?>
                 </div>
             </div>
             
@@ -117,7 +117,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">PCD</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    NÃO
+                    <?= $vacancyInfo->pcd_vacancy; ?>
                 </div>
             </div>
         </div>
@@ -127,7 +127,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Aprendiz</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    NÃO
+                    <?= $vacancyInfo->apprentice_vacancy; ?>
                 </div>
             </div>
             
@@ -135,7 +135,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    INDIFERENTE
+                    <?= $vacancyInfo->gender_vacancy; ?>
                 </div>
             </div>
             
@@ -143,7 +143,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Data de abertura</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    15/08/2023
+                    <?= date_simple($vacancyInfo->date_open_vacancy); ?>
                 </div>
             </div>
         </div>
@@ -153,7 +153,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">N° de Vagas</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    2
+                    <?= $vacancyInfo->number_vacancy; ?>
                 </div>
             </div>
             
@@ -161,7 +161,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Qtd. por Vaga</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    1
+                    <?= $vacancyInfo->quantity_per_vacancy; ?>
                 </div>
             </div>
             
@@ -169,7 +169,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Experiência</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    DESEJÁVEL
+                    <?= $vacancyInfo->exp_vacancy; ?>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    CNH B, experiência comprovada
+                    <?= $vacancyInfo->request_vacancy; ?>
                 </div>
             </div>
             
@@ -187,7 +187,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    30/09/2023
+                    <?= $vacancyInfo->date_closed_vacancy; ?>
                 </div>
             </div>
             
@@ -195,7 +195,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Escolaridade</label>
                 <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    ENSINO MÉDIO COMPLETO
+                    <?= $vacancyInfo->education_vacancy; ?>
                 </div>
             </div>
         </div>
@@ -205,14 +205,14 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    18
+                    <?= $vacancyInfo->age_min_vacancy; ?>
                 </div>
             </div>
             
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Idade Máxima</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    45
+                   <?= $vacancyInfo->age_max_vacancy; ?>
                 </div>
             </div>
             
@@ -220,13 +220,13 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nomenclatura da vaga</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    VAGA-001
+                    <?= $vacancyInfo->nomeclatura_vacancy; ?>
                 </div>
             </div>
             
             <!-- Pegar currículo -->
             <div class="flex items-center gap-2 mt-4">
-                <div class="w-4 h-4 border border-gray-300 bg-gray-200 rounded"></div>
+                 <input type="checkbox" class="pointer-events-none" <?= isset($vacancyInfo->accept_curriculum) ? ($vacancyInfo->accept_curriculum === 1 ? "checked" : "" ) : "" ?>>
                 <label>Pegar currículo</label>
             </div>
             
@@ -234,7 +234,7 @@
             <div class="col-span-1 md:col-span-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    Vaga para operador de máquinas industriais com experiência em linha de produção.
+                    <?= $vacancyInfo->description_vacancy; ?>
                 </div>
             </div>
         </div>

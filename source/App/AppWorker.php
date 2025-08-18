@@ -71,7 +71,7 @@ class AppWorker extends Controller
         $pager = new Pager(url("/listatrabalhador/p/"));
         $pager->pager($worker, 15, 1);
 
-        echo $this->view->render("/pageWorker", [
+        echo $this->view->render("/pageWorker/pageWorker", [
             "title" => "Trabalhador",
             "countWorker" => $worker,
             "worker" => (new Worker())

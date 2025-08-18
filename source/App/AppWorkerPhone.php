@@ -71,7 +71,7 @@ class AppWorkerPhone extends Controller
         $pager->pager($workerPhone, 15, 1);
         $countWorker = (new VwServicePhone())->find()->count();
 
-        echo $this->view->render("/pageServicePhone", [
+        echo $this->view->render("/pageWorkerPhone/pageServicePhone", [
             "title" => "Atendimento",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "worksPhone" => (new VwServicePhone())
@@ -119,7 +119,7 @@ class AppWorkerPhone extends Controller
             $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
             $pager->pager($countWorker, 15, $page);
             
-            $html = $this->view->render("pageWorkerPhone/listWorkesPhone", [
+            $html = $this->view->render("/pageWorkerPhone/listWorkesPhone", [
                 "countWorker" => $countWorker,
                 "worksPhone" => (new VwServicePhone())->find($where, http_build_query($params))
                     ->order("name_work_phone")
@@ -141,7 +141,7 @@ class AppWorkerPhone extends Controller
     {
         $sericePhone = (new VwServicePhone())->findById($data["idservice"]);
 
-        $html = $this->view->render("pageWorkerPhone/servicePhone", [
+        $html = $this->view->render("/pageWorkerPhone/servicePhone", [
             "title" => "Atendimento",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "servicePhone" => $sericePhone

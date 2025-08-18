@@ -29,14 +29,16 @@ class AppServer extends Controller
 
     }
 
+    // Página inicial de atendimento no sidebar
     public function servicePage() : void
     {
-        echo $this->view->render("/pageService", [
+        echo $this->view->render("/pageService/pageService", [
             "title" => "Atendimento",
             "userSystem" => (new SystemUser())->findById($this->user->id_user)
         ]);    
     }
 
+    // Verificar qual o tipo de atendimento
     public function serviceType() : void
     {
         echo $this->view->render("/pageService/initService", [
@@ -44,9 +46,9 @@ class AppServer extends Controller
         ]);
     }
 
+    // Os tipos de atendimentos
     public function serviceReason(array $data) : void
     {
-
         $type = $data["type"];
 
         echo $this->view->render("/pageService/reasonService", [
@@ -54,27 +56,6 @@ class AppServer extends Controller
             "type" => $type            
         ]);
     }
-
-    // Verificar se existe encaminhamento de emprego não finalizado para o usuário terminar de desenvolver
-    // public function checkedForWarting($data) : void {
-    //     // var_dump(str_replace([".","-"], "", $data["cpf"]));
-    //     $cpfuser = str_replace([".","-"], "", $data["cpf"]);
-
-    //     $chekedForWarting = new VacancyWorker();
-
-    //     if($chekedForWarting->checkForWardingWork($cpfuser)) {
-
-    //         $html = $this->view->render("/pageService/questionService", [
-
-    //         ]);  
-
-    //         $json["htmlquestion"] = $html;
-    //         $json["message"] = "";
-    //         $json["erro"] = false;
-    //         echo json_encode($json);
-    //         return;
-    //     }        
-    // }
 
     // Cadastrar/Editar e excluir atendimentos
     public function formService(array $data) : void
@@ -384,6 +365,7 @@ class AppServer extends Controller
         ]);        
     }
 
+    // Lista de empresas
     public function listSelectEnterprise(array $data) : void
     {   
 
@@ -425,6 +407,7 @@ class AppServer extends Controller
         return;
     }
 
+    // Verificação de CPF que vem do formulário de cadastro de atendimento
     public function formCpfCheck(array $data) : void
     {
         $cpfuser = $data["cpf"];

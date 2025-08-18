@@ -22,6 +22,7 @@ class AppCompany extends Controller
         }
     }
 
+    // Página principal de empresas no sidebar
     public function startCompany(?array $data) : void
     {
 
@@ -69,7 +70,7 @@ class AppCompany extends Controller
         $pager = new Pager(url("/pesquisarempresa/p/"));
         $pager->Pager($enterprise, 15, 1);
 
-        echo $this->view->render("/pageCompany", [
+        echo $this->view->render("/pageCompany/pageCompany", [
             "title" => "Empresas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "listEnterprise" => (new Enterprise())->find()
@@ -81,6 +82,7 @@ class AppCompany extends Controller
         ]);
     }
 
+    //Pesquisa de empresas renderizando Lista de empresas na página inicial
     public function listCompany(?array $data) : void
     {
 

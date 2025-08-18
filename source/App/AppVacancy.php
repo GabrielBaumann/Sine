@@ -89,7 +89,7 @@ class AppVacancy extends Controller
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager($vacancyCount, 15, 1);
 
-        echo $this->view->render("/pageVacancy", [
+        echo $this->view->render("/pageVacancy/pageVacancy", [
             "title" => "Vagas",
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "totalVacancy" => (new VwVacancy())

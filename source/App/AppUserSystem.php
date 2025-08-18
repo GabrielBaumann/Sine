@@ -22,6 +22,7 @@ class AppUserSystem extends Controller
         }
     }
 
+    // Página inicial de cadstro de usuários no sidebar
     public function userSystem(?array $data) : void
     {   
         $searchNameUser = filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-user-system", FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -91,7 +92,7 @@ class AppUserSystem extends Controller
         $pager = new Pager(url("/usuarios/p/"));
         $pager->Pager($userSytemCount, 10, 1);
 
-        echo $this->view->render("/pageUserSystem", [
+        echo $this->view->render("/pageUserSystem/pageUserSystem", [
             "title" => "Usuarios",
             "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),
             "users" => (new SystemUser())

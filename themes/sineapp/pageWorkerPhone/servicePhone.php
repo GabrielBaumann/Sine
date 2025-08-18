@@ -21,7 +21,7 @@
                         <?= $servicePhone->name_work_phone; ?>
                     </h3>
                     <div class="mt-2">
-                        <p class="text-md text-gray-600"><?= $servicePhone->contact_work;?></p>
+                        <p class="text-md text-gray-600">(<?= $servicePhone->contact_ddd_work; ?>) <?= mask_phone($servicePhone->contact_work ?? "0000000000", true);?></p>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <!-- Date -->
                 <div class="col-span-2 md:col-span-1">
                     <p class="text-sm font-medium text-gray-700 mb-1">Data:</p>
-                    <p class="text-lg bg-gray-100 text-gray-600 p-4"><?= $servicePhone->date_register; ?></p>
+                    <p class="text-lg bg-gray-100 text-gray-600 p-4"><?= date_simple($servicePhone->date_register); ?></p>
                 </div>
                 <!-- Observation -->
                 <div class="col-span-2">
@@ -56,7 +56,7 @@
         <!-- Actions Section -->
         <div>
             <div class="flex flex-col sm:flex-row gap-4">
-                <?php if(in_array($userSystem ->type_user, ["dev","adm"])): ?>
+                <?php if(in_array($userSystem ->type_user, ["DEV","ADM"])): ?>
                     <div class="flex flex-col sm:flex-row gap-3">
                         <form action="<?= url("/excluiratendimentotelefone"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                         <?= csrf_input(); ?>

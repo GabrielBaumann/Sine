@@ -35,6 +35,7 @@ class AppStart extends Controller
         }
     }
 
+    // Página principal de vagas no sidebar
     public function startPage() : void
     {   
         // Encerrar vagas já passadas
@@ -55,9 +56,9 @@ class AppStart extends Controller
         $pager->pager(count($panelVancancy ?? []), 15, 1);
 
         // Total de vagas ativas 
-        $totalVacancyActive = $vwVacancy->find("total_vacancy_active <> :to","to=0", "(SELECT sum(total_vacancy_active)) AS total")->order("nomeclatura_vacancy")->fetch();
+        $totalVacancyActive = $vwVacancy->find("number_vacancy <> :to","to=0", "(SELECT sum(number_vacancy)) AS total")->order("nomeclatura_vacancy")->fetch();
 
-        echo $this->view->render("/pageStart", [
+        echo $this->view->render("/pageStart/pageStart", [
             "title" => "Início",
             "workerCount" => (new Worker())->find()->count(),
             "vavancysCount" => $totalVacancyActive->total,
@@ -76,6 +77,7 @@ class AppStart extends Controller
         ]);
     }
 
+    // Painél direito de vagas na página principal
     public function panelVacancy(?array $data) : void
     {
         $vwVacancy = new VwVacancy();
@@ -103,6 +105,7 @@ class AppStart extends Controller
         return;
     }
 
+    // Download do painél de vagas em PDF e JPG
     public function printPanel() : void
     {
         $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
@@ -113,7 +116,7 @@ class AppStart extends Controller
             return;
         }
 
-        $html = $this->view->render("/layout_printing", [
+        $html = $this->view->render("/pageStart/printingPainel", [
             "panelVacancy" =>  (new VwVacancy())
                 ->find("total_vacancy_active <> :to","to=0")
                 ->order("nomeclatura_vacancy")
@@ -126,6 +129,7 @@ class AppStart extends Controller
         return;    
     }
 
+    // Download do painél interno
     public function printPanelInternal() : void
     {
         $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
@@ -136,7 +140,7 @@ class AppStart extends Controller
             return;
         }
 
-        $html = $this->view->render("/printingInternalVacancy", [
+        $html = $this->view->render("/pageStart/printingInternalVacancy", [
             "panelVacancy" =>  (new VwVacancy())
                 ->find("total_vacancy_active <> :to","to=0")
                 ->order("nomeclatura_vacancy")
@@ -149,6 +153,7 @@ class AppStart extends Controller
         return;    
     }
 
+    // Baixar o painél de vagas em word
     public function reportDownloadWord($data) : void
     {
         $formatterDate = new IntlDateFormatter(

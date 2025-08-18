@@ -32,7 +32,7 @@
         <div class="flex justify-between items-start">
             <div>
                 <h3 class="text-4xl font-medium text-white"><?= format_number($vavancysCount ?? 000) ?></h3>
-                <p class="text-sm text-gray-100 mb-1">Vagas Abertas</p>
+                <p class="text-sm text-gray-100 mb-1">Vagas</p>
             </div>
             <div class="p-2 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-white">
