@@ -102,7 +102,7 @@
             </div>
   
             <!-- Botão de confirmação -->
-            <div class="col-span-4 flex justify-end mt-4 md:p-3">
+            <div class="col-span-4 flex justify-end mt-4 md:p-3 gap-3">
                 <?php if(($user->active ?? null) != "2"):?>  
                     <button
                         name="btnform"
