@@ -105,8 +105,8 @@
     <div class="modal-overlay" id="confirmationModal">
         <div class="modal-content">
             <button id="cancelBtn">x</button>
-            <div class="modal-title">Existe encaminhamento para entrevista de emprego para esse trabalhador!</div>
-            <p class="modal-message">Deseja continuar?</p>
+            <div class="modal-title">Atenção</div>
+            <p class="modal-message">Existe encaminhamento para entrevista de emprego para esse trabalhador! Deseja continuar?</p>
             <div class="modal-buttons">
                 <form action="<?= url("/confirmarexclusaoreativar") ?>" method="post">
                     <button class="modal-button confirm-button" id="confirmBtn">Sim</button>

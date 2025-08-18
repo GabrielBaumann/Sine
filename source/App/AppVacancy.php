@@ -66,7 +66,7 @@ class AppVacancy extends Controller
 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($vacancyCount, 10, $page);
+            $pager->Pager($vacancyCount, 15, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new VwVacancy())
@@ -87,7 +87,7 @@ class AppVacancy extends Controller
 
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager($vacancyCount, 10, 1);
+        $pager->Pager($vacancyCount, 15, 1);
 
         echo $this->view->render("/pageVacancy", [
             "title" => "Vagas",
@@ -139,7 +139,7 @@ class AppVacancy extends Controller
             $vacancyCount = count($vacancy ?? []);
 
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($vacancyCount, 10, 1);
+            $pager->Pager($vacancyCount, 15, 1);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new VwVacancy())
@@ -159,7 +159,7 @@ class AppVacancy extends Controller
 
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager($vacancyCount, 10, 1);
+        $pager->Pager($vacancyCount, 15, 1);
 
         $html = $this->view->render("/pageVacancy/listVacancy", [
             "totalVacancy" => (new VwVacancy())

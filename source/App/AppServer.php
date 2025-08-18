@@ -55,6 +55,27 @@ class AppServer extends Controller
         ]);
     }
 
+    // Verificar se existe encaminhamento de emprego não finalizado para o usuário terminar de desenvolver
+    // public function checkedForWarting($data) : void {
+    //     // var_dump(str_replace([".","-"], "", $data["cpf"]));
+    //     $cpfuser = str_replace([".","-"], "", $data["cpf"]);
+
+    //     $chekedForWarting = new VacancyWorker();
+
+    //     if($chekedForWarting->checkForWardingWork($cpfuser)) {
+
+    //         $html = $this->view->render("/pageService/questionService", [
+
+    //         ]);  
+
+    //         $json["htmlquestion"] = $html;
+    //         $json["message"] = "";
+    //         $json["erro"] = false;
+    //         echo json_encode($json);
+    //         return;
+    //     }        
+    // }
+
     // Cadastrar/Editar e excluir atendimentos
     public function formService(array $data) : void
     {
@@ -418,10 +439,6 @@ class AppServer extends Controller
             return;
         }
 
-        // Verificar se existe encaminhamento de emprego não finalizado para o usuário
-        $chekedForWarting = new VacancyWorker();
-        $chekedForWarting->checkForWardingWork($cpfuser);
-
         $worker = (new Worker())->find("cpf_worker = :c", "c={$cpfuser}");
 
         if ($worker->fetch()) {
@@ -440,6 +457,7 @@ class AppServer extends Controller
             $json["erro"] = false;
             echo json_encode($json);
             return;
+            
         }
 
         if(!$worker->fetch()) {

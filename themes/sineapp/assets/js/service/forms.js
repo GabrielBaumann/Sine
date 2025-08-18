@@ -8,7 +8,6 @@ document.addEventListener("submit", (e)=> {
         const form = e.target;
         const formData = new FormData(form);
         const actionForm = e.target.action;
-        // const formId = e.target.id;
 
         let vtimeLoading;
 
@@ -26,6 +25,14 @@ document.addEventListener("submit", (e)=> {
             return response.json();
         })
         .then(data => {
+
+            if (data.htmlquestion) {
+                const vElement = document.createElement("div");
+                vElement.id = "modal";
+                vElement.innerHTML = data.htmlquestion;
+                document.body.appendChild(vElement);
+                return;
+            }
 
             if (data.erro === false) {
                 const vHtmlAjax = document.getElementById("newElement");

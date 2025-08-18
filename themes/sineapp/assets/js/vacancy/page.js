@@ -90,6 +90,14 @@ document.addEventListener("click", (e) => {
                     allowClear: true // permite limpar a seleção
                 });
             });
+            
+            // Caixa select de lista de empresas
+            $(document).ready(function() {
+                $('#enterprise').select2({
+                    placeholder: 'Selecione uma empresa',
+                    allowClear: true // permite limpar a seleção
+                });
+            });
         })
     }
 })

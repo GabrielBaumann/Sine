@@ -214,9 +214,19 @@ class VacancyWorker extends Model
         $cpfWorker = new Worker();
         $idWorker = $cpfWorker->find("cpf_worker = :id", "id={$cpf}")->fetch();
 
-        // Retorna se o trabalhador tem ou não 
+        if(!$idWorker) {
+            return false;
+        }
 
-        var_dump($idWorker->id_worker);
-        return true;
+        // Retorna se o trabalhador tem ou não encaminhamento para entrevista de emprego não finalizada para o trabalhador
+        $vacancyWork = new static();
+        $allVacancyWork = $vacancyWork->find("id_worker = :id AND status_vacancy_worker = 'Aguardando resposta'","id={$idWorker->id_worker}")->fetch(true);
+
+        if(count($allVacancyWork ?? []) >= 1) {
+            return true;
+        }
+
+        // Retorna false caso o usuário tenha cadastro, mas não tenha nenhum encaminhamento sem finalizar
+        return false;
     }
 }

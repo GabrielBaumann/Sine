@@ -112,7 +112,6 @@ $route->post("/verificarcnpj/{idCompany}", "AppCompany:verificCnpj");
 
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
-
 $route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
 
 
@@ -121,6 +120,7 @@ $route->get("/formularioAtendimento/{type}/{typeservice}", "AppServer:formServic
 $route->get("/formularioAtendimento/{type}/{typeservice}/{interview}", "AppServer:formService");
 $route->post("/formularioAtendimento", "AppServer:formService");
 $route->post("/formularioAtendimento/{idWorker}", "AppServer:formService");
+// $route->post("/formularioAtendimento/{idWorker}", "AppServer:checkedForWarting");
 
 $route->post("/verificarCpfAtendimento", "AppServer:formCpfCheck");
 $route->get("/segurodesemprego/{type}", "AppServer:serviceInsurance");

@@ -48,7 +48,7 @@ class AppCompany extends Controller
             $enterprise = (new Enterprise())->find()->count();
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($enterprise, 10, $page);
+            $pager->Pager($enterprise, 15, $page);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())->find($where, http_build_query($params))
@@ -67,7 +67,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 10, 1);
+        $pager->Pager($enterprise, 15, 1);
 
         echo $this->view->render("/pageCompany", [
             "title" => "Empresas",
@@ -109,7 +109,7 @@ class AppCompany extends Controller
             $companyCount = count($company ?? []);
 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($companyCount, 10, 1);
+            $pager->Pager($companyCount, 15, 1);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())
@@ -129,7 +129,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 10, 1);
+        $pager->Pager($enterprise, 15, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()
@@ -170,7 +170,7 @@ class AppCompany extends Controller
                 return;
             }
 
-            $cleanInput = cleanInputData($data, ["email-enterprise", "phone-enterprise", "responsible-person"]);
+            $cleanInput = cleanInputData($data, ["email-enterprise", "phone-enterprise", "responsible-person", "observation"]);
 
             if(!$cleanInput["valid"]) {
                 $json["message"] = messageHelpers()->error("Preencha todos os campos obrigatórios!!!")->render();
@@ -203,7 +203,8 @@ class AppCompany extends Controller
             $enterprise->cnpj = cleanCPF($dataCleanInput["cnpj"]);
             $enterprise->email_enterprise = $dataCleanInput["email-enterprise"];
             $enterprise->responsible_enterprise = $dataCleanInput["responsible-person"];
-            $enterprise->phone_enterprise = $dataCleanInput["phone-enterprise"];
+            $enterprise->observation_enterprise = $dataCleanInput["observation"];
+            $enterprise->phone_enterprise = str_replace(["(", ")", "-", " "], "", $dataCleanInput["phone-enterprise"]);
             $enterprise->id_user_register = $this->user->id_user;
 
             if(!$enterprise->save()) {
