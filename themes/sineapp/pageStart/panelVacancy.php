@@ -33,7 +33,7 @@
             <thead class="bg-blue-500">
                 <tr>
                     <th scope="col" class="px-5 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Vaga</th>
-                    <th scope="col" class="py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Qt</th>
+                    <th scope="col" class="py-3 text-right pr-[12px] text-xs font-medium text-white uppercase tracking-wider">Qtd</th>
                 </tr>
             </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -41,14 +41,18 @@
                         <?php foreach($panelVacancy as $panelVacancyItem): ?>    
                             <!-- This is a line -->
                             <tr>
-                                <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900"><?= $panelVacancyItem->nomeclatura_vacancy; ?></td>
-                                <td class="py-3 whitespace-nowrap text-sm text-black"><?= $panelVacancyItem->total_vacancy_active; ?></td>
+                                <td class="max-w-[120px] truncate px-2 py-3 text-xs font-medium text-gray-900">
+                                    <?= $panelVacancyItem->nomeclatura_vacancy; ?>
+                                </td>
+                                <td class="py-1 whitespace-nowrap text-right pr-[12px] text-xs text-black">
+                                    <?= $panelVacancyItem->total_vacancy_active; ?>
+                                </td>
                             </tr>
                         <?php endforeach;?>
                     <?php else: ?>
                         <!-- If there are no vacancies -->
                         <tr>
-                            <td class="px-5 py-3 whitespace-nowrap text-sm font-medium text-gray-900">Não há vagas cadastradas</td>
+                            <td class="px-5 py-3 whitespace-nowrap text-xs font-medium text-gray-900">Não há vagas cadastradas</td>
                         </tr>
                     <?php endif;?>
                 </tbody>

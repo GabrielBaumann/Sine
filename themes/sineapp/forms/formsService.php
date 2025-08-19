@@ -149,7 +149,7 @@
 
         <?php if((int)$idInterview === 4 || (int)$idInterview === 56): ?>
             <!-- Encaminhamento para entrevistas -->
-            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+            <div class="col-span-4 md:col-span-2 lg:col-span-2">
                 <label for="company-name" class="block text-sm font-medium text-gray-700 mb-1">Empresa *</label>
                 <select 
                     data-url="<?= url("/selecionarempresa"); ?>"

@@ -2,7 +2,7 @@
     <?= csrf_input(); ?>
     <input type="hidden" name="id-vacancy-fixed" value="<?= $vacancyInfo->id_vacancy; ?>">
     <div class="bg-transparent rounded-md overflow-hidden mt-5">  
-        <table class="min-w-full divide-y divide-gray-200 responsive-table">
+        <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="">
             <tr>
                 <th scope="col" class="w-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -17,7 +17,7 @@
                 <!-- Linha 1 -->
                 <?php if($vacancyList):?>
                     <?php foreach($vacancyList as $vacancyItem): ?>
-                        <tr class="hover:bg-blue-100">
+                        <tr class="hover:bg-blue-100 bg-gray-50">
                             <td class="whitespace-nowrap">
                                 <input 
                                     type="checkbox" 
@@ -82,7 +82,7 @@
         </div>
 
         <!-- paginação aqui -->
-        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">
