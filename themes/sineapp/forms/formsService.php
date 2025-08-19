@@ -105,6 +105,7 @@
                     <option value="AMARELA" <?= ($worker->ethnicity_worker ?? '') === 'AMARELA' ? 'selected' : '' ?>>AMARELA</option>
                     <option value="BRANCA" <?= ($worker->ethnicity_worker ?? '') === 'BRANCA' ? 'selected' : '' ?>>BRANCA</option>
                     <option value="PRETA" <?= ($worker->ethnicity_worker ?? '') === 'PRETA' ? 'selected' : '' ?>>PRETA</option>
+                    <option value="PARDO" <?= ($worker->ethnicity_worker ?? '') === 'PARDO' ? 'selected' : '' ?>>PARDO</option>
                     <option value="INDÍGENA" <?= ($worker->ethnicity_worker ?? '') === 'INDÍGENA' ? 'selected' : '' ?>>INDÍGENA</option>
                     <option value="PREFIRO NÃO RESPONDER" <?= ($worker->ethnicity_worker ?? '') === 'PREFIRO NÃO RESPONDER' ? 'selected' : '' ?>>PREFIRO NÃO RESPONDER</option>
                 </select>

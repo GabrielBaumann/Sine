@@ -79,6 +79,7 @@ $enterprise = new Enterprise();
                         <option value="">Selecione</option>
                         <option value="SIM" <?= ($vacancy->pcd_vacancy ?? '') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                         <option value="NÃO" <?= ($vacancy->pcd_vacancy ?? '') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                        <option value="EXTENSIVA A PCD" <?= ($vacancy->pcd_vacancy ?? '') === 'EXTENSIVA A PCD' ? 'selected' : '' ?>>EXTENSIVA A PCD</option>
                     </select>
                 </div>
 
