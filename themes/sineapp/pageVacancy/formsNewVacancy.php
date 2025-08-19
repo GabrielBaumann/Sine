@@ -111,7 +111,7 @@ $enterprise = new Enterprise();
                 </div>
 
                 <!-- Requisitos da vaga -->
-                <div class="col-span-1 md:col-span-3">
+                <!-- <div class="col-span-1 md:col-span-3">
                     <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
                     <input 
                         value="<?= $vacancy->request_vacancy ?? "" ?>" 
@@ -120,7 +120,7 @@ $enterprise = new Enterprise();
                         name="request-vacancy" 
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="Ex: técnico em informática, CNH D...">
-                </div>
+                </div> -->
             </div>
 
             <!-- Coluna 2 -->
@@ -257,13 +257,13 @@ $enterprise = new Enterprise();
             <div class="col-span-1 md:col-span-3">
                 <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição (Opcional)</label>
                 <textarea 
-                    value="<?= $vacancy->description_vacancy ?? "" ?>" 
+                    value="" 
                     type="text" 
                     id="description-vacancy" 
                     rows="5"
                     name="description-vacancy" 
                     class="resize-none bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                    placeholder=""></textarea>
+                    placeholder=""><?= $vacancy->description_vacancy ?? "" ?></textarea>
             </div>
 
             <!-- Botão de confirmação -->
