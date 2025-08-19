@@ -1,5 +1,5 @@
 <div class="overflow-x-auto rounded-md">
-    <table class="min-w-full divide-y divide-gray-200">
+    <table class="bg-gray-50 min-w-full divide-y divide-gray-200">
         <thead class="text-gray-900">
             <tr>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden sm:table-cell">Data</th>
@@ -9,7 +9,7 @@
                 <th scope="col" class="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider">Ações</th>
             </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-300">
+        <tbody class="divide-y divide-gray-300">
             <?php if(!empty($history)): ?>
                 <?php foreach($history as $item): ?>
                     <tr class="hover:bg-gray-50 transition-colors">
@@ -55,7 +55,7 @@
 </div>
 
 <!-- Paginação -->
-<div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="bg-gray-50 px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex gap-1">
         <?= $paginator; ?>
     </div>

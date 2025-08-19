@@ -32,20 +32,7 @@
             </div>
         </button>
 
-        <button
-            data-idservice = "<?= $type === "telefone" ? "17" : "2" ?>"
-            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
-            class="cursor-pointer hover:bg-white hover:shadow-xl hover:border-gray-300 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
-            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
-                </svg>
-            </div>
-            <div>
-                <span class="font-medium text-gray-800 block mb-1">Orientações para carteira de trabalho digital</span>
-                <p class="text-sm text-gray-500">Informações sobre como acessar e usar a CTPS digital</p>
-            </div>
-        </button>
+       
 
         <button 
             data-idservice = "<?= $type === "telefone" ? "55" : "3" ?>"
@@ -59,6 +46,21 @@
             <div>
                 <span class="font-medium text-gray-800 block mb-1">Orientações para o mercado de trabalho</span>
                 <p class="text-sm text-gray-500">Dicas e informações sobre como se inserir no mercado</p>
+            </div>
+        </button>
+
+        <button
+            data-idservice = "<?= $type === "telefone" ? "17" : "2" ?>"
+            data-url="<?= url("/formularioAtendimento/atendimento/"). $type ?>"
+            class="cursor-pointer hover:bg-white hover:shadow-xl hover:border-gray-300 p-4 border border-gray-200 rounded-lg hover:border-sine-300 hover:bg-sine-50 transition-all flex items-start gap-3 text-left">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-800 mt-1 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3" />
+                </svg>
+            </div>
+            <div>
+                <span class="font-medium text-gray-800 block mb-1">Orientações para carteira de trabalho digital</span>
+                <p class="text-sm text-gray-500">Informações sobre como acessar e usar a CTPS digital</p>
             </div>
         </button>
         

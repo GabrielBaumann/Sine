@@ -108,6 +108,18 @@ $enterprise = new Enterprise();
                         <option value="INDIFERENTE" <?= ($vacancy->gender_vacancy ?? '') === 'INDIFERENTE' ? 'selected' : '' ?>>INDIFERENTE</option>
                     </select>
                 </div>
+
+                <!-- Requisitos da vaga -->
+                <div class="col-span-1 md:col-span-3">
+                    <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
+                    <input 
+                        value="<?= $vacancy->request_vacancy ?? "" ?>" 
+                        type="text" 
+                        id="request-vacancy" 
+                        name="request-vacancy" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                        placeholder="Ex: técnico em informática, CNH D...">
+                </div>
             </div>
 
             <!-- Coluna 2 -->
@@ -161,16 +173,10 @@ $enterprise = new Enterprise();
                     </select>
                 </div>
 
-                <!-- Requisitos da vaga -->
-                <div class="col-span-1 md:col-span-3">
-                    <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
-                    <input 
-                        value="<?= $vacancy->request_vacancy ?? "" ?>" 
-                        type="text" 
-                        id="request-vacancy" 
-                        name="request-vacancy" 
-                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                        placeholder="Ex: técnico em informática, CNH D...">
+                <!-- Pegar currículo -->
+                <div class="flex items-center gap-2 mt-8">
+                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1" <?= isset($vacancy->accept_curriculum) ? ($vacancy->accept_curriculum === 1 ? "checked" : "" ) : "" ?>></input>
+                    <label for="curriculum-vacancy">Pegar currículo</label>
                 </div>
             </div>
 
@@ -244,25 +250,19 @@ $enterprise = new Enterprise();
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
                 </div>
-
-                <!-- Pegar currículo -->
-                <div class="flex items-center gap-2 mt-12">
-                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1" <?= isset($vacancy->accept_curriculum) ? ($vacancy->accept_curriculum === 1 ? "checked" : "" ) : "" ?>></input>
-                    <label for="curriculum-vacancy">Pegar currículo</label>
-                </div>
-
             </div>
 
             <!-- Descrição -->
             <div class="col-span-1 md:col-span-3">
                 <label for="description-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Descrição (Opcional)</label>
-                <input 
+                <textarea 
                     value="<?= $vacancy->description_vacancy ?? "" ?>" 
                     type="text" 
                     id="description-vacancy" 
+                    rows="5"
                     name="description-vacancy" 
-                    class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                    placeholder="">
+                    class="resize-none bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                    placeholder=""></textarea>
             </div>
 
             <!-- Botão de confirmação -->

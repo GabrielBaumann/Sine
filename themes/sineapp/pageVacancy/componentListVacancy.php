@@ -1,7 +1,7 @@
 <div class="bg-transparent rounded-md overflow-hidden mt-10">
     
     <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 responsive-table">
+        <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vaga</th>
@@ -10,7 +10,7 @@
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Ações</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-200 bg-gray-50">
                 <!-- Linha 1 -->
                 <?php if (!empty($totalVacancy)): ?>
                     <?php foreach($totalVacancy as $vacancy): ?>
