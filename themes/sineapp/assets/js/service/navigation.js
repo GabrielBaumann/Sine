@@ -76,3 +76,15 @@ document.addEventListener("change", (e) => {
         }
     }
 });
+
+document.addEventListener("click", (e) => {
+
+    if(e.target.id === "company-name") {
+        $(document).ready(function() {
+            $('#occupation-id-vacancy').select2({
+                placeholder: 'Selecione uma empresa',
+                allowClear: true // permite limpar a seleção
+            });
+        });        
+    }
+})
