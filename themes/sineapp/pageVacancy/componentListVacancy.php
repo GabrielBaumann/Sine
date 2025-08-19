@@ -14,7 +14,7 @@
                 <!-- Linha 1 -->
                 <?php if (!empty($totalVacancy)): ?>
                     <?php foreach($totalVacancy as $vacancy): ?>
-                        <tr class="hover:bg-blue-50 bg-white border-b border-gray-300">
+                        <tr class="hover:bg-blue-50 bg-gray-50 border-b border-gray-300">
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
@@ -66,7 +66,7 @@
     </div>
 
         <!-- Paginação -->
-        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">
