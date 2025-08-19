@@ -9,7 +9,7 @@ document.addEventListener("submit", (e) => {
         const vActionForm = e.target.action;
         const vformId = e.target.id;
         let vtimeLoading;
-        console.log(vformId);
+
         vtimeLoading = showSplash();
         
         fetch(vActionForm, {

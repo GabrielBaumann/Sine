@@ -9,10 +9,10 @@
         <p class="text-gray-900 mb-8 max-w-md mx-auto">O atendimento foi registrado no sistema e já está disponível para consulta.</p>
         
         <div class="p-6 mb-8 text-left max-w-xl mx-auto">
-            <div class="flex justify-between pb-3 mb-3">
+            <!-- <div class="flex justify-between pb-3 mb-3">
                 <span class="text-gray-900 font-medium">Tipo:</span>
-                <span class="font-semibold text-blue-900" id="confirm-type"><?= $type->group ?? "" ?></span>
-            </div>
+                <span class="font-semibold text-blue-900" id="confirm-type"></span>
+            </div> -->
             <div class="flex justify-between pb-3 mb-3">
                 <span class="text-gray-900 font-medium">Nome Candidato:</span>
                 <span class="font-semibold text-blue-900" id="confirm-reason"><?= $candidate->name_worker ?? $candidate->name_work_phone ?></span>
@@ -21,10 +21,10 @@
                 <span class="text-gray-900 font-medium">Serviço:</span>
                 <span class="font-semibold text-blue-900" id="confirm-service"><?= $type->type_service ?? "" ?></span>
             </div>
-            <div class="flex justify-between pt-3" id="confirm-request-container">
+            <!-- <div class="flex justify-between pt-3" id="confirm-request-container">
                 <span class="text-gray-900 font-medium">Requerimento:</span>
                 <span class="font-semibold text-blue-900" id="confirm-request"></span>
-            </div>
+            </div> -->
         </div>
         
         <button 
