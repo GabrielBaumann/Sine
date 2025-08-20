@@ -61,7 +61,7 @@ document.addEventListener("change", (e) => {
                 data.forEach(cbo => {
                     const vOption = document.createElement("option");
                     vOption.value = cbo.id_vacancy;
-                    vOption.textContent = `${cbo.number_vacancy}ª - ${cbo.nomeclatura_vacancy}`;
+                    vOption.textContent = `${cbo.number_vacancy}ª - ${cbo.nomeclatura_vacancy} (${cbo.gender_vacancy[0]}) - ${cbo.total_vacancy_forwarding}`;
                     vOccupationSelect.appendChild(vOption);
                 });
                 vOccupationSelect.disabled = false;
