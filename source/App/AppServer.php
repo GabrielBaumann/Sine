@@ -380,8 +380,8 @@ class AppServer extends Controller
                 [
                     "id_enterprise" => $enterpriseItem->id_enterprise,
                     "name_enterprise" => $enterpriseItem->name_enterprise,
-                    "gender_vacancy" => $enterpriseItem->gender_vacancy,
-                    "total_vancacy_forwarding" => $enterpriseItem->total_vacancy_forwarding
+                    "gender_vacancy" => $enterpriseItem->gender_vacancy
+                    // "total_vancacy_forwarding" => $enterpriseItem->total_vacancy_forwarding
                 ];
 
                 $enter[$enterpriseItem->id_enterprise] = true;

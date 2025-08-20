@@ -4,6 +4,7 @@
         <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
                 <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vaga</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Empresa</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
@@ -15,6 +16,13 @@
                 <?php if (!empty($totalVacancy)): ?>
                     <?php foreach($totalVacancy as $vacancy): ?>
                         <tr class="hover:bg-blue-50 bg-gray-50 border-b border-gray-300">
+                            <td data-label="Nome" class=" whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900"><?= $vacancy->id_vacancy; ?></div>
+                                    </div>
+                                </div>
+                            </td>
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">

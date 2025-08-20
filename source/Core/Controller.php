@@ -16,8 +16,8 @@ class Controller
         $this->message = new Message();
 
         // Encerrar vagas já passadas
-        // $closetVacancyOld = new Vacancy();
-        // $closetVacancyOld->checkdDateClousure();
+        $closetVacancyOld = new Vacancy();
+        $closetVacancyOld->checkdDateClousure();
 
     }
 }
