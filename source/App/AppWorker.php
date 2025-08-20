@@ -50,11 +50,11 @@ class AppWorker extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(10)->fetch(true);
+            $worker = (new Worker())->find($where, http_build_query($params))->order("name_worker")->limit(14)->fetch(true);
             $countWorker = (new Worker())->find($where, http_build_query($params))->count();
 
             $pager = new Pager(url("/listatrabalhador/p/"));
-            $pager->pager($countWorker, 15, 1);
+            $pager->pager($countWorker, 14, 1);
 
             $html = $this->view->render("pageWorker/listWorkes", [
                 "countWorker" => $countWorker,
@@ -69,7 +69,7 @@ class AppWorker extends Controller
 
         $worker = (new Worker())->find()->count();
         $pager = new Pager(url("/listatrabalhador/p/"));
-        $pager->pager($worker, 15, 1);
+        $pager->pager($worker, 14, 1);
 
         echo $this->view->render("/pageWorker/pageWorker", [
             "title" => "Trabalhador",
@@ -89,7 +89,7 @@ class AppWorker extends Controller
     {
         $worker = (new Worker())->find()->count();
         $pager = new Pager(url("/listatrabalhador/p/"));
-        $pager->pager($worker, 15, 1);
+        $pager->pager($worker, 14, 1);
 
         $html = $this->view->render("pageWorker/componentCompleteWorker", [
             "countWorker" => $worker,
@@ -112,7 +112,7 @@ class AppWorker extends Controller
         $idWorker = (int)filter_var(fncDecrypt($data["idWorker"]), FILTER_VALIDATE_INT);
         $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($vWService ?? []), 15, 1);
+        $pager->pager(count($vWService ?? []), 14, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -168,7 +168,7 @@ class AppWorker extends Controller
 
         $vWService = (new VwService())->find($where, http_build_query($params))->fetch(true);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($vWService ?? []), 15, $page);
+        $pager->pager(count($vWService ?? []), 14, $page);
 
         $html = $this->view->render("/pageWorker/listHistoryService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -218,7 +218,7 @@ class AppWorker extends Controller
 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/listatrabalhador/p/"));
-            $pager->pager($countWorker, 15, $page);
+            $pager->pager($countWorker, 14, $page);
             
             $html = $this->view->render("pageWorker/listWorkes", [
                 "countWorker" => $countWorker,
@@ -257,7 +257,7 @@ class AppWorker extends Controller
             $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
             $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($data ?? []), 15, 1);
+            $pager->pager(count($data ?? []), 14, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),
@@ -304,7 +304,7 @@ class AppWorker extends Controller
         $dataCount = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
         
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($dataCount ?? []), 15, 1);
+        $pager->pager(count($dataCount ?? []), 14, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -336,7 +336,7 @@ class AppWorker extends Controller
         $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($data ?? []), 15, 1);
+        $pager->pager(count($data ?? []), 14, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -394,7 +394,7 @@ class AppWorker extends Controller
                 $idWorker = (int)filter_var(fncDecrypt($data["id-worker"]), FILTER_VALIDATE_INT);
                 $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
                 $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-                $pager->pager(count($vWService ?? []), 15, 1);
+                $pager->pager(count($vWService ?? []), 14, 1);
 
                 $html = $this->view->render("/pageWorker/historyService", [
                     "worker" => (new Worker())->findById($idWorker),
@@ -440,7 +440,7 @@ class AppWorker extends Controller
             $dataCount = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
             $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-            $pager->pager(count($dataCount), 15, 1);
+            $pager->pager(count($dataCount), 14, 1);
 
             $html = $this->view->render("/pageWorker/historyService", [
                 "worker" => (new Worker())->findById($idWorker),

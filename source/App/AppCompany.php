@@ -49,7 +49,7 @@ class AppCompany extends Controller
             $enterprise = (new Enterprise())->find()->count();
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($enterprise, 15, $page);
+            $pager->Pager($enterprise, 14, $page);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())->find($where, http_build_query($params))
@@ -68,7 +68,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 15, 1);
+        $pager->Pager($enterprise, 14, 1);
 
         echo $this->view->render("/pageCompany/pageCompany", [
             "title" => "Empresas",
@@ -111,7 +111,7 @@ class AppCompany extends Controller
             $companyCount = count($company ?? []);
 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($companyCount, 15, 1);
+            $pager->Pager($companyCount, 14, 1);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())
@@ -131,7 +131,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 15, 1);
+        $pager->Pager($enterprise, 14, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()
@@ -256,7 +256,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 10, 1);
+        $pager->Pager($enterprise, 14, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()
@@ -332,7 +332,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 10, 1);
+        $pager->Pager($enterprise, 14, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()

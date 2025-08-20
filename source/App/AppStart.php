@@ -71,7 +71,7 @@ class AppStart extends Controller
                 ->find("total_vacancy_active <> :to","to=0")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("name_enterprise")
+                ->order("nomeclatura_vacancy")
                 ->fetch(true),
             "paginator" => $pager->render()
         ]);

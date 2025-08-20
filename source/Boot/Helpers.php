@@ -148,7 +148,7 @@ function cleanInputData(array $data, ?array $removerFilds = null): array
             $value = strip_tags($value);
             $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
-            $sanitezed[$field] = $value;
+            $sanitezed[$field] = mb_strtoupper($value, 'UTF-8');
         }
 
     } else {
