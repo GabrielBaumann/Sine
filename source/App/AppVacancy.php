@@ -318,7 +318,7 @@ class AppVacancy extends Controller
             $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
 
             $pager = new Pager(url("/paginarvagas/p/{$idFixed}/"));
-            $pager->Pager(count($vacancyList ?? []), 7, 1);
+            $pager->Pager(count($vacancyList ?? []), 5, 1);
 
             $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
                 "vacancyList" => (new Vacancy())
@@ -365,7 +365,7 @@ class AppVacancy extends Controller
             ?? []);
         
         $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
-        $pager->Pager($vacancyListCount, 7, $page);
+        $pager->Pager($vacancyListCount, 5, $page);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
 
@@ -394,7 +394,7 @@ class AppVacancy extends Controller
             ?? []);
         
         $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
-        $pager->Pager($vacancyListCount, 7, 1);
+        $pager->Pager($vacancyListCount, 5, 1);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
 
@@ -482,4 +482,15 @@ class AppVacancy extends Controller
 
         echo json_encode($arrayDateClousure);
     }
+
+    /**
+     * Modal para confirmar exclusão de vaga
+     */
+    public function deleteVacancy() : void
+    {
+        $json["message"] = messageHelpers()->success("Ok")->render();
+        json_encode($json);
+        return;  
+    }
+
 }
