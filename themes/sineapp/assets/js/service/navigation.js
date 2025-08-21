@@ -15,7 +15,7 @@ document.addEventListener("click", (e) => {
         .then(response => response.json())
         .then(data => {
 
-            data.sort((a, b) => a.name_enterprise.localeCompare(b.name_enterprise));
+            data.sort((a, b) => a.name_fantasy_enterpise.localeCompare(b.name_fantasy_enterpise));
 
             document.querySelectorAll("option.company").forEach(el => el.remove());
 
@@ -23,7 +23,7 @@ document.addEventListener("click", (e) => {
                 const vOption = document.createElement("option");
                 vOption.value = company.id_enterprise;
                 vOption.classList.add("company");
-                vOption.textContent = company.name_enterprise;
+                vOption.textContent = company.name_fantasy_enterpise;
                 vCompanySelect.appendChild(vOption);
             });
 
