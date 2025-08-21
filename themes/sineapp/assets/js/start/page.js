@@ -26,7 +26,8 @@ document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
 
     if(vButton && vButton.id === "visualizar-pdf") {
-            
+
+        const vNameDocument = vButton.dataset.name
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
         const linhasComAltura = [];
@@ -136,7 +137,7 @@ document.addEventListener("click", (e) => {
         // Configurações para o PDF
         const opt = {
             margin: [1.5, 1.5, 1.5, 1.5],
-            filename: 'painel_de_vagas.pdf',
+            filename: vNameDocument + '.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { 
                 scale: 2,

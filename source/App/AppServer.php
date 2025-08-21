@@ -380,7 +380,7 @@ class AppServer extends Controller
                 [
                     "id_enterprise" => $enterpriseItem->id_enterprise,
                     "name_enterprise" => $enterpriseItem->name_enterprise,
-                    "name_fantasy_enterpise" => $enterpriseItem->name_fantasy_enterpise,
+                    "name_fantasy_enterpise" => $enterpriseItem->name_fantasy_enterpise
                 ];
 
                 $enter[$enterpriseItem->id_enterprise] = true;

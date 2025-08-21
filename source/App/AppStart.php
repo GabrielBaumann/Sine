@@ -49,7 +49,7 @@ class AppStart extends Controller
         // Painel de vagas
         $vwVacancy = new VwVacancy();
         $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
-            ->order("nomeclatura_vacancy")
+            ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 
         $pager = new Pager(url("/painelvagas/p/"));
@@ -71,7 +71,7 @@ class AppStart extends Controller
                 ->find("total_vacancy_active <> :to","to=0")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("nomeclatura_vacancy")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true),
             "paginator" => $pager->render()
         ]);
@@ -82,7 +82,7 @@ class AppStart extends Controller
     {
         $vwVacancy = new VwVacancy();
         $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
-            ->order("nomeclatura_vacancy")
+            ->order("date_open_vacancy")
             ->fetch(true);
 
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
@@ -94,7 +94,7 @@ class AppStart extends Controller
                 ->find("total_vacancy_active <> :to","to=0")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("name_enterprise")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true),
             "paginator" => $pager->render()
         ]);
