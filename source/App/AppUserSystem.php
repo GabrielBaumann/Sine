@@ -60,7 +60,7 @@ class AppUserSystem extends Controller
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
 
             $pager = new Pager(url("/usuarios/p/"));
-            $pager->Pager($userSytemCount, 10, $page);
+            $pager->Pager($userSytemCount, 14, $page);
 
             $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
                 "userCount" => $userSytemCount,
@@ -90,7 +90,7 @@ class AppUserSystem extends Controller
 
         $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
-        $pager->Pager($userSytemCount, 10, 1);
+        $pager->Pager($userSytemCount, 14, 1);
 
         echo $this->view->render("/pageUserSystem/pageUserSystem", [
             "title" => "Usuarios",
@@ -121,7 +121,7 @@ class AppUserSystem extends Controller
         $userCount = count((new SystemUser())->find()->fetch(true) ?? []);
 
         $pager = new Pager(url("/usuarios/p/"));
-        $pager->Pager($userCount, 10, 1);
+        $pager->Pager($userCount, 14, 1);
 
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
             "users" => (new SystemUser())->find($where, http_build_query($params))
@@ -177,7 +177,7 @@ class AppUserSystem extends Controller
         $userSystemCount = count($userSystem ?? []);
 
         $pager = new Pager(url("/usuarios/p/"));
-        $pager->Pager($userSystemCount, 10, 1);
+        $pager->Pager($userSystemCount, 14, 1);
 
         $html = $this->view->render("/pageUserSystem/componentListUserSystem", [
             "users" => (new SystemUser())
@@ -384,7 +384,7 @@ class AppUserSystem extends Controller
 
         $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
-        $pager->Pager($userSytemCount, 10, 1);
+        $pager->Pager($userSytemCount, 14, 1);
 
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
             "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),
@@ -431,7 +431,7 @@ class AppUserSystem extends Controller
 
         $userSytemCount = (new SystemUser())->find($where, http_build_query($params))->count();
         $pager = new Pager(url("/usuarios/p/"));
-        $pager->Pager($userSytemCount, 10, 1);
+        $pager->Pager($userSytemCount, 14, 1);
 
         $html = $this->view->render("/pageUserSystem/listUserSystem", [
             "userCount" => (new SystemUser())->find($where, http_build_query($params))->count(),

@@ -111,16 +111,16 @@ $enterprise = new Enterprise();
                 </div>
 
                 <!-- Requisitos da vaga -->
-                <!-- <div class="col-span-1 md:col-span-3">
-                    <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label>
+                <div class="col-span-1 md:col-span-3">
+                    <!-- <label for="request-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga (Se houver)</label> -->
                     <input 
                         value="<?= $vacancy->request_vacancy ?? "" ?>" 
                         type="text" 
                         id="request-vacancy" 
                         name="request-vacancy" 
-                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                        class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 hidden" 
                         placeholder="Ex: técnico em informática, CNH D...">
-                </div> -->
+                </div>
             </div>
 
             <!-- Coluna 2 -->
@@ -189,7 +189,7 @@ $enterprise = new Enterprise();
                     <label for="date-close-vacancy" class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento *</label>
                     <input 
                         value="<?= $vacancy->date_closed_vacancy ?? "" ?>" 
-                        type="datetime-local" 
+                        type="date" 
                         id="date-close-vacancy" 
                         name="date-close-vacancy" 
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500 text-gray-900">

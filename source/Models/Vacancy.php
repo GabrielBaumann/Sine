@@ -2,6 +2,7 @@
 
 namespace Source\Models;
 
+use DateInvalidTimeZoneException;
 use DateTime;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
@@ -389,10 +390,14 @@ class Vacancy extends Model
     public function checkdDateClousure() : void
     {
         $vacancy = (new static())->find("status_vacancy = :st AND (reason_close IS NULL OR reason_close = '')", "st=Ativa")->fetch(true);
+
         if($vacancy) {
             foreach($vacancy as $vacancyItem) {
 
-                if(date_fmt($vacancyItem->date_closed_vacancy) <= date_fmt()) {
+                $closed = new DateTime($vacancyItem->date_closed_vacancy);
+                $today = new DateTime();
+
+                if($closed <= $today) {
                     $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
                 }
             }

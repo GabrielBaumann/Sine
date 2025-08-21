@@ -187,7 +187,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento</label>
                 <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->date_closed_vacancy; ?>
+                    <?= date_fmt($vacancyInfo->date_closed_vacancy); ?>
                 </div>
             </div>
             

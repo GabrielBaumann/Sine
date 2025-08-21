@@ -49,11 +49,11 @@ class AppWorkerPhone extends Controller
 
             $where = implode(" AND ", $conditions);
 
-            $worker = (new VwServicePhone())->find($where, http_build_query($params))->order("name_work_phone")->limit(10)->fetch(true);
+            $worker = (new VwServicePhone())->find($where, http_build_query($params))->order("name_work_phone")->limit(14)->fetch(true);
             $countWorker = (new VwServicePhone())->find($where, http_build_query($params))->count();
 
             $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
-            $pager->pager($countWorker, 15, 1);
+            $pager->pager($countWorker, 14, 1);
 
             $html = $this->view->render("pageWorkerPhone/listWorkesPhone", [
                 "countWorker" => $countWorker,
@@ -68,7 +68,7 @@ class AppWorkerPhone extends Controller
 
         $workerPhone = (new VwServicePhone())->find()->count();
         $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
-        $pager->pager($workerPhone, 15, 1);
+        $pager->pager($workerPhone, 14, 1);
         $countWorker = (new VwServicePhone())->find()->count();
 
         echo $this->view->render("/pageWorkerPhone/pageServicePhone", [
@@ -117,7 +117,7 @@ class AppWorkerPhone extends Controller
 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
-            $pager->pager($countWorker, 15, $page);
+            $pager->pager($countWorker, 14, $page);
             
             $html = $this->view->render("/pageWorkerPhone/listWorkesPhone", [
                 "countWorker" => $countWorker,
@@ -158,7 +158,7 @@ class AppWorkerPhone extends Controller
     {
         $workerPhone = (new VwServicePhone())->find()->count();
         $pager = new Pager(url("/pesquisatrabalhadortelefone/p/"));
-        $pager->pager($workerPhone, 15, 1);
+        $pager->pager($workerPhone, 14, 1);
         $countWorker = (new VwServicePhone())->find()->count();
 
         $html = $this->view->render("/pageWorkerPhone/componentCompleteWorkerPhone", [

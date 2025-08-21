@@ -66,7 +66,7 @@ class AppVacancy extends Controller
 
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($vacancyCount, 15, $page);
+            $pager->Pager($vacancyCount, 14, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new VwVacancy())
@@ -87,7 +87,7 @@ class AppVacancy extends Controller
 
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager($vacancyCount, 15, 1);
+        $pager->Pager($vacancyCount, 14, 1);
 
         echo $this->view->render("/pageVacancy/pageVacancy", [
             "title" => "Vagas",
@@ -139,7 +139,7 @@ class AppVacancy extends Controller
             $vacancyCount = count($vacancy ?? []);
 
             $pager = new Pager(url("/pesquisarvagas/p/"));
-            $pager->Pager($vacancyCount, 15, 1);
+            $pager->Pager($vacancyCount, 14, 1);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "totalVacancy" => (new VwVacancy())
@@ -159,7 +159,7 @@ class AppVacancy extends Controller
 
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
-        $pager->Pager($vacancyCount, 15, 1);
+        $pager->Pager($vacancyCount, 14, 1);
 
         $html = $this->view->render("/pageVacancy/listVacancy", [
             "totalVacancy" => (new VwVacancy())
@@ -318,7 +318,7 @@ class AppVacancy extends Controller
             $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
 
             $pager = new Pager(url("/paginarvagas/p/{$idFixed}/"));
-            $pager->Pager(count($vacancyList ?? []), 7, 1);
+            $pager->Pager(count($vacancyList ?? []), 5, 1);
 
             $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
                 "vacancyList" => (new Vacancy())
@@ -365,7 +365,7 @@ class AppVacancy extends Controller
             ?? []);
         
         $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
-        $pager->Pager($vacancyListCount, 7, $page);
+        $pager->Pager($vacancyListCount, 5, $page);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
 
@@ -394,7 +394,7 @@ class AppVacancy extends Controller
             ?? []);
         
         $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
-        $pager->Pager($vacancyListCount, 7, 1);
+        $pager->Pager($vacancyListCount, 5, 1);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
 
@@ -482,4 +482,15 @@ class AppVacancy extends Controller
 
         echo json_encode($arrayDateClousure);
     }
+
+    /**
+     * Modal para confirmar exclusão de vaga
+     */
+    public function deleteVacancy() : void
+    {
+        $json["message"] = messageHelpers()->success("Ok")->render();
+        json_encode($json);
+        return;  
+    }
+
 }
