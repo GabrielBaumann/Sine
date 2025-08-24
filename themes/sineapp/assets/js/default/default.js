@@ -372,6 +372,27 @@ function fncTodoClousureToday() {
 /*#############  Modal yes/no ############*/
 /*########################################*/
 
+// Função para chamar modal quest
+function fncModalQuest (vIdButton) {
+    document.addEventListener("click", (e) => {
+        const vButton = e.target.closest("button");
+        if(vButton && vButton.id === vIdButton) {
+            const vUrl = vButton.dataset.url;
+            fetch(vUrl)
+            .then(response => response.json())
+            .then(data => {
+
+                if (document.getElementById("modal")) return document.getElementById("modal").remove();
+
+                const vElement = document.createElement("div");
+                vElement.id = "modal";
+                vElement.innerHTML = data.html;
+                document.body.appendChild(vElement);
+            })
+        }
+    });
+}
+
 // Cancelar ação
 document.addEventListener("click", (e) => {
     if(e.target.id === "cancelBtn") {

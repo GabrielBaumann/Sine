@@ -486,11 +486,57 @@ class AppVacancy extends Controller
     /**
      * Modal para confirmar exclusão de vaga
      */
-    public function deleteVacancy() : void
+    public function questDeleteVacancy(array $data) : void
     {
-        $json["message"] = messageHelpers()->success("Ok")->render();
-        json_encode($json);
-        return;  
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+
+        $vacancy = new Vacancy();
+        $allVacancy = $vacancy->find("id_vacancy_fixed = :id","id={$idVacancy}")->fetch(true);
+
+        $vacancyWorker = new VacancyWorker();
+        $totalForWarfing = 0;
+
+        // Verifica se existe encaminhamento para essa vaga, se retornar 0 não tem encaminhamento, se retorna mais de 0 então existe
+        foreach ($allVacancy as $allVacancyItem) {           
+            $vacancyCount = $vacancyWorker->find("id_vacancy = :id", "id={$allVacancyItem->id_vacancy}")->fetch(true);
+            $totalForWarfing += count($vacancyCount ?? []);
+        }
+        // var_dump($totalForWarfing);
+        if($totalForWarfing > 0) {
+            // Não pode excluir a vaga
+            $delete = false;
+            $textMessage = "Impossível excluir essa vaga, existem encaminhamentos destinados para ela!";
+        } else {
+            // Pode excluir a vaga
+            $delete = true;
+            $textMessage = "Tem certeza que deseja excluir essa vaga?";
+        }
+        
+        $html = $this->view->render("/pageVacancy/questionDeleteVacancy", [
+            "delete" => $delete,
+            "textMessage" => $textMessage,
+            "idVacancy" => $idVacancy
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    // Confirmação de exclusão de vaga
+    public function deleteVacancy(array $data) : void
+    {
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+
+        if(empty($idVacancy) || $idVacancy === 0) {
+            $json["message"] = messageHelpers()->warning("Erro de validação, atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+        
+        $deleteVacancy = new Vacancy()->deleteVacancy($idVacancy);
+        var_dump($deleteVacancy);
+
     }
 
 }

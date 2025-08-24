@@ -356,116 +356,116 @@ abstract class Model
      * SELECT ADVANCED
      */
 
-    public function select(array $columns) : self
-    {
-        $this->select = $columns;
-        return $this;    
-    }
+    // public function select(array $columns) : self
+    // {
+    //     $this->select = $columns;
+    //     return $this;    
+    // }
 
-    public function join(string $table, string $condition, string $type = "INNER") : self
-    {
-        $this->join[] = [
-            "table" => $table,
-            "condition" => $condition,
-            "type" => strtoupper($type)
-        ];
-        return $this;
-    }
+    // public function join(string $table, string $condition, string $type = "INNER") : self
+    // {
+    //     $this->join[] = [
+    //         "table" => $table,
+    //         "condition" => $condition,
+    //         "type" => strtoupper($type)
+    //     ];
+    //     return $this;
+    // }
 
-    public function where(string $column, string $operator, $value) : self
-    {
-        $paramName = "param_" . count($this->paramsSelect);
-        $this->where[] = "$column $operator :$paramName";
-        $this->paramsSelect[$paramName] = $value;
-        return $this;
-    }
+    // public function where(string $column, string $operator, $value) : self
+    // {
+    //     $paramName = "param_" . count($this->paramsSelect);
+    //     $this->where[] = "$column $operator :$paramName";
+    //     $this->paramsSelect[$paramName] = $value;
+    //     return $this;
+    // }
 
-    public function orderBy(string $column, string $direction = "ASC") : self
-    {
-        $this->orderBy[] = "$column $direction";
-        return $this;
-    }
+    // public function orderBy(string $column, string $direction = "ASC") : self
+    // {
+    //     $this->orderBy[] = "$column $direction";
+    //     return $this;
+    // }
 
-    public function limitJoin(int $limit) : self
-    {
-        $this->limitJoin = $limit;
-        return $this;    
-    }
+    // public function limitJoin(int $limit) : self
+    // {
+    //     $this->limitJoin = $limit;
+    //     return $this;    
+    // }
 
-    public function offsetJoin(int $offset) : self
-    {
-        $this->offsetJoin = $offset;
-        return $this;    
-    }
+    // public function offsetJoin(int $offset) : self
+    // {
+    //     $this->offsetJoin = $offset;
+    //     return $this;    
+    // }
     
-    public  function countJoin() : int
-    {
-        $query = "SELECT COUNT(*) as total FROM " .  static::$entity;
+    // public  function countJoin() : int
+    // {
+    //     $query = "SELECT COUNT(*) as total FROM " .  static::$entity;
         
-        foreach ($this->join as $joi) {
-            $query .= " {$joi['type']} JOIN {$joi['table']} ON {$joi['condition']}";
-        }
+    //     foreach ($this->join as $joi) {
+    //         $query .= " {$joi['type']} JOIN {$joi['table']} ON {$joi['condition']}";
+    //     }
 
-        if (!empty($this->where)) {
-            $query .= " WHERE " . implode(' AND ', $this->where);
-        }
+    //     if (!empty($this->where)) {
+    //         $query .= " WHERE " . implode(' AND ', $this->where);
+    //     }
 
-        $stmt = Connect::getInstance()->prepare($query);
+    //     $stmt = Connect::getInstance()->prepare($query);
 
-        foreach ($this->paramsSelect as $param => $value) {
-            $stmt->bindValue(":" . $param, $value);
-        }
+    //     foreach ($this->paramsSelect as $param => $value) {
+    //         $stmt->bindValue(":" . $param, $value);
+    //     }
 
-        $stmt->execute();
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+    //     $stmt->execute();
+    //     $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        return (int) ($result['total'] ?? 0);
-    }
+    //     return (int) ($result['total'] ?? 0);
+    // }
 
-    public function build() : string
-    {
-        $select = empty($this->select) ? '*' : implode(', ', $this->select);
-        $query = "SELECT $select FROM " . static::$entity . "";
+    // public function build() : string
+    // {
+    //     $select = empty($this->select) ? '*' : implode(', ', $this->select);
+    //     $query = "SELECT $select FROM " . static::$entity . "";
 
-        foreach ($this->join as $joi) {
-            $query .= " {$joi['type']} JOIN {$joi['table']} ON {$joi['condition']}";
-        }
+    //     foreach ($this->join as $joi) {
+    //         $query .= " {$joi['type']} JOIN {$joi['table']} ON {$joi['condition']}";
+    //     }
 
-        if (!empty($this->where)) {
-            $query .= " WHERE " . implode(' AND ', $this->where);
-        }
+    //     if (!empty($this->where)) {
+    //         $query .= " WHERE " . implode(' AND ', $this->where);
+    //     }
         
-        if (!empty($this->orderBy)) {
-            $query .= " ORDER BY " . implode(', ', $this->orderBy);
-        }
+    //     if (!empty($this->orderBy)) {
+    //         $query .= " ORDER BY " . implode(', ', $this->orderBy);
+    //     }
 
-        if (!is_null($this->limitJoin)) {
-            $query .= " LIMIT {$this->limitJoin}";
-        }
+    //     if (!is_null($this->limitJoin)) {
+    //         $query .= " LIMIT {$this->limitJoin}";
+    //     }
 
-        if (!is_null($this->offsetJoin)) {
-            $query .= " OFFSET {$this->offsetJoin}";
-        }
+    //     if (!is_null($this->offsetJoin)) {
+    //         $query .= " OFFSET {$this->offsetJoin}";
+    //     }
 
-        return $query;
-    }
+    //     return $query;
+    // }
 
-    public function execute()
-    {
-        $query = $this->build();
-        $stmt = Connect::getInstance()->prepare($query);
+    // public function execute()
+    // {
+    //     $query = $this->build();
+    //     $stmt = Connect::getInstance()->prepare($query);
 
-        foreach ($this->paramsSelect as $param => $value) {
-            $stmt->bindValue(":" . $param, $value);
-        }
+    //     foreach ($this->paramsSelect as $param => $value) {
+    //         $stmt->bindValue(":" . $param, $value);
+    //     }
 
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
-    }
+    //     $stmt->execute();
+    //     return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
+    // }
 
-    public function get()
-    {
-        return $this->execute();    
-    }
+    // public function get()
+    // {
+    //     return $this->execute();    
+    // }
 
 }

@@ -111,9 +111,9 @@ class AppUserSystem extends Controller
         $params = [];
         $conditions = [];
         
-        if($this->user->type_user != "dev") {
+        if($this->user->type_user != "DEV") {
             $conditions[] = "type_user <> :ty";
-            $params["ty"] = "dev";
+            $params["ty"] = "DEV";
         }
         
         $where = implode(" AND ", $conditions);
@@ -148,9 +148,9 @@ class AppUserSystem extends Controller
         $conditions = [];
         $params = [];
 
-        if($this->user->type_user != "dev") {
+        if($this->user->type_user != "DEV") {
             $conditions[] = "type_user <> :ty";
-            $params["ty"] = "dev";
+            $params["ty"] = "DEV";
         }
 
         if(!empty($searchUser)) {
@@ -374,9 +374,9 @@ class AppUserSystem extends Controller
         $conditions = [];
         $params = [];
 
-        if($this->user->type_user != "dev") {
+        if($this->user->type_user != "DEV") {
             $conditions[] = "type_user <> :ty";
-            $params["ty"] = "dev";
+            $params["ty"] = "DEV";
         }
 
         $where = implode(" AND ", $conditions);
@@ -422,9 +422,9 @@ class AppUserSystem extends Controller
         $conditions = [];
         $params = [];
 
-        if($this->user->type_user != "dev") {
+        if($this->user->type_user != "DEV") {
             $conditions[] = "type_user <> :ty";
-            $params["ty"] = "dev";
+            $params["ty"] = "DEV";
         }
 
         $where = implode(" AND ", $conditions);        

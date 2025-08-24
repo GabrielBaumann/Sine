@@ -58,7 +58,7 @@ class Auth extends Model
         // LOGIN
 
         (new Session())->set("authUser", $userData->id_user);
-        $this->message->success("Login efetuado com sucesso")->flash();
+        // $this->message->success("Login efetuado com sucesso")->flash();
         return true;
     }
 
