@@ -7,6 +7,8 @@ use DateTime;
 use Exception;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
+use Source\Models\Views\VwVacancy;
+use Source\Models\Views\VwVacancyActive;
 
 class Vacancy extends Model
 {   
@@ -46,6 +48,7 @@ class Vacancy extends Model
         $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
         $this->accept_curriculum = $accepCurriculum;
         $this->request_vacancy = $data["request-vacancy"];
+        $this->version_panel = $data["version-panel"];
         $this->id_user_register = $userId;
 
         $this->save();
@@ -75,6 +78,7 @@ class Vacancy extends Model
             $vacancy->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
             $vacancy->accept_curriculum = $accepCurriculum;
             $vacancy->request_vacancy = $data["request-vacancy"];
+            $vacancy->version_panel = $data["version-panel"];
             $vacancy->id_user_register = $userId;
             $vacancy->save();
             }
@@ -123,6 +127,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
                 $oldVacancyUpdate->accept_curriculum = $accepCurriculum;
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
+                $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -148,6 +153,7 @@ class Vacancy extends Model
                 $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
                 $this->accept_curriculum = $accepCurriculum;
                 $this->request_vacancy = $data["request-vacancy"];
+                $this->version_panel = $data["version-panel"];
                 $this->id_user_update = $userId;
 
                 $this->save();
@@ -174,6 +180,7 @@ class Vacancy extends Model
                 $vacancy->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
                 $vacancy->accept_curriculum = $accepCurriculum;
                 $vacancy->request_vacancy = $data["request-vacancy"];
+                $vacancy->version_panel = $data["version-panel"];
                 $vacancy->id_user_register = $userId;
                 $vacancy->save();
             }
@@ -208,6 +215,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
                 $oldVacancyUpdate->accept_curriculum = $accepCurriculum;
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
+                $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -233,6 +241,7 @@ class Vacancy extends Model
                 $this->nomeclatura_vacancy = $data["nomeclatura-vacancy"];
                 $this->accept_curriculum = $accepCurriculum;
                 $this->request_vacancy = $data["request-vacancy"];
+                $this->version_panel = $data["version-panel"];
                 $this->id_user_update = $userId;
 
                 $this->save();
@@ -416,6 +425,28 @@ class Vacancy extends Model
         foreach($vacancy as $vacancyItem) {
             $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
         }
+    }
+
+    public function hidePanel() : bool 
+    {
+        $vVacancyActive = (new VwVacancy())->find("status_vacancy = :id", "id=Ativa")->fetch(true);
+        
+
+        // var_dump($vacancy);
+        
+        foreach ($vVacancyActive as $vVacancyActiveItem) {
+            $vacancy = (new static())->find("id_vacancy_fixed = :id","id={$vVacancyActiveItem->id_vacancy}")->fetch(true);
+            // var_dump($vacancy->find("id_vacancy_fixed = :id","id={$vVacancyActiveItem->id_vacancy}")->fetch(true));
+            // var_dump($vacancy->find()->fetch(true));
+            var_dump($vacancy);
+
+        }
+
+
+        // $vacancyHiden = (new static())->find("")
+        
+
+        return true;
     }
 
     /**

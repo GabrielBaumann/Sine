@@ -173,11 +173,18 @@ $enterprise = new Enterprise();
                         <option value="DESEJÁVEL" <?= ($vacancy->exp_vacancy ?? '') === 'DESEJÁVEL' ? 'selected' : '' ?>>DESEJÁVEL</option>
                     </select>
                 </div>
-
-                <!-- Pegar currículo -->
-                <div class="flex items-center gap-2 mt-8">
-                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1" <?= isset($vacancy->accept_curriculum) ? ($vacancy->accept_curriculum === 1 ? "checked" : "" ) : "" ?>></input>
-                    <label for="curriculum-vacancy">Pegar currículo</label>
+            
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Versão do Painel *</label>
+                    <select
+                        id="version-panel" 
+                        name="version-panel" 
+                        class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
+                        <option value="">Selecione</option>
+                        <option value="1" <?= ($vacancy->version_panel ?? '') == '1' ? 'selected' : '' ?>>1 (08:00 às 10:00)</option>
+                        <option value="2" <?= ($vacancy->version_panel ?? '') == '2' ? 'selected' : '' ?>>2 (10:00 às 12:00)</option>
+                        <option value="3" <?= ($vacancy->version_panel ?? '') == '3' ? 'selected' : '' ?>>3 (12:00 às 00:00)</option>
+                    </select>
                 </div>
             </div>
 
@@ -250,6 +257,12 @@ $enterprise = new Enterprise();
                         name="nomeclatura-vacancy" 
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                         placeholder="00">
+                </div>
+
+                <!-- Pegar currículo -->
+                <div class="flex items-center gap-2 mt-12">
+                    <input id="curriculum-vacancy" name="curriculum-vacancy" type="checkbox" class="cursor-pointer" value="1" <?= isset($vacancy->accept_curriculum) ? ($vacancy->accept_curriculum === 1 ? "checked" : "" ) : "" ?>></input>
+                    <label for="curriculum-vacancy">Pegar currículo</label>
                 </div>
             </div>
 

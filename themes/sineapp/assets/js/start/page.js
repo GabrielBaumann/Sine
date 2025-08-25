@@ -4,8 +4,12 @@ document.addEventListener("click", (e) => {
 
     if(vButton && vButton.classList.contains("print")) {
 
+        const vVersion = document.getElementById("id-panel").value;
+
+        console.log(vVersion);
+
         const vUrl = vButton.dataset.url
-        fetch(vUrl)
+        fetch(vUrl + "/" + vVersion)
         .then(response => response.json())
         .then(data => {
 

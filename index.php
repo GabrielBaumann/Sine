@@ -25,7 +25,7 @@ $route->post("/", "Web:login");
 $route->get("/inicio", "AppStart:startPage");
 $route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
 
-$route->get("/imprimirpainel", "AppStart:printPanel");
+$route->get("/imprimirpainel/{versionPainel}", "AppStart:printPanel");
 $route->get("/imprimirpainelinterno", "AppStart:printPanelInternal");
 $route->get("/baixarpainelword", "AppStart:reportDownloadWord");
 
@@ -98,6 +98,8 @@ $route->post("/encerramentoautomatico", "AppVacancy:todoClousureToday");
 $route->get("/excluirvaga/{idvacancy}", "AppVacancy:questDeleteVacancy");
 $route->post("/excluirvaga/{idvacancy}", "AppVacancy:deleteVacancy");
 
+$route->get("/janelaocultarpainel", "AppVacancy:questHidePainel");
+$route->post("/ocultarpainel", "AppVacancy:hidePanel");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

@@ -2,6 +2,7 @@
 
 namespace Source\App;
 
+use Source\Support\Message;
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\CboOccupation;
@@ -28,6 +29,7 @@ class AppVacancy extends Controller
         $normalizeWorker = (new VacancyWorker())->normalizeWorkerVacancy();
     }
 
+    // Página Inicial e dados do sidebar
     public function startVacancy(?array $data) : void
     {   
 
@@ -104,6 +106,7 @@ class AppVacancy extends Controller
         ]);
     }
 
+    // Lista de vagas no painel de vagas do sidebar
     public function listVacancy(?array $data) : void
     {   
         if(isset($data["search-vacancy"]) || isset($data["search-enterprise"]) || isset($data["search-status"])) {
@@ -180,6 +183,7 @@ class AppVacancy extends Controller
         return;        
     }
 
+    // Salvar e atualizar vaga
     public function addVacancy(?array $data) : void
     {
 
@@ -289,6 +293,7 @@ class AppVacancy extends Controller
         return;
     }
 
+    // Página de detalhe da vaga
     public function infoVacancy(?array $data) : void
     {   
         // Encerrar vagas
@@ -417,6 +422,7 @@ class AppVacancy extends Controller
         return;
     }
 
+    // Pesquisar vaga no painel principal da página de vagas
     public function searchVacancy(array $data) : void
     {
         $status = filter_var($data["search-status"], FILTER_SANITIZE_SPECIAL_CHARS) ? filter_var($data["search-status"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -548,5 +554,38 @@ class AppVacancy extends Controller
         $json["message"] = messageHelpers()->warning("Erro de exclusão!")->render();
         echo json_encode($json);
         return;
+    }
+
+    // Modal quest para ocutar vagas
+    public function questHidePainel() : void
+    {
+
+        $html = $this->view->render("/modalQuest/modalQuestYesNo", [
+            "title" => "Atenção!!!",
+            "textMessage" => "As vagas não serão vistas no painel impresso, na página inicial e nem será possível encaminhar trabalhadores para vagas!",
+            "urlYes" => url("/ocultarpainel"),
+            "urlNo" => null,
+            "cancel" => true
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    // Confirmar ocutação do painel
+    public function hidePanel() : void
+    {
+        $vacancy = new Vacancy();
+        $vacancyHide = $vacancy->hidePanel();
+        return;
+    }
+
+
+    public function logout()
+    {
+        (new Message())->success("Você saiu com sucesso " . Auth::user()->nome . ". Volte logo :)")->flash();    
+        Auth::logout();
+        redirect("/");
     }
 }

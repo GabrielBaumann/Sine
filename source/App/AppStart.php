@@ -107,21 +107,45 @@ class AppStart extends Controller
     }
 
     // Download do painél de vagas em PDF e JPG
-    public function printPanel() : void
+    public function printPanel(?array $data) : void
     {
         $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
 
         if(!$vwVacancy) {
-            $json["message"] = messageHelpers()->warning("Não há vagas no painél!")->render();
+            $json["message"] = messageHelpers()->warning("Não há vagas no painel!")->render();
             echo json_encode($json);            
             return;
         }
 
+        // Versão do painel de vaga, se for igual a 0 pega todas as vagas ativas de dias passados, se for 01 em diante as vagas do dia atual
+        $versionPanel = (int)$data["versionPainel"];
+        
+        if($versionPanel === 0) {
+        
+        $today = new DateTime();
+        
+        $panelVacancy = (new VwVacancy())
+            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+            ->order("date_open_vacancy", "DESC")
+            ->fetch(true);
+        } else {
+
+            $today = new DateTime();
+            $panelVacancy = (new VwVacancy())
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->order("date_open_vacancy", "DESC")
+            ->fetch(true);
+
+            if(!$panelVacancy) {
+                $json["message"] = messageHelpers()->warning("Não há vagas para essa versão do painel!")->render();
+                echo json_encode($json);            
+                return;
+            }
+
+        }
+
         $html = $this->view->render("/pageStart/printingPainel", [
-            "panelVacancy" =>  (new VwVacancy())
-                ->find("total_vacancy_active <> :to","to=0")
-                ->order("date_open_vacancy", "DESC")
-                ->fetch(true)
+            "panelVacancy" =>  $panelVacancy
         ]);
         
         $json["html"] = $html;

@@ -158,3 +158,6 @@ document.addEventListener("click", (e) => {
 
 // Modal de confirmação de exclusãode vaga
 fncModalQuest("btn-delete-vacancy");
+
+// Modal de confirmação para ocultar painel
+fncModalQuest("btn-hiden-panel");

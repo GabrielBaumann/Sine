@@ -2,6 +2,12 @@
     <div class="mb-3">
         <div class="flex justify-between items-center">
             <h2 class="text-lg font-normal text-gray-700">Painel de vagas</h2>
+            <select name="time-panel" id="id-panel">
+                <option value="0">0 (Geral)</option>
+                <option value="1">1 (08:00 às 10:00)</option>
+                <option value="2">2 (10:00 às 12:00)</option>
+                <option value="3">3 (12:00 às 00:00)</option>
+            </select>
             <div class="flex space-x-2">
 
                 <!-- botao de imrpimir -->
