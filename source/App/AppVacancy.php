@@ -59,7 +59,7 @@ class AppVacancy extends Controller
 
             $vacancy = (new VwVacancy())
                 ->find($where, http_build_query($params))
-                ->order("nomeclatura_vacancy")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
 
             $vacancyCount = count($vacancy ?? []);
@@ -69,11 +69,12 @@ class AppVacancy extends Controller
             $pager->Pager($vacancyCount, 14, $page);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
+                "userSystem" => (new SystemUser())->findById($this->user->id_user),
                 "totalVacancy" => (new VwVacancy())
                     ->find($where, http_build_query($params))
                     ->limit($pager->limit())
                     ->offset($pager->offset())
-                    ->order("nomeclatura_vacancy")->fetch(true),
+                    ->order("date_open_vacancy", "DESC")->fetch(true),
                 "countVacancy"=> $vacancyCount,
                 "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
                 "paginator" => $pager->render()
@@ -96,7 +97,7 @@ class AppVacancy extends Controller
                 ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("nomeclatura_vacancy")->fetch(true),
+                ->order("date_open_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()
@@ -133,7 +134,7 @@ class AppVacancy extends Controller
 
             $vacancy = (new VwVacancy())
                 ->find($where, http_build_query($params))
-                ->order("nomeclatura_vacancy")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
 
             $vacancyCount = count($vacancy ?? []);
@@ -142,9 +143,10 @@ class AppVacancy extends Controller
             $pager->Pager($vacancyCount, 14, 1);
 
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
+                "userSystem" => (new SystemUser())->findById($this->user->id_user),
                 "totalVacancy" => (new VwVacancy())
                     ->find($where, http_build_query($params))
-                    ->order("nomeclatura_vacancy")
+                    ->order("date_open_vacancy", "DESC")
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->fetch(true),
@@ -162,11 +164,12 @@ class AppVacancy extends Controller
         $pager->Pager($vacancyCount, 14, 1);
 
         $html = $this->view->render("/pageVacancy/listVacancy", [
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "totalVacancy" => (new VwVacancy())
                 ->find()                
                 ->limit($pager->limit())
                 ->offset($pager->offset())
-                ->order("nomeclatura_vacancy")->fetch(true),
+                ->order("date_open_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
             "paginator" => $pager->render()

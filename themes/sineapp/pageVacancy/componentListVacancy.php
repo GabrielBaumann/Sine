@@ -1,5 +1,5 @@
 <div class="bg-transparent rounded-md overflow-hidden mt-10">
-    
+
     <div class="overflow-x-auto">
         <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
@@ -8,7 +8,10 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Vaga</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Empresa</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
+                    <th scope="col" class="py-3 text-left text-xs font-medium uppercase tracking-wider">Data Cadastro</th>
+            <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Ações</th>
+            <?php endif;?>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-gray-50">
@@ -41,7 +44,14 @@
                                     <span class="text-sm text-gray-700 px-2.5 py-0.5"><?= $vacancy->vacancy_summary; ?></span>
                                 <?php endif; ?>
                             </td>
-                            
+                            <td data-label="Nome" class=" whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="">
+                                        <div class="text-sm font-medium text-gray-500"><?= date_simple($vacancy->date_open_vacancy); ?></div>
+                                    </div>
+                                </div>
+                            </td>
+                        <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
                             <td data-label="Ação" class="px-6 py-2 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end">
                                     <button 
@@ -54,6 +64,7 @@
                                     </button>
                                 </div>
                             </td>
+                        <?php endif;?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

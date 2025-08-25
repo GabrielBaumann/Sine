@@ -44,7 +44,8 @@ class AppStart extends Controller
 
         // Gráfico de atendimentos
         $serve = new Service();
-        $charServer = $serve->charService();
+        // $charServer = $serve->charService();
+        $charServer = $serve->charDay();
 
         // Painel de vagas
         $vwVacancy = new VwVacancy();
@@ -119,7 +120,7 @@ class AppStart extends Controller
         $html = $this->view->render("/pageStart/printingPainel", [
             "panelVacancy" =>  (new VwVacancy())
                 ->find("total_vacancy_active <> :to","to=0")
-                ->order("nomeclatura_vacancy")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true)
         ]);
         
@@ -143,7 +144,7 @@ class AppStart extends Controller
         $html = $this->view->render("/pageStart/printingInternalVacancy", [
             "panelVacancy" =>  (new VwVacancy())
                 ->find("total_vacancy_active <> :to","to=0")
-                ->order("nomeclatura_vacancy")
+                ->order("date_open_vacancy", "DESC")
                 ->fetch(true)
         ]);
         

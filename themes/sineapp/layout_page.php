@@ -104,7 +104,7 @@
                 </svg>
                 <span class="menu" data-sidebar="trabalhador">Trabalhador</span>
             </a>
-            <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
+
 
                 <a href="<?= url("/vagas"); ?>" class="menu text-gray-500 hover:text-blue-500 px-4 py-2 flex items-center gap-2 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -119,7 +119,7 @@
                     </svg>
                     <span class="menu" data-sidebar="empresas">Empresas</span>
                 </a>
-
+            <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
             
                 <a href="<?= url("/usuarios"); ?>" class="menu text-gray-500 hover:text-blue-500 px-4 py-2 flex items-center gap-2 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">

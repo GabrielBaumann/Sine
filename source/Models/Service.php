@@ -74,4 +74,19 @@ class Service extends Model
         return $char; 
     }
 
+    public function charDay() 
+    {
+        $serviceChar = Connect::getInstance()->prepare("SELECT * FROM vw_char_day");
+        $serviceChar->execute();
+        $datas = $serviceChar->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach($datas as $datasItem) {
+            $label[] = $datasItem["day"];
+            $total[] = $datasItem["total"];
+        }
+        
+        $char = ["label"=>$label ?? 0,"total"=>$total ?? 0];
+        return $char; 
+    }
+
 }
