@@ -368,7 +368,6 @@ class AppServer extends Controller
     // Lista de empresas para serem selecionadas no formulário de encaminhamento para vaga de emprego
     public function listSelectEnterprise(array $data) : void
     {   
-
         $enterprise = (new VwVacancyActive())->find()->fetch(true) ?? [];
 
         $company = [];

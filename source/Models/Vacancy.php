@@ -4,6 +4,7 @@ namespace Source\Models;
 
 use DateInvalidTimeZoneException;
 use DateTime;
+use Exception;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
 
@@ -416,4 +417,29 @@ class Vacancy extends Model
             $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
         }
     }
+
+    /**
+     * Exclui vagas
+     */
+    public function deleteVacancy(int $idVacancy) : bool
+    {   
+        try{          
+            $vacancyGlass = new Vacancy()->findById($idVacancy);
+            $vacancyTrue = new Vacancy()->find("id_vacancy_fixed = :id","id={$idVacancy}")->fetch(true);
+
+            
+
+            foreach($vacancyTrue as $vacancyTrueItem) {
+                $vacancyTrueItem->delete();
+            }
+
+            $vacancyGlass->destroy();
+            return true;
+            
+        } catch (Exception $e) {
+
+            return false;
+        }
+    }
+
 }

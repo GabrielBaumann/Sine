@@ -66,7 +66,7 @@ function fncCheckClosedVacancy() {
         // Verificar se todos estão encerrador para bloquear o check principal e o botão de editar
         if(vCounter === vCheckVacancy.length) {
             document.getElementById("chek-vacancy").disabled = true;
-            document.getElementById("btn-new-vacancy").disabled = true;
+            // document.getElementById("btn-new-vacancy").disabled = true;
         }
     }
 }
@@ -155,3 +155,6 @@ document.addEventListener("click", (e) => {
         }
     }
 });
+
+// Modal de confirmação de exclusãode vaga
+fncModalQuest("btn-delete-vacancy");
