@@ -1,6 +1,7 @@
 //*  Scripts padrões para todo o sistema *//
 let vArrayInput = [];
 fncTodoClousureToday()
+removeFlash()
 
 // Verifica o tamanho da tela e chama a função de responsividade
 window.addEventListener("resize", updateResponsive);
@@ -241,8 +242,8 @@ function removeFlash() {
             el.style.transition = "opacity 0.5s ease";
             el.style.opacity = "0";
             
-            setTimeout(() => el.remove(), 2000);
-        }, 2000);
+            setTimeout(() => el.remove(), 3000);
+        }, 3000);
     });
 }
 

@@ -423,23 +423,11 @@ class Vacancy extends Model
      */
     public function deleteVacancy(int $idVacancy) : bool
     {   
-        try{          
-            $vacancyGlass = new Vacancy()->findById($idVacancy);
-            $vacancyTrue = new Vacancy()->find("id_vacancy_fixed = :id","id={$idVacancy}")->fetch(true);
-
-            
-
-            foreach($vacancyTrue as $vacancyTrueItem) {
-                $vacancyTrueItem->delete();
-            }
-
-            $vacancyGlass->destroy();
-            return true;
-            
-        } catch (Exception $e) {
-
-            return false;
-        }
+        $vacancyGlass = (new static())->findById($idVacancy);
+        $vacancyDelete = (new static())->delete("id_vacancy_fixed = :id","id={$idVacancy}");
+        
+        $vacancyGlass->destroy();
+        return true;    
     }
 
 }

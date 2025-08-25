@@ -537,9 +537,16 @@ class AppVacancy extends Controller
             return;
         }
         
-        $deleteVacancy = new Vacancy()->deleteVacancy($idVacancy);
-        var_dump($deleteVacancy);
+        $deleteVacancy = (new Vacancy())->deleteVacancy($idVacancy);
+        if($deleteVacancy) {
+            $json["message"] = messageHelpers()->success("Vagas excluída com sucesso!")->flash();
+            $json["redirect"]= url("/vagas");
+            echo json_encode($json);
+            return;
+        }
 
+        $json["message"] = messageHelpers()->warning("Erro de exclusão!")->render();
+        echo json_encode($json);
+        return;
     }
-
 }

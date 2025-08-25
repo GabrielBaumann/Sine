@@ -22,6 +22,11 @@ document.addEventListener("submit", (e) => {
         })
         .then(data => {
 
+            if(data.redirect) {
+                window.location.href = data.redirect;
+                return;
+            }
+
             if(data.complete) {
                 fncMessage(data.message);
                 document.getElementById(vformId).reset();

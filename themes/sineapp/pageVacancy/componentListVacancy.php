@@ -1,5 +1,5 @@
 <div class="bg-transparent rounded-md overflow-hidden mt-10">
-
+    <div><?= flash(); ?></div>
     <div class="overflow-x-auto">
         <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
