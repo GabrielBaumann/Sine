@@ -205,7 +205,7 @@
                                     <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy; ?></td>
                                     <td class="qt-cell"><?= $panelVacancyItem->total_vancacy_general; ?></td>
                                     <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy; ?></td>
-                                    <td class="descricao-cell"><?= $panelVacancyItem->date_register; ?> - <?= $panelVacancyItem->hour; ?></td>
+                                    <td class="descricao-cell"><?= $panelVacancyItem->date_register; ?> - <?= $panelVacancyItem->version_panel; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -203,7 +203,7 @@
                             <?php foreach($panelVacancy as $panelVacancyItem): ?>
                                 <tr>
                                     <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy ?></td>
-                                    <td class="qt-cell"><?= $panelVacancyItem->total_vacancy_active ?></td>
+                                    <td class="qt-cell"><?= $panelVacancyItem->total_vancacy_general ?></td>
                                     <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy ?></td>
                                     <td id="cbo"><?= $panelVacancyItem->name_fantasy_enterpise; ?>
                                         <br>(<?= $panelVacancyItem->gender_vacancy[0]; ?>)<br>
