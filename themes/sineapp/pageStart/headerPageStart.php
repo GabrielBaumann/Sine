@@ -3,7 +3,7 @@
   <!-- main -->
   <div class="flex flex-col w-full lg:w-4/5 p-5">
     <!-- Header -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
+    <div class="flex-col md:flex-row md:hidden 2xl:flex justify-between items-start md:items-center mb-4">
       <div class="mb-4 md:mb-0 md:bg-white w-full p-5 rounded-2xl">
         <h1 class="text-2xl lg:text-2xl font-medium text-gray-800">Bem-vindo de volta, <?= $userSystem->name_user ?>!</h1>
         <p class="text-gray-500 text-sm lg:text-base mt-1">Aqui está o resumo das atividades recentes</p>
@@ -76,13 +76,37 @@
     </div>
 
     <!-- Seção do gráfico -->
-    <div class="mt-6 w-full p-7 md:bg-white rounded-2xl">
+    <div class="mt-4 w-full p-7 md:bg-white rounded-2xl">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-normal text-gray-700">Atendimentos por dia</h2>
       </div>
-      <div class="h-64 md:h-90 2xl:h-120">
+      <div class="h-50">
         <canvas id="graficoVisaoGeral"></canvas>
       </div>
+    </div>
+
+    <div class="">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <!-- Gráfico de Atendimentos por Gênero -->
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-700">Atendimentos por Gênero</h2>
+                </div>
+                <div class="h-30 md:h-45">
+                    <canvas id="graficoGenero"></canvas>
+                </div>
+            </div>
+
+            <!-- Gráfico de Atendimentos por Escolaridade -->
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-gray-700">Atendimentos por Escolaridade</h2>
+                </div>
+                <div class="h-30 md:h-45">
+                    <canvas id="graficoEscolaridade"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 
@@ -96,62 +120,149 @@
 </div>
 
 
-<!-- Código dos gráficos e tabelas -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Gráfico de Atendimentos por mês
-        const vMonthService = <?= json_encode($chartServiceLabel); ?>;
-        const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
-        const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: vMonthService,
-                datasets: [{
-                    label: 'Atendimentos',
-                    data: vMonthServiceTotal,
-                    backgroundColor: 'rgba(9, 89, 152, 0.1)', 
-                    borderColor: '#095998', 
-                    borderWidth: 3,
-                    tension: 0.4,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(30, 66, 124)',
-                    pointBorderColor: '#fff',
-                    pointHoverRadius: 6,
-                    pointBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(30, 66, 124, 0.9)',
-                        titleFont: { weight: 'bold', size: 12 },
-                        bodyFont: { size: 11 },
-                        padding: 10,
-                        cornerRadius: 6,
-                        displayColors: false
-                    }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dados para o gráfico de atendimentos por dia
+            const vMonthService = Array.from({length: 31}, (_, i) => `${i + 1}`);
+            const vMonthServiceTotal = Array.from({length: 31}, () => Math.floor(Math.random() * 31) + 15);
+            
+            // Gráfico de Atendimentos por Dia
+            const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: vMonthService,
+                    datasets: [{
+                        label: 'Atendimentos',
+                        data: vMonthServiceTotal,
+                        backgroundColor: 'rgba(17, 72, 165, 0.8)',
+                        // borderColor: 'rgba(9, 89, 152, 1)',
+                        // borderWidth: 1,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(9, 89, 152, 0.6)'
+                    }]
                 },
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(12, 45, 97, 0.9)',
+                            titleFont: { weight: 'bold', size: 12 },
+                            bodyFont: { size: 11 },
+                            padding: 10,
+                            cornerRadius: 6,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    return `Dia ${tooltipItems[0].label}`;
+                                }
+                            }
                         }
                     },
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            display: true,
-                            color: 'rgba(0, 0, 0, 0.05)'
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: 'Dias do Mês' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                            title: { display: true, text: 'Número de Atendimentos' }
                         }
                     }
                 }
-            }
+            });
+
+            // Gráfico de Atendimentos por Gênero
+            const ctxGenero = document.getElementById('graficoGenero').getContext('2d');
+            new Chart(ctxGenero, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Feminino', 'Masculino', 'Outro', 'Prefiro não informar'],
+                    datasets: [{
+                        data: [125, 98, 15, 22],
+                        backgroundColor: [
+                            'rgba(9, 89, 152, 0.8)',
+                            'rgba(52, 152, 219, 0.8)',
+                            'rgba(121, 134, 203, 0.8)',
+                            'rgba(170, 183, 204, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(9, 89, 152, 1)',
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(121, 134, 203, 1)',
+                            'rgba(170, 183, 204, 1)'
+                        ],
+                        borderWidth: 1,
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 52, 114, 0.9)',
+                            titleFont: { weight: 'bold', size: 12 },
+                            bodyFont: { size: 11 },
+                            padding: 10,
+                            cornerRadius: 6
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de Atendimentos por Escolaridade
+            const ctxEscolaridade = document.getElementById('graficoEscolaridade').getContext('2d');
+            new Chart(ctxEscolaridade, {
+                type: 'bar',
+                data: {
+                    labels: ['Fundamental', 'Médio', 'Superior', 'Pós-graduação', 'Mestrado', 'Doutorado'],
+                    datasets: [{
+                        label: 'Atendimentos',
+                        data: [45, 78, 95, 62, 35, 18],
+                        backgroundColor: 'rgba(19, 112, 200, 0.8)',
+                        // borderColor: 'rgba(9, 89, 152, 1)',
+                        // borderWidth: 1,
+                        borderRadius: 4,
+                        hoverBackgroundColor: 'rgba(9, 89, 152, 0.6)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(11, 49, 110, 0.9)',
+                            titleFont: { weight: 'bold', size: 12 },
+                            bodyFont: { size: 11 },
+                            padding: 10,
+                            cornerRadius: 6,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: true, color: 'rgba(0, 0, 0, 0.05)' },
+                            title: { display: true, text: 'Número de Atendimentos' }
+                        }
+                    }
+                }
+            });
         });
-    });
-</script>
+    </script>
