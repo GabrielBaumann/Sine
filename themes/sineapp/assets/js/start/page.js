@@ -1,25 +1,17 @@
 // Impressão
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
-
     if(vButton && vButton.classList.contains("print")) {
-
         const vVersion = document.getElementById("id-panel").value;
-
-        console.log(vVersion);
-
         const vUrl = vButton.dataset.url
         fetch(vUrl + "/" + vVersion)
         .then(response => response.json())
         .then(data => {
-
             if(data.message) {
                 return fncMessage(data.message)
             }
-
             const vDiv = document.getElementById("content");
             vDiv.innerHTML = data.html;
-
         })
     }
 })

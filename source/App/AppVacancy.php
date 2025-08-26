@@ -166,6 +166,9 @@ class AppVacancy extends Controller
             return;
         }
 
+        // Verifica se existe painel oculto ou não
+        $checkPanelVacancy = (new Vacancy())->checkHidePanel();
+
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager($vacancyCount, 14, 1);
@@ -179,7 +182,8 @@ class AppVacancy extends Controller
                 ->order("date_open_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
-            "paginator" => $pager->render()
+            "paginator" => $pager->render(),
+            "checkPanelVacancy" => $checkPanelVacancy
         ]);
         
         $json["html"] = $html;
@@ -560,14 +564,25 @@ class AppVacancy extends Controller
         return;
     }
 
-    // Modal quest para ocutar vagas
-    public function questHidePainel() : void
+    // Modal quest para ocultar e desocultar painel
+    public function questHidePainel(array $data) : void
     {
+        if((int)$data["hideyesno"] == 1) {
+            $title = "Atenção!!!";
+            $textMessage = "As vagas não serão vistas no painel impresso, na página inicial e nem será possível encaminhar trabalhadores para vagas!";
+            $urlYes = url("/ocultarpainel");
+        }
+
+        if((int)$data["hideyesno"] == 2) {
+            $title = "Atenção!!!";
+            $textMessage = "As vagas serão vistas no painel de impressão, na página inicial e poderá ser encaminhado usuários para elas!";
+            $urlYes = url("/mostrarpainel");
+        }
 
         $html = $this->view->render("/modalQuest/modalQuestYesNo", [
-            "title" => "Atenção!!!",
-            "textMessage" => "As vagas não serão vistas no painel impresso, na página inicial e nem será possível encaminhar trabalhadores para vagas!",
-            "urlYes" => url("/ocultarpainel"),
+            "title" => $title,
+            "textMessage" => $textMessage,
+            "urlYes" => $urlYes,
             "urlNo" => null,
             "cancel" => true
         ]);
@@ -589,10 +604,31 @@ class AppVacancy extends Controller
             return;
         }
 
+        $json["message"] = messageHelpers()->success("Painel oculto com sucesso!")->flash();
+        $json["redirect"] = url("/vagas");
+        echo json_encode($json);
         return;
     }
 
+    // Confirmar mostra do painel
+    public function noHidePanel() : void
+    {
+        $vacancy = new Vacancy();
+        $vacancyHide = $vacancy->hidePanel(true);
 
+        if(!$vacancyHide){
+            $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $json["message"] = messageHelpers()->success("Painel reativado com sucesso!")->flash();
+        $json["redirect"] = url("/vagas");
+        echo json_encode($json);
+        return;
+    }
+
+    // Sair do sistema
     public function logout()
     {
         (new Message())->success("Você saiu com sucesso " . Auth::user()->nome . ". Volte logo :)")->flash();    

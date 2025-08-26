@@ -196,7 +196,6 @@
                                 <th class="vaga-cell">Vaga</th>
                                 <th class="qt-cell">QT</th>
                                 <th class="descricao-cell-head">Descrição da Vaga</th>
-                                <th class="descricao-cell-head">hora teste</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,7 +204,6 @@
                                     <td class="vaga-cell"><?= $panelVacancyItem->nomeclatura_vacancy; ?></td>
                                     <td class="qt-cell"><?= $panelVacancyItem->total_vancacy_general; ?></td>
                                     <td class="descricao-cell"><?= $panelVacancyItem->description_vacancy; ?></td>
-                                    <td class="descricao-cell"><?= $panelVacancyItem->date_register; ?> - <?= $panelVacancyItem->version_panel; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -2,13 +2,13 @@
 
 namespace Source\Models;
 
-use DateInvalidTimeZoneException;
+// use DateInvalidTimeZoneException;
 use DateTime;
-use Exception;
+// use Exception;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
 use Source\Models\Views\VwVacancy;
-use Source\Models\Views\VwVacancyActive;
+// use Source\Models\Views\VwVacancyActive;
 
 class Vacancy extends Model
 {   
@@ -430,7 +430,7 @@ class Vacancy extends Model
     /**
      * Ocultar e mostrar painel total
      */
-    public function hidePanel() : bool 
+    public function hidePanel(bool $showPanel = false) : bool 
     {
         $vVacancyActive = (new VwVacancy())->find("status_vacancy = :id", "id=Ativa")->fetch(true);
         
@@ -443,13 +443,25 @@ class Vacancy extends Model
 
                 // Muda os status das vagas para oculto
                 foreach($vacancy as $vacancyItem) {
-                    $vacancyItem->hide_panel = true;
+
+                    if ($showPanel === true) {
+                        $vacancyItem->hide_panel = false;
+                    }else {
+                        $vacancyItem->hide_panel = true;
+                    }
+
                     $vacancyItem->save();
                 }
 
                 // Muda o status dos espelhos das vagas para oculto
                 $vacancyMirror = (new static())->findById($vVacancyActiveItem->id_vacancy);
-                $vacancyMirror->hide_panel = true;
+                
+                if ($showPanel === true) {                
+                    $vacancyMirror->hide_panel = false;
+                } else {
+                    $vacancyMirror->hide_panel = true;
+                }
+
                 $vacancyMirror->save();
             }
         
@@ -470,14 +482,13 @@ class Vacancy extends Model
             $typeReturn = 1;
         }
 
-         // 02 - Existem vagas ocultas e posem ser desocultadas
+        // 02 - Existem vagas ocultas que podem ser desocultadas
         if($vacancyList->find("status_vacancy = :id AND hide_panel = :nu", "id=Ativa&nu=1")->fetch(true)) {
             $typeReturn = 2;
         }
-     
+
         return $typeReturn;
     }
-
 
     /**
      * Exclui vagas

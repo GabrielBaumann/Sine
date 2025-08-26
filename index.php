@@ -98,8 +98,9 @@ $route->post("/encerramentoautomatico", "AppVacancy:todoClousureToday");
 $route->get("/excluirvaga/{idvacancy}", "AppVacancy:questDeleteVacancy");
 $route->post("/excluirvaga/{idvacancy}", "AppVacancy:deleteVacancy");
 
-$route->get("/janelaocultarpainel", "AppVacancy:questHidePainel");
+$route->get("/janelaocultarpainel/{hideyesno}", "AppVacancy:questHidePainel");
 $route->post("/ocultarpainel", "AppVacancy:hidePanel");
+$route->post("/mostrarpainel", "AppVacancy:noHidePanel");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

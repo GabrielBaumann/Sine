@@ -59,13 +59,14 @@
                     <?php else: ?>
                         <!-- If there are no vacancies -->
                         <tr>
-                            <td class="px-5 py-3 whitespace-nowrap text-xs font-medium text-gray-900">Não há vagas cadastradas</td>
+                            <td class="px-5 py-3 whitespace-nowrap text-xs font-medium text-gray-900">Painel oculto</td>
                         </tr>
                     <?php endif;?>
                 </tbody>
         </table>
     </div>
 </div>
+
 <!-- Paginação -->
 <div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex gap-1">

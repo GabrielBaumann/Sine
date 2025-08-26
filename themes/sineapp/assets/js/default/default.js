@@ -287,8 +287,7 @@ document.addEventListener("click", (e) => {
         vMessage.style.opacity = "0";
         setTimeout(() => vMessage.remove(), 2000)
 
-        const vResponse = document.getElementById("response");
-        vResponse.remove();
+        document.getElementById("response")?.remove();
     }
 });
 

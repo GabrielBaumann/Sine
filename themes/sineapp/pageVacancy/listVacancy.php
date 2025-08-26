@@ -57,7 +57,7 @@
 
             <?php if($checkPanelVacancy === 1): ?>
                 <button 
-                    data-url="<?= url("/janelaocultarpainel")?>"
+                    data-url="<?= url("/janelaocultarpainel/1")?>"
                     id="btn-hiden-panel" 
                     class="cursor-pointer flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@
                 </button>
             <?php elseif($checkPanelVacancy === 2): ?>
                 <button 
-                    data-url="<?= url("/janelaocultarpainel")?>"
+                    data-url="<?= url("/janelaocultarpainel/2")?>"
                     id="btn-hiden-panel" 
                     class="cursor-pointer flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

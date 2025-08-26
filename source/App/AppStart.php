@@ -49,15 +49,15 @@ class AppStart extends Controller
 
         // Painel de vagas
         $vwVacancy = new VwVacancy();
-        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
+        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 
         $pager = new Pager(url("/painelvagas/p/"));
-        $pager->pager(count($panelVancancy ?? []), 15, 1);
+        $pager->pager(count($panelVancancy ?? []), 12, 1);
 
         // Total de vagas ativas 
-        $totalVacancyActive = $vwVacancy->find("number_vacancy <> :to","to=0", "(SELECT sum(number_vacancy)) AS total")->order("nomeclatura_vacancy")->fetch();
+        $totalVacancyActive = $vwVacancy->find("number_vacancy <> :to AND hide_panel <> :hi","to=0&hi=1", "(SELECT sum(number_vacancy)) AS total")->order("nomeclatura_vacancy")->fetch();
 
         echo $this->view->render("/pageStart/pageStart", [
             "title" => "Início",
@@ -69,7 +69,7 @@ class AppStart extends Controller
             "chartServiceLabel" => $charServer["label"],
             "chartServiceTotal" => $charServer["total"],
             "panelVacancy" =>  (new VwVacancy())
-                ->find("total_vacancy_active <> :to","to=0")
+                ->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("date_open_vacancy", "DESC")
@@ -82,17 +82,17 @@ class AppStart extends Controller
     public function panelVacancy(?array $data) : void
     {
         $vwVacancy = new VwVacancy();
-        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to","to=0")
+        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
             ->order("date_open_vacancy")
             ->fetch(true);
 
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/painelvagas/p/"));
-        $pager->pager(count($panelVancancy ?? []), 15, $page);
+        $pager->pager(count($panelVancancy ?? []), 12, $page);
 
         $html = $this->view->render("/pageStart/panelVacancy", [
             "panelVacancy" =>  (new VwVacancy())
-                ->find("total_vacancy_active <> :to","to=0")
+                ->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
                 ->limit($pager->limit())
                 ->offset($pager->offset())
                 ->order("date_open_vacancy", "DESC")
@@ -111,8 +111,18 @@ class AppStart extends Controller
     {
         $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
 
+        // Quando não existir vagas ativas
         if(!$vwVacancy) {
             $json["message"] = messageHelpers()->warning("Não há vagas no painel!")->render();
+            echo json_encode($json);            
+            return;
+        }
+
+        // Verifica se o painel está oculto
+        $checkHidePanel = (new Vacancy())->checkHidePanel();
+
+        if($checkHidePanel == 2) {
+            $json["message"] = messageHelpers()->warning("O painel está oculto!")->render();
             echo json_encode($json);            
             return;
         }
@@ -159,13 +169,23 @@ class AppStart extends Controller
     {
         $vwVacancy = (new VwVacancyActive())->find()->fetch(true);
 
+        // Quando não existir vagas ativas
         if(!$vwVacancy) {
             $json["message"] = messageHelpers()->warning("Não há vagas no painél!")->render();
             echo json_encode($json);            
             return;
         }
 
-                // Versão do painel de vaga, se for igual a 0 pega todas as vagas ativas de dias passados, se for 01 em diante as vagas do dia atual
+        // Verifica se o painel está oculto
+        $checkHidePanel = (new Vacancy())->checkHidePanel();
+
+        if($checkHidePanel == 2) {
+            $json["message"] = messageHelpers()->warning("O painel está oculto!")->render();
+            echo json_encode($json);            
+            return;
+        }
+
+        // Versão do painel de vaga, se for igual a 0 pega todas as vagas ativas de dias passados, se for 01 em diante as vagas do dia atual
         $versionPanel = (int)$data["versionPainel"];
         
         if($versionPanel === 0) {
