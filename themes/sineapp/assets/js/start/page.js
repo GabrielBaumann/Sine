@@ -2,7 +2,7 @@
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
     if(vButton && vButton.classList.contains("print")) {
-        const vVersion = document.getElementById("id-panel").value;
+        const vVersion = document.getElementById("version-panel").value;
         const vUrl = vButton.dataset.url
         fetch(vUrl + "/" + vVersion)
         .then(response => response.json())
@@ -347,5 +347,16 @@ document.addEventListener("click", (e) => {
 
 // atualizar painel baseado no filtro de versão
 document.addEventListener("click", (e) => {
-    console.log(e);
+    const vButton = e.target;
+    if(vButton.id === "version-panel") {
+        const vUrl = vButton.dataset.url; 
+
+        // console.log(vUrl + "/" + vButton.value);
+        fetch(vUrl + "/" + vButton.value)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.html);
+            document.getElementById("panel-vacancy").html = data.html;
+        });
+    }
 });
