@@ -10,7 +10,7 @@
         margin: 0;
         padding: 0;
         font-size: 16px;
-        background-color: #2c2c2c;
+        /* background-color: #2c2c2c; */
         
     }
 
