@@ -2,8 +2,8 @@
     <div class="p-5 w-full md:bg-white md:rounded-2xl md:flex md:flex-col items-center justify-center text-center mx-auto gap-3">
         <h2 class="text-xl font-semibold text-gray-800 items-left">Baixar painel</h2>
             <div class="flex flex-col text-left w-full">
-                <label for="">Filtrar por versão</label>
-                <select name="time-panel" id="id-panel" class="w-full bg-gray-200 rounded-xl p-2 cursor-pointer">
+                <label for="time-panel">Filtrar por versão</label>
+                <select data-url="<?= url("/filtrarversao"); ?>" name="time-panel" id="version-panel" class="w-full bg-gray-200 rounded-xl p-2 cursor-pointer">
                     <option value="0">0 (Geral)</option>
                     <option value="1">1 (08:00 às 10:00)</option>
                     <option value="2">2 (10:00 às 12:00)</option>

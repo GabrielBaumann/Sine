@@ -81,6 +81,14 @@ class AppStart extends Controller
     // Painél direito de vagas na página principal
     public function panelVacancy(?array $data) : void
     {
+        $versionPanel = (int)$data["versionpanel"];
+
+        if($versionPanel === 0) {
+
+        } else {
+
+        }
+
         $vwVacancy = new VwVacancy();
         $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
             ->order("date_open_vacancy")
@@ -132,12 +140,11 @@ class AppStart extends Controller
         
         if($versionPanel === 0) {
         
-        $today = new DateTime();
-        
-        $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
-            ->order("date_open_vacancy", "DESC")
-            ->fetch(true);
+            $today = new DateTime();
+            $panelVacancy = (new VwVacancy())
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+                ->order("date_open_vacancy", "DESC")
+                ->fetch(true);
         } else {
 
             $today = new DateTime();
