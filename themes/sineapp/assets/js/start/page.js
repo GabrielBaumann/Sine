@@ -164,7 +164,6 @@ document.addEventListener("click", (e) => {
     }
 })
 
-
 // Baixar JPEG
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
@@ -344,4 +343,9 @@ document.addEventListener("click", (e) => {
             vButton.textContent = "📷 Baixar Painel como JPEGs";
         });
     }
+});
+
+// atualizar painel baseado no filtro de versão
+document.addEventListener("click", (e) => {
+    console.log(e);
 });
