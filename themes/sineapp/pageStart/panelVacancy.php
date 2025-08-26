@@ -34,42 +34,111 @@
         </div>
     </div>
 
-    <div class="md:bg-white md:rounded-2xl p-5 overflow-x-auto flex-grow rounded-md overflow-hidden">
-        <h2 class="text-xl font-semibold text-gray-800 text-center mx-auto">PAINEL DO DIA</h2>
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="">
-                <tr>
-                    <th scope="col" class="px-2 py-2 text-left text-xs font-medium text-black uppercase tracking-wider">Vaga</th>
-                    <th scope="col" class="py-2 text-right pr-[12px] text-xs font-medium text-black uppercase tracking-wider">Qtd</th>
-                </tr>
-            </thead>
-                <tbody class="divide-y divide-gray-200">
-                    <?php if($panelVacancy): ?>
-                        <?php foreach($panelVacancy as $panelVacancyItem): ?>    
-                            <!-- This is a line -->
-                            <tr>
-                                <td class="max-w-[120px] truncate px-2 py-3 text-xs font-medium text-gray-900">
-                                    <?= $panelVacancyItem->nomeclatura_vacancy; ?>
-                                </td>
-                                <td class="py-1 whitespace-nowrap text-right pr-[12px] text-xs text-black">
-                                    <?= $panelVacancyItem->total_vacancy_active; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
-                    <?php else: ?>
-                        <!-- If there are no vacancies -->
-                        <tr>
-                            <td class="px-5 py-3 whitespace-nowrap text-xs font-medium text-gray-900">Painel oculto</td>
-                        </tr>
-                    <?php endif;?>
-                </tbody>
-        </table>
+    <!-- Main vacancy cards container -->
+    <h2 class="mx-auto text-black font-semibold text-xl mb-2">PAINEL DO DIA</h2>
+    <div class="flex flex-col w-full md:max-h-[450px] 2xl:max-h-[600px] overflow-y-auto gap-4 p-1 pt-0">
+        
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Açougueiro II 
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Mecânico de aeronaves e um exemplo de titulo grande
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Açougueiro II 
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Açougueiro II 
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Açougueiro II 
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        <!-- Card -->
+        <div class="bg-gradient-to-br from-blue-400 to-blue-600 text-white flex flex-col md:flex-row justify-between w-full p-4 rounded-xl">
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <span class="font-semibold text-xs md:text-xs 2xl:text-xl text-white truncate" title="">
+                        Açougueiro II 
+                    </span>
+                    <span class="text-xs 2xl:text-sm mt-1">CBO: 1234-10</span>
+                    <span class="mt-1 flex items-center text-sm">Barbosa Mello</span>
+                </div>
+            </div>
+            <div class="mt-4 md:mt-0 flex flex-col items-start md:items-end  md:w-30">
+                <span class="font-semibold py-1 rounded-full text-md mb-2 text-sm">QTD: 34</span>
+                <span class="flex items-center text-sm">Masculino</span>
+                <span class="text-sm">Pegar currículo</span>
+            </div>
+        </div>
+        
     </div>
-</div>
-
-<!-- Paginação -->
-<div class="px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-    <div class="flex gap-1">
-        <?= $paginator; ?>
-    </div>
-</div>
