@@ -1,45 +1,46 @@
-<div class="rounded-lg flex flex-col">
-    <div class="mb-3">
-        <div class="flex justify-between items-center">
-            <h2 class="text-lg font-normal text-gray-700">Painel de vagas</h2>
-            <select name="time-panel" id="id-panel">
-                <option value="0">0 (Geral)</option>
-                <option value="1">1 (08:00 às 10:00)</option>
-                <option value="2">2 (10:00 às 12:00)</option>
-                <option value="3">3 (12:00 às 00:00)</option>
-            </select>
-            <div class="flex space-x-2">
-
-                <!-- botao de imrpimir -->
-                <button
-                    id="print-panel" 
-                    data-url="<?= url("/imprimirpainel"); ?>"
-                    class="cursor-pointer print p-2 text-blue-600 hover:bg-blue-50 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a51.299 51.299 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z" />
-                    </svg>
-                </button>
-
-                <!-- botao de visualizar painel interno -->
-                <button 
-                    id="print-panel-internal" 
-                    data-url="<?= url("/imprimirpainelinterno"); ?>"
-                    class="cursor-pointer print p-2 text-blue-600 hover:bg-blue-50 rounded-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                    </svg>
-                </button>
-
+<div class="flex flex-col gap-4">
+    <div class="p-5 w-full md:bg-white md:rounded-2xl md:flex md:flex-col items-center justify-center text-center mx-auto gap-3">
+        <h2 class="text-xl font-semibold text-gray-800 items-left">Baixar painel</h2>
+            <div class="flex flex-col text-left w-full">
+                <label for="">Filtrar por versão</label>
+                <select name="time-panel" id="id-panel" class="w-full bg-gray-200 rounded-xl p-2 cursor-pointer">
+                    <option value="0">0 (Geral)</option>
+                    <option value="1">1 (08:00 às 10:00)</option>
+                    <option value="2">2 (10:00 às 12:00)</option>
+                    <option value="3">3 (12:00 às 00:00)</option>
+                </select>
             </div>
+            <div class="flex w-full justify-center items-center gap-3">
+                <!-- botao de imprimir -->
+                <button
+                    id="print-panel"
+                    data-url="<?= url("/imprimirpainel"); ?>"
+                    class="w-full flex items-center gap-2 text-xs cursor-pointer print p-2 text-white bg-blue-400 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                    </svg>
+                    <span>Painel de vagas</span>
+                </button>
+                <!-- botao de visualizar painel interno -->
+                <button
+                    id="print-panel-internal"
+                    data-url="<?= url("/imprimirpainelinterno"); ?>"
+                    class="w-full flex items-center text-xs cursor-pointer print p-2 text-white bg-blue-500 rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                    </svg>
+                    <span>Painel de empresas</span>
+                </button>
         </div>
     </div>
-    
-    <div class="overflow-x-auto flex-grow rounded-md overflow-hidden">
+
+    <div class="md:bg-white md:rounded-2xl p-5 overflow-x-auto flex-grow rounded-md overflow-hidden">
+        <h2 class="text-xl font-semibold text-gray-800 text-center mx-auto">PAINEL DO DIA</h2>
         <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-blue-500">
+            <thead class="">
                 <tr>
-                    <th scope="col" class="px-5 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Vaga</th>
-                    <th scope="col" class="py-3 text-right pr-[12px] text-xs font-medium text-white uppercase tracking-wider">Qtd</th>
+                    <th scope="col" class="px-2 py-2 text-left text-xs font-medium text-black uppercase tracking-wider">Vaga</th>
+                    <th scope="col" class="py-2 text-right pr-[12px] text-xs font-medium text-black uppercase tracking-wider">Qtd</th>
                 </tr>
             </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -71,4 +72,3 @@
         <?= $paginator; ?>
     </div>
 </div>
-

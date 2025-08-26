@@ -28,8 +28,8 @@ function updateResponsive() {
 
         vMenus.forEach(vElemet => {
             if(vElemet.dataset.sidebar === vUrlPage) {
-                vElemet.closest("a.menu").classList.remove("text-gray-500")
-                vElemet.closest("a.menu").classList.add("text-white", "bg-blue-500", "rounded-md", "font-bold", "hover:text-white");
+                // vElemet.closest("a.menu").classList.remove("cursor-pointer");
+                vElemet.closest("a.menu").classList.add("text-blue-500", "bg-gray-200", "border-l-7", "border-blue-500", "hover:text-gray-700");
             }
         });
     }
