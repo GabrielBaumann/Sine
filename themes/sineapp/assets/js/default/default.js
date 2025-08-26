@@ -286,6 +286,9 @@ document.addEventListener("click", (e) => {
         vMessage.style.transition = "opacity 0.5s ease";
         vMessage.style.opacity = "0";
         setTimeout(() => vMessage.remove(), 2000)
+
+        const vResponse = document.getElementById("response");
+        vResponse.remove();
     }
 });
 

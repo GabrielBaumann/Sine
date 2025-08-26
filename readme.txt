@@ -11,3 +11,9 @@ VIEW `vw_char_day` AS
         `service`
     GROUP BY YEAR(`service`.`date_register`) , MONTH(`service`.`date_register`) , DAYOFMONTH(`service`.`date_register`)
     ORDER BY `year` , `month` , `day`
+
+
+Atualização para painel com fases
+Criar campo 'version_panel'
+na view vw_vacancy_list
+preciso do date_register, version_panel

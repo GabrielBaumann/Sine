@@ -427,27 +427,57 @@ class Vacancy extends Model
         }
     }
 
+    /**
+     * Ocultar e mostrar painel total
+     */
     public function hidePanel() : bool 
     {
         $vVacancyActive = (new VwVacancy())->find("status_vacancy = :id", "id=Ativa")->fetch(true);
         
-
-        // var_dump($vacancy);
-        
-        foreach ($vVacancyActive as $vVacancyActiveItem) {
-            $vacancy = (new static())->find("id_vacancy_fixed = :id","id={$vVacancyActiveItem->id_vacancy}")->fetch(true);
-            // var_dump($vacancy->find("id_vacancy_fixed = :id","id={$vVacancyActiveItem->id_vacancy}")->fetch(true));
-            // var_dump($vacancy->find()->fetch(true));
-            var_dump($vacancy);
-
+        if(!$vVacancyActive) {
+            return false;
         }
+            foreach ($vVacancyActive as $vVacancyActiveItem) {
 
+                $vacancy = (new static())->find("id_vacancy_fixed = :id","id={$vVacancyActiveItem->id_vacancy}")->fetch(true);
 
-        // $vacancyHiden = (new static())->find("")
+                // Muda os status das vagas para oculto
+                foreach($vacancy as $vacancyItem) {
+                    $vacancyItem->hide_panel = true;
+                    $vacancyItem->save();
+                }
+
+                // Muda o status dos espelhos das vagas para oculto
+                $vacancyMirror = (new static())->findById($vVacancyActiveItem->id_vacancy);
+                $vacancyMirror->hide_panel = true;
+                $vacancyMirror->save();
+            }
         
-
         return true;
     }
+
+    /**
+     * Verificar se existe vagas ocultas, se existe vagas para ocultar e se não existe vagas ativas
+     */
+    public function checkHidePanel() : int 
+    {
+        $typeReturn = 0;
+
+        // 01 - Retorna vagas ativas que podem ser ocultas
+        $vacancyList = new VwVacancy();
+
+        if($vacancyList->find("status_vacancy = :id AND hide_panel <> :nu", "id=Ativa&nu=1")->fetch(true)) {
+            $typeReturn = 1;
+        }
+
+         // 02 - Existem vagas ocultas e posem ser desocultadas
+        if($vacancyList->find("status_vacancy = :id AND hide_panel = :nu", "id=Ativa&nu=1")->fetch(true)) {
+            $typeReturn = 2;
+        }
+     
+        return $typeReturn;
+    }
+
 
     /**
      * Exclui vagas

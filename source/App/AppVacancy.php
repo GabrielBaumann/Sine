@@ -88,6 +88,9 @@ class AppVacancy extends Controller
             return;
         }
 
+        // Verifica se existe painel oculto ou não
+        $checkPanelVacancy = (new Vacancy())->checkHidePanel();
+
         $vacancyCount = (new VwVacancy())->find()->count(); 
         $pager = new Pager(url("/pesquisarvagas/p/"));
         $pager->Pager($vacancyCount, 14, 1);
@@ -102,7 +105,8 @@ class AppVacancy extends Controller
                 ->order("date_open_vacancy", "DESC")->fetch(true),
             "countVacancy"=> $vacancyCount,
             "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
-            "paginator" => $pager->render()
+            "paginator" => $pager->render(),
+            "checkPanelVacancy" => $checkPanelVacancy
         ]);
     }
 
@@ -578,6 +582,13 @@ class AppVacancy extends Controller
     {
         $vacancy = new Vacancy();
         $vacancyHide = $vacancy->hidePanel();
+
+        if(!$vacancyHide){
+            $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
         return;
     }
 
