@@ -5,7 +5,7 @@
             <div class="bg-white text-gray-900 flex flex-col md:flex-row justify-between w-full p-4 border-t border-gray-300">
                 <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-1">
                     <div class="flex flex-col">
-                        <span class="font-semibold text-md text-gray-800" title="">
+                        <span class="font-semibold md:text-sm xl:text-md text-gray-800" title="">
                             <?= $panelVacancyItem->nomeclatura_vacancy; ?>
                         </span>
                         <span class="text-xs 2xl:text-sm mt-1">CBO: <?= $panelVacancyItem->id_code; ?></span>
