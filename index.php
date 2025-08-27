@@ -23,7 +23,7 @@ $route->post("/", "Web:login");
  */
 // Start
 $route->get("/inicio", "AppStart:startPage");
-$route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
+// $route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
 $route->get("/filtrarversao/{versionpanel}", "AppStart:detailPanelVacancy");
 
 $route->get("/imprimirpainel/{versionPainel}", "AppStart:printPanel");
@@ -102,6 +102,11 @@ $route->post("/excluirvaga/{idvacancy}", "AppVacancy:deleteVacancy");
 $route->get("/janelaocultarpainel/{hideyesno}", "AppVacancy:questHidePainel");
 $route->post("/ocultarpainel", "AppVacancy:hidePanel");
 $route->post("/mostrarpainel", "AppVacancy:noHidePanel");
+
+
+$route->get("/janelaocultarpainel/{type}/{idvacancy}", "AppVacancy:questHideVacancy");
+$route->post("/ocultarvaga/{idvacancy}", "AppVacancy:hideVacancy");
+$route->post("/mostrarvaga/{idvacancy}", "AppVacancy:noHideVacancy");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

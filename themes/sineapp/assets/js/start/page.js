@@ -353,6 +353,12 @@ document.addEventListener("click", (e) => {
         fetch(vUrl + "/" + vButton.value)
         .then(response => response.json())
         .then(data => {
+            
+            if(data.message) {
+                fncMessage(data.message);
+                return;
+            }
+
             document.getElementById(data.content).innerHTML = data.html;
         });
     }

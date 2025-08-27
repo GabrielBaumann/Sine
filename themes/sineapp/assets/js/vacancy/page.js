@@ -161,3 +161,6 @@ fncModalQuest("btn-delete-vacancy");
 
 // Modal de confirmação para ocultar painel
 fncModalQuest("btn-hiden-panel");
+
+// Modal de confirmação para ocultar vaga
+fncModalQuest("btn-hide-vacancy");

@@ -592,7 +592,7 @@ class AppVacancy extends Controller
         return;
     }
 
-    // Confirmar ocutação do painel
+    // Confirmar ocultação do painel
     public function hidePanel() : void
     {
         $vacancy = new Vacancy();
@@ -610,7 +610,7 @@ class AppVacancy extends Controller
         return;
     }
 
-    // Confirmar mostra do painel
+    // Confirmar mostrar do painel
     public function noHidePanel() : void
     {
         $vacancy = new Vacancy();
@@ -623,6 +623,73 @@ class AppVacancy extends Controller
         }
 
         $json["message"] = messageHelpers()->success("Painel reativado com sucesso!")->flash();
+        $json["redirect"] = url("/vagas");
+        echo json_encode($json);
+        return;
+    }
+
+    // Modal quest para ocultar e desocultar painel
+    public function questHideVacancy(array $data) : void
+    {
+        // Modal para ocultar "tipo" = 1, modal para reativar "tipo" = 2
+        if((int)$data["type"] == 1) {
+            $title = "Atenção!!!";
+            $textMessage = "A vaga não será vista no painel de impressão, na página inicial e não poderá ser encaminhada para trabalhadores.";
+            $urlYes = url("/ocultarvaga/") . $data["idvacancy"];
+        }
+
+        if((int)$data["type"] == 2) {
+            $title = "Atenção!!!";
+            $textMessage = "A vaga será vista no painel de impressão, na página inicial e poderá ser encaminhada para trabalhadores.";
+            $urlYes = url("/mostrarvaga/") . $data["idvacancy"];
+        }
+
+        $html = $this->view->render("/modalQuest/modalQuestYesNo", [
+            "title" => $title,
+            "textMessage" => $textMessage,
+            "urlYes" => $urlYes,
+            "urlNo" => null,
+            "cancel" => true
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    // Confirmar ocultação da vaga
+    public function hideVacancy(array $data) : void
+    {
+        $vacancy = new Vacancy();
+        var_dump($vacancy->hideVacancy($data["idvacancy"]));
+
+        // var_dump($data);
+
+        // if(!$vacancyHide){
+        //     $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+        //     echo json_encode($json);
+        //     return;
+        // }
+
+        $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->flash();
+        $json["redirect"] = url("/vagas");
+        echo json_encode($json);
+        return;    
+    }
+
+    // Confirmar mostrar vaga
+    public function noHideVacancy(array $data) 
+    {
+        // $vacancy = new Vacancy();
+        // $vacancyHide = $vacancy->hidePanel(true);
+
+        // if(!$vacancyHide){
+        //     $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+        //     echo json_encode($json);
+        //     return;
+        // }
+
+        $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
         $json["redirect"] = url("/vagas");
         echo json_encode($json);
         return;

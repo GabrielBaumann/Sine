@@ -491,6 +491,23 @@ class Vacancy extends Model
     }
 
     /**
+     * Ocultar e mostrar vaga no painel e na impressão
+     */
+    public function hideVacancy(string $idVacancy, bool $hideNo = false) : bool
+    {
+        $idVacancyFixed = (int)fncDecrypt($idVacancy);
+
+        if(!$idVacancyFixed || empty($idFixedVacancy) || $idFixedVacancy == 0) {
+            var_dump("Erro");
+        }
+
+        // Ocultar vaga
+        var_dump($idVacancyFixed);
+
+        return true;
+    }
+
+    /**
      * Exclui vagas
      */
     public function deleteVacancy(int $idVacancy) : bool
