@@ -1,8 +1,8 @@
 <form action="<?= url("/informacaovagas"); ?>" method="post">
     <?= csrf_input(); ?>
     <input type="hidden" name="id-vacancy-fixed" value="<?= $vacancyInfo->id_vacancy; ?>">
-    <div class="bg-transparent rounded-md overflow-hidden mt-5">  
-        <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
+    <div class="bg-white p-5 rounded-2xl overflow-hidden mt-4">  
+        <table class="min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="">
             <tr>
                 <th scope="col" class="w-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -11,13 +11,14 @@
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vaga</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
                 <!-- Linha 1 -->
                 <?php if($vacancyList):?>
                     <?php foreach($vacancyList as $vacancyItem): ?>
-                        <tr class="hover:bg-blue-100 bg-gray-50">
+                        <tr class="hover:bg-gray-100">
                             <td class="whitespace-nowrap">
                                 <input 
                                     type="checkbox" 
@@ -38,6 +39,14 @@
                             </td>
                                 <td data-label="Status" class="px-6 py-3 whitespace-nowrap">
                                 <span class="text-sm text-gray-700"><?= $vacancyItem->status_vacancy; ?></span>
+                            </td>
+                            <td>
+                                <button class="flex justify-center px-8 text-blue-500 cursor-pointer hover:text-blue-900 transition-all duration-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>           
@@ -82,7 +91,7 @@
         </div>
 
         <!-- paginação aqui -->
-        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="px-4 py-3 pb-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">
@@ -92,153 +101,88 @@
                 <div>Total: <?= format_number($countVacancy ?? 000); ?></div>
             </div>
         </div>
+    </div>
 
-        <!-- vacancy info -->
-        <div class="flex w-full gap-4 bg-gray-100 p-3 rounded-md">
-    <div class="flex flex-col w-full">
-        <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
-            <!-- Empresa -->
-            <div class="flex flex-col">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Empresa</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->name_enterprise; ?>
+    <div class="flex flex-col gap-3 bg-gray-200 w-full rounded-2xl p-5 mt-4">
+            <h1 class="font-semibold text-xl">Informações da vaga</h1>
+
+            <div class="flex flex-col md:flex md:flex-row md:justify-between md:gap-10">
+                <div class="">
+                    <div class="flex flex-row gap-2">
+                        <span>Nomenclatura da vaga:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->nomeclatura_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Empresa:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->name_enterprise; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>CBO:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->id_code; ?> - <?= $vacancyInfo->occupation; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>PCD:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->pcd_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Aprendiz:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->apprentice_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>SEXO:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->gender_vacancy; ?></span>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="flex flex-row gap-2">
+                        <span>N° de vagas:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->number_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Qtd. por vaga:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->quantity_per_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Experiência:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->exp_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Escolaridade:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->education_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Idade mínima:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->age_min_vacancy; ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Idade máxima:</span>
+                        <span class="font-semibold"><?= $vacancyInfo->age_max_vacancy; ?></span>
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="flex flex-row gap-2">
+                        <span>Versão do painel:</span>
+                        <span class="font-semibold"></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Pegar currículo:</span>
+                        <span class="font-semibold"></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Data de abertura:</span>
+                        <span class="font-semibold"><?= date_simple($vacancyInfo->date_open_vacancy); ?></span>
+                    </div>
+                    <div class="flex flex-row gap-2">
+                        <span>Data de encerramento:</span>
+                        <span class="font-semibold"><?= date_fmt($vacancyInfo->date_closed_vacancy); ?></span>
+                    </div>
                 </div>
             </div>
-            
-            <!-- CBO - Ocupação -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">CBO - Ocupação</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->id_code; ?> - <?= $vacancyInfo->occupation; ?>
-                </div>
-            </div>
-            
-            <!-- PCD -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">PCD</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->pcd_vacancy; ?>
-                </div>
+
+            <div class="flex flex-col gap-2 mt-5">
+                <span>Descrição:</span>
+                <span class="font-semibold"><?= $vacancyInfo->description_vacancy; ?></span>
             </div>
         </div>
-        
-        <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
-            <!-- APRENDIZ -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Aprendiz</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->apprentice_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Sexo -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Sexo</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->gender_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Data de abertura -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Data de abertura</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= date_simple($vacancyInfo->date_open_vacancy); ?>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
-            <!-- N° de Vagas -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">N° de Vagas</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->number_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Qtd. por Vaga -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Qtd. por Vaga</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->quantity_per_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Experiência -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Experiência</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->exp_vacancy; ?>
-                </div>
-            </div>
-        </div>
-        
-        <div class="flex flex-col md:grid md:grid-cols-3 gap-3">
-            <!-- Requisitos da vaga -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Requisitos da vaga</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->request_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Data de encerramento da vaga -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Data de encerramento</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= date_fmt($vacancyInfo->date_closed_vacancy); ?>
-                </div>
-            </div>
-            
-            <!-- Escolaridade -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Escolaridade</label>
-                <div class="bg-gray-50 text-gray-700 block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->education_vacancy; ?>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Idade Mínima/Máxima e outros -->
-        <div class="md:grid md:grid-cols-6 gap-3 items-center flex flex-col">
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Idade Mínima</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->age_min_vacancy; ?>
-                </div>
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Idade Máxima</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                   <?= $vacancyInfo->age_max_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Nomenclatura da vaga -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nomenclatura da vaga</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->nomeclatura_vacancy; ?>
-                </div>
-            </div>
-            
-            <!-- Pegar currículo -->
-            <div class="flex items-center gap-2 mt-4">
-                 <input type="checkbox" class="pointer-events-none" <?= isset($vacancyInfo->accept_curriculum) ? ($vacancyInfo->accept_curriculum === 1 ? "checked" : "" ) : "" ?>>
-                <label>Pegar currículo</label>
-            </div>
-            
-            <!-- Descrição -->
-            <div class="col-span-1 md:col-span-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
-                <div class="bg-gray-50 text-gray-700 w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg">
-                    <?= $vacancyInfo->description_vacancy; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </div>
 </form>
