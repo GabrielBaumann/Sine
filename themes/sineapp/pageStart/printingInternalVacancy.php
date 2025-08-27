@@ -163,8 +163,7 @@
     }
 </style>
 </head>
-<body>
-
+<body class="h-screen overflow-y-scroll">
     <div id="visualizar-container" class="flex items-center justify-center gap-3">
         <button data-name="PAINEL EMPRESA" id="visualizar-pdf" class="flex gap-2 bg-red-500 p-2 text-white font-semibold rounded-md cursor-pointer hover:bg-red-600">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
