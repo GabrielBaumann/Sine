@@ -48,6 +48,7 @@ class AppStart extends Controller
         // $charServer = $serve->charDay();
 
         // Painel de vagas
+        $today = new DateTime();
         $vwVacancy = new VwVacancy();
         $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
             ->order("date_open_vacancy", "DESC")
@@ -57,7 +58,7 @@ class AppStart extends Controller
         $pager->pager(count($panelVancancy ?? []), 12, 1);
 
         // Total de vagas ativas 
-        $totalVacancyActive = $vwVacancy->find("number_vacancy <> :to AND hide_panel <> :hi","to=0&hi=1", "(SELECT sum(number_vacancy)) AS total")->order("nomeclatura_vacancy")->fetch();
+        $totalVacancyActive = $vwVacancy->find("number_vacancy <> :to","to=0", "(SELECT sum(number_vacancy)) AS total")->order("nomeclatura_vacancy")->fetch();
 
         echo $this->view->render("/pageStart/pageStart", [
             "title" => "Início",
@@ -69,9 +70,7 @@ class AppStart extends Controller
             "chartServiceLabel" => $charServer["label"],
             "chartServiceTotal" => $charServer["total"],
             "panelVacancy" =>  (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
-                ->limit($pager->limit())
-                ->offset($pager->offset())
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true),
             "paginator" => $pager->render()
@@ -83,33 +82,65 @@ class AppStart extends Controller
     {
         $versionPanel = (int)$data["versionpanel"];
 
-        if($versionPanel === 0) {
+        // if($versionPanel === 0) {
+            $today = new DateTime();
+            $panelVacancy = (new VwVacancy())
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+                ->order("date_open_vacancy", "DESC")
+                ->fetch(true);
+        // } else {
+        //     $today = new DateTime();
+        //     $panelVacancy = (new VwVacancy())
+        //     ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+        //     ->order("date_open_vacancy", "DESC")
+        //     ->fetch(true);
+        // }
 
-        } else {
-
-        }
-
-        $vwVacancy = new VwVacancy();
-        $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
-            ->order("date_open_vacancy")
-            ->fetch(true);
+        // $vwVacancy = new VwVacancy();
+        // $panelVancancy = $vwVacancy->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
+        //     ->order("date_open_vacancy")
+        //     ->fetch(true);
 
         $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
         $pager = new Pager(url("/painelvagas/p/"));
         $pager->pager(count($panelVancancy ?? []), 12, $page);
 
         $html = $this->view->render("/pageStart/panelVacancy", [
-            "panelVacancy" =>  (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND hide_panel <> :hi","to=0&hi=1")
-                ->limit($pager->limit())
-                ->offset($pager->offset())
-                ->order("date_open_vacancy", "DESC")
-                ->fetch(true),
+            "panelVacancy" => $panelVacancy,
             "paginator" => $pager->render()
         ]);
         
         $json["html"] = $html;
         $json["content"] = "panel-vacancy";
+        echo json_encode($json);
+        return;
+    }
+
+    // Detalhe do painel do dia
+    public function detailPanelVacancy(?array $data) : void
+    {
+        $versionPanel = (int)$data["versionpanel"];
+
+        if($versionPanel === 0) {
+            $today = new DateTime();
+            $panelVacancy = (new VwVacancy())
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+                ->order("date_open_vacancy", "DESC")
+                ->fetch(true);
+        } else {
+            $today = new DateTime();
+            $panelVacancy = (new VwVacancy())
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->order("date_open_vacancy", "DESC")
+            ->fetch(true);
+        }
+
+        $html = $this->view->render("/pageStart/detailPanelVacancy", [
+            "panelVacancy" => $panelVacancy
+        ]);
+        
+        $json["html"] = $html;
+        $json["content"] = "detail-vacancy";
         echo json_encode($json);
         return;
     }

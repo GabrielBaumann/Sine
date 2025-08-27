@@ -24,7 +24,7 @@ $route->post("/", "Web:login");
 // Start
 $route->get("/inicio", "AppStart:startPage");
 $route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
-$route->get("/filtrarversao/{versionpanel}", "AppStart:panelVacancy");
+$route->get("/filtrarversao/{versionpanel}", "AppStart:detailPanelVacancy");
 
 $route->get("/imprimirpainel/{versionPainel}", "AppStart:printPanel");
 $route->get("/imprimirpainelinterno/{versionPainel}", "AppStart:printPanelInternal");

@@ -350,13 +350,10 @@ document.addEventListener("click", (e) => {
     const vButton = e.target;
     if(vButton.id === "version-panel") {
         const vUrl = vButton.dataset.url; 
-
-        // console.log(vUrl + "/" + vButton.value);
         fetch(vUrl + "/" + vButton.value)
         .then(response => response.json())
         .then(data => {
-            console.log(data.html);
-            document.getElementById("panel-vacancy").html = data.html;
+            document.getElementById(data.content).innerHTML = data.html;
         });
     }
 });

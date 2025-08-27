@@ -35,6 +35,7 @@
     </div>
 
     <!-- Main vacancy cards container -->
+<<<<<<< HEAD
     <h2 class="mx-auto text-black font-semibold text-xl mb-2">PAINEL DO DIA</h2>
     <div class="flex flex-col w-full md:max-h-[450px] 2xl:max-h-[600px] overflow-y-auto gap-4 p-1 pt-0">
         <!-- Card -->
@@ -55,5 +56,13 @@
             </div>
         </div>
         
+=======
+    <div id="detail-vacancy">
+        <!-- Card -->
+        
+            <?php $this->insert("/pageStart/detailPanelVacancy"); ?>
+        
+        <!-- Card -->       
+>>>>>>> ae35f8fd24d18e50fa3a59848c8f2ccf2dcb4402
     </div>
 </div>
