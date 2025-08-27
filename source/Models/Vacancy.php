@@ -30,7 +30,7 @@ class Vacancy extends Model
         }
 
         $accepCurriculum = isset($data["curriculum-vacancy"]) ? $data["curriculum-vacancy"] : 0;
-
+        
         $this->id_enterprise = $data["enterprise"];
         $this->id_cod_cbo = $data["cbo-occupation"];
         $this->apprentice_vacancy = $data["apprentice-vacancy"];
@@ -49,6 +49,7 @@ class Vacancy extends Model
         $this->accept_curriculum = $accepCurriculum;
         $this->request_vacancy = $data["request-vacancy"];
         $this->version_panel = $data["version-panel"];
+        // $this->hide_panel = $hidePanel;
         $this->id_user_register = $userId;
 
         $this->save();
@@ -79,6 +80,7 @@ class Vacancy extends Model
             $vacancy->accept_curriculum = $accepCurriculum;
             $vacancy->request_vacancy = $data["request-vacancy"];
             $vacancy->version_panel = $data["version-panel"];
+            // $vacancy->hide_panel = $hidePanel;
             $vacancy->id_user_register = $userId;
             $vacancy->save();
             }
@@ -491,19 +493,42 @@ class Vacancy extends Model
     }
 
     /**
-     * Ocultar e mostrar vaga no painel e na impressão
+     * Ocultar e mostrar vaga no painel e na impressão true = reativar false = desativar
      */
     public function hideVacancy(string $idVacancy, bool $hideNo = false) : bool
     {
         $idVacancyFixed = (int)fncDecrypt($idVacancy);
-
-        if(!$idVacancyFixed || empty($idFixedVacancy) || $idFixedVacancy == 0) {
-            var_dump("Erro");
+        // Caso o id venha com erro ou seja vazio o retorno será false
+        if(!$idVacancyFixed || empty($idVacancyFixed) || $idVacancyFixed == 0) {
+            return false;
         }
 
-        // Ocultar vaga
-        var_dump($idVacancyFixed);
+        // Vaga espelho
+        $vacancyMirror = (new static())->findById($idVacancyFixed);
 
+        // Vaga Fixa
+        $vacancyFixed = (new static())->find("id_vacancy_fixed = :id","id={$idVacancyFixed}")->fetch(true);
+
+        foreach($vacancyFixed as $vacancyFixedItem) {
+            
+            // Mostra a vaga se hideNo for true
+            if($hideNo === true) {
+                $vacancyFixedItem->hide_vacancy = false;
+            } else {
+                $vacancyFixedItem->hide_vacancy = true;
+            }    
+
+            $vacancyFixedItem->save();
+        }
+        
+        // Mostra a vaga se hideNo for true
+        if($hideNo === true) {
+            $vacancyMirror->hide_vacancy = false;
+        } else {
+            $vacancyMirror->hide_vacancy = true;
+        }
+    
+        $vacancyMirror->save();
         return true;
     }
 
