@@ -661,15 +661,13 @@ class AppVacancy extends Controller
     public function hideVacancy(array $data) : void
     {
         $vacancy = new Vacancy();
-        var_dump($vacancy->hideVacancy($data["idvacancy"]));
-
-        // var_dump($data);
-
-        // if(!$vacancyHide){
-        //     $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
-        //     echo json_encode($json);
-        //     return;
-        // }
+        $vacancyHide = $vacancy->hideVacancy($data["idvacancy"]);
+        
+        if(!$vacancyHide){
+            $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
 
         $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->flash();
         $json["redirect"] = url("/vagas");
@@ -680,14 +678,14 @@ class AppVacancy extends Controller
     // Confirmar mostrar vaga
     public function noHideVacancy(array $data) 
     {
-        // $vacancy = new Vacancy();
-        // $vacancyHide = $vacancy->hidePanel(true);
-
-        // if(!$vacancyHide){
-        //     $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
-        //     echo json_encode($json);
-        //     return;
-        // }
+        $vacancy = new Vacancy();
+        $vacancyHide = $vacancy->hideVacancy($data["idvacancy"], true);
+        
+        if(!$vacancyHide){
+            $json["message"] = messageHelpers()->warning("Erro! Atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
 
         $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
         $json["redirect"] = url("/vagas");
