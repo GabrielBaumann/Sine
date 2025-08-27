@@ -28,9 +28,8 @@ class Vacancy extends Model
         if (!isset($data["number-vacancy"]) || !is_numeric($data["number-vacancy"]) || $data["number-vacancy"] < 1 ) {
             return false;
         }
-
         $accepCurriculum = isset($data["curriculum-vacancy"]) ? $data["curriculum-vacancy"] : 0;
-        
+
         $this->id_enterprise = $data["enterprise"];
         $this->id_cod_cbo = $data["cbo-occupation"];
         $this->apprentice_vacancy = $data["apprentice-vacancy"];
@@ -49,11 +48,11 @@ class Vacancy extends Model
         $this->accept_curriculum = $accepCurriculum;
         $this->request_vacancy = $data["request-vacancy"];
         $this->version_panel = $data["version-panel"];
-        // $this->hide_panel = $hidePanel;
+        $this->hide_panel = $data["hide-panel"];
         $this->id_user_register = $userId;
 
         $this->save();
-
+        
         $idFixedVacancy = $this->id_vacancy;
         $totalNumberVacancy = $data["number-vacancy"];
 
@@ -80,7 +79,7 @@ class Vacancy extends Model
             $vacancy->accept_curriculum = $accepCurriculum;
             $vacancy->request_vacancy = $data["request-vacancy"];
             $vacancy->version_panel = $data["version-panel"];
-            // $vacancy->hide_panel = $hidePanel;
+            $vacancy->hide_panel = $data["hide-panel"];
             $vacancy->id_user_register = $userId;
             $vacancy->save();
             }
@@ -130,6 +129,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->accept_curriculum = $accepCurriculum;
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
+                $oldVacancyUpdate->hide_panel = $data["hide-panel"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -156,6 +156,7 @@ class Vacancy extends Model
                 $this->accept_curriculum = $accepCurriculum;
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->version_panel = $data["version-panel"];
+                $this->hide_panel = $data["hide-panel"];
                 $this->id_user_update = $userId;
 
                 $this->save();
@@ -183,6 +184,7 @@ class Vacancy extends Model
                 $vacancy->accept_curriculum = $accepCurriculum;
                 $vacancy->request_vacancy = $data["request-vacancy"];
                 $vacancy->version_panel = $data["version-panel"];
+                $vacancy->hide_panel = $data["hide-panel"];
                 $vacancy->id_user_register = $userId;
                 $vacancy->save();
             }
@@ -218,6 +220,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->accept_curriculum = $accepCurriculum;
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
+                $oldVacancyUpdate->hide_panel = $data["hide-panel"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -244,6 +247,7 @@ class Vacancy extends Model
                 $this->accept_curriculum = $accepCurriculum;
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->version_panel = $data["version-panel"];
+                $this->hide_panel = $data["hide-panel"];
                 $this->id_user_update = $userId;
 
                 $this->save();

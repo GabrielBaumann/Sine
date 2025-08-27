@@ -164,3 +164,25 @@ fncModalQuest("btn-hiden-panel");
 
 // Modal de confirmação para ocultar vaga
 fncModalQuest("btn-hide-vacancy");
+
+// Modal de detalhe de encaminhamento para vaga
+fncModalQuest("btn-detail-vacancy");
+
+// Modal com detalhe dos encaminhamentos por vaga
+document.addEventListener("click", (e) => {
+    const vButton = e.target.closest("a");
+    if(vButton && vButton.id === "btn-detail-vacancy") {
+        const vUrl = vButton.dataset.url;
+        fetch(vUrl)
+        .then(response => response.json())
+        .then(data => {
+
+            if (document.getElementById("modal")) return document.getElementById("modal").remove();
+
+            const vElement = document.createElement("div");
+            vElement.id = "modal";
+            vElement.innerHTML = data.html;
+            document.body.appendChild(vElement);
+        })
+    }
+});

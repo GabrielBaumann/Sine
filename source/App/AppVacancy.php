@@ -204,6 +204,9 @@ class AppVacancy extends Controller
                 return;
             }
 
+            // Verifica se o painel está oculto ou não
+            $panelHide = (new Vacancy())->checkHidePanel() === 2 ? 1 : 0;
+
             // Verificar e sanitizar campos obrigatórios e não obrigatórios
             $dataClean = cleanInputData($data, ["description-vacancy", "request-vacancy"]);
 
@@ -249,6 +252,7 @@ class AppVacancy extends Controller
                     return;
                 }
 
+                $dataCleanOk["hide-panel"] = $panelHide;
                 $updateVacancy = (new Vacancy())->updateVacancy($dataCleanOk["idvacancy"], $dataCleanOk ,$this->user->id_user);
 
                 $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
@@ -260,6 +264,7 @@ class AppVacancy extends Controller
 
             // Criar vagas
             $vacancy = new Vacancy();
+            $dataCleanOk["hide-panel"] = $panelHide;
             $createVacancys = $vacancy->createVacancy($dataCleanOk, $this->user->id_user);
 
             if(!$createVacancys){
@@ -691,6 +696,22 @@ class AppVacancy extends Controller
         $json["redirect"] = url("/vagas");
         echo json_encode($json);
         return;
+    }
+
+    // Modal de detalhe de encaminhamento de tralhador por vaga
+    public function detailVacancyWorker(array $data) : void
+    {
+        $html = $this->view->render("/modalQuest/modalDetailVacancy", [
+            "title" => "Detalhe",
+            "textMessage" => "Pessoas encaminhada",
+            "urlYes" => true,
+            "urlNo" => true,
+            "cancel" => true
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;   
     }
 
     // Sair do sistema
