@@ -1,4 +1,33 @@
-<div class="flex flex-col gap-4">
+<style type="text/tailwindcss">
+    /* Chrome, Safari, Edge */
+    .scrollbar-custom::-webkit-scrollbar {
+        width: 12px;
+        
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar-track {
+        background: #ffffffff;
+        border-radius: 6px;
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar-thumb {
+        background: #ffffffff;
+        border-radius: 6px;
+        border: 3px solid #f1f5f9;
+    }
+    
+    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+        background: #ffffffff;
+    }
+    
+    /* Firefox */
+    .scrollbar-custom {
+        scrollbar-width: thin;
+        scrollbar-color: #457fd7ff #ffffffff;
+    }
+</style>
+
+<div class="flex flex-col gap-4 scrollbar-custom">
     <div class="p-5 w-full md:bg-white md:rounded-2xl md:flex md:flex-col items-center justify-center text-center mx-auto gap-3">
         <h2 class="text-xl font-semibold text-gray-800 items-left">Baixar painel</h2>
             <div class="flex flex-col text-left w-full">
@@ -25,7 +54,7 @@
                 <button
                     id="print-panel-internal"
                     data-url="<?= url("/imprimirpainelinterno"); ?>"
-                    class="w-full flex items-center text-xs cursor-pointer print p-2 bg-white border border-black hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-black rounded-full">
+                    class="w-full flex items-center text-xs cursor-pointer print p-2 gap-2 bg-white border border-black hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-black rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
                     </svg>
