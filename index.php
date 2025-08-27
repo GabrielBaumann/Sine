@@ -100,6 +100,10 @@ $route->post("/encerramentoautomatico", "AppVacancy:todoClousureToday");
 $route->get("/excluirvaga/{idvacancy}", "AppVacancy:questDeleteVacancy");
 $route->post("/excluirvaga/{idvacancy}", "AppVacancy:deleteVacancy");
 
+$route->get("/reativarvagas/{idvacancy}", "AppVacancy:questReactiveVacancy");
+$route->post("/confirmarreativarvagas/{idvacancy}", "AppVacancy:reactiveVacancy");
+
+
 $route->get("/janelaocultarpainel/{hideyesno}", "AppVacancy:questHidePainel");
 $route->post("/ocultarpainel", "AppVacancy:hidePanel");
 $route->post("/mostrarpainel", "AppVacancy:noHidePanel");

@@ -61,7 +61,7 @@
             <!-- Botão editar -->
             <?php if($vacancyInfo->status_vacancy == "Encerrada"): ?>
                 <button 
-                    data-url="<?= url("/excluirvaga") . "/" . $vacancyInfo->id_vacancy; ?>"
+                    data-url="<?= url("/reativarvagas") . "/" . fncEncrypt($vacancyInfo->id_vacancy); ?>"
                     id="btn-reactivate-vacancy" 
                     class="cursor-pointer flex items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 text-black font-medium rounded-lg transition-colors duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">

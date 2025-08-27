@@ -714,6 +714,38 @@ class AppVacancy extends Controller
         return;   
     }
 
+    // Modal de confirmação para reativar vaga
+    public function questReactiveVacancy(array $data) : void 
+    {
+        $html = $this->view->render("/modalQuest/modalQuestYesNo", [
+            "title" => "Atenção!!!",
+            "textMessage" => "Você vai reativar uma vaga!",
+            "urlYes" => url("/confirmarreativarvagas/{$data["idvacancy"]}"),
+            "urlNo" => null,
+            "cancel" => true
+        ]);
+
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    // Confimar reativação da vaga
+    public function reactiveVacancy(array $data) : void
+    {
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+        
+        $vacancy = (new Vacancy())->findById($idVacancy);
+        $vacancy->status_vacancy = "Ativa";
+        $vacancy->reason_close = "";
+        $vacancy->save();
+
+        $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
+        $json["redirect"] = url("/vagas");
+        echo json_encode($json);
+        return;
+    }
+
     // Sair do sistema
     public function logout()
     {

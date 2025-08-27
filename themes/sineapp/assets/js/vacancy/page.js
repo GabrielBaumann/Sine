@@ -168,6 +168,9 @@ fncModalQuest("btn-hide-vacancy");
 // Modal de detalhe de encaminhamento para vaga
 fncModalQuest("btn-detail-vacancy");
 
+// Modal de confirmação para reativar vaga
+fncModalQuest("btn-reactivate-vacancy");
+
 // Modal com detalhe dos encaminhamentos por vaga
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("a");
