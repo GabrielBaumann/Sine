@@ -13,11 +13,11 @@
     <!-- Cards -->
     <div class="md:bg-white rounded-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 w-full justify-center">
       <!-- Atendimentos -->
-      <div class="bg-gradient-to-r from-blue-100 to-blue-200 rounded-md p-4 2xl:p-6 overflow-hidden relative">
+      <div class="bg-gradient-to-r from-blue-300 to-blue-300 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
-                <h3 class="text-4xl font-medium text-blue-500"><?= format_number($serviceCount ?? 000) ?></h3>
-                <p class="text-sm text-blue-500 mb-1">Atendimentos</p>
+                <h3 class="text-4xl font-medium text-white"><?= format_number($serviceCount ?? 000) ?></h3>
+                <p class="text-sm text-white mb-1">Atendimentos</p>
             </div>
             <div class="p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 2xl:absolute 2xl:bottom-[-30px] 2xl:right-[-30px] 2xl:size-30 text-blue-50">
@@ -28,11 +28,11 @@
       </div>
       
       <!-- Vagas -->
-      <div class="bg-gradient-to-r from-blue-200 to-blue-300 rounded-md p-4 2xl:p-6 overflow-hidden relative">
+      <div class="bg-gradient-to-r from-blue-300 to-blue-300 rounded-md p-4 2xl:p-6 overflow-hidden relative">
         <div class="flex justify-between items-start">
             <div>
-                <h3 class="text-4xl font-medium text-blue-500"><?= format_number($vavancysCount ?? 000) ?></h3>
-                <p class="text-sm text-blue-500 mb-1">Vagas</p>
+                <h3 class="text-4xl font-medium text-white"><?= format_number($vavancysCount ?? 000) ?></h3>
+                <p class="text-sm text-white mb-1">Vagas</p>
             </div>
             <div class="p-2 rounded-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 2xl:absolute 2xl:bottom-[-30px] 2xl:right-[-30px] 2xl:size-30 text-blue-100">

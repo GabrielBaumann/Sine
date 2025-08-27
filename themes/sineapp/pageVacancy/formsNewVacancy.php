@@ -174,6 +174,7 @@ $enterprise = new Enterprise();
                     </select>
                 </div>
             
+                <!-- panel version -->
                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Versão do Painel *</label>
                     <select

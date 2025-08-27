@@ -1,7 +1,7 @@
-<div class="bg-transparent rounded-md overflow-hidden mt-10">
+<div class="bg-white p-4 rounded-2xl overflow-hidden mt-4">
     <div><?= flash(); ?></div>
     <div class="overflow-x-auto">
-        <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
+        <table class="min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">ID</th>
@@ -14,11 +14,11 @@
             <?php endif;?>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 bg-gray-50">
+            <tbody class="divide-y divide-gray-200">
                 <!-- Linha 1 -->
                 <?php if (!empty($totalVacancy)): ?>
                     <?php foreach($totalVacancy as $vacancy): ?>
-                        <tr class="hover:bg-blue-50 bg-gray-50 border-b border-gray-300">
+                        <tr class="hover:bg-gray-100">
                             <td data-label="Nome" class=" whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
@@ -85,7 +85,7 @@
     </div>
 
         <!-- Paginação -->
-        <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <div class="flex gap-2">

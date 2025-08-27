@@ -1,26 +1,23 @@
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-2">
+<!-- back button -->
+<button
+    id="btn-back"
+    data-url="<?= url("/listavagas"); ?>"
+    data-change="view-form"
+    class="cursor-pointer p-1 mb-4 px-2 rounded-full text-blue-500 hover:text-blue-900 transition-all duration-200 flex items-center gap-1">
+    < Voltar à página de vagas
+</button>
 
-    <div class="flex-flex-col">
-        <!-- Cabeçalho -->
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 md:mb-0 pb-7">
-            <div class="flex items-center gap-3">
-                <button
-                    id="btn-back"
-                    data-url="<?= url("/listavagas"); ?>"
-                    data-change="view-form"
-                    class="cursor-pointer p-1 px-2 rounded-full border border-gray-300 text-gray-700 hover:bg-[#095998] hover:text-white transition-all duration-200 flex items-center gap-1">
-                    < Voltar
-                </button>
-            </div>
-        </div>
+<div class="bg-white p-4 flex flex-col md:flex-row items-center justify-between w-full rounded-2xl">
+
+    <div class="flex flex-col">
         <!-- Título -->
-        <h1 class="hidden md:flex text-2xl font-semibold text-gray-900"><?= $vacancyInfo->nomeclatura_vacancy; ?></h1>
-        <h2 class="hidden md:flex text-md font-normal text-gray-600"><?= $vacancyInfo->name_enterprise; ?></h2>
-        <h2 class="hidden md:flex text-md font-normal text-gray-600"><?= $vacancyInfo->status_vacancy; ?></h2>
+        <h1 class="text-2xl font-semibold text-gray-900"><?= $vacancyInfo->nomeclatura_vacancy; ?></h1>
+        <h2 class="text-md font-normal text-gray-600"><?= $vacancyInfo->name_enterprise; ?></h2>
+        <h2 class="text-md font-normal text-gray-600"><?= $vacancyInfo->status_vacancy; ?></h2>
     </div>
-    
+
     <!-- Controles -->
-    <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto md:mt-12">
+    <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
         <!-- Filtros -->
         <div class="flex flex-col sm:flex-row gap-2">
             <select 
@@ -67,6 +64,8 @@
             </button>
         </div>
     </div>
+    
+    
 </div>
 <div id="list-info-vacancy">
     <?php $this->insert("/pageVacancy/componentListInfoVacancy") ?>
