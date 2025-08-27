@@ -79,6 +79,7 @@ $route->get("/vagas", "AppVacancy:startVacancy");
 $route->get("/listavagas", "AppVacancy:listVacancy");
 $route->post("/listavagas", "AppVacancy:listVacancy");
 
+$route->get("/detalhevaga/{idvacancy}", "AppVacancy:detailVacancyWorker");
 $route->get("/informacaovagas/{idvacancy}", "AppVacancy:infoVacancy");
 $route->get("/paginarvagas/p/{idvacancy}/{page}", "AppVacancy:infoVacancy");
 $route->post("/pesquisarstatus/{idvacancy}", "AppVacancy:searchVacancy");
