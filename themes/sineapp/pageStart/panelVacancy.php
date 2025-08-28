@@ -28,7 +28,7 @@
 </style>
 
 <div class="flex flex-col gap-4 scrollbar-custom">
-    <div class="p-5 w-full md:bg-gradient-to-br from-blue-300 to-blue-500 text-white md:rounded-2xl md:flex md:flex-col items-center justify-center text-center mx-auto gap-3">
+    <div class="p-5 w-full bg-gradient-to-br ml-3 md:ml-0 from-blue-300 to-blue-500 text-white rounded-2xl flex flex-col items-center justify-center text-center mx-auto gap-3">
         <!-- <h2 class="text-xl font-semibold text-white items-left mb-3 md:mb-0">Baixar Painel</h2> -->
             <div class="flex flex-col text-left w-full text-white">
                 <label for="time-panel" class="font-semibold text-xl flex text-center 2xl:mb-5 mx-auto">Selecione a versão do painel:</label>
