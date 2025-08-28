@@ -130,6 +130,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->hide_panel = $data["hide-panel"];
+                $oldVacancyUpdate->hide_vacancy = $data["hide-vacancy"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -157,6 +158,7 @@ class Vacancy extends Model
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->version_panel = $data["version-panel"];
                 $this->hide_panel = $data["hide-panel"];
+                $this->hide_vacancy = $data["hide-vacancy"];
                 $this->id_user_update = $userId;
 
                 $this->save();
@@ -185,6 +187,7 @@ class Vacancy extends Model
                 $vacancy->request_vacancy = $data["request-vacancy"];
                 $vacancy->version_panel = $data["version-panel"];
                 $vacancy->hide_panel = $data["hide-panel"];
+                $vacancy->hide_vacancy = $data["hide-vacancy"];
                 $vacancy->id_user_register = $userId;
                 $vacancy->save();
             }
@@ -221,6 +224,7 @@ class Vacancy extends Model
                 $oldVacancyUpdate->request_vacancy = $data["request-vacancy"];
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->hide_panel = $data["hide-panel"];
+                $oldVacancyUpdate->hide_vacancy = $data["hide-vacancy"];
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -248,6 +252,7 @@ class Vacancy extends Model
                 $this->request_vacancy = $data["request-vacancy"];
                 $this->version_panel = $data["version-panel"];
                 $this->hide_panel = $data["hide-panel"];
+                $this->hide_vacancy = $data["hide-vacancy"];
                 $this->id_user_update = $userId;
 
                 $this->save();
@@ -475,7 +480,7 @@ class Vacancy extends Model
     }
 
     /**
-     * Verificar se existe vagas ocultas, se existe vagas para ocultar e se não existe vagas ativas
+     * Verificar se o painel está oculto, se existe vagas para ocultar e se não existe vagas ativas
      */
     public function checkHidePanel() : int 
     {
@@ -535,6 +540,31 @@ class Vacancy extends Model
         $vacancyMirror->save();
         return true;
     }
+
+    /**
+     * Verificar se a vaga está oculta
+     */
+    public function hideVacancyOnlyOne(int $idVacancy): bool
+    {
+        $vacancy = (new VwVacancy())->findById($idVacancy);
+
+        if(!$vacancy) {
+            return false;
+        }
+
+        // Vaga está oculta
+        if($vacancy->hide_vacancy === 1) {
+            return true;
+        }
+
+        // Vaga não está oculta
+        if($vacancy->hide_vacancy === 0) {
+            return false;
+        }
+
+        return false;
+    }
+
 
     /**
      * Exclui vagas

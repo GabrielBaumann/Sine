@@ -18,7 +18,6 @@ document.addEventListener("click", (e) => {
 
 // Baixar painel em pdf
 document.addEventListener("click", (e) => {
-
     const vButton = e.target.closest("button");
 
     if(vButton && vButton.id === "visualizar-pdf") {
@@ -169,6 +168,7 @@ document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
     
     if(vButton && vButton.id === "download_image") {
+
         // Elemento a ser convertido em imagem
         const elemento = document.getElementById('conteudo_pdf');
         
@@ -358,7 +358,6 @@ document.addEventListener("click", (e) => {
                 fncMessage(data.message);
                 return;
             }
-
             document.getElementById(data.content).innerHTML = data.html;
         });
     }

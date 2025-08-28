@@ -244,6 +244,7 @@ function removeFlash() {
             
             setTimeout(() => el.remove(), 3000);
         }, 3000);
+        document.getElementById("response")?.remove();
     });
 }
 
@@ -384,7 +385,8 @@ function fncModalQuest (vIdButton) {
             fetch(vUrl)
             .then(response => response.json())
             .then(data => {
-
+                
+                document.getElementById("response")?.remove();
                 if (document.getElementById("modal")) return document.getElementById("modal").remove();
 
                 const vElement = document.createElement("div");
@@ -398,7 +400,8 @@ function fncModalQuest (vIdButton) {
 
 // Cancelar ação
 document.addEventListener("click", (e) => {
-    if(e.target.id === "cancelBtn") {
+    const vButton = e.target.closest("button")
+    if(vButton && vButton.id === "cancelBtn") {
         document.getElementById('modal').remove();
     }
 });

@@ -51,7 +51,20 @@
                 <button id="cancelBtn" class="flex justify-end items-end text-right text-2xl font-extralight text-gray-500 cursor-pointer p-2">
                     X
                 </button>
+
             </div>
+                <div class="flex flex-col">
+                    <span class="text-sm text-gray-500">Vaga:</span>
+                    <span class="font-semibold text-md"><?= $orderVacancy; ?></span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm text-gray-500">Quantidade por vaga:</span>
+                    <span class="font-semibold text-md"><?= format_number($quantityPerVacancy); ?></span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm text-gray-500">Quantidade de encaminhamentos:</span>
+                    <span class="font-semibold text-md"><?= format_number($totalPerVacancy); ?></span>
+                </div>
             <div class="flex flex-col h-full justify-between pb-4">
                     <div class="flex flex-col mt-4 p-4">
                         <div class="flex flex-col w-full max-h-[600px] overflow-y-auto gap-4">

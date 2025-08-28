@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Tabela de vagas</title>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <style>
     body {
         font-family: sans-serif;
@@ -219,6 +221,12 @@
             </div>
         </div>
     </div>
+
+
+    <script src="<?= theme("/assets/js/start/page.js", CONF_VIEW_APP); ?>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
 </body>
 </html>

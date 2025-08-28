@@ -189,6 +189,10 @@ class AppStart extends Controller
 
         }
 
+        // echo $this->view->render("/pageStart/printingPainel", [
+        //     "panelVacancy" =>  $panelVacancy
+        // ]);
+
         $html = $this->view->render("/pageStart/printingPainel", [
             "panelVacancy" =>  $panelVacancy
         ]);

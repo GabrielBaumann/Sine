@@ -1,6 +1,7 @@
 fncUpdateColorStatusVacancy();
 fnccheckBoxVacancy();
 fncCheckClosedVacancy();
+removeFlash();
 
 // função para Atualização dos status das vagas - lista
 function fncUpdateColorStatusVacancy(){
@@ -180,6 +181,7 @@ document.addEventListener("click", (e) => {
         .then(response => response.json())
         .then(data => {
 
+            document.getElementById("response")?.remove();
             if (document.getElementById("modal")) return document.getElementById("modal").remove();
 
             if(data.message) {

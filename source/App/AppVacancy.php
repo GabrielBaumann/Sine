@@ -268,7 +268,12 @@ class AppVacancy extends Controller
                     return;
                 }
 
+                // Verifica se a vaga está oculto ou não
+                $vacancyHide = (new Vacancy())->hideVacancyOnlyOne($data["idvacancy"]) === true ? 1 : 0;
+
                 $dataCleanOk["hide-panel"] = $panelHide;
+                $dataCleanOk["hide-vacancy"] = $vacancyHide;
+                
                 $updateVacancy = (new Vacancy())->updateVacancy($dataCleanOk["idvacancy"], $dataCleanOk ,$this->user->id_user);
 
                 $json["message"] = messageHelpers()->success("Registro atualizado com sucesso!")->render();
@@ -726,13 +731,18 @@ class AppVacancy extends Controller
             return;
         }
 
-        $totalVacancy = (new VwVacancy())->findById($vwForwardingWorker[0]->id_vacancy_fixed)->number_vacancy;
+        $totalVacancy = (new VwVacancy())->findById($vwForwardingWorker[0]->id_vacancy_fixed);
         $numberVacancy = $vwForwardingWorker[0]->number_vacancy;
 
-        $orderVacancy = $numberVacancy . "/" . $totalVacancy;
+        $orderVacancy = $numberVacancy . "/" . $totalVacancy->number_vacancy;
+        $quantityPerVacancy = $totalVacancy->quantity_per_vacancy;
+        $totalPerVacancy = count($vwForwardingWorker);
 
         $html = $this->view->render("/modalQuest/modalDetailVacancy", [
-            "title" => " Detalhe de Encaminhamentos - Vaga " . $orderVacancy ,
+            "title" => " Detalhe de Encaminhamentos",
+            "orderVacancy" => $orderVacancy,
+            "quantityPerVacancy" => $quantityPerVacancy,
+            "totalPerVacancy" => $totalPerVacancy,
             "vwForwardingWorker" => $vwForwardingWorker,
             "urlYes" => true,
             "urlNo" => true,
