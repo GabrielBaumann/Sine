@@ -39,9 +39,11 @@
                             </td>
                             <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
                                 <?php if ($vacancy->status_vacancy === 'Encerrada'): ?>
-                                    <span class="text-sm text-red-500 bg-red-100 rounded-full px-2.5 py-0.5 status-vacancy"><?= $vacancy->status_vacancy; ?></span>
-                                    <?php else: ?>
-                                    <span class="text-sm text-gray-700 px-2.5 py-0.5"><?= $vacancy->vacancy_summary; ?></span>
+                                        <span class="text-sm text-red-500 bg-red-100 rounded-full px-2.5 py-0.5 status-vacancy"><?= $vacancy->status_vacancy; ?></span>
+                                    <?php elseif($vacancy->hide_vacancy == '1'): ?>
+                                        <span class="text-sm text-blue-500 bg-blue-100 rounded-full px-2.5 py-0.5 status-vacancy">Vaga Oculta</span>
+                                    <?php else:?>
+                                        <span class="text-sm text-gray-700 px-2.5 py-0.5"><?= $vacancy->vacancy_summary; ?></span>
                                 <?php endif; ?>
                             </td>
                             <td data-label="Nome" class=" whitespace-nowrap">

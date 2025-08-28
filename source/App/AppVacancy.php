@@ -52,9 +52,16 @@ class AppVacancy extends Controller
                 $params["n"] = "%{$searchVacancy}%";
             }
 
-            if(!empty($searchStatus)) {
-                $conditions[] = "status_vacancy = :s";
-                $params["s"] = $searchStatus;
+            if($searchStatus === "Oculta") {
+                if(!empty($searchStatus)) {
+                    $conditions[] = "hide_vacancy = :s";
+                    $params["s"] = 1;
+                }
+            } else {
+                if(!empty($searchStatus)) {
+                    $conditions[] = "status_vacancy = :s AND hide_vacancy <> 1";
+                    $params["s"] = $searchStatus;
+                }
             }
 
             $where = implode(" AND ", $conditions);
@@ -132,10 +139,18 @@ class AppVacancy extends Controller
                 $params["n"] = "%{$searchVacancy}%";
             }
 
-            if(!empty($searchStatus)) {
-                $conditions[] = "status_vacancy = :s";
-                $params["s"] = $searchStatus;
+            if($searchStatus === "Oculta") {
+                if(!empty($searchStatus)) {
+                    $conditions[] = "hide_vacancy = :s";
+                    $params["s"] = 1;
+                }
+            } else {
+                if(!empty($searchStatus)) {
+                    $conditions[] = "status_vacancy = :s AND hide_vacancy <> 1";
+                    $params["s"] = $searchStatus;
+                }
             }
+
 
             $where = implode(" AND ", $conditions);
 

@@ -163,7 +163,17 @@
                 <div class="">
                     <div class="flex flex-row gap-2">
                         <span>Versão do painel:</span>
-                        <span class="font-semibold"></span>
+                        <?php switch($vacancyInfo->version_panel): case 1: ?>
+                                <span class="font-semibold">1 (08:00 às 10:00)</span>
+                                <?php break; ?>
+                            <?php case 2: ?>
+                                <span class="font-semibold">2 (10:00 às 12:00)</span>
+                                <?php break; ?>
+                            <?php case 3: ?>
+                                <span class="font-semibold">3 (12:00 às 00:00)</span>
+                                <?php break; ?>      
+                        <?php endswitch; ?>
+                        
                     </div>
                     <div class="flex flex-row gap-2">
                         <span>Pegar currículo:</span>
@@ -175,7 +185,7 @@
                     </div>
                     <div class="flex flex-row gap-2">
                         <span>Data de encerramento:</span>
-                        <span class="font-semibold"><?= date_fmt($vacancyInfo->date_closed_vacancy); ?></span>
+                        <span class="font-semibold"><?= date_simple($vacancyInfo->date_closed_vacancy); ?></span>
                     </div>
                 </div>
             </div>

@@ -206,7 +206,7 @@ class AppStart extends Controller
 
         // Quando não existir vagas ativas
         if(!$vwVacancy) {
-            $json["message"] = messageHelpers()->warning("Não há vagas no painél!")->render();
+            $json["message"] = messageHelpers()->warning("Não há vagas no painel!")->render();
             echo json_encode($json);            
             return;
         }

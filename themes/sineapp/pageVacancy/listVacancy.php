@@ -42,6 +42,7 @@
                 <option value="">Todos status</option>
                 <option>Ativa</option>
                 <option>Encerrada</option>
+                <option>Oculta</option>
             </select>
             
             <!-- Botão Nova Vaga -->
