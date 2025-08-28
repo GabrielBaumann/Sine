@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="flex flex-col w-full">
                                             <label for="detail-response-company" class="text-gray-500">Observação</label>
-                                            <input type="text" name="detail-response-company" id="detail-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full">
+                                            <input type="text" name="detail-response-company" id="detail-response-company" class="p-2 bg-gray-200 border border-gray-100 rounded-md w-full md:w-[500px] 2xl:w-[700px]">
                                         </div>
                                     </div>
                                     <div class="flex w-full gap-4">
