@@ -10,6 +10,7 @@ use Source\Models\Enterprise;
 use Source\Models\SystemUser;
 use Source\Models\Vacancy;
 use Source\Models\VacancyWorker;
+use Source\Models\Views\VwForwardingWorker;
 use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
@@ -716,9 +717,23 @@ class AppVacancy extends Controller
     // Modal de detalhe de encaminhamento de tralhador por vaga
     public function detailVacancyWorker(array $data) : void
     {
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+        $vwForwardingWorker = (new VwForwardingWorker())->find("id_vacancy = :id","id={$idVacancy}")->fetch(true);
+
+        if(!$vwForwardingWorker) {
+            $json["message"] = messageHelpers()->warning("Não há encaminhamentos de trabalhador para essa vaga!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $totalVacancy = (new VwVacancy())->findById($vwForwardingWorker[0]->id_vacancy_fixed)->number_vacancy;
+        $numberVacancy = $vwForwardingWorker[0]->number_vacancy;
+
+        $orderVacancy = $numberVacancy . "/" . $totalVacancy;
+
         $html = $this->view->render("/modalQuest/modalDetailVacancy", [
-            "title" => "Detalhe",
-            "textMessage" => "Pessoas encaminhada",
+            "title" => " Detalhe de Encaminhamentos - Vaga " . $orderVacancy ,
+            "vwForwardingWorker" => $vwForwardingWorker,
             "urlYes" => true,
             "urlNo" => true,
             "cancel" => true

@@ -12,6 +12,7 @@ use Source\Models\Views\VwService;
 use Source\Models\Worker;
 use Source\Models\WorkerEdit;
 use Source\Support\Pager;
+use Source\Support\Message;
 
 class AppWorker extends Controller
 {
@@ -460,5 +461,13 @@ class AppWorker extends Controller
             echo json_encode($json);
             return;
         }
+    }
+
+    public function logout()
+    {
+        (new Message())->success("Você saiu com sucesso " . Auth::user()->nome . ". Volte logo :)")->flash();    
+        
+        Auth::logout();
+        redirect("/");
     }
 }

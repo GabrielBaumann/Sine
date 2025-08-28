@@ -32,7 +32,7 @@
             /* padding: 30px; */
             border-radius: 10px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            /* width: 600px; */
+            width: 600px;
             /* height: 400px; */
             max-width: 90%;
             text-align: center;
@@ -53,107 +53,49 @@
                 </button>
             </div>
             <div class="flex flex-col h-full justify-between pb-4">
-
-                <div class="flex flex-col mt-4 p-4">
+                    <div class="flex flex-col mt-4 p-4">
                         <div class="flex flex-col w-full max-h-[600px] overflow-y-auto gap-4">
-                            <!-- CARD -->
-                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">NOME</span>
-                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                            <?php foreach($vwForwardingWorker as $vwForwardingWorkerItem): ?>
+                                <!-- CARD -->
+                                <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">NOME</span>
+                                        <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->name_worker; ?></span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">CPF</span>
+                                        <span class="font-semibold text-md"><?= formatCPF($vwForwardingWorkerItem->cpf_worker); ?></span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">Observação durante o encaminhamento</span>
+                                        <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->detail_service ?? "..." ?></span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">DATA do Encaminhamento</span>
+                                        <span class="font-semibold text-md"><?= date_simple($vwForwardingWorkerItem->date_forwarding); ?></span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">STATUS</span>
+                                        <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]"><?= $vwForwardingWorkerItem->status_vacancy_worker; ?></span>
+                                    </div>
+                                    <?php if($vwForwardingWorkerItem->status_vacancy_worker <> "Aguardando resposta"): ?>
+                                        <div class="flex flex-col">
+                                            <span class="text-sm text-gray-500">DATA da Resposta do Empregador</span>
+                                            <span class="font-semibold text-md"><?= date_simple($vwForwardingWorkerItem->date_response_company); ?></span>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-sm text-gray-500">Detalhe da resposta</span>
+                                            <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->detail_response; ?></span>
+                                        </div>
+                                    <?php endif;?>
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-gray-500">SERVIDOR</span>
+                                        <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->name_user; ?></span>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">DATA</span>
-                                    <span class="font-semibold text-md">21/12/2025</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">STATUS</span>
-                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">SERVIDOR</span>
-                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
-                                </div>
-                            </div>
-                            <!-- CARD -->
-                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">NOME</span>
-                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">DATA</span>
-                                    <span class="font-semibold text-md">21/12/2025</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">STATUS</span>
-                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">SERVIDOR</span>
-                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
-                                </div>
-                            </div>
-                            <!-- CARD -->
-                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">NOME</span>
-                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">DATA</span>
-                                    <span class="font-semibold text-md">21/12/2025</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">STATUS</span>
-                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">SERVIDOR</span>
-                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
-                                </div>
-                            </div>
-                            <!-- CARD -->
-                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">NOME</span>
-                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">DATA</span>
-                                    <span class="font-semibold text-md">21/12/2025</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">STATUS</span>
-                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">SERVIDOR</span>
-                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
-                                </div>
-                            </div>
-                            <!-- CARD -->
-                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">NOME</span>
-                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">DATA</span>
-                                    <span class="font-semibold text-md">21/12/2025</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">STATUS</span>
-                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="text-sm text-gray-500">SERVIDOR</span>
-                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
-                                </div>
-                            </div>
-                            
+                            <?php endforeach; ?>
                         </div>
-                </div>
+                    </div>
                 <div class="">
                     <button id="cancelBtn" class="flex items-center text-center mx-auto gap-2 bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-green-600 transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

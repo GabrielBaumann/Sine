@@ -182,6 +182,10 @@ document.addEventListener("click", (e) => {
 
             if (document.getElementById("modal")) return document.getElementById("modal").remove();
 
+            if(data.message) {
+                fncMessage(data.message);
+                return;
+            }
             const vElement = document.createElement("div");
             vElement.id = "modal";
             vElement.innerHTML = data.html;
