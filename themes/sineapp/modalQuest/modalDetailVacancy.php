@@ -28,87 +28,140 @@
         }
         
         .modal-content {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
+            /* background-color: rgba(255, 255, 255, 0.9); */
+            /* padding: 30px; */
             border-radius: 10px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            width: 450px;
+            /* width: 600px; */
+            /* height: 400px; */
             max-width: 90%;
             text-align: center;
             animation: fadeIn 0.4s ease-out;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        
-        .modal-title {
-            font-size: 22px;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            font-weight: 600;
-        }
-        
-        .modal-message {
-            color: #34495e;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        
-        .modal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 25px;
-        }
-        
-        .modal-button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            min-width: 120px;
-        }
-        
-        .confirm-button {
-            background-color: #27ae60;
-            color: white;
-            box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
-        }
-        
-        .confirm-button:hover {
-            background-color: #2ecc71;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(39, 174, 96, 0.3);
-        }
-        
-        .cancel-button {
-            background-color: #e74c3c;
-            color: white;
-            box-shadow: 0 4px 6px rgba(231, 76, 60, 0.2);
-        }
-        
-        .cancel-button:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(231, 76, 60, 0.3);
-        }
     </style>
 </head>
 <body>
+
     <!-- Modal de confirmação -->
     <div class="modal-overlay" id="confirmationModal">
-        <div class="modal-content">
-            <button id="cancelBtn">x</button>
-            <div class="modal-title"><?= $title ?? "Erro!" ?></div>
-            <p class="modal-message"><?= $textMessage ?? "Erro!" ?></p>
-            <div class="modal-buttons">
-                <button id="cancelBtn" class="modal-button cancel-button">Cencelar</button>
+        <div class="modal-content flex flex-col bg-white">
+            <div class="flex items-center justify-between border-b border-gray-400 px-5 py-2">
+                <div class="modal-title font-light text-gray-600 font-semibold text-xl"><?= $title ?? "Erro!" ?></div>
+                <button id="cancelBtn" class="flex justify-end items-end text-right text-2xl font-extralight text-gray-500 cursor-pointer p-2">
+                    X
+                </button>
+            </div>
+            <div class="flex flex-col h-full justify-between pb-4">
+
+                <div class="flex flex-col mt-4 p-4">
+                        <div class="flex flex-col w-full max-h-[600px] overflow-y-auto gap-4">
+                            <!-- CARD -->
+                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">NOME</span>
+                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">DATA</span>
+                                    <span class="font-semibold text-md">21/12/2025</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">STATUS</span>
+                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">SERVIDOR</span>
+                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
+                                </div>
+                            </div>
+                            <!-- CARD -->
+                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">NOME</span>
+                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">DATA</span>
+                                    <span class="font-semibold text-md">21/12/2025</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">STATUS</span>
+                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">SERVIDOR</span>
+                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
+                                </div>
+                            </div>
+                            <!-- CARD -->
+                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">NOME</span>
+                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">DATA</span>
+                                    <span class="font-semibold text-md">21/12/2025</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">STATUS</span>
+                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">SERVIDOR</span>
+                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
+                                </div>
+                            </div>
+                            <!-- CARD -->
+                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">NOME</span>
+                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">DATA</span>
+                                    <span class="font-semibold text-md">21/12/2025</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">STATUS</span>
+                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">SERVIDOR</span>
+                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
+                                </div>
+                            </div>
+                            <!-- CARD -->
+                            <div class="flex flex-col text-left gap-3 bg-white  border-b-2 border-gray-300 p-4">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">NOME</span>
+                                    <span class="font-semibold text-md">FULANO DE TAL DA SILVA DE SOUSA HONORATO DE MEDES ARAUJO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">DATA</span>
+                                    <span class="font-semibold text-md">21/12/2025</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">STATUS</span>
+                                    <span class="font-semibold text-sm px-3 p1-2 text-yellow-900 bg-yellow-300 rounded-full max-w-[220px]">AGUARDANDO RETORNO</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500">SERVIDOR</span>
+                                    <span class="font-semibold text-md">MARIO DA SILVA CARDOSO</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+                <div class="">
+                    <button id="cancelBtn" class="flex items-center text-center mx-auto gap-2 bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer hover:bg-green-600 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                        <span>OK</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
