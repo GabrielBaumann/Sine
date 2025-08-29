@@ -30,6 +30,9 @@ $route->get("/imprimirpainel/{versionPainel}", "AppStart:printPanel");
 $route->get("/imprimirpainelinterno/{versionPainel}", "AppStart:printPanelInternal");
 $route->get("/baixarpainelword", "AppStart:reportDownloadWord");
 
+$route->get("/imprimir/{versionPainel}", "AppStart:printPanelBlank");
+$route->get("/imprimirinterno/{versionPainel}", "AppStart:printPanelBlank");
+
 /**
  * AppServer
  */

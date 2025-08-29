@@ -565,6 +565,8 @@ class Vacancy extends Model
         return false;
     }
 
+    // Verificar se existe vaga no painel do dia
+    
 
     /**
      * Exclui vagas

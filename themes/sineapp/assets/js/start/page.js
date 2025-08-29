@@ -4,14 +4,20 @@ document.addEventListener("click", (e) => {
     if(vButton && vButton.classList.contains("print")) {
         const vVersion = document.getElementById("version-panel").value;
         const vUrl = vButton.dataset.url
+
+        
         fetch(vUrl + "/" + vVersion)
         .then(response => response.json())
         .then(data => {
+
             if(data.message) {
-                return fncMessage(data.message)
+                return fncMessage(data.message);
             }
-            const vDiv = document.getElementById("content");
-            vDiv.innerHTML = data.html;
+            
+            if(data.redirect) {
+                window.open(data.redirect,  "_blank");
+            }
+        
         })
     }
 })
