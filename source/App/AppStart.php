@@ -171,14 +171,14 @@ class AppStart extends Controller
         
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
         } else {
 
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 
@@ -205,14 +205,14 @@ class AppStart extends Controller
         
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
         } else {
 
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 
@@ -257,14 +257,14 @@ class AppStart extends Controller
         $today = new DateTime();
         
         $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
         } else {
 
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 
@@ -290,14 +290,14 @@ class AppStart extends Controller
         $today = new DateTime();
         
         $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
         } else {
 
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}")
+            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
 

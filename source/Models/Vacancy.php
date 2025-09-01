@@ -565,9 +565,46 @@ class Vacancy extends Model
         return false;
     }
 
-    // Verificar se existe vaga no painel do dia
-    
+    // Reativar vagas encerradas
+    public function reactiveAllVacancy(int $idVacancy) : bool
+    {
+        // Verificar as vagas fixas se existem encaminhamentos
+        $vacancyFixed = (new static())->find("id_vacancy_fixed = :id","id={$idVacancy}")->fetch(true);
 
+        if(!$vacancyFixed) {
+            return false;
+        }
+        
+        // Reativa a vaga espelho
+        $vacancyMirror = (new static())->findById($idVacancy);
+
+        if(!$vacancyMirror) {
+            return false;
+        }
+        
+        $vacancyMirror->status_vacancy = "Ativa";
+        $vacancyMirror->reason_close = "";
+        $vacancyMirror->save();
+        
+        foreach($vacancyFixed as $vacancyFixedItem) {
+            
+            $vacancyQuantitrPerVacancy = $vacancyFixedItem->quantity_per_vacancy;
+
+            $defaulTable = static::$entity;
+                $vacancyWorkerCount = count((new VacancyWorker())->find("id_vacancy = :id","id={$vacancyFixedItem->id_vacancy}")->fetch(true) ?? []);
+            static::$entity = $defaulTable;
+
+            // Se a quantidade por vagas for maior que que a quantidade já encaminhada então ele reativa a vaga
+            if($vacancyQuantitrPerVacancy > $vacancyWorkerCount) {
+                $vacancyFixedItem->status_vacancy = "Ativa";
+                $vacancyFixedItem->reason_close = "";
+                $vacancyFixedItem->save();
+            }
+        }
+
+        return true;
+    }
+    
     /**
      * Exclui vagas
      */

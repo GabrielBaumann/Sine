@@ -28,7 +28,7 @@ document.addEventListener("click", (e) => {
 
     if(vButton && vButton.id === "visualizar-pdf") {
 
-        const vNameDocument = vButton.dataset.name
+        const vNameDocument = vButton.dataset.name + "_" + fncDateNowFile();
         // Calcular altura de todas as linhas (ignorando cabeçalhos)
         const linhas = document.querySelectorAll('#tabela tr:not(:has(th))');
         const linhasComAltura = [];
@@ -368,3 +368,17 @@ document.addEventListener("click", (e) => {
         });
     }
 });
+
+// Retorna da data de hoje no pdf ao baixaro arquivo
+function fncDateNowFile() {
+    const vToday = new Date();
+
+    const vDay = String(vToday.getDate()).padStart(2, '0');
+    const vMonth = String(vToday.getMonth() + 1).padStart(2, '0');
+    const vYear = vToday.getFullYear();
+
+    const vTime = String(vToday.getHours()).padStart(2, '0');
+    const vMinutes = String(vToday.getMinutes()).padStart(2, '0');
+
+    return `${vDay}${vMonth}${vYear}${vTime}${vMinutes}`;
+}

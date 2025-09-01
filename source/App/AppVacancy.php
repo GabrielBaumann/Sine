@@ -774,11 +774,14 @@ class AppVacancy extends Controller
     public function reactiveVacancy(array $data) : void
     {
         $idVacancy = (int)fncDecrypt($data["idvacancy"]);
-        
-        $vacancy = (new Vacancy())->findById($idVacancy);
-        $vacancy->status_vacancy = "Ativa";
-        $vacancy->reason_close = "";
-        $vacancy->save();
+
+        $vacancy = (new Vacancy())->reactiveAllVacancy($idVacancy);
+
+        if(!$vacancy) {
+            $json["message"] = messageHelpers()->error("Atualize a página e tente novamente!", "Erro Crítico!!!")->render();
+            echo json_encode($json);
+            return;            
+        }
 
         $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
         $json["redirect"] = url("/vagas");
