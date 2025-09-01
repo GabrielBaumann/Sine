@@ -82,11 +82,11 @@
                                         <span class="font-semibold text-md"><?= formatCPF($vwForwardingWorkerItem->cpf_worker); ?></span>
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="text-sm text-gray-500">Observação durante o encaminhamento</span>
-                                        <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->detail_service ?? "..." ?></span>
+                                        <span class="text-sm text-gray-500">OBSERVAÇÃO DURANTE O ENCAMINHAMENTO</span>
+                                        <span class="font-semibold text-md"><?= empty($vwForwardingWorkerItem->detail_service) ? "..." : $vwForwardingWorkerItem->detail_service; ?></span>
                                     </div>
                                     <div class="flex flex-col">
-                                        <span class="text-sm text-gray-500">DATA do Encaminhamento</span>
+                                        <span class="text-sm text-gray-500">DATA DO ENCAMINHAMENTO</span>
                                         <span class="font-semibold text-md"><?= date_simple($vwForwardingWorkerItem->date_forwarding); ?></span>
                                     </div>
                                     <div class="flex flex-col">
@@ -95,12 +95,12 @@
                                     </div>
                                     <?php if($vwForwardingWorkerItem->status_vacancy_worker <> "Aguardando resposta"): ?>
                                         <div class="flex flex-col">
-                                            <span class="text-sm text-gray-500">DATA da Resposta do Empregador</span>
+                                            <span class="text-sm text-gray-500">DATA DA RESPOSTA DO EMPREGADOR</span>
                                             <span class="font-semibold text-md"><?= date_simple($vwForwardingWorkerItem->date_response_company); ?></span>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-sm text-gray-500">Detalhe da resposta</span>
-                                            <span class="font-semibold text-md"><?= $vwForwardingWorkerItem->detail_response; ?></span>
+                                            <span class="text-sm text-gray-500">OBSERVAÇÃO DA RESPOSTA</span>
+                                            <span class="font-semibold text-md"><?= empty($vwForwardingWorkerItem->detail_response) ? "..." : $vwForwardingWorkerItem->detail_response; ?></span>
                                         </div>
                                     <?php endif;?>
                                     <div class="flex flex-col">

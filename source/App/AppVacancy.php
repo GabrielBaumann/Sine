@@ -2,6 +2,7 @@
 
 namespace Source\App;
 
+use DateTime;
 use Source\Support\Message;
 use Source\Core\Controller;
 use Source\Models\Auth;
@@ -757,10 +758,20 @@ class AppVacancy extends Controller
     // Modal de confirmação para reativar vaga
     public function questReactiveVacancy(array $data) : void 
     {
-        $html = $this->view->render("/modalQuest/modalQuestYesNo", [
+        $dataVacancyClosed = (new Vacancy())->findById(fncDecrypt($data["idvacancy"]));
+        $dataClosed = new DateTime($dataVacancyClosed->date_closed_vacancy);
+        $dataToday = new DateTime();
+        $dataClosedUpdate =  false;
+
+        if($dataClosed <= $dataToday) { 
+            $dataClosedUpdate = true;
+        }
+
+        $html = $this->view->render("/modalQuest/modalReactiveVacancy", [
             "title" => "Atenção!!!",
             "textMessage" => "Você vai reativar uma vaga!",
             "urlYes" => url("/confirmarreativarvagas/{$data["idvacancy"]}"),
+            "dataClosedUpdate" => $dataClosedUpdate,
             "urlNo" => null,
             "cancel" => true
         ]);

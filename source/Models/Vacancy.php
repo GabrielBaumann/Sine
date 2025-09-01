@@ -585,7 +585,7 @@ class Vacancy extends Model
         $vacancyMirror->status_vacancy = "Ativa";
         $vacancyMirror->reason_close = "";
         $vacancyMirror->save();
-        
+
         foreach($vacancyFixed as $vacancyFixedItem) {
             
             $vacancyQuantitrPerVacancy = $vacancyFixedItem->quantity_per_vacancy;
