@@ -369,20 +369,6 @@ document.addEventListener("change", (e) => {
     }
 });
 
-// Ajax para mudança de dados (dia, mês, ano)
-// document.addEventListener("change", (e) => {
-//     const vButton = e.target;
-//     if(vButton.id === "char-data") {
-//         const vValue = vButton.value;
-//         const vUrl = vButton.dataset.url;
-//         fetch(vUrl + "/" + vValue)
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log(data);
-//         });
-//     }
-// })
-
 // Retorna da data de hoje no pdf ao baixaro arquivo
 function fncDateNowFile() {
     const vToday = new Date();

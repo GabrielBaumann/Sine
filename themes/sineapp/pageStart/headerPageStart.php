@@ -184,9 +184,9 @@
             });
 
             function applyChartData($data) {
-                const {label, data} = $data;
+                const {label, total} = $data;
                 chart.data.labels = label || [];
-                chart.data.datasets[0].data = data || [];
+                chart.data.datasets[0].data = total || [];
 
                 chart.update();
             }
@@ -199,7 +199,7 @@
                     fetch(vUrl + "/" + vValue)
                     .then(response => response.json())
                     .then(data => {
-                        applyChartData(data);
+                        applyChartData(data.data);
                     });
                 }
             })            

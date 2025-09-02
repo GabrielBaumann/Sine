@@ -482,6 +482,8 @@ class AppStart extends Controller
         $type = (int)$data["type"];
         $serve = new Service();
         $charServer = $serve->charService($type);
+        $charServer["type"] = "teste";
+        var_dump($charServer);
         $json["data"] = $charServer;
         echo json_encode($json);
         return;        
