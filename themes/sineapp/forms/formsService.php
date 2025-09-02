@@ -88,6 +88,7 @@
         <!-- Se for telefone não renderiza esses campos -->
         <?php if($typeService != "telefone"): ?>
             <!-- Linha 3 -->
+             <!-- sexo  -->
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
                 <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Sexo *</label>
                 <select id="gender" name="gender" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
@@ -95,6 +96,35 @@
                     <option value="MASCULINO" <?= ($worker->gender_worker ?? '') === 'MASCULINO' ? 'selected' : '' ?>>MASCULINO</option>
                     <option value="FEMININO" <?= ($worker->gender_worker ?? '') === 'FEMININO' ? 'selected' : '' ?>>FEMININO</option>
                     <option value="OUTRO" <?= ($worker->gender_worker ?? '') === 'OUTRO' ? 'selected' : '' ?>>OUTRO</option>
+                </select>
+            </div>
+
+            <!-- identidade de gênero  -->
+            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Identidade de gênero *</label>
+                <select id="gender" name="gender" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="">Selecione</option>
+                    <option value="">Homem cisgênero (se identifica com o sexo atribuído no nascimento)</option>
+                    <option value="">Mulher cisgênero (se identifica com o sexo atribuído no nascimento)</option>
+                    <option value="">Homem transgênero (Se identifica como homem, mas foi designado como mulher ao nascimento)</option>
+                    <option value="">Mulher transgênero (Se identifica como mulher, mas foi designado como homem ao nascimento)</option>
+                    <option value="">Pessoa não binária (pessoa cuja a identidade de Gênero não se encaixa exclusivamente nas categorias tradicionais de homem ou mulher, podendo se identificar com um gênero que está entre esses dois, com ambos, com nenhum ou com um gênero).</option>
+                    <option value="">Não declarado</option>
+                    <option value="">Não quis responder</option>
+                </select>
+            </div>
+
+            <!-- orientação sexual  -->
+            <div class="col-span-4 md:col-span-2 lg:col-span-1">
+                <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Orientação sexual *</label>
+                <select id="gender" name="gender" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="">Selecione</option>
+                    <option value="">Heterossexual</option>
+                    <option value="">Homossexual</option>
+                    <option value="">Bissexual</option>
+                    <option value="">Pansexual</option>
+                    <option value="">Assexual</option>
+                    <option value="">Outra</option>
                 </select>
             </div>
 

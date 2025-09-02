@@ -1,5 +1,5 @@
 
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-white rounded-2xl p-5">
     <!-- Título -->
     <h1 class="text-2xl font-semibold text-gray-900">Trabalhadores</h1>
     <!-- Controles -->
