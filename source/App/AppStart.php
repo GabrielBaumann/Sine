@@ -19,6 +19,7 @@ use Source\Models\Views\VwVacancy;
 use Source\Support\Pager;
 
 use Source\Models\Vacancy;
+use Source\Models\Views\VwBiService;
 use Source\Models\Views\VwVacancyActive;
 
 class AppStart extends Controller
@@ -44,8 +45,11 @@ class AppStart extends Controller
 
         // Gráfico de atendimentos
         $serve = new Service();
-        $charServer = $serve->charService();
-        // $charServer = $serve->charDay();
+        // $charServer = $serve->charService();
+        $charServer = $serve->charDay();
+
+        // Genero
+        $serviceGender = (new VwBiService())->find()->fetch(true);
 
         // Painel de vagas
         $today = new DateTime();
