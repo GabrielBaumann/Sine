@@ -45,11 +45,14 @@ class AppStart extends Controller
 
         // Gráfico de atendimentos
         $serve = new Service();
-        // $charServer = $serve->charService();
-        $charServer = $serve->charDay();
+        $charServer = $serve->charService(1);
+                
+        // Gráfico de Genero
+        $serviceGender = (new VwBiService());
+        $charGender = $serviceGender->charGender();
 
-        // Genero
-        $serviceGender = (new VwBiService())->find()->fetch(true);
+        // Gráfico de cor
+        $charColor = $serviceGender->charColor();
 
         // Painel de vagas
         $today = new DateTime();
@@ -78,35 +81,11 @@ class AppStart extends Controller
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
             "chartServiceLabel" => $charServer["label"],
             "chartServiceTotal" => $charServer["total"],
+            "charGender" => $charGender,
+            "charColor" => $charColor,
             "panelVacancy" =>  $panelVacancy
         ]);
     }
-
-    // Painél direito de vagas na página principal
-    // public function panelVacancy(?array $data) : void
-    // {
-    //     $versionPanel = (int)$data["versionpanel"];
-
-    //     $today = new DateTime();
-    //     $panelVacancy = (new VwVacancy())
-    //         ->find("total_vacancy_active <> :to AND DATE(date_register) < :date","to=0&date={$today->format('Y-m-d')}")
-    //         ->order("date_open_vacancy", "DESC")
-    //         ->fetch(true);
-
-    //     $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
-    //     $pager = new Pager(url("/painelvagas/p/"));
-    //     $pager->pager(count($panelVancancy ?? []), 12, $page);
-
-    //     $html = $this->view->render("/pageStart/panelVacancy", [
-    //         "panelVacancy" => $panelVacancy,
-    //         "paginator" => $pager->render()
-    //     ]);
-        
-    //     $json["html"] = $html;
-    //     $json["content"] = "panel-vacancy";
-    //     echo json_encode($json);
-    //     return;
-    // }
 
     // Detalhe do painel do dia
     public function detailPanelVacancy(?array $data) : void
@@ -496,4 +475,16 @@ class AppStart extends Controller
         $writer->save("php://output");
         exit;
     }
+
+    public function charGraphic($data) : void
+    {
+        // Gráfico de atendimentos
+        $type = (int)$data["type"];
+        $serve = new Service();
+        $charServer = $serve->charService($type);
+        $json["data"] = $charServer;
+        echo json_encode($json);
+        return;        
+    }
+
 }

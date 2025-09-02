@@ -19,7 +19,6 @@ define("CONF_DB_NAME", "db_sine");
 define("CONF_URL_BASE", "https://sinecanaa.syscerberus.com");
 define("CONF_URL_TEST", "http://localhost/sine");
 
-
 /**
  * DATES
  */

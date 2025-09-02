@@ -352,7 +352,7 @@ document.addEventListener("click", (e) => {
 });
 
 // atualizar painel baseado no filtro de versão
-document.addEventListener("click", (e) => {
+document.addEventListener("change", (e) => {
     const vButton = e.target;
     if(vButton.id === "version-panel") {
         const vUrl = vButton.dataset.url; 
@@ -368,6 +368,20 @@ document.addEventListener("click", (e) => {
         });
     }
 });
+
+// Ajax para mudança de dados (dia, mês, ano)
+// document.addEventListener("change", (e) => {
+//     const vButton = e.target;
+//     if(vButton.id === "char-data") {
+//         const vValue = vButton.value;
+//         const vUrl = vButton.dataset.url;
+//         fetch(vUrl + "/" + vValue)
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data);
+//         });
+//     }
+// })
 
 // Retorna da data de hoje no pdf ao baixaro arquivo
 function fncDateNowFile() {

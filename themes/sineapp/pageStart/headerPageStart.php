@@ -81,10 +81,10 @@
         <h2 class="text-lg font-normal text-gray-700">Atendimentos por dia</h2>
         <div class="flex flex-row gap-3">
             <h2 class="text-gray-800">Ordenar gráficos por:</h2>
-            <select name="" id="" class="text-gray-800 cursor-pointer border-b-2 border-gray-300">
-                <option value="">Dia</option>
-                <option value="">Mês</option>
-                <option value="">Ano</option>
+            <select data-url="<?= url("/grafico"); ?>" name="char-data" id="char-data" class="text-gray-800 cursor-pointer border-b-2 border-gray-300">
+                <option value="1">Dia</option>
+                <option value="2">Mês</option>
+                <option value="3">Ano</option>
             </select>
         </div>
       </div>
@@ -108,7 +108,7 @@
             <!-- Gráfico de Atendimentos por Escolaridade -->
             <div class="bg-white p-6 rounded-2xl">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-gray-700">Atendimentos por Escolaridade</h2>
+                    <h2 class="text-gray-700">Atendimentos por Cor</h2>
                 </div>
                 <div class="h-30 md:h-45">
                     <canvas id="graficoEscolaridade"></canvas>
@@ -136,7 +136,7 @@
 
             // Gráfico de Atendimentos por Dia
             const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
-            new Chart(ctx1, {
+            const chart = new Chart(ctx1, {
                 type: 'bar',
                 data: {
                     labels: vMonthService,
@@ -183,14 +183,35 @@
                 }
             });
 
+            function applyChartData($data) {
+                const {label, data} = $data;
+                chart.data.labels = label || [];
+                chart.data.datasets[0].data = data || [];
+
+                chart.update();
+            }
+
+            document.addEventListener("change", (e) => {
+                const vButton = e.target;
+                if(vButton.id === "char-data") {
+                    const vValue = vButton.value;
+                    const vUrl = vButton.dataset.url;
+                    fetch(vUrl + "/" + vValue)
+                    .then(response => response.json())
+                    .then(data => {
+                        applyChartData(data);
+                    });
+                }
+            })            
+
             // Gráfico de Atendimentos por Gênero
             const ctxGenero = document.getElementById('graficoGenero').getContext('2d');
             new Chart(ctxGenero, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Feminino', 'Masculino', 'Outro', 'Prefiro não informar'],
+                    labels: <?= json_encode($charGender["label"]); ?>,
                     datasets: [{
-                        data: [125, 98, 15, 22],
+                        data: <?= json_encode($charGender["total"]); ?>,
                         backgroundColor: [
                             'rgba(9, 89, 152, 0.8)',
                             'rgba(52, 152, 219, 0.8)',
@@ -235,10 +256,10 @@
             new Chart(ctxEscolaridade, {
                 type: 'bar',
                 data: {
-                    labels: ['Fundamental', 'Médio', 'Superior', 'Pós-graduação', 'Mestrado', 'Doutorado'],
+                    labels: <?= json_encode($charColor["label"]); ?>,
                     datasets: [{
                         label: 'Atendimentos',
-                        data: [45, 78, 95, 62, 35, 18],
+                        data: <?= json_encode($charColor["total"]); ?>,
                         backgroundColor: 'rgba(19, 112, 200, 0.8)',
                         // borderColor: 'rgba(9, 89, 152, 1)',
                         // borderWidth: 1,

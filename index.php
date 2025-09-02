@@ -23,7 +23,6 @@ $route->post("/", "Web:login");
  */
 // Start
 $route->get("/inicio", "AppStart:startPage");
-// $route->get("/painelvagas/p/{page}", "AppStart:panelVacancy");
 $route->get("/filtrarversao/{versionpanel}", "AppStart:detailPanelVacancy");
 
 $route->get("/imprimirpainel/{versionPainel}", "AppStart:printPanel");
@@ -32,6 +31,8 @@ $route->get("/baixarpainelword", "AppStart:reportDownloadWord");
 
 $route->get("/imprimir/{versionPainel}", "AppStart:printPanelBlank");
 $route->get("/imprimirinterno/{versionPainel}", "AppStart:printPanelInternalBlank");
+
+$route->get("/grafico/{type}", "AppStart:charGraphic");
 
 /**
  * AppServer
