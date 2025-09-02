@@ -2,6 +2,8 @@
 
 namespace Source\Models;
 
+use DateTime;
+use IntlDateFormatter;
 use Source\Core\Model;
 use PDO;
 use Source\Core\Connect;
@@ -34,7 +36,14 @@ class Service extends Model
                 $total[] = $datasItem["total"];
             }
             
-            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0];
+            $labelData = "Dia";
+
+            $month = new DateTime();
+            $ptbr = new IntlDateFormatter('pt_BR', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+            $ptbr->setPattern("MMMM");
+            $type = "Dias do Mês de " . ucfirst($ptbr->format($month));
+
+            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0, "type"=>$type, "labelData"=>$labelData];
             return $char;            
         } 
 
@@ -81,8 +90,13 @@ class Service extends Model
                 $label[] = $key;
                 $total[] = $value;
             }
-            
-            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0];
+
+            $year = new DateTime();
+
+            $type = "Meses do Ano de " . $year->format("Y");
+            $labelData = "Mês";
+
+            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0, "type"=>$type, "labelData"=>$labelData];
             return $char;
         }
 
@@ -97,7 +111,10 @@ class Service extends Model
                 $total[] = $datasItem["total"];
             }
             
-            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0];
+            $labelData = "Ano";
+            $type = "Anos";
+
+            $char = ["label"=>$label ?? 0,"total"=>$total ?? 0, "type"=>$type, "labelData"=>$labelData];
             return $char;    
         }
 

@@ -79,8 +79,7 @@ class AppStart extends Controller
             "enterprisesCount" => (new Enterprise())->find()->count(),
             "serviceCount" => (new Service())->find()->count(),
             "userSystem" => (new SystemUser())->findById($this->user->id_user),
-            "chartServiceLabel" => $charServer["label"],
-            "chartServiceTotal" => $charServer["total"],
+            "chartServiceDay" => $charServer,
             "charGender" => $charGender,
             "charColor" => $charColor,
             "panelVacancy" =>  $panelVacancy
@@ -482,8 +481,6 @@ class AppStart extends Controller
         $type = (int)$data["type"];
         $serve = new Service();
         $charServer = $serve->charService($type);
-        $charServer["type"] = "teste";
-        var_dump($charServer);
         $json["data"] = $charServer;
         echo json_encode($json);
         return;        

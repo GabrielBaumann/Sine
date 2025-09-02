@@ -131,8 +131,10 @@
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Dados para o gráfico de atendimentos por dia
-            const vMonthService = <?= json_encode($chartServiceLabel); ?>;
-            const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
+            const vMonthService = <?= json_encode($chartServiceDay["label"]); ?>;
+            const vMonthServiceTotal = <?= json_encode($chartServiceDay["total"]); ?>;
+            const vType = <?= json_encode($chartServiceDay["type"]); ?>;
+            const vLabelData = <?= json_encode($chartServiceDay["labelData"]); ?>;
 
             // Gráfico de Atendimentos por Dia
             const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
@@ -164,7 +166,7 @@
                             displayColors: false,
                             callbacks: {
                                 title: function(tooltipItems) {
-                                    return `Dia ${tooltipItems[0].label}`;
+                                    return vLabelData + ` ${tooltipItems[0].label}`;
                                 }
                             }
                         }
@@ -172,7 +174,7 @@
                     scales: {
                         x: {
                             grid: { display: false },
-                            title: { display: true, text: 'Dias do Mês' }
+                            title: { display: true, text: vType }
                         },
                         y: {
                             beginAtZero: true,
@@ -184,9 +186,13 @@
             });
 
             function applyChartData($data) {
-                const {label, total} = $data;
+                const {label, total, type, labelData} = $data;
                 chart.data.labels = label || [];
                 chart.data.datasets[0].data = total || [];
+                chart.options.scales.x.title.text = type || [];
+                chart.options.plugins.tooltip.callbacks.title = function(tooltipItems) {
+                    return labelData + ` ${tooltipItems[0].label}`;
+                };
 
                 chart.update();
             }
