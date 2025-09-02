@@ -110,8 +110,8 @@
             <form action="<?= $urlYes; ?>">
                 
                 <?php if($dataClosedUpdate): ?>
-                    <label for="data-encerramento">Nova data de encerramento *</label>
-                    <input type="date">
+                    <label for="data-encerramento">Data de encerramento *</label>
+                    <input type="date" name="date-closed-new">
                 <?php endif; ?>
 
                 <div class="modal-buttons">

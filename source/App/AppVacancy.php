@@ -762,14 +762,16 @@ class AppVacancy extends Controller
         $dataClosed = new DateTime($dataVacancyClosed->date_closed_vacancy);
         $dataToday = new DateTime();
         $dataClosedUpdate =  false;
+        $textMessage = "Você vai reativar uma vaga!";
 
         if($dataClosed <= $dataToday) { 
             $dataClosedUpdate = true;
+            $textMessage = "Você precisa cadastrar uma data de encerramento maior que hoje!";
         }
 
         $html = $this->view->render("/modalQuest/modalReactiveVacancy", [
             "title" => "Atenção!!!",
-            "textMessage" => "Você vai reativar uma vaga!",
+            "textMessage" => $textMessage,
             "urlYes" => url("/confirmarreativarvagas/{$data["idvacancy"]}"),
             "dataClosedUpdate" => $dataClosedUpdate,
             "urlNo" => null,
@@ -783,10 +785,29 @@ class AppVacancy extends Controller
 
     // Confimar reativação da vaga
     public function reactiveVacancy(array $data) : void
-    {
-        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+    {   
+        $date = null;
+        if(isset($data["date-closed-new"])) {
+            if(empty($data["date-closed-new"])) {
+                $json["message"] = messageHelpers()->warning("Preencha o campo obrigatório (*) !")->render();
+                echo json_encode($json);
+                return;
+            }
 
-        $vacancy = (new Vacancy())->reactiveAllVacancy($idVacancy);
+            $dateClosed = new DateTime($data["date-closed-new"]);
+            $today =  new DateTime();
+
+            if($dateClosed <= $today) {
+                $json["message"] = messageHelpers()->warning("A data de encerramento deve ser maior que a data de hoje!")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            $date = $data["date-closed-new"];
+        }
+
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+        $vacancy = (new Vacancy())->reactiveAllVacancy($idVacancy, $date);
 
         if(!$vacancy) {
             $json["message"] = messageHelpers()->error("Atualize a página e tente novamente!", "Erro Crítico!!!")->render();

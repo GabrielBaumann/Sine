@@ -123,9 +123,9 @@
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Dados para o gráfico de atendimentos por dia
-            const vMonthService = Array.from({length: 31}, (_, i) => `${i + 1}`);
-            const vMonthServiceTotal = Array.from({length: 31}, () => Math.floor(Math.random() * 31) + 15);
-            
+            const vMonthService = <?= json_encode($chartServiceLabel); ?>;
+            const vMonthServiceTotal = <?= json_encode($chartServiceTotal); ?>;
+
             // Gráfico de Atendimentos por Dia
             const ctx1 = document.getElementById('graficoVisaoGeral').getContext('2d');
             new Chart(ctx1, {

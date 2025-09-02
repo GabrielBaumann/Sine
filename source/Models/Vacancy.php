@@ -2,13 +2,10 @@
 
 namespace Source\Models;
 
-// use DateInvalidTimeZoneException;
 use DateTime;
-// use Exception;
 use Source\Core\Model;
 use Source\Models\VacancyWorker;
 use Source\Models\Views\VwVacancy;
-// use Source\Models\Views\VwVacancyActive;
 
 class Vacancy extends Model
 {   
@@ -392,7 +389,10 @@ class Vacancy extends Model
 
         if($vacancy) {
             foreach($vacancy as $vacancyItem) {
-                if(date_simple($vacancyItem->date_closed_vacancy) === date_simple()) {
+                $closed = new DateTime($vacancyItem->date_closed_vacancy);
+                $today = new DateTime();
+
+                if($closed === $today) {
 
                     $dateTodoToday[] = [
                         "timeTodo" => (new DateTime($vacancyItem->date_closed_vacancy))->format("c"),
@@ -566,8 +566,9 @@ class Vacancy extends Model
     }
 
     // Reativar vagas encerradas
-    public function reactiveAllVacancy(int $idVacancy) : bool
+    public function reactiveAllVacancy(int $idVacancy,?string $date = null) : bool
     {
+
         // Verificar as vagas fixas se existem encaminhamentos
         $vacancyFixed = (new static())->find("id_vacancy_fixed = :id","id={$idVacancy}")->fetch(true);
 
@@ -580,6 +581,11 @@ class Vacancy extends Model
 
         if(!$vacancyMirror) {
             return false;
+        }
+
+        if($date) {
+            // var_dump($date);
+            $vacancyMirror->date_closed_vacancy = $date;
         }
         
         $vacancyMirror->status_vacancy = "Ativa";
@@ -596,12 +602,16 @@ class Vacancy extends Model
 
             // Se a quantidade por vagas for maior que que a quantidade já encaminhada então ele reativa a vaga
             if($vacancyQuantitrPerVacancy > $vacancyWorkerCount) {
+
+                if($date) {
+                    $vacancyFixedItem->date_closed_vacancy = $date;
+                }
+
                 $vacancyFixedItem->status_vacancy = "Ativa";
                 $vacancyFixedItem->reason_close = "";
                 $vacancyFixedItem->save();
             }
         }
-
         return true;
     }
     

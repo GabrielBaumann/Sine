@@ -402,6 +402,7 @@ function fncModalQuest (vIdButton) {
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button")
     if(vButton && vButton.id === "cancelBtn") {
+        document.getElementById("response")?.remove();
         document.getElementById('modal').remove();
     }
 });
@@ -409,6 +410,7 @@ document.addEventListener("click", (e) => {
 // Fechar modal clicando no overlay (fora da modal)
 document.addEventListener("click", (e) => {
     if(e.target.id === "confirmationModal") {
+        document.getElementById("response")?.remove();
         document.getElementById("modal").remove();
     }
 })
@@ -416,6 +418,7 @@ document.addEventListener("click", (e) => {
 // Fechar com ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+        document.getElementById("response")?.remove();
         document.getElementById('modal').remove();
     }
 });

@@ -89,4 +89,14 @@ class Service extends Model
         return $char; 
     }
 
+    public function charGender()
+    {
+        
+    }
+
+    public function charSchoo()
+    {
+        
+    }
+
 }
