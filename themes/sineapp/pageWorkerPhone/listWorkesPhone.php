@@ -1,6 +1,6 @@
-<div class="overflow-hidden mt-5">
+<div class="overflow-hidden mt-5 bg-white p-5 rounded-2xl">
     <div class="overflow-x-auto">
-        <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
+        <table class="min-w-full divide-y divide-gray-200 responsive-table">
             <thead class="text-gray-900">
                 <tr>
                     <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Nome</th>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Paginação -->
-    <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+    <div class="px-4 py-3 pb-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
                 <div class="flex gap-2">

@@ -79,6 +79,14 @@
     <div class="mt-4 w-full p-7 md:bg-white rounded-2xl">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg font-normal text-gray-700">Atendimentos por dia</h2>
+        <div class="flex flex-row gap-3">
+            <h2 class="text-gray-800">Ordenar gráficos por:</h2>
+            <select name="" id="" class="text-gray-800 cursor-pointer border-b-2 border-gray-300">
+                <option value="">Dia</option>
+                <option value="">Mês</option>
+                <option value="">Ano</option>
+            </select>
+        </div>
       </div>
       <div class="h-50">
         <canvas id="graficoVisaoGeral"></canvas>

@@ -1,6 +1,6 @@
-<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-10">
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-white p-5 rounded-2xl">
     <!-- Título -->
-    <h1 class="text-2xl font-semibold text-gray-900">Trabalhadores atendimentos por telefone</h1>
+    <h1 class="text-2xl font-semibold text-gray-900 ">Trabalhadores atendimentos por telefone</h1>
     <!-- Controles -->
     <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
         <!-- Barra de Pesquisa com Ícone -->
