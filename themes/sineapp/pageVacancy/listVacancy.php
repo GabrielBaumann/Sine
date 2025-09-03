@@ -30,7 +30,7 @@
                 class="input-search 2xl:px-4 py-0 2xl:py-2 bg-white border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                 <option value="">Todas empresas</option>
                 <?php foreach($listEnterprise as $entreprise): ?>
-                    <option value="<?= $entreprise->id_enterprise ?>"><?= $entreprise->name_enterprise ?></option>
+                    <option value="<?= $entreprise->id_enterprise; ?>"><?= $entreprise->name_fantasy_enterpise; ?></option>
                 <?php endforeach; ?>
             </select>
             

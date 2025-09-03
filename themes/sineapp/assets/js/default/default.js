@@ -385,7 +385,12 @@ function fncModalQuest (vIdButton) {
             fetch(vUrl)
             .then(response => response.json())
             .then(data => {
-                
+
+                if(data.message) {
+                    fncMessage(data.message);
+                    return;
+                }
+
                 document.getElementById("response")?.remove();
                 if (document.getElementById("modal")) return document.getElementById("modal").remove();
 

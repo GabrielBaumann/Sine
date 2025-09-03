@@ -35,7 +35,7 @@
                                 </div>
                             </td>
                             <td data-label="Unidade" class="px-6 py-2 whitespace-nowrap">
-                                <div class="text-sm text-gray-900"><?= $vacancy->name_enterprise; ?></div>
+                                <div class="text-sm text-gray-900"><?= $vacancy->name_fantasy_enterpise; ?></div>
                             </td>
                             <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
                                 <?php if ($vacancy->status_vacancy === 'Encerrada'): ?>

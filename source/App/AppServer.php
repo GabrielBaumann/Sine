@@ -66,7 +66,7 @@ class AppServer extends Controller
         // Verificar se o campo PCD está marcado como sim e obrigrar a marcar algum tipo de deficiência
         $typeAllpcd = "";
         $observationCpd = "";
-        if(!empty($data["csrf"])){
+        if(!empty($data["csrf"]) && $data["typeService"] != "telefone"){
             
             if(!csrf_verify($data)) {
                 $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
@@ -124,7 +124,7 @@ class AppServer extends Controller
                     return;
                 }
 
-                $dataArray = cleanInputData($data, ["observation"]);
+                $dataArray = cleanInputData($data, ["observation", "nome"]);
 
                 if(!$dataArray["valid"]) {
                     $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -139,6 +139,7 @@ class AppServer extends Controller
                 $woker->id_user_register = $this->user->id_user;
                 $woker->name_work_phone = $dataClean["nome"];
                 $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
+                $woker->gender = $dataClean["gender"];
                 $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
                 $woker->save();
                 
@@ -181,7 +182,7 @@ class AppServer extends Controller
                     return;
                 }
 
-                $dataArray = cleanInputData($data, ["observation", "observation-pcd"]);
+                $dataArray = cleanInputData($data, ["observation", "observation-pcd", "contact-ddd-work", "contact-work"]);
 
                 if(!$dataArray["valid"]) {
                     $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -274,7 +275,7 @@ class AppServer extends Controller
                 return;
             }
 
-            $dataArray = cleanInputData($data, ["observation", "observation-pcd"]);
+            $dataArray = cleanInputData($data, ["observation", "observation-pcd", "contact-ddd-work", "contact-work"]);
 
             if(!$dataArray["valid"]) {
                 $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -478,6 +479,7 @@ class AppServer extends Controller
 
             if($worker->fetch()->type_pcd) {
                 $typePcdAll = mb_split(";", $worker->fetch()->type_pcd);
+
                 $newArr = [];
                 foreach($typePcdAll as $typePcdAllitem) {
                     $indiValue = mb_split("-",$typePcdAllitem);

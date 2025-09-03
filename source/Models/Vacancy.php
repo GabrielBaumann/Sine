@@ -302,7 +302,8 @@ class Vacancy extends Model
                     $enterpriseDistinct[] = 
                     [
                         "id_enterprise" => $enterprise->id_enterprise,    
-                        "name_enterprise" => $enterprise->name_enterprise
+                        "name_enterprise" => $enterprise->name_enterprise,
+                        "name_fantasy_enterpise" => $enterprise->name_fantasy_enterpise
                     ];
 
                     $ids[$enterpriseVancacyItem->id_enterprise] = true;
@@ -310,7 +311,7 @@ class Vacancy extends Model
             }
 
             usort($enterpriseDistinct, function($a, $b) {
-                return strcmp($a["name_enterprise"], $b["name_enterprise"]);
+                return strcmp($a["name_fantasy_enterpise"], $b["name_fantasy_enterpise"]);
             });
 
             $objetos = array_map(function($item) {

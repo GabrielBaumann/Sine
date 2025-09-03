@@ -78,7 +78,7 @@ class AppVacancy extends Controller
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
             $pager->Pager($vacancyCount, 14, $page);
-
+            
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "userSystem" => (new SystemUser())->findById($this->user->id_user),
                 "totalVacancy" => (new VwVacancy())
@@ -541,11 +541,17 @@ class AppVacancy extends Controller
         $totalForWarfing = 0;
 
         // Verifica se existe encaminhamento para essa vaga, se retornar 0 não tem encaminhamento, se retorna mais de 0 então existe
+        if(!$allVacancy) {
+            $json["message"] = messageHelpers()->error("Error entre em contato com o administrador do sistema!")->render();
+            echo json_encode($json);
+            return;
+        }
+        
         foreach ($allVacancy as $allVacancyItem) {           
             $vacancyCount = $vacancyWorker->find("id_vacancy = :id", "id={$allVacancyItem->id_vacancy}")->fetch(true);
             $totalForWarfing += count($vacancyCount ?? []);
         }
-        // var_dump($totalForWarfing);
+
         if($totalForWarfing > 0) {
             // Não pode excluir a vaga
             $delete = false;
