@@ -12,12 +12,49 @@
         margin: 0;
         padding: 0;
         font-size: 16px;
+        background-color: #6b7280;
     }
 
     #visualizar-container {
         text-align: center;
         margin-bottom: 3px;
-        padding: 7px 0;
+        padding: 12px;
+        background-color: #373b41ff;
+    }
+
+    #visualizar-pdf {
+        background-color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px;
+        gap: 3;
+        color: #373737;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #visualizar-pdf:hover {
+        background-color: #aeaeaeff;
+    }
+
+    #download_image {
+        background-color: #373b41ff;
+        border: none;
+        border-radius: 30px;
+        padding: 12px;
+        gap: 3;
+        color: white;
+        border: 1px solid white;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #download_image:hover {
+        background-color: #2b2e32ff;
     }
 
     #conteudo_pdf { 
@@ -160,16 +197,10 @@
 <body>
     <div id="visualizar-container" class="flex items-center justify-center gap-3 p-10">
         <button id="visualizar-pdf" data-name="PAINEL VAGA" class="flex gap-2 bg-red-500 p-2 text-white font-semibold rounded-md cursor-pointer hover:bg-red-600">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
-            </svg>
             <span>Baixar PDF</span>
         </button>
 
         <button id="download_image" class="flex gap-2 bg-yellow-500 p-2 text-black font-semibold rounded-md cursor-pointer hover:bg-yellow-600">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-            </svg>
             <span>Baixar como imagem</span>
         </button>
 

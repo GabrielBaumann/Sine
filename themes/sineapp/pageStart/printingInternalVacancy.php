@@ -13,13 +13,31 @@
         padding: 0;
         font-size: 16px;
         /* background-color: #2c2c2c; */
-        
+         background-color: #6b7280;
     }
 
     #visualizar-container {
         text-align: center;
         margin-bottom: 3px;
-        padding: 7px 0;
+        padding: 12px;
+        background-color: #373b41ff;
+    }
+
+    #visualizar-pdf {
+        background-color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px;
+        gap: 3;
+        color: #373737;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        justify-content: center;
+    }
+
+    #visualizar-pdf:hover {
+        background-color: #aeaeaeff;
     }
 
     #conteudo_pdf { 
@@ -168,9 +186,6 @@
 <body class="h-screen overflow-y-scroll">
     <div id="visualizar-container" class="flex items-center justify-center gap-3">
         <button data-name="PAINEL EMPRESA" id="visualizar-pdf" class="flex gap-2 bg-red-500 p-2 text-white font-semibold rounded-md cursor-pointer hover:bg-red-600">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
-            </svg>
             <span>Baixar PDF</span>
         </button>      
     </div>
