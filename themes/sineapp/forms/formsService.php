@@ -152,10 +152,10 @@
             </div>
 
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
-                <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
-                <select id="pcd" name="pcd" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="NÃO" <?= ($worker->pcd_worker ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
-                    <option value="SIM" <?= ($worker->pcd_worker ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
+                <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC *</label>
+                <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="NÃO" <?= ($worker->cterc ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                    <option value="SIM" <?= ($worker->cterc ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                 </select>
             </div>
 
@@ -167,13 +167,110 @@
                 </select>
             </div>
 
-            <!-- Linha 4 -->
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
-                <label for="cterc" class="block text-sm font-medium text-gray-700 mb-1">CTERC *</label>
-                <select id="cterc" name="cterc" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
-                    <option value="NÃO" <?= ($worker->cterc ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
-                    <option value="SIM" <?= ($worker->cterc ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
+                <label for="pcd" class="block text-sm font-medium text-gray-700 mb-1">PCD *</label>
+                <select id="pcd" name="pcd" class="bg-white mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 sm:text-sm rounded-md">
+                    <option value="NÃO" <?= ($worker->pcd_worker ?? 'NÃO') === 'NÃO' ? 'selected' : '' ?>>NÃO</option>
+                    <option value="SIM" <?= ($worker->pcd_worker ?? 'NÃO') === 'SIM' ? 'selected' : '' ?>>SIM</option>
                 </select>
+            </div>
+
+
+            <!-- fisical issues -->
+            <div class="col-span-4 border border-gray-600 p-5">
+                <div class="flex flex-col">
+                    <label for="" class="mb-5 font-semibold">Deficiências Físicas:</label>
+
+                    <div class="flex gap-5">
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>AMPUTAÇÃO</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>CADEIRANTE</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>MEMBROS INFERIORES</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>MEMBROS SUPERIORES</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>NANISMO</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>OSTOMIA</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>PARALISIA CEREBRAL</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>PARCIAL</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>UM MEMBRO INFERIOR</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>UM MEMBRO SUPERIOR</span>
+                            </div>
+                        </div>   
+                        
+                        <div class="flex flex-col gap-3">
+                            <div class="flex flex-col">
+                                <label for="" class="font-semibold">Auditivas:</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <span>SURDEZ BILATERAL PARCIAL</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <span>SURDEZ BILATERAL TOTAL</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="" class="font-semibold">Visual:</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <span>BAIXA VISÃO</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <span>CEGUEIRA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="" class="font-semibold">Mental/Intelectual:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <span>MENTAL / INTELECTUAL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-4">
+                        <label for="observation" class="block font-semibold mb-1">Observações - Deficiência/Particularidade:</label>
+                        <input 
+                            id="observation" 
+                            name="observation" 
+                            rows="3" 
+                            class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
+                            placeholder="Digite alguma observação relevante"><?= $worker->observacao ?? "" ?></input>
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
 
