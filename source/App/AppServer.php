@@ -164,6 +164,8 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
+                    $woker->identity_gender = $dataClean["identity-gender"];
+                    $woker->orientation_sexual = $dataClean["orientation-sexual"];
                     $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
                     $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
@@ -187,6 +189,8 @@ class AppServer extends Controller
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
                     $woker->gender_worker = $dataClean["gender"];
+                    $woker->identity_gender = $dataClean["identity-gender"];
+                    $woker->orientation_sexual = $dataClean["orientation-sexual"];
                     $woker->ethnicity_worker = $dataClean["ethnicity-worker"];
                     $woker->contact_ddd_work = str_replace("-", "", $dataClean["contact-ddd-work"]);
                     $woker->contact_work = $dataClean["contact-work"];
@@ -293,6 +297,8 @@ class AppServer extends Controller
                 $woker->cpf_worker = $dataClean["cpf"];
                 $woker->pcd_worker = $dataClean["pcd"];
                 $woker->gender_worker = $dataClean["gender"];
+                $woker->identity_gender = $dataClean["identity-gender"];
+                $woker->orientation_sexual = $dataClean["orientation-sexual"];
                 $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
                 $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
                 $woker->ethnicity_worker = $dataClean["ethnicity-worker"];

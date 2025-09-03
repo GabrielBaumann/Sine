@@ -39,6 +39,7 @@
                             </td>
                                 <td data-label="Status" class="px-6 py-3 whitespace-nowrap">
                                 <span class="text-sm text-gray-700"><?= $vacancyItem->status_vacancy; ?></span>
+                                <?= $vacancyItem->reason_close; ?>
                             </td>
                             <td class="flex justify-start pl-8 pt-3">
                                 <a id="btn-detail-vacancy" data-url="<?= url("/detalhevaga/") . fncEncrypt($vacancyItem->id_vacancy) ; ?>" class="notform  text-blue-500 cursor-pointer hover:text-blue-900 transition-all duration-300">

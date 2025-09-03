@@ -210,6 +210,7 @@ class AppStart extends Controller
             "panelVacancy" =>  $panelVacancy
         ]);
     }
+    
     // Download do painél interno
     public function printPanelInternal(?array $data) : void
     {
