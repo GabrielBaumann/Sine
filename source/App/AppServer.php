@@ -14,6 +14,8 @@ use Source\Models\WorkerEdit;
 use Source\Models\WorkerPhone;
 use Source\Support\Message;
 
+use function PHPSTORM_META\type;
+
 class AppServer extends Controller
 {
     private $user;
@@ -59,7 +61,43 @@ class AppServer extends Controller
 
     // Cadastrar/Editar e excluir atendimentos
     public function formService(array $data) : void
-    {
+    {   
+
+        // Verificar se o campo PCD está marcado como sim e obrigrar a marcar algum tipo de deficiência
+        $typeAllpcd = "";
+        $observationCpd = "";
+        if(!empty($data["csrf"])){
+            
+            if(!csrf_verify($data)) {
+                $json["message"] = messageHelpers()->warning("Erro ao enivar, use o formulário! Atualize a página e tente novamente.")->render();
+                $json["erro"] = true;
+                echo json_encode($json);
+                return;
+            }
+
+            if($data["pcd"] === "SIM") {
+                $typeCpd = array_filter(
+                    $data,
+                    fn($v, $k) => $k >= 1 && $k <= 15 && !empty($v),
+                    ARRAY_FILTER_USE_BOTH
+                );
+                
+                if(!$typeCpd) {
+                    $json["message"] = messageHelpers()->warning("Marque alguma deficiência para continuar!")->render();
+                    $json["erro"] = true;
+                    echo json_encode($json);
+                    return;
+                }
+
+                foreach($typeCpd as $nameInput => $valueInput) {
+                    $typeAllpcd .= $nameInput ."-" . $valueInput . ";" ;
+                }
+
+                $typeAllpcd = rtrim($typeAllpcd, ";"); 
+                $observationCpd = $data["observation-pcd"];
+            }
+        }
+
         // Verificar se existe vagas
         if(isset($data["interview"]) && $data["interview"] === "4") {
 
@@ -143,7 +181,7 @@ class AppServer extends Controller
                     return;
                 }
 
-                $dataArray = cleanInputData($data, ["observation"]);
+                $dataArray = cleanInputData($data, ["observation", "observation-pcd"]);
 
                 if(!$dataArray["valid"]) {
                     $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -163,6 +201,8 @@ class AppServer extends Controller
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
+                    $woker->type_pcd = $typeAllpcd;
+                    $woker->observation_pcd = $observationCpd;
                     $woker->gender_worker = $dataClean["gender"];
                     $woker->identity_gender = $dataClean["identity-gender"];
                     $woker->orientation_sexual = $dataClean["orientation-sexual"];
@@ -188,6 +228,8 @@ class AppServer extends Controller
                     $woker->date_birth_worker = $dataClean["date-birth-worker"];
                     $woker->cpf_worker = $dataClean["cpf"];
                     $woker->pcd_worker = $dataClean["pcd"];
+                    $woker->type_pcd = $typeAllpcd;
+                    $woker->observation_pcd = $observationCpd;
                     $woker->gender_worker = $dataClean["gender"];
                     $woker->identity_gender = $dataClean["identity-gender"];
                     $woker->orientation_sexual = $dataClean["orientation-sexual"];
@@ -232,7 +274,7 @@ class AppServer extends Controller
                 return;
             }
 
-            $dataArray = cleanInputData($data, ["observation"]);
+            $dataArray = cleanInputData($data, ["observation", "observation-pcd"]);
 
             if(!$dataArray["valid"]) {
                 $json["message"] = messageHelpers()->error("Preencha os campos obrigatórios!")->render();
@@ -296,6 +338,8 @@ class AppServer extends Controller
                 $woker->date_birth_worker = $dataClean["date-birth-worker"];
                 $woker->cpf_worker = $dataClean["cpf"];
                 $woker->pcd_worker = $dataClean["pcd"];
+                $woker->type_pcd = $typeAllpcd;
+                $woker->observation_pcd = $observationCpd;
                 $woker->gender_worker = $dataClean["gender"];
                 $woker->identity_gender = $dataClean["identity-gender"];
                 $woker->orientation_sexual = $dataClean["orientation-sexual"];
@@ -432,10 +476,22 @@ class AppServer extends Controller
 
         if ($worker->fetch()) {
 
+            if($worker->fetch()->type_pcd) {
+                $typePcdAll = mb_split(";", $worker->fetch()->type_pcd);
+                $newArr = [];
+                foreach($typePcdAll as $typePcdAllitem) {
+                    $indiValue = mb_split("-",$typePcdAllitem);
+                    $newArr[$indiValue[0]] = $indiValue[1];
+                }
+
+                $objectTypePcdAll = (object)$newArr;  
+            }
+
             $html = $this->view->render("/forms/formsService", [
                 "worker" => $worker->fetch(),
                 "titleForm" => $titleForm,
                 "url" => $url,
+                "TypePcdAll" => $objectTypePcdAll ?? null,
                 "idServiceType" => $idServiceType ?? null,
                 "idInterview" => $idServiceType ?? null,
                 "typeService" => $data["idServiceType"] ?? null

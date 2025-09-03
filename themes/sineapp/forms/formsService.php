@@ -45,8 +45,8 @@
             </div>
         <?php endif; ?>
         
-            <div class="col-span-4 md:col-span-2 lg:col-span-3">
-            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
+        <div class="col-span-4 md:col-span-2 lg:col-span-3">
+            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo <?= $typeService == "telefone" ? "" : "*" ?></label>
             <input 
                 value="<?= $worker->name_worker ?? "" ?>"
                 type="text" 
@@ -58,7 +58,7 @@
 
         <!-- Linha 2 -->
         <div class="col-span-4 md:col-span-2 lg:col-span-1">
-            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">DDD *</label>
+            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">DDD <?= $typeService == "telefone" ? "*" : "" ?></label>
             <input
                 value="<?= $worker->contact_ddd_work ?? ""; ?>" 
                 type="text" 
@@ -67,12 +67,11 @@
                 maxlength="2" 
                 class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="99"
-                required
                 >
         </div>
 
         <div class="col-span-4 md:col-span-2 lg:col-span-1">
-            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
+            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">Telefone <?= $typeService == "telefone" ? "*" : "" ?></label>
             <input
                 value="<?= mask_phone($worker->contact_work ?? "", true) ?? ""; ?>" 
                 type="text" 
@@ -81,12 +80,9 @@
                 maxlength="10" 
                 class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
                 placeholder="99999-9999"
-                required
                 >
         </div>
 
-        <!-- Se for telefone não renderiza esses campos -->
-        <?php if($typeService != "telefone"): ?>
             <!-- Linha 3 -->
              <!-- sexo  -->
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
@@ -99,6 +95,8 @@
                 </select>
             </div>
 
+        <!-- Se for telefone não renderiza esses campos -->
+        <?php if($typeService != "telefone"): ?>
             <!-- identidade de gênero  -->
             <div class="col-span-4 md:col-span-2 lg:col-span-1">
                 <label for="identity-gender" class="block text-sm font-medium text-gray-700 mb-1">Identidade de gênero *</label>
@@ -179,52 +177,52 @@
 
 
             <!-- fisical issues -->
-            <div class="col-span-4 border border-gray-600 p-5">
+            <div id="pcd-type" class="hidden col-span-4 border border-gray-600 p-5">
                 <div class="flex flex-col">
                     <label for="" class="mb-5 font-semibold">Deficiências Físicas:</label>
 
                     <div class="flex gap-5">
                         <div class="flex flex-col">
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="1" value="AMPUTAÇÃO" type="checkbox" <?= !empty($TypePcdAll->{1}) ? "checked" : null ?> class="border border-black cursor-pointer type deficiency">
                                 <span>AMPUTAÇÃO</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="2" value="CADEIRANTE" type="checkbox" <?= !empty($TypePcdAll->{2}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>CADEIRANTE</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="3" value="MEMBROS INFERIORES" type="checkbox" <?= !empty($TypePcdAll->{3}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>MEMBROS INFERIORES</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="4" value="MEMBROS SUPERIORES" type="checkbox" <?= !empty($TypePcdAll->{4}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>MEMBROS SUPERIORES</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="5" value="NANISMO" type="checkbox" <?= !empty($TypePcdAll->{5}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>NANISMO</span>
                             </div>
                         </div>
                         <div class="flex flex-col">
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="6" value="OSTOMIA" type="checkbox" <?= !empty($TypePcdAll->{6}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>OSTOMIA</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input name="7" value="PARALISIA CEREBRAL" type="checkbox" <?= !empty($TypePcdAll->{7}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>PARALISIA CEREBRAL</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input type="checkbox" name="8" value="PARCIAL"  <?= !empty($TypePcdAll->{8}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>PARCIAL</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input type="checkbox" name="9" value="UM MEMBRO INFERIOR" <?= !empty($TypePcdAll->{9}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>UM MEMBRO INFERIOR</span>
                             </div>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input type="checkbox" name="10" value="UM MEMBRO SUPERIOR" <?= !empty($TypePcdAll->{10}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>UM MEMBRO SUPERIOR</span>
                             </div>
                         </div>   
@@ -233,22 +231,22 @@
                             <div class="flex flex-col">
                                 <label for="" class="font-semibold">Auditivas:</label>
                                 <div class="flex items-center gap-2">
-                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <input type="checkbox" name="11" value="SURDEZ BILATERAL PARCIAL" <?= !empty($TypePcdAll->{11}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                     <span>SURDEZ BILATERAL PARCIAL</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <input type="checkbox" name="12" value="SURDEZ BILATERAL TOTAL" <?= !empty($TypePcdAll->{12}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                     <span>SURDEZ BILATERAL TOTAL</span>
                                 </div>
                             </div>
                             <div class="flex flex-col">
                                 <label for="" class="font-semibold">Visual:</label>
                                 <div class="flex items-center gap-2">
-                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <input type="checkbox" name="13" value="BAIXA VISÃO" <?= !empty($TypePcdAll->{13}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                     <span>BAIXA VISÃO</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <input type="checkbox" class="border border-black cursor-pointer">
+                                    <input type="checkbox" name="14" value="CEGUEIRA" <?= !empty($TypePcdAll->{14}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                     <span>CEGUEIRA</span>
                                 </div>
                             </div>
@@ -257,7 +255,7 @@
                         <div class="flex flex-col">
                             <label for="" class="font-semibold">Mental/Intelectual:</label>
                             <div class="flex items-center gap-2">
-                                <input type="checkbox" class="border border-black cursor-pointer">
+                                <input type="checkbox" name="15" value="MENTAL / INTELECTUAL"  <?= !empty($TypePcdAll->{15}) ? "checked" : null ?> class="border border-black cursor-pointer deficiency">
                                 <span>MENTAL / INTELECTUAL</span>
                             </div>
                         </div>
@@ -266,11 +264,12 @@
                     <div class="col-span-4">
                         <label for="observation" class="block font-semibold mb-1">Observações - Deficiência/Particularidade:</label>
                         <input 
-                            id="observation" 
-                            name="observation" 
+                            value="<?= $worker->observation_pcd ?? "" ?>"
+                            id="observation-pcd" 
+                            name="observation-pcd" 
                             rows="3" 
                             class="bg-white w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                            placeholder="Digite alguma observação relevante"><?= $worker->observacao ?? "" ?></input>
+                            placeholder="Digite alguma observação relevante"></input>
                     </div>
                 </div>
             </div>

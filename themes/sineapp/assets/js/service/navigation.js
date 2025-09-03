@@ -2,6 +2,7 @@
 let vLasId = null;
 let vCompanySelect = null;
 
+// Empresas que tenham vaga
 document.addEventListener("click", (e) => {
 
     if(e.target.tagName === "SELECT" && e.target.id === "company-name"){
@@ -32,7 +33,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
-
+// Filtrar vagas por empresa
 document.addEventListener("change", (e) => {
     
     vOccupationSelect = document.getElementById("occupation-id-vacancy");
@@ -77,6 +78,7 @@ document.addEventListener("change", (e) => {
     }
 });
 
+// Select para empresa
 document.addEventListener("click", (e) => {
 
     if(e.target.id === "company-name") {
@@ -86,5 +88,21 @@ document.addEventListener("click", (e) => {
                 allowClear: true // permite limpar a seleção
             });
         });        
+    }
+})
+
+// Mostrar ou ocultar os tipos de deficiências
+document.addEventListener("change", async (e) => {
+    const vChangeSelect = e.target;
+
+    if(vChangeSelect.tagName === "SELECT" && vChangeSelect.id === "pcd") {
+        
+        const vElementeGet = document.getElementById("pcd-type");
+
+        if(vChangeSelect.value === "SIM") {
+            vElementeGet.classList.remove("hidden");
+        } else {
+            vElementeGet.classList.add("hidden");
+        }
     }
 })

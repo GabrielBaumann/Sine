@@ -25,7 +25,7 @@ document.addEventListener("input", function(e) {
 document.addEventListener("focusout", function(e) {
 
     if (e.target.id === "cpf") {
-        
+
         if (document.getElementById("cpf").value === "") {
             fncClearForm();
         }
@@ -48,7 +48,7 @@ document.addEventListener("focusout", function(e) {
             vForm.append("idServiceType", vidService);
             vForm.append("typeService", vTypeService);
 
-            if(cpfInitialEdit != vValue && vValue.length === 14) {
+            if(cpfInitialEdit != vValue && vValue.length === 14 || vValue.length > 1) {
 
                 fetch(vUrl, {
                     method: "POST",
@@ -71,6 +71,16 @@ document.addEventListener("focusout", function(e) {
                         } else{
                             document.getElementById("newElement").innerHTML = data.html;
                             cpfInitialEdit = vValue;
+                            
+                            // Verificar se o PCD é sim ou não
+                            const vSelectPcd = document.getElementById("pcd");
+                            const vElementeGet = document.getElementById("pcd-type");
+                            if(vSelectPcd.value === "SIM") {
+                                vElementeGet.classList.remove("hidden");
+                            } else {
+                                vElementeGet.classList.add("hidden");
+                            }
+                            
                             fncPhoneMask();
                         }
                     }
@@ -104,12 +114,26 @@ function fncClearForm() {
     document.getElementById("gender").value = "";
     document.getElementById("ethnicity-worker").value = "";
     document.getElementById("pcd").value = "NÃO";
+
+    // Remover o checked do formulário de tipo de PCD
+    const vElementeGet = document.getElementById("pcd-type");
+    vElementeGet.classList.add("hidden");
+
+    const vElementCheckeddeficiency = document.querySelectorAll(".deficiency");
+    vElementCheckeddeficiency.forEach((e) => {
+        e.checked = false
+    });
+
+    document.getElementById("observation-pcd").value = "";
+
     document.getElementById("apprentice").value = "NÃO";
     document.getElementById("cterc").value = "NÃO";
     if (document.getElementById("company-name")) 
     document.getElementById("company-name").value = "";
     if (document.getElementById("company-name")) 
     document.getElementById("occupation-id-vacancy").value = "";
+    document.getElementById("identity-gender").value = "";
+    document.getElementById("orientation-sexual").value = "";
 
     cpfInitialEdit = "";
 }
