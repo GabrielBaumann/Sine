@@ -43,7 +43,7 @@
             <div class="col-span-2">
                 <label for="observation" class="mb-3 text-gray-800">Observação</label>
                 <textarea disabled id="observation" name="observation" class="w-full p-4 rounded-md border border-gray-400 min-h-32 text-gray-300" rows="4"><?= $service->service_detail ?? null; ?></textarea>
-            </div>
+           </div>
 
             <div class="col-span-2 flex justify-end">
                 <button data-url="<?= url("/salvaredicaoatendimento"); ?>" id="edit-detail" class="py-2 px-4 flex items-center gap-2 cursor-pointer bg-yellow-300 text-black rounded-full">
