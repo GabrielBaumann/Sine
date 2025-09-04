@@ -79,6 +79,12 @@ function fncEnabledandDisabledObservation() {
 
             const vTextButton = vButton.querySelector("span");
             vTextButton.innerText = "Editar observação"
+
+            // Salvar edição encaminhar requisição para o backend
+            let vRequest = await fetch(vButton.dataset.url);
+            let vResponse = await vRequest.json();
+            console.log(vResponse);
+
         }
     })
 }

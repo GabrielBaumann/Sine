@@ -281,7 +281,7 @@ class AppWorker extends Controller
         }   
 
         $idService = (int)filter_var($data["idService"], FILTER_SANITIZE_NUMBER_INT);
-        $_SESSION["idworker"] = $idService;
+        $_SESSION["idservice"] = $idService;
         $vwService = new VwService();
         $data = $vwService->find("id_service = :id", "id={$idService}")->fetch();
 
@@ -461,6 +461,13 @@ class AppWorker extends Controller
             echo json_encode($json);
             return;
         }
+    }
+
+    // Salvar edição de atendimento
+    public function editServiceWorker() : void
+    {
+        $idService = $_SESSION["idservice"];
+        var_dump($idService);
     }
 
     public function logout()
