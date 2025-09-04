@@ -1,5 +1,5 @@
-<div class="overflow-x-auto">
-    <table class="bg-gray-50 min-w-full divide-y divide-gray-200 responsive-table">
+<div class="overflow-x-auto bg-white p-5 rounded-2xl">
+    <table class="min-w-full divide-y divide-gray-200 responsive-table">
         <thead class="text-gray-900">
             <tr>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Empresa</th>
@@ -13,7 +13,10 @@
                 <?php foreach($listEnterprise as $entreprise): ?>
                     <tr class="hover:bg-blue-50 border-b border-gray-300">
                         <td data-label="Unidade" class="px-6 py-2 whitespace-nowrap">
-                            <div class="text-sm text-gray-900"><?= $entreprise->name_enterprise; ?> (<?= maskCNPJ($entreprise->cnpj); ?>)</div>
+                            <div class="text-sm text-gray-800 font-semibold text-black"><?= $entreprise->name_enterprise; ?> (<?= maskCNPJ($entreprise->cnpj); ?>)</div>
+                            
+                            <!-- this is the fantasy name -->
+                            <div class="text-xs uppercase text-gray-800">nome fantasia de exemplo</div>
                         </td>
                         <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
                             <span class="status-company color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5"><?= $entreprise->active ?></span>
@@ -50,7 +53,7 @@
 </div>
 
 <!-- Paginação -->
-<div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+<div class="px-4 py-3 pb-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div>
             <div class="flex gap-2">
