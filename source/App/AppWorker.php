@@ -281,7 +281,7 @@ class AppWorker extends Controller
         }   
 
         $idService = (int)filter_var($data["idService"], FILTER_SANITIZE_NUMBER_INT);
-        
+        $_SESSION["idworker"] = $idService;
         $vwService = new VwService();
         $data = $vwService->find("id_service = :id", "id={$idService}")->fetch();
 
