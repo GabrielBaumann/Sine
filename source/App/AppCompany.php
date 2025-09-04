@@ -25,9 +25,8 @@ class AppCompany extends Controller
     // Página principal de empresas no sidebar
     public function startCompany(?array $data) : void
     {
-
         if(isset($data["page"])) {
-
+            
             $searchCompany = filter_input(INPUT_GET, "search-company", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-company", FILTER_SANITIZE_SPECIAL_CHARS) : null;
             $searchAllStatus = filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-all-status", FILTER_SANITIZE_SPECIAL_CHARS) : null;
 
@@ -35,7 +34,7 @@ class AppCompany extends Controller
             $params = [];
 
             if(!empty($searchCompany)) {
-                $conditions[] = "name_enterprise LIKE :co";
+                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
                 $params["co"] = "%{$searchCompany}%";
             }
 
@@ -49,7 +48,7 @@ class AppCompany extends Controller
             $enterprise = (new Enterprise())->find()->count();
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1); 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($enterprise, 14, $page);
+            $pager->Pager($enterprise, 12, $page);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())->find($where, http_build_query($params))
@@ -68,7 +67,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 14, 1);
+        $pager->Pager($enterprise, 12, 1);
 
         echo $this->view->render("/pageCompany/pageCompany", [
             "title" => "Empresas",
@@ -85,7 +84,6 @@ class AppCompany extends Controller
     //Pesquisa de empresas renderizando Lista de empresas na página inicial
     public function listCompany(?array $data) : void
     {
-
         if(isset($data["search-company"]) || isset($data["search-all-status"])) {
 
             $searchCompany = isset($data["search-company"]) ? filter_var($data["search-company"], FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -98,7 +96,12 @@ class AppCompany extends Controller
                 $conditions[] = "name_enterprise LIKE :c";
                 $params["c"] = "%{$searchCompany}%"; 
             }
-
+            
+            if(!empty($searchCompany)) {
+                $conditions[] = "name_fantasy_enterpise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
+                $params["co"] = "%{$searchCompany}%";
+            }
+            
             if(!empty($searchStatus)) {
                 $conditions[] = "active = :a";
                 $params["a"] = $searchStatus;
@@ -111,7 +114,7 @@ class AppCompany extends Controller
             $companyCount = count($company ?? []);
 
             $pager = new Pager(url("/pesquisarempresa/p/"));
-            $pager->Pager($companyCount, 14, 1);
+            $pager->Pager($companyCount, 12, 1);
 
             $html = $this->view->render("/pageCompany/componentListCompany", [
                 "listEnterprise" => (new Enterprise())
@@ -131,7 +134,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 14, 1);
+        $pager->Pager($enterprise, 12, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()
@@ -256,7 +259,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 14, 1);
+        $pager->Pager($enterprise, 12, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()
@@ -332,7 +335,7 @@ class AppCompany extends Controller
 
         $enterprise = (new Enterprise())->find()->count(); 
         $pager = new Pager(url("/pesquisarempresa/p/"));
-        $pager->Pager($enterprise, 14, 1);
+        $pager->Pager($enterprise, 12, 1);
 
         $html = $this->view->render("/pageCompany/listCompany", [
             "listEnterprise" => (new Enterprise())->find()

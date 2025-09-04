@@ -16,7 +16,7 @@
                             <div class="text-sm text-gray-800 font-semibold text-black"><?= $entreprise->name_enterprise; ?> (<?= maskCNPJ($entreprise->cnpj); ?>)</div>
                             
                             <!-- this is the fantasy name -->
-                            <div class="text-xs uppercase text-gray-800">nome fantasia de exemplo</div>
+                            <div class="text-xs uppercase text-gray-800"><?= empty($entreprise->name_fantasy_enterpise) ? "Cadastrar..." : $entreprise->name_fantasy_enterpise; ?></div>
                         </td>
                         <td data-label="Tipo de Acesso" class="px-6 py-2 whitespace-nowrap">
                             <span class="status-company color-user text-sm text-blue-800 bg-blue-200 rounded-full px-2.5 py-0.5"><?= $entreprise->active ?></span>
@@ -50,16 +50,16 @@
             <?php endif; ?>
         </tbody>
     </table>
-</div>
 
-<!-- Paginação -->
-<div class="px-4 py-3 pb-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
-    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-            <div class="flex gap-2">
-                <?= $paginator ?? null ; ?>
+    <!-- Paginação -->
+    <div class="px-4 py-3 pb-0 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+                <div class="flex gap-2">
+                    <?= $paginator ?? null ; ?>
+                </div>
             </div>
+            <div>Total: <?= format_number($countEnterprise) ?? "000" ?></div>
         </div>
-        <div>Total: <?= format_number($countEnterprise) ?? "000" ?></div>
     </div>
 </div>

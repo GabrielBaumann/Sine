@@ -14,7 +14,7 @@
     <!-- Info Section -->
     <div class="mb-4 flex flex-col gap-3 bg-white rounded-2xl p-5 mb-4">
         <div class="flex items-center gap-2">
-            <h1 class="text-xl font-semibold text-gray-800 text-2xl uppercase"><?= $service->type_service;?><?=  $service->nomeclatura_vacancy ? ": Ocupação " . $service->nomeclatura_vacancy : ""; ?></h1>
+            <h1 class="text-xl font-semibold text-gray-800 text-2xl uppercase"><?= $service->type_service;?><?=  $service->nomeclatura_vacancy ? ": " . $service->nomeclatura_vacancy : ""; ?></h1>
         </div>
 
         <?php if($service->nomeclatura_vacancy): ?><h1 class="text-xl font-normal text-gray-800">Empresa: <?= $service->name_fantasy_enterpise; ?></h1><?php endif;?>
