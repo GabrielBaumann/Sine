@@ -42,7 +42,7 @@ document.addEventListener("submit", (e) => {
             if(data.redirect) {
                 window.location.href = data.redirect;
             }
-
+                      
             // Se não existir nenhum modal, então ele executa as mensagens
             if(data.modal != true){
 
@@ -58,7 +58,8 @@ document.addEventListener("submit", (e) => {
                 }
                 if(data.html) {
                     document.getElementById(data.contentajax).innerHTML = data.html;
-                    removeFlash();
+                    // removeFlash();
+                    fncMessage(data.message);
                 }
                 return;
             }

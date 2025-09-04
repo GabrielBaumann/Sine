@@ -76,7 +76,9 @@ $route->post("/confirmarexclusaonaoreativar", "AppWorker:confirmedDeleteIntervie
 
 $route->post("/finalizarencaminhatoentrevista", "AppWorker:finishInterviewToWork");
 
-$route->get("/salvaredicaoatendimento","AppWorker:editServiceWorker");
+$route->post("/salvaredicaoatendimento","AppWorker:editServiceWorker");
+
+$route->get("/confirmarexcluir", "AppWorker:questCondifmDelete");
 
 /**
  * AppVacancy

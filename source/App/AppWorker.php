@@ -111,6 +111,7 @@ class AppWorker extends Controller
     public function startHistory(?array $data) : void
     {
         $idWorker = (int)filter_var(fncDecrypt($data["idWorker"]), FILTER_VALIDATE_INT);
+        $_SESSION["idwork"] = $idWorker;
         $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
         $pager->pager(count($vWService ?? []), 14, 1);
@@ -242,7 +243,7 @@ class AppWorker extends Controller
     {   
         // Exluir atendimentos
         if(isset($data["typeService"]) && $data["typeService"] === "atendimentosexcluir" ) {
-            $idService = (int)filter_var($data["id-service"], FILTER_SANITIZE_NUMBER_INT);
+            $idService = $_SESSION["idservice"];
             $service = (new Service())->findById($idService);
             $service->destroy();
 
@@ -253,8 +254,7 @@ class AppWorker extends Controller
                 return;
             }
 
-            $idWorker = (int)filter_var($data["id-worker"], FILTER_SANITIZE_NUMBER_INT);
-
+            $idWorker = $_SESSION["idwork"];
             $data = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
 
             $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
@@ -272,11 +272,10 @@ class AppWorker extends Controller
                 "paginator" => $pager->render()
             ]);
 
-            $json["html"] = $html;
             $json["message"] = messageHelpers()->success("Registro excluído com sucesso!")->render();
             $json["contentajax"] = "content"; //id do elemento html que vai receber o counteúdo do ajax
+            $json["html"] = $html;
             echo json_encode($json);
-
             return;
         }   
 
@@ -291,6 +290,24 @@ class AppWorker extends Controller
         ]);
 
         $json["html"] = $html;
+        echo json_encode($json);
+        return;
+    }
+
+    // Modal para confirmar exclusão de atendimento
+    public function questCondifmDelete() : void
+    {
+        $html = $this->view->render("/modalQuest/modalQuestYesNo", [
+            "title" => "Atenção!",
+            "textMessage" => "Tem certeza que deseja excluir esse atendimento?",
+            "urlYes" => url("/editarservicotrabalhador/atendimentosexcluir"),
+            "urlNo" => null,
+            "cancel" => true
+        ]);
+
+        $json["html"] = $html;
+        $json["modal"] = true;
+        $json["contentajax"] = "content";
         echo json_encode($json);
         return;
     }
@@ -464,10 +481,26 @@ class AppWorker extends Controller
     }
 
     // Salvar edição de atendimento
-    public function editServiceWorker() : void
+    public function editServiceWorker(array $data) : void
     {
         $idService = $_SESSION["idservice"];
-        var_dump($idService);
+
+        // Verificar e sanitizar campos obrigatórios e não obrigatórios
+        $dataClean = cleanInputData($data, ["observation"]);
+        $dataSaniteize = $dataClean["data"];
+        $vService = (new Service())->findById($idService);
+        $vService->id_user_update = $this->user->id_user;
+        $vService->detail = $dataSaniteize["observation"];
+        
+        if(!$vService->save()) {
+            $json["message"] = messageHelpers()->warning("Erro de requisição, atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $json["message"] = messageHelpers()->success("Observação salva com sucesso!")->render();
+        echo json_encode($json);
+        return;
     }
 
     public function logout()

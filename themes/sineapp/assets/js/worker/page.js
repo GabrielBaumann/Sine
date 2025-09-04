@@ -87,13 +87,32 @@ function fncEnabledandDisabledObservation() {
             vTextButton.innerText = "Editar observação"
 
             // Salvar edição encaminhar requisição para o backend
-            let vRequest = await fetch(vButton.dataset.url);
-            let vResponse = await vRequest.json();
-            console.log(vResponse);
+            const vFormData = new FormData();
+            vFormData.append("observation", document.getElementById("observation").value);
 
+            try {
+                const vRequest = await fetch(vButton.dataset.url ,{
+                    method: "POST",
+                    body: vFormData
+                });
+
+                if(!vRequest.ok) {
+                    throw fncMessage();
+                }
+
+                const vResponse = await vRequest.json();
+                
+                if(vResponse.message) {
+                    fncMessage(vResponse.message);
+                }
+            } catch (erro) {
+                fncMessage();
+            }
         }
     })
 }
+
+fncModalQuest("delete-service");
 
 
 /*########################################*/
