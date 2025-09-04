@@ -53,6 +53,9 @@ function fncEnabledandDisabledObservation() {
         if(vObservation.disabled === true) {
 
             vObservation.disabled = false;
+            vObservation.classList.replace("bg-gray-100", "bg-white");
+            vObservation.classList.replace("text-gray-500", "text-black");
+            vObservation.classList.replace("border-none", "border");
             vButton.classList.replace("text-black", "text-white");
             vButton.classList.replace("bg-yellow-300", "bg-green-600");
 
@@ -68,6 +71,9 @@ function fncEnabledandDisabledObservation() {
         } else {
 
             vObservation.disabled = true;
+            vObservation.classList.replace("bg-white", "bg-gray-100");
+            vObservation.classList.replace("text-black", "text-gray-500");
+            vObservation.classList.replace("border", "border-none");
             vButton.classList.replace("text-white", "text-black");
             vButton.classList.replace("bg-green-600", "bg-yellow-300");
 
