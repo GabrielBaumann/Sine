@@ -1,5 +1,5 @@
 <div class="overflow-x-auto rounded-md">
-    <table class="bg-gray-50 min-w-full divide-y divide-gray-200">
+    <table class="min-w-full divide-y divide-gray-200">
         <thead class="text-gray-900">
             <tr>
                 <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider hidden sm:table-cell">Data</th>
@@ -55,7 +55,7 @@
 </div>
 
 <!-- Paginação -->
-<div class="bg-gray-50 px-4 py-3 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="px-4 py-3 pb-0 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4">
     <div class="flex gap-1">
         <?= $paginator; ?>
     </div>
