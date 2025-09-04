@@ -88,7 +88,12 @@ document.addEventListener("click", (e) => {
             $(document).ready(function() {
                 $('#cbo-occupation').select2({
                     placeholder: 'Selecione uma CBO ou Ocupação',
-                    allowClear: true // permite limpar a seleção
+                    allowClear: true, // permite limpar a seleção
+                    language: {
+                        noResults: function() {
+                            return "Não há ocupação para essa pesquisa!"
+                        }
+                    }
                 });
             });
             
@@ -96,7 +101,12 @@ document.addEventListener("click", (e) => {
             $(document).ready(function() {
                 $('#enterprise').select2({
                     placeholder: 'Selecione uma empresa',
-                    allowClear: true // permite limpar a seleção
+                    allowClear: true, // permite limpar a seleção
+                    language: {
+                        noResults: function() {
+                            return "Não há empresa para essa pesquisa!"
+                        }
+                    }
                 });
             });
         })

@@ -85,7 +85,12 @@ document.addEventListener("click", (e) => {
         $(document).ready(function() {
             $('#occupation-id-vacancy').select2({
                 placeholder: 'Selecione uma empresa',
-                allowClear: true // permite limpar a seleção
+                allowClear: true, // permite limpar a seleção
+                language: {
+                    noResults: function() {
+                        return "Nenhuma empresa encontrada!";
+                    }
+                }
             });
         });        
     }

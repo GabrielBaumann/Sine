@@ -78,7 +78,7 @@ class AppVacancy extends Controller
             $page = (!empty($data["page"]) && filter_var($data["page"], FILTER_VALIDATE_INT) >= 1 ? $data["page"] : 1);
             $pager = new Pager(url("/pesquisarvagas/p/"));
             $pager->Pager($vacancyCount, 14, $page);
-            
+
             $html = $this->view->render("/pageVacancy/componentListVacancy", [
                 "userSystem" => (new SystemUser())->findById($this->user->id_user),
                 "totalVacancy" => (new VwVacancy())
