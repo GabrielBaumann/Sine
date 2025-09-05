@@ -300,7 +300,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     vLinks.forEach(link => {
         if (link.hostname === window.location.hostname) {
-            
             link.addEventListener("click", function(e) {
                 if (link.target === "_black") return;
                 showSplashNavigation();
