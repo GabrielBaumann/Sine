@@ -1,76 +1,5 @@
 let load = "";
 
-/**
- * Envio de formulário
- */
-// document.addEventListener("submit", async (e)=> {
-
-//     if (e.target.tagName === "FORM") {
-//         e.preventDefault()
-
-//         const form = e.target;
-//         const formData = new FormData(form);
-//         const actionForm = e.target.action;
-
-//         let timeoutLoading;
-
-//         // Agenda a exibição do "carregamento..." após 300 milesimo
-//         timeoutLoading = showSplash()
-
-//         fetch(actionForm, {
-//             method: "POST",
-//             body: formData
-//         })
-//         .then(response => {
-//             clearTimeout(timeoutLoading);
-
-//             if(!response.ok) throw new Error("Erro no servidor");
-
-//             return response.json();
-//         })
-//         .then(data => {
-            
-//             if(data.redirected) {
-//                 window.location.href = data.redirected
-//             } else {
-
-//                 if(load) load.remove();
-
-//                 if(document.getElementById("response")) document.getElementById("response").remove()
-
-//                 const novoResponse = document.createElement("div")
-//                 novoResponse.id = "response";
-//                 novoResponse.innerHTML = data.message
-
-//                 document.body.appendChild(novoResponse);
-
-//                 setTimeout(() => {
-//                     removeElement(novoResponse)
-//                 }, 3000)
-//             }
-//         })
-//         .catch(error => {
-//             clearTimeout(timeoutLoading);
-//             if(load) load.remove();
-            
-//             const erroResponse = document.createElement("div");
-//             erroResponse.id = "response";
-//             erroResponse.innerHTML = `
-//                 <div class="alert-container">
-//                     <div class="alert-message bg-white border border-red-400 rounded-lg p-4 text-red-700">
-//                         Erro inesperado. Tente novamente.
-//                     </div>
-//                 </div>
-//             `;
-//            document.body.appendChild(erroResponse);
-
-//            setTimeout(() => {
-//                 removeElement(erroResponse)
-//            }, 3000);            
-//         });
-//     }
-// });
-
 document.addEventListener("submit", async (e)=> {
 
     if (e.target.tagName === "FORM") {
@@ -108,9 +37,7 @@ document.addEventListener("submit", async (e)=> {
                     removeElement(novoResponse)
                 }, 3000)
             }
-        // })
         } catch (error) {
-            // clearTimeout(timeoutLoading);
             const erroResponse = document.createElement("div");
             erroResponse.id = "response";
             erroResponse.innerHTML = `
