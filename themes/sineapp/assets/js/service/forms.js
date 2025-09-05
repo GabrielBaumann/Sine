@@ -1,7 +1,7 @@
 /**
  * Envio de formulário
  */
-document.addEventListener("submit", (e)=> {
+document.addEventListener("submit", async (e)=> {
     if (e.target.tagName === "FORM") {
         e.preventDefault()
 
@@ -11,38 +11,34 @@ document.addEventListener("submit", (e)=> {
 
         let vtimeLoading;
 
-        vtimeLoading = showSplash();
+        vtimeLoading = showSplash(true);
 
-        fetch(actionForm, {
-            method: "POST",
-            body: formData
-        })
-        .then(response => {
-            clearTimeout(vtimeLoading);
+        try {
+            const vResponse = await fetch(actionForm, {
+                method: "POST",
+                body: formData
+            })
+            const vData = await vResponse.json();
 
-            if(!response.ok) throw new Error("Erro no servidor");
-
-            return response.json();
-        })
-        .then(data => {
-
-            if (data.htmlquestion) {
+            if (vData.htmlquestion) {
                 const vElement = document.createElement("div");
                 vElement.id = "modal";
-                vElement.innerHTML = data.htmlquestion;
+                vElement.innerHTML = vData.htmlquestion;
                 document.body.appendChild(vElement);
                 return;
             }
 
-            if (data.erro === false) {
+            if (vData.erro === false) {
                 const vHtmlAjax = document.getElementById("newElement");
-                vHtmlAjax.innerHTML = data.html;
+                vHtmlAjax.innerHTML = vData.html;
             } else {
-                fncMessage(data.message);
+                fncMessage(vData.message);
             }
-        })
-        .catch(error => {
-            fncMessage();           
-        });
+
+        } catch (err) {
+            fncMessage();
+        } finally {
+            vtimeLoading?.remove();
+        }
     }
 });
