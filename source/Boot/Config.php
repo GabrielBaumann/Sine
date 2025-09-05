@@ -4,19 +4,19 @@
  * DATABASE
  */
 // define("CONF_DB_HOST", "162.241.62.236");
-// define("CONF_DB_USER", "syscer62_sine");
-// define("CONF_DB_PASS", "19@@202529");
-// define("CONF_DB_NAME", "syscer62_sine");
+// define("CONF_DB_USER", "syscer62_teste");
+// define("CONF_DB_PASS", "1900casa@@");
+// define("CONF_DB_NAME", "syscer62_teste");
 
 define("CONF_DB_HOST", "localhost");
 define("CONF_DB_USER", "root");
 define("CONF_DB_PASS", "");
-define("CONF_DB_NAME", "db_sine");
+define("CONF_DB_NAME", "test_db_sine");
 
 /**
  * PROJECT URLs
  */
-define("CONF_URL_BASE", "https://sinecanaa.syscerberus.com");
+define("CONF_URL_BASE", "https://teste.syscerberus.com");
 define("CONF_URL_TEST", "http://localhost/sine");
 
 /**

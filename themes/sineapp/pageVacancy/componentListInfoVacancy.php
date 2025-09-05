@@ -76,6 +76,7 @@
                             <option value="">Selecione um motivo</option>
                             <option value="Prazo encerrado">Prazo encerrado</option>
                             <option value="Empresa encerrou">Empresa encerrou</option>
+                            <option value="Empresa encerrou">Outro motivo</option>
                         </select>
                     </div>
                     <button
