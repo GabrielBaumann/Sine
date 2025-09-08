@@ -10,7 +10,7 @@ class WorkerPhone extends Model
   {
     parent::__construct(
       "work_phone", ["id_work_phone"], 
-      ["name_work_phone"], 
+      ["contact_work"], 
       "id_work_phone"
     );
   }

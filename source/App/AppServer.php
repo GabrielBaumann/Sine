@@ -137,7 +137,7 @@ class AppServer extends Controller
                 $woker = (new WorkerPhone());
 
                 $woker->id_user_register = $this->user->id_user;
-                $woker->name_work_phone = $dataClean["nome"];
+                $woker->name_work_phone = empty($dataClean["nome"]) ? "Atendimento por Telefone" : $dataClean["nome"];
                 $woker->contact_ddd_work = $dataClean["contact-ddd-work"];
                 $woker->gender = $dataClean["gender"];
                 $woker->contact_work = str_replace("-", "", $dataClean["contact-work"]);
