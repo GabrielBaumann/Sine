@@ -457,9 +457,9 @@ class Vacancy extends Model
                 foreach($vacancy as $vacancyItem) {
 
                     if ($showPanel === true) {
-                        $vacancyItem->hide_panel = false;
+                        $vacancyItem->hide_panel = 0;
                     }else {
-                        $vacancyItem->hide_panel = true;
+                        $vacancyItem->hide_panel = 1;
                     }
 
                     $vacancyItem->save();
@@ -469,9 +469,9 @@ class Vacancy extends Model
                 $vacancyMirror = (new static())->findById($vVacancyActiveItem->id_vacancy);
                 
                 if ($showPanel === true) {                
-                    $vacancyMirror->hide_panel = false;
+                    $vacancyMirror->hide_panel = 0;
                 } else {
-                    $vacancyMirror->hide_panel = true;
+                    $vacancyMirror->hide_panel = 1;
                 }
 
                 $vacancyMirror->save();
@@ -523,9 +523,9 @@ class Vacancy extends Model
             
             // Mostra a vaga se hideNo for true
             if($hideNo === true) {
-                $vacancyFixedItem->hide_vacancy = false;
+                $vacancyFixedItem->hide_vacancy = 0;
             } else {
-                $vacancyFixedItem->hide_vacancy = true;
+                $vacancyFixedItem->hide_vacancy = 1;
             }    
 
             $vacancyFixedItem->save();
@@ -533,9 +533,9 @@ class Vacancy extends Model
         
         // Mostra a vaga se hideNo for true
         if($hideNo === true) {
-            $vacancyMirror->hide_vacancy = false;
+            $vacancyMirror->hide_vacancy = 0;
         } else {
-            $vacancyMirror->hide_vacancy = true;
+            $vacancyMirror->hide_vacancy = 1;
         }
     
         $vacancyMirror->save();

@@ -206,7 +206,7 @@ document.addEventListener("input", (e) => {
 /*#################################*/
 /**###### Função de mensagem ######*/
 /**############################### */
-function showSplash() {
+function showSplash($new = false) {
     if(document.getElementById("response")) document.getElementById("response").remove();
     load = document.createElement("div");
     load.id = "response";
@@ -229,9 +229,14 @@ function showSplash() {
         </div>
 
         `;
-    return setTimeout (() => {
-        document.body.appendChild(load);
-    }, 500);
+        
+    if($new) {
+        return document.body.appendChild(load);
+    } else {
+        return setTimeout (() => {
+            document.body.appendChild(load);
+        }, 500);
+    }
 }
 
 function removeFlash() {
