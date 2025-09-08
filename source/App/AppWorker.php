@@ -114,7 +114,7 @@ class AppWorker extends Controller
         $_SESSION["idwork"] = $idWorker;
         $vWService = (new VwService())->find("id_worker = :id", "id={$idWorker}")->fetch(true);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($vWService ?? []), 14, 1);
+        $pager->pager(count($vWService ?? []), 9, 1);
 
         $html = $this->view->render("/pageWorker/historyService", [
             "worker" => (new Worker())->findById($idWorker),
@@ -170,7 +170,7 @@ class AppWorker extends Controller
 
         $vWService = (new VwService())->find($where, http_build_query($params))->fetch(true);
         $pager = new Pager(url("/historicotrabalhador/p/{$idWorker}/"));
-        $pager->pager(count($vWService ?? []), 14, $page);
+        $pager->pager(count($vWService ?? []), 9, $page);
 
         $html = $this->view->render("/pageWorker/listHistoryService", [
             "worker" => (new Worker())->findById($idWorker),
