@@ -38,9 +38,10 @@ document.addEventListener("submit", (e) => {
             }
 
             if(data.html) {
-                document.getElementById("list-info-vacancy").innerHTML = data.html;
+                document.getElementById("view-form").innerHTML = data.html;
                 fnccheckBoxVacancy();
-                fncCheckClosedVacancy()
+                fncCheckClosedVacancy();
+                document.getElementById("modal")?.remove();
             }
             
             if(data.updatetodo) {

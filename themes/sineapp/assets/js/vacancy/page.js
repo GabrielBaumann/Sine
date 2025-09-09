@@ -130,7 +130,6 @@ document.addEventListener("click", (e) => {
     }
 });
 
-
 // Clique no checkbox individual e mostrar o botão de encerrar
 document.addEventListener("click", (e) => {
     const vButton = e.target.classList.contains("check-vacancy");
@@ -166,6 +165,34 @@ document.addEventListener("click", (e) => {
         }
     }
 });
+
+// Atualização da página de informações da vaga
+document.addEventListener("click", async (e) => {
+    const vButton = e.target.closest("BUTTON");
+    if(vButton && vButton.id === "btn-closed-mirror-vacancy") {
+        const vUrl = vButton.dataset.url;
+        const vFlash = showSplash(true);
+
+        try{
+            const vResponse = await fetch(vUrl);
+            
+            const vData = await vResponse.json();
+
+            vElement = document.getElementById("view-form");
+            vElement.innerHTML = vData.html;
+            fncCheckClosedVacancy()
+
+            if(vData.message) {
+                fncMessage(vData.message);
+            }
+
+        } catch (err) {
+            fncMessage();
+        } finally {
+            vFlash?.remove();
+        }
+    }
+})
 
 // Modal de confirmação de exclusãode vaga
 fncModalQuest("btn-delete-vacancy");

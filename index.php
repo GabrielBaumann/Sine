@@ -111,15 +111,15 @@ $route->post("/excluirvaga/{idvacancy}", "AppVacancy:deleteVacancy");
 $route->get("/reativarvagas/{idvacancy}", "AppVacancy:questReactiveVacancy");
 $route->post("/confirmarreativarvagas/{idvacancy}", "AppVacancy:reactiveVacancy");
 
-
 $route->get("/janelaocultarpainel/{hideyesno}", "AppVacancy:questHidePainel");
 $route->post("/ocultarpainel", "AppVacancy:hidePanel");
 $route->post("/mostrarpainel", "AppVacancy:noHidePanel");
 
-
 $route->get("/janelaocultarpainel/{type}/{idvacancy}", "AppVacancy:questHideVacancy");
 $route->post("/ocultarvaga/{idvacancy}", "AppVacancy:hideVacancy");
 $route->post("/mostrarvaga/{idvacancy}", "AppVacancy:noHideVacancy");
+
+$route->get("/encerrarvaga/{idvacancy}", "AppVacancy:closedMirrorVacancy");
 
 /**
  * AppCompany - CRIADO DE EXEMPLO PELO GABRIEL

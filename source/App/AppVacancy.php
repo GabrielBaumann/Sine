@@ -34,7 +34,6 @@ class AppVacancy extends Controller
     // Página Inicial e dados do sidebar
     public function startVacancy(?array $data) : void
     {   
-
         if(isset($data["page"]) && !empty($data["page"])) {
 
             $searchVacancy = filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) ? filter_input(INPUT_GET, "search-vacancy", FILTER_SANITIZE_SPECIAL_CHARS) : null;
@@ -346,37 +345,76 @@ class AppVacancy extends Controller
 
             $count = 0;
 
-            foreach($data as $key => $value) {
-                if(str_contains($key, "check-vacancy-")) {
-                    $vacancyClosed->closedVacancy((int)$value, (int)$idFixed, $data["reason-closed"]);
-                    $count++;
-                }                
-            }
+            if(isset($data["all-vacancy"])) {
+                $vacancyAll = (new Vacancy())->find("id_vacancy_fixed = :id AND status_vacancy = 'Ativa'", "id={$idFixed}")->fetch(true);
 
-            $plur = $count > 1 ? "s" : "";
+                foreach($vacancyAll as $vacancyAllItem) {
+                    $vacancyClosed->closedVacancy($vacancyAllItem->id_vacancy, $vacancyAllItem->id_vacancy_fixed, $data["reason-closed"]);
+                    $count++;
+                }
+                $plur = $count > 1 ? "s" : "";
+            } else {
+                
+                foreach($data as $key => $value) {
+                    if(str_contains($key, "check-vacancy-")) {
+                        $vacancyClosed->closedVacancy((int)$value, (int)$idFixed, $data["reason-closed"]);
+                        $count++;
+                    }                
+                }
+
+                $plur = $count > 1 ? "s" : "";
+            }
 
             $json["message"] = messageHelpers()->success("Vaga". $plur ."  encerrada". $plur ." com sucesso!")->render();
 
-            $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$idFixed}")->fetch(true);
-            $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
-
+            $vacancyListCount = count((new Vacancy())
+            ->find("id_vacancy_fixed = :id", "id={$idFixed}")
+            ->fetch(true)
+            ?? []);
+        
             $pager = new Pager(url("/paginarvagas/p/{$idFixed}/"));
-            $pager->Pager(count($vacancyList ?? []), 5, 1);
+            $pager->Pager($vacancyListCount, 5, 1);
+                
+            $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
+            $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idFixed);
 
-            $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+            $html = $this->view->render("/pageVacancy/infoVacancy", [
+                "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
                 "vacancyList" => (new Vacancy())
                     ->find("id_vacancy_fixed = :id", "id={$idFixed}")
                     ->limit($pager->limit())
                     ->offset($pager->offset())
                     ->fetch(true),
                 "vacancyInfo" => $vacancyInfo,
-                "countVacancy" => count($vacancyList ?? []),
+                "countVacancy" => $vacancyListCount,
                 "paginator" => $pager->render()
             ]);
 
+            $json["message"] = messageHelpers()->success("Vaga encerrada com sucesso!")->render();
             $json["html"] = $html;
             echo json_encode($json);
             return;
+
+            // $vacancyList = (new Vacancy())->find("id_vacancy_fixed = :id", "id={$idFixed}")->fetch(true);
+            // $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idFixed}")->fetch();
+
+            // $pager = new Pager(url("/paginarvagas/p/{$idFixed}/"));
+            // $pager->Pager(count($vacancyList ?? []), 5, 1);
+
+            // $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+            //     "vacancyList" => (new Vacancy())
+            //         ->find("id_vacancy_fixed = :id", "id={$idFixed}")
+            //         ->limit($pager->limit())
+            //         ->offset($pager->offset())
+            //         ->fetch(true),
+            //     "vacancyInfo" => $vacancyInfo,
+            //     "countVacancy" => count($vacancyList ?? []),
+            //     "paginator" => $pager->render()
+            // ]);
+
+            // $json["html"] = $html;
+            // echo json_encode($json);
+            // return;
         }
 
         // Paginar conteúdo
@@ -411,8 +449,10 @@ class AppVacancy extends Controller
         $pager->Pager($vacancyListCount, 5, $page);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
 
         $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
             "vacancyList" => (new Vacancy())
                 ->find($where, http_build_query($params))
                 ->limit($pager->limit())
@@ -440,8 +480,10 @@ class AppVacancy extends Controller
         $pager->Pager($vacancyListCount, 5, 1);
             
         $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
 
         $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
             "vacancyList" => (new Vacancy())
                 ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
                 ->limit($pager->limit())
@@ -694,6 +736,8 @@ class AppVacancy extends Controller
     public function hideVacancy(array $data) : void
     {
         $vacancy = new Vacancy();
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+
         $vacancyHide = $vacancy->hideVacancy($data["idvacancy"]);
         
         if(!$vacancyHide){
@@ -702,16 +746,43 @@ class AppVacancy extends Controller
             return;
         }
 
-        $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->flash();
-        $json["redirect"] = url("/vagas");
+        $vacancyListCount = count((new Vacancy())->find("id_vacancy_fixed = :id", "id={$idVacancy}")->fetch(true) ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 5, 1);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
+            "vacancyList" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->render();
+        $json["html"] = $html;
         echo json_encode($json);
-        return;    
+        return;
+
+        // $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->flash();
+        // $json["redirect"] = url("/vagas");
+        // echo json_encode($json);
+        // return;    
     }
 
     // Confirmar mostrar vaga
     public function noHideVacancy(array $data) 
     {
         $vacancy = new Vacancy();
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+
         $vacancyHide = $vacancy->hideVacancy($data["idvacancy"], true);
         
         if(!$vacancyHide){
@@ -720,10 +791,35 @@ class AppVacancy extends Controller
             return;
         }
 
-        $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
-        $json["redirect"] = url("/vagas");
+        $vacancyListCount = count((new Vacancy())->find("id_vacancy_fixed = :id", "id={$idVacancy}")->fetch(true) ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 5, 1);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
+            "vacancyList" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Vaga reativda com sucesso!")->render();
+        $json["html"] = $html;
         echo json_encode($json);
-        return;
+        return;        
+
+        // $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
+        // $json["redirect"] = url("/vagas");
+        // echo json_encode($json);
+        // return;
     }
 
     // Modal de detalhe de encaminhamento de tralhador por vaga
@@ -821,10 +917,103 @@ class AppVacancy extends Controller
             return;            
         }
 
-        $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
-        $json["redirect"] = url("/vagas");
+        $vacancyListCount = count((new Vacancy())->find("id_vacancy_fixed = :id", "id={$idVacancy}")->fetch(true) ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 5, 1);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
+            "vacancyList" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->render();
+        $json["html"] = $html;
         echo json_encode($json);
         return;
+
+        // $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
+        // $json["redirect"] = url("/vagas");
+        // echo json_encode($json);
+        // return;
+    }
+
+    // Encerrar apenas o espelho da vaga caso a vaga tenha sido reativada
+    public function closedMirrorVacancy(array $data) : void 
+    {
+        $idVacancy = (int)fncDecrypt($data["idvacancy"]);
+
+        if($idVacancy === 0) {
+            $json["message"] = messageHelpers()->warning("Erro na requisição, atualize a página e tente novamente!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        $vacancy = (new Vacancy())->findById($idVacancy);
+        $vacancy->status_vacancy = "Encerrada";
+        $vacancy->save();
+
+        $vacancyListCount = count((new Vacancy())
+            ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+            ->fetch(true)
+            ?? []);
+        
+        $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        $pager->Pager($vacancyListCount, 5, 1);
+            
+        $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+        $chekedVacancyMirrorActive = (new VwVacancy())->checkedVacancyMirroActive($idVacancy);
+
+        $html = $this->view->render("/pageVacancy/infoVacancy", [
+            "chekedVacancyMirrorActive" => $chekedVacancyMirrorActive,
+            "vacancyList" => (new Vacancy())
+                ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->fetch(true),
+            "vacancyInfo" => $vacancyInfo,
+            "countVacancy" => $vacancyListCount,
+            "paginator" => $pager->render()
+        ]);
+
+        $json["message"] = messageHelpers()->success("Vaga encerrada com sucesso!")->render();
+        $json["html"] = $html;
+        echo json_encode($json);
+        return;
+        // $vacancyListCount = count((new Vacancy())
+        //     ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+        //     ->fetch(true)
+        //     ?? []);
+        
+        // $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
+        // $pager->Pager($vacancyListCount, 5, 1);
+            
+        // $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
+
+        // $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
+        //     "vacancyList" => (new Vacancy())
+        //         ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
+        //         ->limit($pager->limit())
+        //         ->offset($pager->offset())
+        //         ->fetch(true),
+        //     "vacancyInfo" => $vacancyInfo,
+        //     "countVacancy" => count($vacancyList ?? []),
+        //     "paginator" => $pager->render()
+        // ]);
+
+        // $json["html"] = $html;
+        // echo json_encode($json);
+        // return;
     }
 
     // Sair do sistema

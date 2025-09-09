@@ -55,7 +55,7 @@ abstract class Model
     public function __construct(string $entity, array $protected, array $required, string $id = "id")
     {
         self::$entity = $entity;
-        self::$protected = array_merge($protected, ["date_register", "date_update"]);
+        self::$protected = array_merge($protected, ["date_update"]);
         self::$required = $required;
         $this->id = $id;
         $this->message = new Message();

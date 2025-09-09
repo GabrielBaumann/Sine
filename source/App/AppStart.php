@@ -109,9 +109,9 @@ class AppStart extends Controller
         } else {
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
-            ->order("date_open_vacancy", "DESC")
-            ->fetch(true);
+                ->find("total_vacancy_active <> :to AND version_panel = :ve AND DATE(date_register) = :date AND hide_vacancy = :hi","to=0&ve={$versionPanel}&date={$today->format('Y-m-d')}&hi=0")
+                ->order("date_open_vacancy", "DESC")
+                ->fetch(true);
         }
 
         $html = $this->view->render("/pageStart/detailPanelVacancy", [

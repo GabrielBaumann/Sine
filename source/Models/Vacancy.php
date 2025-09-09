@@ -94,6 +94,9 @@ class Vacancy extends Model
         ->order("number_vacancy", "DESC")
         ->fetch();
 
+        // Caso a quantidade de encaminhamento de vagas seja maior que a quantidade previamente cadastrada, então ele reativa as vagas e limpa o status
+        ((int)$data["quantity-per-vacancy"] > $lastVacancy->quantity_per_vacancy) ? $moreQuantityPerVacancy = true : $moreQuantityPerVacancy = false;
+
         $accepCurriculum = isset($data["curriculum-vacancy"]) ? $data["curriculum-vacancy"] : 0;
 
         // Novas vagas (valor de alteração é maior que o valor cadastrado a primeira vez)
@@ -128,6 +131,10 @@ class Vacancy extends Model
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->hide_panel = $data["hide-panel"];
                 $oldVacancyUpdate->hide_vacancy = $data["hide-vacancy"];
+
+                $moreQuantityPerVacancy ? $oldVacancyUpdate->status_vacancy = "Ativa" : "";
+                $moreQuantityPerVacancy ? $oldVacancyUpdate->reason_close = "" : "";
+
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -222,6 +229,10 @@ class Vacancy extends Model
                 $oldVacancyUpdate->version_panel = $data["version-panel"];
                 $oldVacancyUpdate->hide_panel = $data["hide-panel"];
                 $oldVacancyUpdate->hide_vacancy = $data["hide-vacancy"];
+
+                $moreQuantityPerVacancy ? $oldVacancyUpdate->status_vacancy = "Ativa" : "";
+                $moreQuantityPerVacancy ? $oldVacancyUpdate->reason_close = "" : "";
+
                 $oldVacancyUpdate->id_user_update = $userId;
 
                 $oldVacancyUpdate->save();
@@ -585,11 +596,13 @@ class Vacancy extends Model
         }
 
         if($date) {
-            // var_dump($date);
             $vacancyMirror->date_closed_vacancy = $date;
         }
         
+        $today = new DateTime();
+
         $vacancyMirror->status_vacancy = "Ativa";
+        $vacancyMirror->date_register = $today->format("Y-m-d H:i:s");
         $vacancyMirror->reason_close = "";
         $vacancyMirror->save();
 

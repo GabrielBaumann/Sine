@@ -6,7 +6,7 @@
             <thead class="">
             <tr>
                 <th scope="col" class="w-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <input type="checkbox" id="chek-vacancy" class="h-4 w-4 ml-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                    <input name="all-vacancy" type="checkbox" id="chek-vacancy" class="h-4 w-4 ml-3 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vaga</th>
@@ -76,7 +76,7 @@
                             <option value="">Selecione um motivo</option>
                             <option value="Prazo encerrado">Prazo encerrado</option>
                             <option value="Empresa encerrou">Empresa encerrou</option>
-                            <option value="Empresa encerrou">Outro motivo</option>
+                            <option value="Outro motivo">Outro motivo</option>
                         </select>
                     </div>
                     <button

@@ -71,10 +71,9 @@ class VacancyWorker extends Model
     // Função para normalizar a quantidade permitida de encaminhamento por vagas
     public function normalizeWorkerVacancy()
     {
-
         // Verifica a quantidade de vagas na tabela worker_vacancy e atualiza as vagas na tabela vacancy
-        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id AND reason_close IS NULL","id=0")->fetch(true);
-
+        $totalVagas = (new Vacancy())->find("id_vacancy_fixed <> :id AND reason_close IS NULL OR reason_close = ''","id=0")->fetch(true);
+        
         if($totalVagas) {
             foreach($totalVagas as $totalVagasItem) {
                 $vacancyWorker = (new VacancyWorker())->find("id_vacancy = :id","id={$totalVagasItem->id_vacancy}")->fetch(true);
