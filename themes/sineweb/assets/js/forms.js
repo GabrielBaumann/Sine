@@ -1,5 +1,3 @@
-let load = "";
-
 document.addEventListener("submit", async (e)=> {
 
     if (e.target.tagName === "FORM") {
@@ -12,8 +10,7 @@ document.addEventListener("submit", async (e)=> {
         let timeoutLoading;
 
         // Agenda a exibição do "carregamento..." após 300 milesimo
-        timeoutLoading = showSplash()
-
+        timeoutLoading = fncSplash();
         try {
             const vResponse = await fetch(actionForm, {
             method: "POST",
@@ -23,6 +20,7 @@ document.addEventListener("submit", async (e)=> {
             
             if(vData.redirected) {
                 window.location.href = vData.redirected
+                return;
             } else {
 
                 if(document.getElementById("response")) document.getElementById("response").remove()
@@ -93,17 +91,10 @@ window.onload = function () {
 }
 
 
-// Função para chamar tela de splash e remover mensagens anteriores
-function showSplash () {
-    return setTimeout(() => {
-        document.body.appendChild(fncSplash());
-    }, 300)
-}
-
 // Funcção que cria tela de splash
 function fncSplash() {
     load = document.createElement("div");
-    load.id = "response";
+    load.id = "modal";
     load.innerHTML = 
     `
         <div class="main h-full w-full bg-gray-50 absolute top-0 left-0">
@@ -123,7 +114,7 @@ function fncSplash() {
         </div>
 
         `;
-    return load;
+    return document.body.appendChild(load);
 }
 
 document.addEventListener("input", function(e) {

@@ -499,7 +499,14 @@ class AppStart extends Controller
         $forgetcterc = new VwBiServiceExcel();
         $dataCterc = $forgetcterc->find("cterc = :c AND (status_vacancy_worker IS NOT NULL OR status_vacancy_worker = '')", "c=SIM")->fetch(true);
 
-        // Criar planilha
+        if(!$dataCterc) {
+            header("Content-Type: application/json; charset=UTF-8");
+            $json["message"] = messageHelpers("Não há dados para baixar!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // // Criar planilha
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -574,7 +581,7 @@ class AppStart extends Controller
         ]);
 
         // Preparar download
-        $filename = "realtorio_" . date("Y-m-d") . ".xlsx";
+        $filename = "realtorio_" . date_simple(date("Y-m-d")) . ".xlsx";
 
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         header("Content-Disposition: attachment; filename=\"$filename\"");
@@ -583,6 +590,6 @@ class AppStart extends Controller
         // Enviar arquivo
         $writer = new Xlsx($spreadsheet);
         $writer->save("php://output");
-        exit;
+        return;
     }
 }

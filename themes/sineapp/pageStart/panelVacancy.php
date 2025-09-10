@@ -62,15 +62,17 @@
                         <span>Painel de empresas</span>
                     </button>
                 </div>
-                <button
-                    id="list-excel-cterc"
-                    data-url="<?= url("/excelcertec"); ?>"
-                    class="print w-full flex items-center text-xs cursor-pointer print p-2 gap-2 bg-blue-100 hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-gray-900 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                    </svg>
-                    <span>Baixar lista CTERC</span>
-                </button>
+                <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
+                    <button
+                        id="list-excel-cterc"
+                        data-url="<?= url("/excelcertec"); ?>"
+                        class="w-full flex items-center text-xs cursor-pointer p-2 gap-2 bg-blue-100 hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-gray-900 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                        </svg>
+                        <span>Baixar lista CTERC</span>
+                    </button>
+                <?php endif; ?>
             </div>
     </div>
 

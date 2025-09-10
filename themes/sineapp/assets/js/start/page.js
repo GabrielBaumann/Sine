@@ -4,7 +4,7 @@ document.addEventListener("click", (e) => {
     if(vButton && vButton.classList.contains("print")) {
         const vVersion = document.getElementById("version-panel").value;
         const vUrl = vButton.dataset.url
-        
+
         fetch(vUrl + "/" + vVersion)
         .then(response => response.json())
         .then(data => {
@@ -28,14 +28,37 @@ document.getElementById("list-excel-cterc")?.addEventListener("click", async (e)
     const vUrl = vButton.dataset.url
     const vLoding = showSplash(true);  
 
-    try{
-        window.location.href = vUrl;
-    } catch(err) {
+    try {
+        const vResponse = await fetch(vUrl);
+        const vContentType = vResponse.headers.get("Content-Type") || "";
+
+        if(vContentType.includes("application/json")) {
+            const vData = await vResponse.json();
+            fncMessage(vData.message);
+        } else {
+            const vBlob = await vResponse.blob();
+
+            // Criar link temporário para download
+            const vUrlBlob = window.URL.createObjectURL(vBlob);
+            const link = document.createElement("a");
+            link.href = vUrlBlob;
+            const day = new Date();
+            const vtoday = day.toLocaleDateString("pt-BR").replace(/\//g, "");
+            link.download = "Lista de encaminhados CTERC"+ vtoday +".xlsx"; // nome sugerido
+            document.body.appendChild(link);
+            link.click();
+
+            // limpar
+            link.remove();
+            window.URL.revokeObjectURL(vUrlBlob);
+        }
+
+    } catch (err) {
         fncMessage();
+        // console.log(err);
     } finally {
         vLoding?.remove();
     }
-
 });
 
 // Baixar painel em pdf

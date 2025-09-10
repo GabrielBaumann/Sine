@@ -119,7 +119,7 @@
                 </form>
             <?php endif; ?>
             <?php if($cancel): ?>
-                <button id="cancelBtn" class="modal-button cancel-button">Cencelar</button>
+                <button id="cancelBtn" class="modal-button cancel-button">Cancelar</button>
             <?php endif; ?>            
             </div>
         </div>

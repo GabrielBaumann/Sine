@@ -60,7 +60,7 @@
     <div class="flex flex-col sm:flex-row gap-4 bg-white rounded-2xl p-5">
         <?php if(in_array($service->id_type_service, ["4","56"])): ?>
             <?php if($service->status_vacancy_worker === "Aguardando resposta"): ?>
-                <?php if(in_array($userSystem->type_user, ["DEV","ADM"])): ?>
+                <?php if(in_array($userSystem->type_user, ["DEV","ADM","USER-BAIXA"])): ?>
                     <form action="<?= url("/finalizarencaminhatoentrevista"); ?>" method="post" class="flex flex-col sm:flex-row gap-4">
                         <?= csrf_input(); ?>
 

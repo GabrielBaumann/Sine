@@ -33,7 +33,6 @@ $route->get("/imprimir/{versionPainel}", "AppStart:printPanelBlank");
 $route->get("/imprimirinterno/{versionPainel}", "AppStart:printPanelInternalBlank");
 
 $route->get("/grafico/{type}", "AppStart:charGraphic");
-
 $route->get("/excelcertec", "AppStart:excelCertec");
 
 /**
