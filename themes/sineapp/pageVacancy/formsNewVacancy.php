@@ -257,7 +257,7 @@ $enterprise = new Enterprise();
                         id="nomeclatura-vacancy" 
                         name="nomeclatura-vacancy" 
                         class="bg-white w-full px-3 py-2 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-sine-500 focus:border-sine-500" 
-                        placeholder="00">
+                        placeholder="Nomenclatura da vaga...">
                 </div>
 
                 <!-- Pegar currículo -->

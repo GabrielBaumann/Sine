@@ -1,7 +1,7 @@
 /**
  * Envio de formulário de cadastro de vagas
  */
-document.addEventListener("submit", (e) => {
+document.addEventListener("submit", async (e) => {
     if(e.target.tagName === "FORM") {
         e.preventDefault();
 
@@ -10,47 +10,48 @@ document.addEventListener("submit", (e) => {
         const vformId = e.target.id;
         let vtimeLoading;
 
-        vtimeLoading = showSplash();
-        
-        fetch(vActionForm, {
-            method: "POST",
-            body: vForm
-        })
-        .then(response => {
-            clearTimeout(vtimeLoading);
-            return response.json();
-        })
-        .then(data => {
+        vtimeLoading = showSplash(true);
+        document.getElementById("modal")?.remove();
 
-            if(data.redirect) {
-                window.location.href = data.redirect;
+        try {
+            
+            const vReponse = await fetch(vActionForm, {
+                method: "POST",
+                body: vForm
+            })
+
+            const vData = await vReponse.json();
+            
+            if(vData.redirect) {
+                window.location.href = vData.redirect;
                 return;
             }
 
-            if(data.complete) {
-                fncMessage(data.message);
+            if(vData.complete) {
+                fncMessage(vData.message);
                 document.getElementById(vformId).reset();
                 $('#enterprise').val(null).trigger('change');
                 $('#cbo-occupation').val(null).trigger('change');
                 fncTodoClousureToday()
             } else {
-                fncMessage(data.message);
+                fncMessage(vData.message);
             }
 
-            if(data.html) {
-                document.getElementById("view-form").innerHTML = data.html;
+            if(vData.html) {
+                document.getElementById("view-form").innerHTML = vData.html;
                 fnccheckBoxVacancy();
                 fncCheckClosedVacancy();
                 document.getElementById("modal")?.remove();
             }
             
-            if(data.updatetodo) {
+            if(vData.updatetodo) {
                 fncTodoClousureToday()
             }
 
-        })
-        .catch(error => {
+        } catch(error) {
             fncMessage();
-        })
+        } finally {
+            vtimeLoading?.remove();
+        }
     }
 });

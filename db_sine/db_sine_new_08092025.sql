@@ -666,7 +666,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `bi_atendimentos` AS select `bi_service`.`cpf_worker` AS `CPF`,`bi_service`.`name_worker` AS `NOME`,`bi_service`.`gender_worker` AS `SEXO`,`bi_service`.`pcd_worker` AS `PCD`,`bi_service`.`apprentice_worker` AS `APRENDIZ`,`bi_service`.`cterc` AS `ENCAMINHADO_CTERC`,`bi_service`.`ethnicity_worker` AS `COR`,date_format(`bi_service`.`date_register`,'%d/%m/%Y') AS `DATA_DO_ENCAMINHAMENTO`,`bi_service`.`name_user` AS `ATENDENTE`,`bi_service`.`cnpj` AS `CNPJ`,`bi_service`.`name_fantasy_enterpise` AS `EMPRESA`,`bi_service`.`responsible_enterprise` AS `RESPONSAVEL`,`bi_service`.`phone_enterprise` AS `TELEFONE`,concat(`bi_service`.`id_code`,'-',`bi_service`.`occupation`) AS `FUNCAO`,`bi_service`.`type_service` AS `SERVICO`,(case when ((`bi_service`.`status_vacancy_worker` = 'Na ocupação') or (`bi_service`.`status_vacancy_worker` = 'Em outra ocupação')) then 'ADMITIDO' when ((`bi_service`.`status_vacancy_worker` is null) or (`bi_service`.`status_vacancy_worker` = '')) then 'ATENDIMENTO REALIZADO' when (`bi_service`.`status_vacancy_worker` = 'Aguardando resposta') then 'AGUARDANDO RETORNO' else 'REPROVADO' end) AS `STATUS_ATENDIMENTO`,date_format(`bi_service`.`date_response_company`,'%d/%m/%Y') AS `DATA_RETORNO`,`bi_service`.`status_vacancy_worker` AS `DETALHE_ATENTIMENTO`,`bi_service`.`service_detail` AS `OBSERVACAO_ATENTIMENTO`,`bi_service`.`detail_response` AS `OBSERVACAO_RESPOSTA` from `bi_service` union all select '-' AS `CPF`,`vw_service_phone`.`name_work_phone` AS `NOME`,'-' AS `SEXO`,'NÃO' AS `PCD`,'NÃO' AS `APRENDIZ`,'NÃO' AS `ENCAMINHADO_CTERC`,'NÃO' AS `COR`,date_format(`vw_service_phone`.`date_register`,'%d/%m/%Y') AS `DATA_DO_ENCAMINHAMENTO`,`vw_service_phone`.`name_user` AS `ATENDENTE`,'12345678900' AS `CNPJ`,'SERVIÇOS SINE' AS `EMPRESA`,'RANIELLI' AS `RESPONSAVEL`,'94991235373' AS `TELEFONE`,'SERVIÇOS SINE' AS `FUNCAO`,`vw_service_phone`.`type_service` AS `SERVICO`,'ATENDIMENTO WEB REALIZADO' AS `STATUS_ATENDIMENTO`,'-' AS `DATA_RETORNO`,'-' AS `DETALHE_ATENTIMENTO`,`vw_service_phone`.`detail` AS `OBSERVACAO_ATENTIMENTO`,'-' AS `OBSERVACAO_RESPOSTA` from `vw_service_phone` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -684,7 +684,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `bi_service` AS select `service`.`id_service` AS `id_service`,`service`.`date_register` AS `date_register`,`service`.`detail` AS `service_detail`,`service`.`id_type_service` AS `id_type_service`,`system_user`.`name_user` AS `name_user`,`type_service`.`type_service` AS `type_service`,`type_service`.`group_type` AS `group_type`,`type_service`.`detail` AS `detail`,`worker`.`name_worker` AS `name_worker`,`worker`.`cpf_worker` AS `cpf_worker`,`worker`.`id_worker` AS `id_worker`,`worker`.`gender_worker` AS `gender_worker`,`worker`.`pcd_worker` AS `pcd_worker`,`worker`.`ethnicity_worker` AS `ethnicity_worker`,`worker`.`apprentice_worker` AS `apprentice_worker`,`worker`.`cterc` AS `cterc`,`vacancy_worker`.`id_vacancy` AS `id_vacancy`,`vacancy_worker`.`status_vacancy_worker` AS `status_vacancy_worker`,`vacancy_worker`.`detail_response` AS `detail_response`,`vacancy_worker`.`date_response_company` AS `date_response_company`,`vacancy`.`nomeclatura_vacancy` AS `nomeclatura_vacancy`,`enterprise`.`id_enterprise` AS `id_enterprise`,`enterprise`.`name_fantasy_enterpise` AS `name_fantasy_enterpise`,`enterprise`.`responsible_enterprise` AS `responsible_enterprise`,`enterprise`.`cnpj` AS `cnpj`,`enterprise`.`phone_enterprise` AS `phone_enterprise`,`cbo_list`.`occupation` AS `occupation`,`cbo_list`.`id_code` AS `id_code` from (((((((`service` join `system_user` on((`service`.`id_user_register` = `system_user`.`id_user`))) join `type_service` on((`service`.`id_type_service` = `type_service`.`id_type_service`))) join `worker` on((`service`.`id_worker` = `worker`.`id_worker`))) left join `vacancy_worker` on((`service`.`id_service` = `vacancy_worker`.`id_service`))) left join `vacancy` on((`vacancy_worker`.`id_vacancy` = `vacancy`.`id_vacancy`))) left join `enterprise` on((`vacancy`.`id_enterprise` = `enterprise`.`id_enterprise`))) left join `cbo_list` on((`vacancy`.`id_cod_cbo` = `cbo_list`.`id_cod_cbo`))) where (`service`.`id_type_service` between 1 and 15) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -702,7 +702,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `bi_vagas` AS select `enterprise`.`cnpj` AS `CNPJ`,`enterprise`.`name_enterprise` AS `NOME EMPRESARIAL`,concat(`cbo_list`.`id_code`,' - ',`cbo_list`.`occupation`) AS `OCUPACAO CBO`,`vacancy`.`nomeclatura_vacancy` AS `OCUPACO CADASTRO`,`vacancy`.`pcd_vacancy` AS `PCD`,`vacancy`.`apprentice_vacancy` AS `APRENDIZ`,`vacancy`.`gender_vacancy` AS `SEXO`,`vacancy`.`number_vacancy` AS `N DE VAGAS`,`vacancy`.`quantity_per_vacancy` AS `QUANTIDADE POR VAGA`,`vacancy`.`date_open_vacancy` AS `DATA ENCAMINHAMENTO`,`vacancy`.`education_vacancy` AS `ESCOLARIDADE`,`vacancy`.`age_min_vacancy` AS `FEIXA ETARUA MIN`,`vacancy`.`age_max_vacancy` AS `FEIXA ETARUA MAX`,`vacancy`.`accept_curriculum` AS `ACEITAR CURRICULO`,`vacancy`.`exp_vacancy` AS `EXP`,`vacancy`.`description_vacancy` AS `description_vacancy`,`vacancy`.`request_vacancy` AS `request_vacancy` from ((`vacancy` join `enterprise` on((`enterprise`.`id_enterprise` = `vacancy`.`id_enterprise`))) join `cbo_list` on((`cbo_list`.`id_cod_cbo` = `vacancy`.`id_cod_cbo`))) where (`vacancy`.`id_vacancy_fixed` = 0) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -720,7 +720,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_char_date` AS select dayofmonth(`service`.`date_register`) AS `day`,month(`service`.`date_register`) AS `month`,year(`service`.`date_register`) AS `year` from `service` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -738,7 +738,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_char_day` AS select count(0) AS `total`,dayofmonth(`service`.`date_register`) AS `day`,month(`service`.`date_register`) AS `month`,year(`service`.`date_register`) AS `year` from `service` group by year(`service`.`date_register`),month(`service`.`date_register`),dayofmonth(`service`.`date_register`) order by `year`,`month`,`day` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -756,7 +756,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_char_year` AS select year(`service`.`date_register`) AS `year`,count(0) AS `total` from `service` group by `year`,`year` order by `year`,`year` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -774,7 +774,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_forwarding_worker` AS select `vacancy_worker`.`id_vacancy_worker` AS `id_vacancy_worker`,`vacancy_worker`.`id_vacancy` AS `id_vacancy`,`vacancy_worker`.`id_worker` AS `id_worker`,`vacancy_worker`.`id_service` AS `id_service`,`vacancy_worker`.`date_register` AS `date_forwarding`,`vacancy_worker`.`status_vacancy_worker` AS `status_vacancy_worker`,`vacancy_worker`.`detail_response` AS `detail_response`,`vacancy_worker`.`date_response_company` AS `date_response_company`,`worker`.`name_worker` AS `name_worker`,`worker`.`cpf_worker` AS `cpf_worker`,`service`.`detail` AS `detail_service`,`system_user`.`name_user` AS `name_user`,`vacancy`.`number_vacancy` AS `number_vacancy`,`vacancy`.`id_vacancy_fixed` AS `id_vacancy_fixed` from ((((`vacancy_worker` join `worker` on((`worker`.`id_worker` = `vacancy_worker`.`id_worker`))) join `service` on((`service`.`id_service` = `vacancy_worker`.`id_service`))) join `system_user` on((`system_user`.`id_user` = `vacancy_worker`.`id_user_register`))) join `vacancy` on((`vacancy`.`id_vacancy` = `vacancy_worker`.`id_vacancy`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -792,7 +792,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_service` AS select `service`.`id_service` AS `id_service`,`service`.`date_register` AS `date_register`,`service`.`detail` AS `service_detail`,`service`.`id_type_service` AS `id_type_service`,`system_user`.`name_user` AS `name_user`,`type_service`.`type_service` AS `type_service`,`type_service`.`group_type` AS `group_type`,`type_service`.`detail` AS `detail`,`worker`.`name_worker` AS `name_worker`,`worker`.`cpf_worker` AS `cpf_worker`,`worker`.`status_work` AS `status_work`,`worker`.`id_worker` AS `id_worker`,`vacancy_worker`.`id_vacancy` AS `id_vacancy`,`vacancy_worker`.`status_vacancy_worker` AS `status_vacancy_worker`,`vacancy_worker`.`detail_response` AS `detail_response`,`vacancy_worker`.`date_response_company` AS `date_response_company`,`vacancy`.`nomeclatura_vacancy` AS `nomeclatura_vacancy`,`enterprise`.`id_enterprise` AS `id_enterprise`,`enterprise`.`name_fantasy_enterpise` AS `name_fantasy_enterpise`,`cbo_list`.`occupation` AS `occupation`,`cbo_list`.`id_cod_cbo` AS `id_cod_cbo` from (((((((`service` join `system_user` on((`service`.`id_user_register` = `system_user`.`id_user`))) join `type_service` on((`service`.`id_type_service` = `type_service`.`id_type_service`))) join `worker` on((`service`.`id_worker` = `worker`.`id_worker`))) left join `vacancy_worker` on((`service`.`id_service` = `vacancy_worker`.`id_service`))) left join `vacancy` on((`vacancy_worker`.`id_vacancy` = `vacancy`.`id_vacancy`))) left join `enterprise` on((`vacancy`.`id_enterprise` = `enterprise`.`id_enterprise`))) left join `cbo_list` on((`vacancy`.`id_cod_cbo` = `cbo_list`.`id_cod_cbo`))) where (`service`.`id_type_service` between 1 and 15) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -810,7 +810,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_service_phone` AS select `service`.`id_worker` AS `id_worker`,`service`.`id_type_service` AS `id_type_service`,`service`.`id_user_register` AS `id_user_register`,`service`.`detail` AS `detail`,`system_user`.`name_user` AS `name_user`,`work_phone`.`name_work_phone` AS `name_work_phone`,`work_phone`.`contact_ddd_work` AS `contact_ddd_work`,`work_phone`.`contact_work` AS `contact_work`,`work_phone`.`date_register` AS `date_register`,`type_service`.`type_service` AS `type_service` from (((`service` join `work_phone` on((`service`.`id_worker` = `work_phone`.`id_work_phone`))) join `type_service` on((`service`.`id_type_service` = `type_service`.`id_type_service`))) join `system_user` on((`service`.`id_user_register` = `system_user`.`id_user`))) where (`service`.`id_type_service` between 16 and 69) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -828,7 +828,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_vacancy_active` AS select `vacancy`.`id_vacancy` AS `id_vacancy`,`vacancy`.`id_vacancy_fixed` AS `id_vacancy_fixed`,`vacancy`.`id_enterprise` AS `id_enterprise`,`vacancy`.`pcd_vacancy` AS `pcd_vacancy`,`vacancy`.`apprentice_vacancy` AS `apprentice_vacancy`,`vacancy`.`gender_vacancy` AS `gender_vacancy`,`vacancy`.`number_vacancy` AS `number_vacancy`,`vacancy`.`quantity_per_vacancy` AS `quantity_per_vacancy`,`vacancy`.`date_open_vacancy` AS `date_open_vacancy`,`vacancy`.`education_vacancy` AS `education_vacancy`,`vacancy`.`age_min_vacancy` AS `age_min_vacancy`,`vacancy`.`age_max_vacancy` AS `age_max_vacancy`,`vacancy`.`exp_vacancy` AS `exp_vacancy`,`vacancy`.`description_vacancy` AS `description_vacancy`,`vacancy`.`request_vacancy` AS `request_vacancy`,`vacancy`.`nomeclatura_vacancy` AS `nomeclatura_vacancy`,`vacancy`.`status_vacancy` AS `status_vacancy`,`vacancy`.`date_register` AS `date_register`,`vacancy`.`date_update` AS `date_update`,`vacancy`.`id_user_register` AS `id_user_register`,`vacancy`.`id_user_update` AS `id_user_update`,`vacancy`.`hide_panel` AS `hide_panel`,`vacancy`.`hide_vacancy` AS `hide_vacancy`,`enterprise`.`name_enterprise` AS `name_enterprise`,`enterprise`.`name_fantasy_enterpise` AS `name_fantasy_enterpise`,`cbo_list`.`occupation` AS `name_cbo_occupation`,`cbo_list`.`id_cod_cbo` AS `id_cod_cbo`,concat((select count(0) from `vacancy_worker` where (`vacancy`.`id_vacancy` = `vacancy_worker`.`id_vacancy`)),' / ',`vacancy`.`quantity_per_vacancy`) AS `total_vacancy_forwarding` from ((`vacancy` join `enterprise` on((`enterprise`.`id_enterprise` = `vacancy`.`id_enterprise`))) join `cbo_list` on((`cbo_list`.`id_cod_cbo` = `vacancy`.`id_cod_cbo`))) where ((`vacancy`.`status_vacancy` = 'Ativa') and (`vacancy`.`id_vacancy_fixed` <> 0) and (`vacancy`.`hide_vacancy` = 0) and (`vacancy`.`hide_panel` = 0)) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -846,7 +846,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`syscer62_sine`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `vw_vacancy_list` AS select `vacancy`.`id_vacancy` AS `id_vacancy`,`cbo_list`.`id_code` AS `id_code`,`cbo_list`.`occupation` AS `occupation`,`vacancy`.`id_cod_cbo` AS `id_cod_cbo`,`vacancy`.`nomeclatura_vacancy` AS `nomeclatura_vacancy`,`enterprise`.`name_enterprise` AS `name_enterprise`,`enterprise`.`name_fantasy_enterpise` AS `name_fantasy_enterpise`,`vacancy`.`status_vacancy` AS `status_vacancy`,`vacancy`.`pcd_vacancy` AS `pcd_vacancy`,`vacancy`.`apprentice_vacancy` AS `apprentice_vacancy`,`vacancy`.`date_open_vacancy` AS `date_open_vacancy`,`vacancy`.`id_enterprise` AS `id_enterprise`,`vacancy`.`quantity_per_vacancy` AS `quantity_per_vacancy`,`vacancy`.`description_vacancy` AS `description_vacancy`,`vacancy`.`gender_vacancy` AS `gender_vacancy`,`vacancy`.`request_vacancy` AS `request_vacancy`,`vacancy`.`accept_curriculum` AS `accept_curriculum`,`vacancy`.`number_vacancy` AS `number_vacancy`,`vacancy`.`exp_vacancy` AS `exp_vacancy`,`vacancy`.`date_closed_vacancy` AS `date_closed_vacancy`,`vacancy`.`education_vacancy` AS `education_vacancy`,`vacancy`.`age_min_vacancy` AS `age_min_vacancy`,`vacancy`.`age_max_vacancy` AS `age_max_vacancy`,(select count(0) from `vacancy` `sub` where ((`sub`.`id_vacancy_fixed` = `vacancy`.`id_vacancy`) and (`sub`.`status_vacancy` = 'Ativa'))) AS `total_vacancy_active`,concat(convert(lpad((select count(0) from `vacancy` `sub` where ((`sub`.`id_vacancy_fixed` = `vacancy`.`id_vacancy`) and (`sub`.`status_vacancy` = 'Encerrada'))),2,'0') using utf8mb4),'/',convert(lpad((select count(0) from `vacancy` `sub` where (`sub`.`id_vacancy_fixed` = `vacancy`.`id_vacancy`)),2,'0') using utf8mb4)) AS `vacancy_summary`,(select count(0) from `vacancy` `sub` where (`sub`.`id_vacancy_fixed` = `vacancy`.`id_vacancy`)) AS `total_vancacy_general`,`vacancy`.`date_register` AS `date_register`,date_format(`vacancy`.`date_register`,'%H:%i') AS `hour`,`vacancy`.`version_panel` AS `version_panel`,`vacancy`.`hide_panel` AS `hide_panel`,`vacancy`.`hide_vacancy` AS `hide_vacancy` from ((`vacancy` join `enterprise` on((`enterprise`.`id_enterprise` = `vacancy`.`id_enterprise`))) join `cbo_list` on((`cbo_list`.`id_cod_cbo` = `vacancy`.`id_cod_cbo`))) where (`vacancy`.`id_vacancy_fixed` = 0) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;

@@ -178,7 +178,7 @@
                     </div>
                     <div class="flex flex-row gap-2">
                         <span>Pegar currículo:</span>
-                        <span class="font-semibold"></span>
+                        <span class="font-semibold"><?= ($vacancyItem->accept_curriculum === 0) ? "Não" : "Sim"; ?></span>
                     </div>
                     <div class="flex flex-row gap-2">
                         <span>Data de abertura:</span>

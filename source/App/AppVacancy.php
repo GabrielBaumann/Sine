@@ -679,8 +679,30 @@ class AppVacancy extends Controller
             return;
         }
 
-        $json["message"] = messageHelpers()->success("Painel oculto com sucesso!")->flash();
-        $json["redirect"] = url("/vagas");
+        // Verifica se existe painel oculto ou não
+        $checkPanelVacancy = (new Vacancy())->checkHidePanel();
+
+        $vacancyCount = (new VwVacancy())->find()->count(); 
+        $pager = new Pager(url("/pesquisarvagas/p/"));
+        $pager->Pager($vacancyCount, 14, 1);
+
+        $html = $this->view->render("/pageVacancy/listVacancy", [
+            "title" => "Vagas",
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "totalVacancy" => (new VwVacancy())
+                ->find()                
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("date_open_vacancy", "DESC")->fetch(true),
+            "countVacancy"=> $vacancyCount,
+            "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
+            "paginator" => $pager->render(),
+            "checkPanelVacancy" => $checkPanelVacancy
+        ]);
+
+        $json["message"] = messageHelpers()->success("Painel reativado com sucesso!")->render();
+        $json["html"] = $html;
+        $json["content"] = "listVacancy";
         echo json_encode($json);
         return;
     }
@@ -697,10 +719,32 @@ class AppVacancy extends Controller
             return;
         }
 
-        $json["message"] = messageHelpers()->success("Painel reativado com sucesso!")->flash();
-        $json["redirect"] = url("/vagas");
+        // Verifica se existe painel oculto ou não
+        $checkPanelVacancy = (new Vacancy())->checkHidePanel();
+
+        $vacancyCount = (new VwVacancy())->find()->count(); 
+        $pager = new Pager(url("/pesquisarvagas/p/"));
+        $pager->Pager($vacancyCount, 14, 1);
+
+        $html = $this->view->render("/pageVacancy/listVacancy", [
+            "title" => "Vagas",
+            "userSystem" => (new SystemUser())->findById($this->user->id_user),
+            "totalVacancy" => (new VwVacancy())
+                ->find()                
+                ->limit($pager->limit())
+                ->offset($pager->offset())
+                ->order("date_open_vacancy", "DESC")->fetch(true),
+            "countVacancy"=> $vacancyCount,
+            "listEnterprise" => (new Vacancy())->listEnterpriseVacancy(),
+            "paginator" => $pager->render(),
+            "checkPanelVacancy" => $checkPanelVacancy
+        ]);
+
+        $json["message"] = messageHelpers()->success("Painel reativado com sucesso!")->render();
+        $json["html"] = $html;
+        $json["content"] = "listVacancy";
         echo json_encode($json);
-        return;
+        return;        
     }
 
     // Modal quest para ocultar e desocultar painel
@@ -769,12 +813,7 @@ class AppVacancy extends Controller
         $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->render();
         $json["html"] = $html;
         echo json_encode($json);
-        return;
-
-        // $json["message"] = messageHelpers()->success("Vaga oculta com sucesso!")->flash();
-        // $json["redirect"] = url("/vagas");
-        // echo json_encode($json);
-        // return;    
+        return;  
     }
 
     // Confirmar mostrar vaga
@@ -815,11 +854,6 @@ class AppVacancy extends Controller
         $json["html"] = $html;
         echo json_encode($json);
         return;        
-
-        // $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
-        // $json["redirect"] = url("/vagas");
-        // echo json_encode($json);
-        // return;
     }
 
     // Modal de detalhe de encaminhamento de tralhador por vaga
@@ -941,11 +975,6 @@ class AppVacancy extends Controller
         $json["html"] = $html;
         echo json_encode($json);
         return;
-
-        // $json["message"] = messageHelpers()->success("Vaga reativada com sucesso!")->flash();
-        // $json["redirect"] = url("/vagas");
-        // echo json_encode($json);
-        // return;
     }
 
     // Encerrar apenas o espelho da vaga caso a vaga tenha sido reativada
@@ -990,30 +1019,6 @@ class AppVacancy extends Controller
         $json["html"] = $html;
         echo json_encode($json);
         return;
-        // $vacancyListCount = count((new Vacancy())
-        //     ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
-        //     ->fetch(true)
-        //     ?? []);
-        
-        // $pager = new Pager(url("/paginarvagas/p/{$idVacancy}/"));
-        // $pager->Pager($vacancyListCount, 5, 1);
-            
-        // $vacancyInfo = (new VwVacancy())->find("id_vacancy = :id", "id={$idVacancy}")->fetch();
-
-        // $html = $this->view->render("/pageVacancy/componentListInfoVacancy", [
-        //     "vacancyList" => (new Vacancy())
-        //         ->find("id_vacancy_fixed = :id", "id={$idVacancy}")
-        //         ->limit($pager->limit())
-        //         ->offset($pager->offset())
-        //         ->fetch(true),
-        //     "vacancyInfo" => $vacancyInfo,
-        //     "countVacancy" => count($vacancyList ?? []),
-        //     "paginator" => $pager->render()
-        // ]);
-
-        // $json["html"] = $html;
-        // echo json_encode($json);
-        // return;
     }
 
     // Sair do sistema
