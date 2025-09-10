@@ -93,12 +93,7 @@ class AppCompany extends Controller
             $params = [];
 
             if(!empty($searchCompany)) {
-                $conditions[] = "name_enterprise LIKE :c";
-                $params["c"] = "%{$searchCompany}%"; 
-            }
-            
-            if(!empty($searchCompany)) {
-                $conditions[] = "name_fantasy_enterpise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
+                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
                 $params["co"] = "%{$searchCompany}%";
             }
             
