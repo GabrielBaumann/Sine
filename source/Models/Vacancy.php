@@ -337,7 +337,6 @@ class Vacancy extends Model
      */
     public function closedVacancy(int $idVacancy, int $idFixedVacancy, string $reasonClose) : bool
     {   
-       
         $vacancyClosed = new static();
 
         $vacancyClosed->id_vacancy = $idVacancy;
@@ -347,14 +346,15 @@ class Vacancy extends Model
 
         if($idFixedVacancy <> 0) {
             $vacancyTotal = (int)$this->findById($idFixedVacancy)->number_vacancy;
-            
-            $vacancyTotalClosed = count($this->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id={$idFixedVacancy}&st=Encerrada")->fetch(true));
+            $vacancyTotalClosed = count($this->find("id_vacancy_fixed = :id AND status_vacancy = :st", "id={$idFixedVacancy}&st=Encerrada")->fetch(true) ?? []);
 
             if($vacancyTotal === $vacancyTotalClosed) {
-                $this->id_vacancy = $idFixedVacancy;
-                $this->reason_close = filter_var($reasonClose, FILTER_SANITIZE_SPECIAL_CHARS);
-                $this->status_vacancy = "Encerrada";
-                $this->save();
+                $vacancyFixed = new static();
+
+                $vacancyFixed->id_vacancy = $idFixedVacancy;
+                $vacancyFixed->reason_close = filter_var($reasonClose, FILTER_SANITIZE_SPECIAL_CHARS);
+                $vacancyFixed->status_vacancy = "Encerrada";
+                $vacancyFixed->save();
             }
         }
         return true;
@@ -426,10 +426,10 @@ class Vacancy extends Model
 
         if($vacancy) {
             foreach($vacancy as $vacancyItem) {
-
+                
                 $closed = new DateTime($vacancyItem->date_closed_vacancy);
                 $today = new DateTime();
-
+                
                 if($closed <= $today) {
                     $this->closedVacancy($vacancyItem->id_vacancy, $vacancyItem->id_vacancy_fixed, "Prazo encerrado");
                 }

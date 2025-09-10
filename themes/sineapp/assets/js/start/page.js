@@ -21,6 +21,23 @@ document.addEventListener("click", (e) => {
     }
 })
 
+// Baixar em excel lista da CTERC
+document.getElementById("list-excel-cterc")?.addEventListener("click", async (e) => {
+    
+    const vButton = e.target.closest("BUTTON");
+    const vUrl = vButton.dataset.url
+    const vLoding = showSplash(true);  
+
+    try{
+        window.location.href = vUrl;
+    } catch(err) {
+        fncMessage();
+    } finally {
+        vLoding?.remove();
+    }
+
+});
+
 // Baixar painel em pdf
 document.addEventListener("click", (e) => {
     const vButton = e.target.closest("button");
@@ -166,7 +183,7 @@ document.addEventListener("click", (e) => {
         }
 
     }
-})
+});
 
 // Baixar JPEG
 document.addEventListener("click", (e) => {

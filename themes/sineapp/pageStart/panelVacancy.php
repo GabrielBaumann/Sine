@@ -39,28 +39,39 @@
                     <option value="3">3 (12:00 às 00:00)</option>
                 </select>
             </div>
-            <div class="flex w-full justify-center items-center gap-3">
-                <!-- botao de imprimir -->
+            <div class="flex flex-col w-full gap-2">
+                <div class="flex w-full justify-center items-center gap-3">
+                    <!-- botao de imprimir -->
+                    <button
+                        id="print-panel"
+                        data-url="<?= url("/imprimirpainel"); ?>"
+                        class="print w-full flex items-center justify-center gap-2 text-xs cursor-pointer print p-2 text-white bg-gray-900 hover:bg-gray-900 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                        </svg>
+                        <span>Painel de vagas</span>
+                    </button>
+                    <!-- botao de visualizar painel interno -->
+                    <button
+                        id="print-panel-internal"
+                        data-url="<?= url("/imprimirpainelinterno"); ?>"
+                        class="print w-full flex items-center text-xs cursor-pointer print p-2 gap-2 bg-blue-100 hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-gray-900 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                        </svg>
+                        <span>Painel de empresas</span>
+                    </button>
+                </div>
                 <button
-                    id="print-panel"
-                    data-url="<?= url("/imprimirpainel"); ?>"
-                    class="print w-full flex items-center justify-center gap-2 text-xs cursor-pointer print p-2 text-white bg-gray-900 hover:bg-gray-900 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
-                    </svg>
-                    <span>Painel de vagas</span>
-                </button>
-                <!-- botao de visualizar painel interno -->
-                <button
-                    id="print-panel-internal"
-                    data-url="<?= url("/imprimirpainelinterno"); ?>"
+                    id="list-excel-cterc"
+                    data-url="<?= url("/excelcertec"); ?>"
                     class="print w-full flex items-center text-xs cursor-pointer print p-2 gap-2 bg-blue-100 hover:bg-gray-800 hover:text-white transition-all duration-300 justify-center text-gray-900 rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
                     </svg>
-                    <span>Painel de empresas</span>
+                    <span>Baixar lista CTERC</span>
                 </button>
-        </div>
+            </div>
     </div>
 
     <!-- Main vacancy cards container -->

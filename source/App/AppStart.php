@@ -4,22 +4,27 @@ namespace Source\App;
 
 use DateTime;
 use IntlDateFormatter;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
 
 use Source\Core\Controller;
 use Source\Models\Auth;
-use Source\Models\CboOccupation;
 use Source\Models\Enterprise;
 use Source\Models\Service;
 use Source\Models\Worker;
 use Source\Models\SystemUser;
 use Source\Models\Views\VwVacancy;
-use Source\Support\Pager;
 
 use Source\Models\Vacancy;
 use Source\Models\Views\VwBiService;
+use Source\Models\Views\VwBiServiceExcel;
 use Source\Models\Views\VwVacancyActive;
 
 class AppStart extends Controller
@@ -487,4 +492,97 @@ class AppStart extends Controller
         return;        
     }
 
+    // Baixar lista da CERTEC no excel
+    public function excelCertec() : void
+    {
+
+        $forgetcterc = new VwBiServiceExcel();
+        $dataCterc = $forgetcterc->find("cterc = :c AND (status_vacancy_worker IS NOT NULL OR status_vacancy_worker = '')", "c=SIM")->fetch(true);
+
+        // Criar planilha
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mesclar células da primeira linha
+        $sheet->mergeCells("A1:I1");
+
+        // Definir título
+        $sheet->setCellValue("A1", "PLANILHA DE DADOS CTERC ANO/" . date("Y"));
+        $sheet->getStyle("A1")->applyFromArray([
+            "font" => [
+                "bold" => true,
+                "size" => 14,
+            ],
+            "alignment" => [
+                "horizontal" => Alignment::HORIZONTAL_CENTER,
+                "vertical" => Alignment::VERTICAL_CENTER,
+            ],
+            "fill" => [
+                "fillType" => Fill::FILL_SOLID,
+                "startColor" => ["rgb" => "DDDDDD"],
+            ],
+        ]);
+
+        // Cabeçalhos
+        $sheet->setCellValue("A2", "NOME");
+        $sheet->setCellValue("B2", "PIS/CPF");
+        $sheet->setCellValue("C2", "EMPRESA");
+        $sheet->setCellValue("D2", "FUNÇÃO");
+        $sheet->setCellValue("E2", "REALIZOU CADASTRO");
+        $sheet->setCellValue("F2", "DATA DO ENCAMINHAMENTO");
+        $sheet->setCellValue("G2", "MÊS");
+        $sheet->setCellValue("H2", "OBSERVAÇÃO");
+        $sheet->setCellValue("I2", "RETORNO DA EMPRESA");
+
+        $sheet->getStyle("A2:I2")->applyFromArray([
+            "font" => [
+                "size" => 12,
+            ],
+            "alignment" => [
+                "horizontal" => Alignment::HORIZONTAL_CENTER,
+                "vertical" => Alignment::VERTICAL_CENTER,
+            ],
+        ]);
+
+        // Dados
+        $cont = 3;
+        foreach($dataCterc as $dataCtercItem) {
+
+            $sheet->setCellValue("A{$cont}", $dataCtercItem->name_worker);
+            $sheet->setCellValue("B{$cont}", $dataCtercItem->cpf_worker);
+            $sheet->setCellValue("C{$cont}", $dataCtercItem->name_fantasy_enterpise);
+            $sheet->setCellValue("D{$cont}", $dataCtercItem->nomeclatura_vacancy);
+            $sheet->setCellValue("E{$cont}", $dataCtercItem->cterc);
+            $sheet->setCellValue("F{$cont}", date_simple($dataCtercItem->date_register));
+            $sheet->setCellValue("G{$cont}", date("m", strtotime($dataCtercItem->date_register)));
+            $sheet->setCellValue("H{$cont}", $dataCtercItem->detail_response);
+            $sheet->setCellValue("I{$cont}", $dataCtercItem->status_vacancy_worker);
+
+            $cont ++;
+        }
+
+        $lastLine = $cont - 1;
+        $step = "A1:I{$lastLine}";
+
+        $sheet->getStyle($step)->applyFromArray([
+            "borders" => [
+                "allBorders" => [
+                    "borderStyle" => Border::BORDER_THIN,
+                    "color" => ["rgb" => "000000"],
+                ],
+            ],
+        ]);
+
+        // Preparar download
+        $filename = "realtorio_" . date("Y-m-d") . ".xlsx";
+
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Cache-Control: max-age=0");
+        
+        // Enviar arquivo
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("php://output");
+        exit;
+    }
 }
