@@ -304,7 +304,7 @@ class AppUserSystem extends Controller
             $SytemUser->cpf_user = $dataClean["cpf"];
             $SytemUser->email_user = $dataClean["email"];
             $SytemUser->phone_user = $dataClean["phone"];
-            $SytemUser->password_user = passwd($dataClean["password"]);
+            $SytemUser->password_user = $data["password"];
             $SytemUser->id_user_update = $this->user->id_user;
             $SytemUser->type_user = $dataClean["type"];
 
