@@ -19,7 +19,7 @@
                         </td>
                         <td class="px-4 py-3 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900"><?= $item->type_service; ?></div>
-                            <div class="text-xs text-gray-500"><?= empty($item->name_fantasy_enterpise) ? "" : $item->name_fantasy_enterpise . " - " . $item->name_fantasy_enterpise; ?></div>
+                            <div class="text-xs text-gray-500"><?= empty($item->name_fantasy_enterpise) ? "" : $item->name_fantasy_enterpise . " - " . $item->nomeclatura_vacancy; ?></div>
                         </td>
                         <td class="px-4 py-3 hidden md:table-cell">
                             <div class="text-sm text-gray-900 truncate max-w-xs"><?= $item->detail; ?></div>
