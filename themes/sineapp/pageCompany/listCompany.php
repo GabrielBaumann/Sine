@@ -39,8 +39,8 @@
 
         <!-- Download company list -->
         <button 
-            id="btn-new-company" 
-            data-url="<?= url("/") ?>",
+            id="list-excel-company" 
+            data-url="<?= url("/baixarexcelempresa") ?>",
             class="cursor-pointer flex items-center gap-2 bg-gray-100 hover:bg-gray-200 p-2 text-gray-900 rounded-lg  duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />

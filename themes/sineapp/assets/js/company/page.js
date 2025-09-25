@@ -88,3 +88,42 @@ function fncDesabledInput() {
         });
     }
 }
+
+// Baixar em excel lista de empresas
+document.getElementById("list-excel-company")?.addEventListener("click", async (e) => {
+    
+    const vButton = e.target.closest("BUTTON");
+    const vUrl = vButton.dataset.url
+    const vLoding = showSplash(true);  
+
+    try {
+        const vResponse = await fetch(vUrl);
+        const vContentType = vResponse.headers.get("Content-Type") || "";
+
+        if(vContentType.includes("application/json")) {
+            const vData = await vResponse.json();
+            fncMessage(vData.message);
+        } else {
+            const vBlob = await vResponse.blob();
+
+            // Criar link temporário para download
+            const vUrlBlob = window.URL.createObjectURL(vBlob);
+            const link = document.createElement("a");
+            link.href = vUrlBlob;
+            const day = new Date();
+            const vtoday = day.toLocaleDateString("pt-BR").replace(/\//g, "");
+            link.download = "Empresas Cadastradas_"+ vtoday +".xlsx"; // nome sugerido
+            document.body.appendChild(link);
+            link.click();
+
+            // limpar
+            link.remove();
+            window.URL.revokeObjectURL(vUrlBlob);
+        }
+
+    } catch (err) {
+        fncMessage();
+    } finally {
+        vLoding?.remove();
+    }
+});
