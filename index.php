@@ -139,6 +139,7 @@ $route->post("/verificarcnpj/{idCompany}", "AppCompany:verificCnpj");
 $route->get("/pesquisarempresa/p/{page}", "AppCompany:startCompany");
 
 $route->get("/editarempresa/{idCompany}", "AppCompany:editCompany");
+$route->get("/baixarexcelempresa", "AppCompany:downloadExcelCompany");
 
 
 // Service

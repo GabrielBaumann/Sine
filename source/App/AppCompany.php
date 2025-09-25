@@ -2,6 +2,13 @@
 
 namespace Source\App;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+
 use Source\Core\Controller;
 use Source\Models\Auth;
 use Source\Models\Enterprise;
@@ -347,6 +354,107 @@ class AppCompany extends Controller
         echo json_encode($json);
         return;
         }  
+    }
+
+    // Baixar lista de empresas
+    public function downloadExcelCompany() : void
+    {
+        $forgetcterc = new Enterprise();
+        $dataCterc = $forgetcterc->find()->fetch(true);
+
+
+        if(!$dataCterc) {
+            header("Content-Type: application/json; charset=UTF-8");
+            $json["message"] = messageHelpers("Não há dados para baixar!")->render();
+            echo json_encode($json);
+            return;
+        }
+
+        // // Criar planilha
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Mesclar células da primeira linha
+        $sheet->mergeCells("A1:G1");
+
+        // Definir título
+        $sheet->setCellValue("A1", "PLANILHA DE EMPRESAS CADASTRADAS");
+        $sheet->getStyle("A1")->applyFromArray([
+            "font" => [
+                "bold" => true,
+                "size" => 14,
+            ],
+            "alignment" => [
+                "horizontal" => Alignment::HORIZONTAL_CENTER,
+                "vertical" => Alignment::VERTICAL_CENTER,
+            ],
+            "fill" => [
+                "fillType" => Fill::FILL_SOLID,
+                "startColor" => ["rgb" => "B0C4DE"],
+            ],
+        ]);
+
+        // Cabeçalhos
+        $sheet->setCellValue("A2", "RAZÃO SOCIAL");
+        $sheet->setCellValue("B2", "NOME FANTASIA");
+        $sheet->setCellValue("C2", "CNPJ");
+        $sheet->setCellValue("D2", "RESPONSÁVEL");
+        $sheet->setCellValue("E2", "EMAIL");
+        $sheet->setCellValue("F2", "TELEFONE");
+        $sheet->setCellValue("G2", "OBSERVAÇÃO");
+
+        $sheet->getStyle("A2:G2")->applyFromArray([
+            "font" => [
+                "bold" => true,
+                "size" => 12,
+            ],
+            "alignment" => [
+                "horizontal" => Alignment::HORIZONTAL_CENTER,
+                "vertical" => Alignment::VERTICAL_CENTER,
+            ],
+            "fill" => [
+                "fillType" => Fill::FILL_SOLID,
+                "startColor" => ["rgb" => "EEEEEE"]
+            ]
+        ]);
+
+        // Dados
+        $cont = 3;
+        foreach($dataCterc as $dataCtercItem) {
+
+            $sheet->setCellValue("A{$cont}", $dataCtercItem->name_enterprise);
+            $sheet->setCellValue("B{$cont}", $dataCtercItem->name_fantasy_enterpise);
+            $sheet->setCellValueExplicit("C{$cont}", $dataCtercItem->cnpj, DataType::TYPE_STRING);
+            $sheet->setCellValue("D{$cont}", $dataCtercItem->responsible_enterprise);
+            $sheet->setCellValue("E{$cont}", $dataCtercItem->email_enterprise);
+            $sheet->setCellValue("F{$cont}", mask_phone($dataCtercItem->phone_enterprise));
+            $sheet->setCellValue("G{$cont}", $dataCtercItem->observation_enterprise);
+            $cont ++;
+        }
+
+        $lastLine = $cont - 1;
+        $step = "A1:G{$lastLine}";
+
+        $sheet->getStyle($step)->applyFromArray([
+            "borders" => [
+                "allBorders" => [
+                    "borderStyle" => Border::BORDER_THIN,
+                    "color" => ["rgb" => "000000"],
+                ],
+            ],
+        ]);
+
+        // Preparar download
+        $filename = "Empresas Cadastradas_" . date_simple(date("Y-m-d")) . ".xlsx";
+
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Cache-Control: max-age=0");
+        
+        // Enviar arquivo
+        $writer = new Xlsx($spreadsheet);
+        $writer->save("php://output");
+        return; 
     }
 
 }
