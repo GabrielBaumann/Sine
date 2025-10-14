@@ -41,7 +41,7 @@ class AppCompany extends Controller
             $params = [];
 
             if(!empty($searchCompany)) {
-                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
+                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj_cpf LIKE :co";
                 $params["co"] = "%{$searchCompany}%";
             }
 
@@ -100,7 +100,7 @@ class AppCompany extends Controller
             $params = [];
 
             if(!empty($searchCompany)) {
-                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj LIKE :co";
+                $conditions[] = "name_enterprise LIKE :co OR name_fantasy_enterpise LIKE :co OR cnpj_cpf LIKE :co";
                 $params["co"] = "%{$searchCompany}%";
             }
             
@@ -177,6 +177,13 @@ class AppCompany extends Controller
                 return;
             }
 
+            if(isset($data["type_document"])) {
+                unset($data["cnpj"]);
+            } else {
+                unset($data["cpf"]);
+                $data["type_document"] = "cnpj";
+            }
+
             $cleanInput = cleanInputData($data, ["email-enterprise", "phone-enterprise", "responsible-person", "observation"]);
 
             if(!$cleanInput["valid"]) {
@@ -205,9 +212,16 @@ class AppCompany extends Controller
                 $json["message"] = messageHelpers()->success("Empresa cadastrada com sucesso!")->render();
             }
 
+            if($dataCleanInput["type_document"] == "CPF") {
+                $document = cleanCPF($dataCleanInput["cpf"]);
+            } else {
+                $document = cleanCPF($dataCleanInput["cnpj"]);
+            }            
+
             $enterprise->name_enterprise = $dataCleanInput["new-enterprise"];
             $enterprise->name_fantasy_enterpise = $dataCleanInput["name-fantasy"];
-            $enterprise->cnpj = cleanCPF($dataCleanInput["cnpj"]);
+            $enterprise->cnpj_cpf = $document;
+            $enterprise->type_document = $dataCleanInput["type_document"];
             $enterprise->email_enterprise = $dataCleanInput["email-enterprise"];
             $enterprise->responsible_enterprise = $dataCleanInput["responsible-person"];
             $enterprise->observation_enterprise = $dataCleanInput["observation"];
@@ -286,35 +300,70 @@ class AppCompany extends Controller
     {   
         $enterprise = new Enterprise();
 
-        $cnpj = filter_var($data["cnpj"], FILTER_VALIDATE_INT);
+        if(isset($data["cnpj"]) && !empty($data["cnpj"])) {
+            // Verificação para CNPJ
+            $cnpj = filter_var($data["cnpj"], FILTER_VALIDATE_INT);
 
-        if (!validateCNPJ($data["cnpj"])) {
-            $json["message"] = messageHelpers()->warning("O número de CNPJ não é válido!")->render();
-            echo json_encode($json);
-            return;
-        }
-        
-        if(isset($data["idCompany"]) && !empty($data["cnpj"])){
-            
-            $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
-            $enterpriseCnpj = $enterprise->find("cnpj = :cn AND id_enterprise <> :id", "cn={$cnpj}&id={$idCompany}")->fetch();
-
-            if ($enterpriseCnpj) {
-                $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($cnpj) . " já está cadastrado na base!")->render();
+            if (!validateCNPJ($data["cnpj"])) {
+                $json["message"] = messageHelpers()->warning("O número de CNPJ não é válido!")->render();
                 echo json_encode($json);
                 return;
             }
             
-            $json["message"] = "";
-            $json["complete"] = true;
-            echo json_encode($json);
-            return;
-        }
-        
-        if ($enterprise->getByCnpj($data["cnpj"])) {
-            $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($data["cnpj"]) . " já está cadastrado na base!")->render();
-            echo json_encode($json);
-            return;
+            if(isset($data["idCompany"]) && !empty($data["cnpj"])){
+                
+                $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+                $enterpriseCnpj = $enterprise->find("cnpj_cpf = :cn AND id_enterprise <> :id", "cn={$cnpj}&id={$idCompany}")->fetch();
+
+                if ($enterpriseCnpj) {
+                    $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($cnpj) . " já está cadastrado na base!")->render();
+                    echo json_encode($json);
+                    return;
+                }
+                
+                $json["message"] = "";
+                $json["complete"] = true;
+                echo json_encode($json);
+                return;
+            }
+            
+            if ($enterprise->getByCnpj($data["cnpj"])) {
+                $json["message"] = messageHelpers()->warning("O CNPJ: ". maskCNPJ($data["cnpj"]) . " já está cadastrado na base!")->render();
+                echo json_encode($json);
+                return;
+            }
+        } else {
+            // Verificação para CPF
+            $cpf = filter_var($data["cpf"], FILTER_VALIDATE_INT);
+
+            if (!validateCPF($data["cpf"])) {
+                $json["message"] = messageHelpers()->warning("O número de CPF não é válido!")->render();
+                echo json_encode($json);
+                return;
+            }
+            
+            if(isset($data["idCompany"]) && !empty($data["cpf"])){
+                
+                $idCompany = filter_var($data["idCompany"], FILTER_VALIDATE_INT);
+                $enterpriseCpf = $enterprise->find("cnpj_cpf = :cn AND id_enterprise <> :id AND type_document = :ty", "cn={$cpf}&id={$idCompany}&ty=CPF")->fetch();
+
+                if ($enterpriseCpf) {
+                    $json["message"] = messageHelpers()->warning("O CPF: ". formatCPF($cpf) . " já está cadastrado na base!")->render();
+                    echo json_encode($json);
+                    return;
+                }
+                
+                $json["message"] = "";
+                $json["complete"] = true;
+                echo json_encode($json);
+                return;
+            }
+            
+            if ($enterprise->getByCnpj($data["cpf"])) {
+                $json["message"] = messageHelpers()->warning("O CPF: ". formatCPF($data["cpf"]) . " já está cadastrado na base!")->render();
+                echo json_encode($json);
+                return;
+            }
         }
         
         $json["message"] = "";

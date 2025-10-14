@@ -72,7 +72,7 @@ class AppStart extends Controller
             $panelVacancy = null;
         } else {
             $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+            ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
         }
@@ -108,7 +108,7 @@ class AppStart extends Controller
         if($versionPanel === 0) {
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+                ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
         } else {
@@ -158,7 +158,7 @@ class AppStart extends Controller
         
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+                ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
         } else {
@@ -192,7 +192,7 @@ class AppStart extends Controller
         
             $today = new DateTime();
             $panelVacancy = (new VwVacancy())
-                ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+                ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
                 ->order("date_open_vacancy", "DESC")
                 ->fetch(true);
         } else {
@@ -245,7 +245,7 @@ class AppStart extends Controller
         $today = new DateTime();
         
         $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+            ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
         } else {
@@ -278,7 +278,7 @@ class AppStart extends Controller
         $today = new DateTime();
         
         $panelVacancy = (new VwVacancy())
-            ->find("total_vacancy_active <> :to AND DATE(date_register) < :date AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
+            ->find("(version_panel = 0 OR DATE(date_register) < :date) AND total_vacancy_active <> :to AND hide_vacancy = :hi","to=0&date={$today->format('Y-m-d')}&hi=0")
             ->order("date_open_vacancy", "DESC")
             ->fetch(true);
         } else {

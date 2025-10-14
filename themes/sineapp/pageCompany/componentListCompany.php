@@ -13,7 +13,7 @@
                 <?php foreach($listEnterprise as $entreprise): ?>
                     <tr class="hover:bg-blue-50 border-b border-gray-300">
                         <td data-label="Unidade" class="px-6 py-2 whitespace-nowrap">
-                            <div class="text-sm text-gray-800 font-semibold text-black"><?= $entreprise->name_enterprise; ?> (<?= maskCNPJ($entreprise->cnpj); ?>)</div>
+                            <div class="text-sm text-gray-800 font-semibold text-black"><?= $entreprise->name_enterprise; ?> (<?=$entreprise->type_document === "CPF" ? formatCPF($entreprise->cnpj_cpf) : maskCNPJ($entreprise->cnpj_cpf); ?>)</div>
                             
                             <!-- this is the fantasy name -->
                             <div class="text-xs uppercase text-gray-800"><?= empty($entreprise->name_fantasy_enterpise) ? "Cadastrar..." : $entreprise->name_fantasy_enterpise; ?></div>

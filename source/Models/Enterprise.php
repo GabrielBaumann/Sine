@@ -9,7 +9,7 @@ class Enterprise extends Model
     public function __construct()
     {
         parent::__construct(
-            "enterprise", ["id_enterprise"], ["name_enterprise", "cnpj"],
+            "enterprise", ["id_enterprise"], ["name_enterprise", "cnpj_cpf"],
             "id_enterprise"
         );
     }
@@ -17,7 +17,7 @@ class Enterprise extends Model
     // verificar se o CNPJ já existe no banco de dados
     public function getByCnpj(string $cnpj) : bool
     {
-        $cnpjEnterprise = $this->find("cnpj = :c", "c={$cnpj}")->fetch();
+        $cnpjEnterprise = $this->find("cnpj_cpf = :c", "c={$cnpj}")->fetch();
 
         if (!$cnpjEnterprise) {
             return false;

@@ -16,15 +16,27 @@
             <h3 class="text-2xl leading-6 font-semibold text-gray-900 mb-4" id="modalTitle">Nova Empresa</h3>                    
             <div class="space-y-4"> 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="w-full">
+                    <input type="checkbox" id="radio-cpf" name="type_document" value="cpf" onclick="typedocument()" <?= (isset($company->type_document) && $company->type_document === "CPF") ? "checked" : "" ?>>CPF
+                    <div class="w-full" id="cnpj" >
                         <label for="cnpj" class="block text-sm font-medium text-gray-700 mb-1">CNPJ *</label>
                         <input 
                             data-url="<?= url("/verificarcnpj") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>"
                             name="cnpj"
-                            id="cnpj" 
+                            id="input-cnpj" 
                             type="text"
-                            value="<?= maskCNPJ($company->cnpj ?? 00) ?? ""; ?>"
+                            value="<?= maskCNPJ($company->cnpj_cpf ?? 00) ?? ""; ?>"
                             placeholder="11.111.111/1111-11" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div class="w-full hidden" id="cpf">
+                        <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF *</label>
+                        <input 
+                            data-url="<?= url("/verificarcnpj") . (isset($company->id_enterprise) ? "/" . $company->id_enterprise : "" ) ?>"
+                            name="cpf"
+                            id="input-cpf" 
+                            type="text"
+                            value="<?= formatCPF($company->cnpj_cpf ?? "") ?? ""; ?>"
+                            placeholder="111.111.111-11" 
                             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     <div class="w-full">

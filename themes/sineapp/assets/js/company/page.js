@@ -23,6 +23,15 @@ document.addEventListener("click", (e) => {
             const vForm = document.getElementById("companiesView");
             vForm.innerHTML = data.html;
             fncDesabledInput();
+
+            const cnpj = document.getElementById('cnpj');
+            const cpf = document.getElementById('cpf');
+            const button = document.getElementById('radio-cpf');
+
+            if (button.checked) {
+                cpf.classList.remove('hidden');
+                cnpj.classList.add('hidden');
+            } 
         });
     }
 });
@@ -30,7 +39,7 @@ document.addEventListener("click", (e) => {
 
 // Verificar se o CNPJ é válido e se já existe na base
 document.addEventListener("focusout", (e) => {
-    if(e.target.id === "cnpj"){
+    if(e.target.id === "input-cnpj" || e.target.id === "input-cpf"){
 
         if (e.target.value != "") {
             const vUrl = e.target.dataset.url;
@@ -52,7 +61,7 @@ document.addEventListener("focusout", (e) => {
 
                 if(!data.complete) {
                     fncMessage(data.message);
-                    document.getElementById("cnpj").value = "";
+                    document.getElementById("input-cnpj").value = "";
                 }
 
                 if(data.complete === true) {
