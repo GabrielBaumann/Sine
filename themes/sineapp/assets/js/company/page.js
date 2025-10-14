@@ -62,6 +62,7 @@ document.addEventListener("focusout", (e) => {
                 if(!data.complete) {
                     fncMessage(data.message);
                     document.getElementById("input-cnpj").value = "";
+                    document.getElementById("input-cpf").value = "";
                 }
 
                 if(data.complete === true) {
