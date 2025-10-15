@@ -78,13 +78,13 @@ class Service extends Model
 
             $dataCount = array_count_values($listData ?? []);
 
-            if($type) {
-                ksort($dataCount);
-            } else {
-                uksort($dataCount, function($a, $b) use ($mapOrdem) {
-                    return $mapOrdem[$a] - $mapOrdem[$b];
-                });
-            }
+            // if($type) {
+            //     ksort($dataCount);
+            // } else {
+            //     uksort($dataCount, function($a, $b) use ($mapOrdem) {
+            //         return $mapOrdem[$a] - $mapOrdem[$b];
+            //     });
+            // }
 
             foreach($dataCount as $key => $value) {
                 $label[] = $key;
@@ -97,6 +97,7 @@ class Service extends Model
             $labelData = "Mês";
 
             $char = ["label"=>$label ?? 0,"total"=>$total ?? 0, "type"=>$type, "labelData"=>$labelData];
+
             return $char;
         }
 

@@ -9,7 +9,7 @@ class CboOccupation extends Model
   public function __construct()
   {
     parent::__construct(
-      "cbo_list", ["code"], 
+      "cbo_list", [], 
       [], 
       "id_cod_cbo"
     );

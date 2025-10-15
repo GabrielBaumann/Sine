@@ -423,6 +423,8 @@ class AppCompany extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
+        $sheet->setTitle("Empresas");
+
         // Mesclar células da primeira linha
         $sheet->mergeCells("A1:G1");
 
@@ -473,7 +475,7 @@ class AppCompany extends Controller
 
             $sheet->setCellValue("A{$cont}", $dataCtercItem->name_enterprise);
             $sheet->setCellValue("B{$cont}", $dataCtercItem->name_fantasy_enterpise);
-            $sheet->setCellValueExplicit("C{$cont}", $dataCtercItem->cnpj, DataType::TYPE_STRING);
+            $sheet->setCellValueExplicit("C{$cont}", $dataCtercItem->cnpj_cpf, DataType::TYPE_STRING);
             $sheet->setCellValue("D{$cont}", $dataCtercItem->responsible_enterprise);
             $sheet->setCellValue("E{$cont}", $dataCtercItem->email_enterprise);
             $sheet->setCellValue("F{$cont}", mask_phone($dataCtercItem->phone_enterprise));
@@ -492,6 +494,11 @@ class AppCompany extends Controller
                 ],
             ],
         ]);
+
+        // Ajuste automático de largura
+        foreach(range("A", "G") as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
 
         // Preparar download
         $filename = "Empresas Cadastradas_" . date_simple(date("Y-m-d")) . ".xlsx";

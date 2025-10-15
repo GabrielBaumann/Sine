@@ -49,7 +49,7 @@ $enterprise = new Enterprise();
                             class="bg-white block w-full pl-3 pr-8 py-2 text-base md:text-sm border border-gray-300 focus:outline-none focus:ring-sine-500 focus:border-sine-500 rounded-lg">
                             <option value="">Empresa</option>
                                 <?php foreach($companys as $company): ?>        
-                                    <option value="<?= $company->id_enterprise; ?>"><?= $company->name_enterprise; ?> <?= maskCNPJ($company->cnpj); ?></option>
+                                    <option value="<?= $company->id_enterprise; ?>"><?= $company->name_enterprise; ?> <?= $company->type_document === "CPF" ? formatCPF($company->cnpj_cpf) : maskCNPJ($company->cnpj_cpf); ?></option>
                                 <?php endforeach; ?>
                         </select>
                     <?php endif; ?>
