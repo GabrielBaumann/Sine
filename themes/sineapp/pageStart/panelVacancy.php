@@ -2,7 +2,6 @@
     /* Chrome, Safari, Edge */
     .scrollbar-custom::-webkit-scrollbar {
         width: 12px;
-        
     }
     
     .scrollbar-custom::-webkit-scrollbar-track {

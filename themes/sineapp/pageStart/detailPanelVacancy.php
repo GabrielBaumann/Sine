@@ -1,5 +1,5 @@
 <h2 class="mx-auto text-black font-semibold text-xl pt-3 justify-center text-center mx-auto bg-white rounded-t-2xl">PAINEL DO DIA</h2>
-<div class="flex flex-col w-full md:max-h-[450px] 2xl:max-h-[620px] overflow-y-auto gap-4 p-5 bg-white rounded-b-2xl">
+<div class="flex flex-col w-full md:max-h-[320px] 2xl:max-h-[580px] overflow-y-auto gap-4 p-5 bg-white rounded-b-2xl">
     <?php if($panelVacancy): ?>
         <?php foreach($panelVacancy as $panelVacancyItem) :?>
             <div class="bg-white text-gray-900 flex flex-col md:flex-row justify-between w-full p-4 border-t border-gray-300">
